@@ -1,0 +1,72 @@
+---
+const processSteps = [
+  {
+    step: "01",
+    title: "Первичный разбор задачи",
+    text: "Фиксируем, что именно требуется: ПК, аккредитация, актуализация области или работа с несоответствиями.",
+    output: "контур запроса",
+  },
+  {
+    step: "02",
+    title: "Сбор исходных документов",
+    text: "Собираем область, СМК, анкеты, записи, дела и сведения, которые реально участвуют в проверке.",
+    output: "карта документов",
+  },
+  {
+    step: "03",
+    title: "Аудит области и доказательств",
+    text: "Сверяем документы, область, записи и практику на предмет процедурных разрывов.",
+    output: "перечень исходных рисков",
+  },
+  {
+    step: "04",
+    title: "Карта рисков и приоритизация",
+    text: "Выстраиваем последовательность исправлений по влиянию на процедуру и доказательную базу.",
+    output: "risk matrix",
+  },
+  {
+    step: "05",
+    title: "План корректирующих действий",
+    text: "Фиксируем ответственных, сроки и подтверждающие материалы для каждого риска.",
+    output: "план доработок",
+  },
+  {
+    step: "06",
+    title: "Подготовка к подаче или оценке",
+    text: "Собираем итоговый пакет и сценарий подготовки команды к следующему шагу процедуры.",
+    output: "пакет доказательств",
+  },
+];
+---
+
+<section id="formats" class="section section--light process-section">
+  <div class="section__inner page-container">
+    <div class="process-shell framed-block">
+      <div class="process-intro section-stack">
+        <p class="section__eyebrow">Как работаем</p>
+        <h2 class="section__title">
+          Процесс подготовки ведёт от первичного запроса к карте рисков и пакету доказательств.
+        </h2>
+        <p class="section__lead">
+          Каждый этап даёт конкретный артефакт: карту исходных документов, перечень рисков, план доработок и пакет доказательств.
+        </p>
+      </div>
+
+      <div class="process-grid" aria-label="Этапы работы">
+        {processSteps.map((item) => (
+          <article class="card card--dark process-step">
+            <span class="process-step__number">{item.step}</span>
+            <div class="section-stack">
+              <h3 class="card__title process-step__title">{item.title}</h3>
+              <p class="card__text process-step__text">{item.text}</p>
+              <div class="process-step__output">
+                <span>Output</span>
+                <strong>{item.output}</strong>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

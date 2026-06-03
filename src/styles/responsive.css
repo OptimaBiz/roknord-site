@@ -89,7 +89,10 @@
 }
 
 @media (min-width: 64rem) {
-  .audience-grid,
+  .audience-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .service-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -109,6 +112,12 @@
 
   .footer__grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .request-strip__phone,
+  .request-strip__action {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
   }
 }
 

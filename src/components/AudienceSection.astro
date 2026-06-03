@@ -1,0 +1,206 @@
+---
+const audiences = [
+  {
+    title: "Испытательным лабораториям",
+    text: "Чаще всего смотрим методики, оборудование, персонал и трассировку записей.",
+    link: "Проверить формат",
+    href: "/testing-labs/",
+    image: "/images/materials/lab.png",
+    imageAlt: "Сотрудники испытательной лаборатории за работой с микроскопом и документами",
+  },
+  {
+    title: "Медицинским лабораториям",
+    text: "Сопоставляем процессы, записи, персонал и следы лабораторной практики.",
+    link: "Проверить формат",
+    href: "/medical-labs/",
+    image: "/images/materials/medlab.png",
+  },
+  {
+    title: "Органам по сертификации систем менеджмента",
+    text: "Смотрим СМК, выборку дел, компетентность и управляемость решений.",
+    link: "Проверить формат",
+    href: "/certification-bodies/",
+    image: "/images/materials/смк.png",
+  },
+  {
+    title: "Органам по сертификации продукции",
+    text: "Проверяем область, протоколы, несоответствия и следы корректировки.",
+    link: "Проверить формат",
+    href: "/certification-bodies/",
+    image: "/images/materials/testing-lab-1.png",
+  },
+  {
+    title: "Органам инспекции",
+    text: "Оцениваем область, процедуры, записи выездов и наблюдений.",
+    link: "Проверить формат",
+    href: "#contact",
+    image: "/images/materials/testing-lab-1.png",
+  },
+  {
+    title: "Калибровочным лабораториям",
+    text: "Сверяем методики, эталоны, прослеживаемость и документы.",
+    link: "Проверить формат",
+    href: "#contact",
+    image: "/images/materials/testing-lab-1.png",
+  },
+  {
+    title: "Провайдерам МСИ",
+    text: "Смотрим программу, доказательства участия и корректность фиксации.",
+    link: "Проверить формат",
+    href: "#contact",
+    image: "/images/materials/testing-lab-1.png",
+  },
+  {
+    title: "Органам по сертификации халяль",
+    text: "Проверяем состав области, источники доказательств и логику согласования.",
+    link: "Проверить формат",
+    href: "#contact",
+    image: "/images/materials/testing-lab-1.png",
+  },
+];
+---
+
+<section id="deliverables" class="section section--light">
+  <div class="section__inner section-stack page-container">
+    <header class="section-stack section-scope">
+      <p class="section__eyebrow">Кому помогаем</p>
+      <h2 class="section__title">Для каждого типа аккредитованного лица важны свои доказательства и следы практики.</h2>
+      <p class="section__lead">Смотрим не только комплект документов, но и то, как область, записи и фактическая работа сходятся между собой.</p>
+    </header>
+
+    <div class="audience-grid" aria-label="Кому помогаем">
+      {audiences.map((item) => (
+        <article
+          class="card audience-card"
+          style={item.image ? `--bg-image: url('${item.image}');` : undefined}
+        >
+          <h3 class="card__title">{item.title}</h3>
+          <p class="card__text">{item.text}</p>
+          <a class="card__link" href={item.href}>
+            <span aria-hidden="true">→</span>
+            <span>{item.link}</span>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  document.querySelectorAll('.audience-card').forEach(card => {
+    card.addEventListener('touchstart', () => {
+      card.classList.add('audience-card--touched');
+    }, { passive: true });
+
+    const clear = () => {
+      setTimeout(() => card.classList.remove('audience-card--touched'), 400);
+    };
+    card.addEventListener('touchend', clear, { passive: true });
+    card.addEventListener('touchcancel', clear, { passive: true });
+  });
+</script>
+
+<style>
+  .audience-card {
+    position: relative;
+    min-height: 26rem;
+    align-content: end;
+    color: var(--lrqa-white);
+    background: transparent;
+    border-color: transparent;
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* десктоп — приподъём при hover */
+  @media (hover: hover) {
+    .audience-card:hover,
+    .audience-card:focus-within {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28);
+    }
+
+    .audience-card:hover::after,
+    .audience-card:focus-within::after {
+      transform: scale(1.06);
+    }
+  }
+
+  /* мобильный — зум фона при тапе */
+  @media (hover: none) {
+    .audience-card--touched::after {
+      transform: scale(1.06);
+    }
+
+    .audience-card--touched::before {
+      background: rgba(14, 11, 58, 0.72);
+    }
+  }
+
+  /* фон — фото или плейсхолдер */
+  .audience-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: var(--lrqa-navy-2);
+    background-image: var(--bg-image, none);
+    background-size: cover;
+    background-position: center;
+    filter: saturate(0.55) contrast(0.84) brightness(0.96) hue-rotate(-12deg) sepia(0.12);
+    pointer-events: none;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* сплошное затемнение */
+  .audience-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: rgba(14, 11, 58, 0.62);
+    pointer-events: none;
+  }
+
+  .audience-card .card__title,
+  .audience-card .card__text,
+  .audience-card .card__link {
+    position: relative;
+    z-index: 2;
+  }
+
+  .audience-card .card__title {
+    color: var(--lrqa-white);
+    font-size: clamp(1.5rem, 2.5vw + 0.7rem, 2.25rem);
+  }
+
+  .audience-card .card__text {
+    color: var(--lrqa-border-soft);
+  }
+
+  .audience-card .card__link {
+    color: var(--lrqa-white);
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  .audience-card .card__link span[aria-hidden] {
+    color: var(--lrqa-mint);
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+
+  @keyframes arrow-fwd {
+    0%   { transform: translateX(0); }
+    40%  { transform: translateX(6px); }
+    70%  { transform: translateX(2px); }
+    100% { transform: translateX(6px); }
+  }
+
+  .audience-card:hover .card__link span[aria-hidden],
+  .audience-card:focus-within .card__link span[aria-hidden],
+  .audience-card:active .card__link span[aria-hidden] {
+    animation: arrow-fwd 1.1s cubic-bezier(0.22, 1, 0.36, 1) infinite alternate;
+  }
+</style>

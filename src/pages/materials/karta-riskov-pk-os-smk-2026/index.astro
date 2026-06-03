@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ContactForm from "../../../components/ContactForm.astro";
+
+const pdfHref = "/pdf/roknord_karta_riskov_pk_os_smk_2026.pdf";
+---
+
+<BaseLayout
+  title="Карта рисков перед ПК ОС СМК — Рокнорд"
+  description="Бесплатный экспертный материал Рокнорд: карта рисков перед подтверждением компетентности органов по сертификации систем менеджмента."
+>
+  <main id="content">
+    <section class="material-download">
+      <div class="material-download__inner page-container">
+        <div class="material-download__copy">
+          <p class="section__eyebrow">Экспертный материал</p>
+          <h1 class="material-download__title">Карта рисков перед подтверждением компетентности ОС СМК</h1>
+          <p class="material-download__lead">
+            Материал помогает структурно проверить документы, записи, область аккредитации, СМК и доказательную базу до процедуры.
+          </p>
+          <div class="material-download__notice">
+            <strong>Расскажите нам о себе, чтобы бесплатно скачать материал.</strong>
+            <p>
+              После заполнения короткой формы откроется PDF. Данные нужны для корректной коммуникации по материалу и похожим экспертным разборам.
+            </p>
+          </div>
+        </div>
+
+        <ContactForm
+          id="material-request"
+          eyebrow="Скачивание"
+          title="Получить PDF"
+          description=""
+          showMessage={false}
+          submitLabel="Получить PDF"
+          statusText="После отправки откроется PDF-файл."
+          successUrl={pdfHref}
+          subject="Запрос PDF: карта рисков перед ПК ОС СМК"
+          formName="Получить PDF"
+          embedded
+        />
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,49 @@
+---
+import "../styles/global.css";
+import "../styles/sections.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import CookiePanel from "../components/CookiePanel.astro";
+import ScrollUpControl from "../components/ScrollUpControl.astro";
+
+type Props = {
+  title: string;
+  description: string;
+};
+
+const {
+  title,
+  description,
+} = Astro.props as Props;
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="" id="theme-color-meta" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{title}</title>
+    <script is:inline>
+      const themeColorMeta = document.getElementById("theme-color-meta");
+      if (themeColorMeta) {
+        const themeColor = getComputedStyle(document.documentElement).getPropertyValue("--color-bg").trim();
+        if (themeColor) themeColorMeta.setAttribute("content", themeColor);
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Перейти к содержимому</a>
+    <div class="site-shell">
+      <Header />
+      <slot />
+      <Footer />
+      <CookiePanel />
+      <ScrollUpControl />
+    </div>
+  </body>
+</html>

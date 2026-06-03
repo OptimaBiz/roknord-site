@@ -1,0 +1,84 @@
+---
+const evidenceNodes = [
+  {
+    title: "Область аккредитации",
+    text: "Сверяем область, приложения и логику заявленного охвата.",
+    status: "на проверке",
+    evidence: "область · приложения",
+  },
+  {
+    title: "СМК",
+    text: "Проверяем, связаны ли требования, процедуры, записи и фактическая практика.",
+    status: "требует сверки",
+    evidence: "СМК · процедуры · записи",
+  },
+  {
+    title: "Анкета самообследования",
+    text: "Смотрим, нет ли разрывов между ответами, документами и фактическим контуром.",
+    status: "средний риск",
+    evidence: "анкета · документы",
+  },
+  {
+    title: "Выборка дел",
+    text: "Проверяем, выдерживает ли выборка дел анализ экспертной группы.",
+    status: "требует сверки",
+    evidence: "дела · протоколы",
+  },
+  {
+    title: "ФГИС / сведения",
+    text: "Проверяем связку внутренних данных и сведений ФГИС.",
+    status: "на проверке",
+    evidence: "ФГИС · внутренние данные",
+  },
+  {
+    title: "Корректирующие действия",
+    text: "Структурируем корректирующие действия и подтверждающие документы.",
+    status: "по ситуации",
+    evidence: "причина · действие · срок",
+  },
+  {
+    title: "Компетентность персонала",
+    text: "Сопоставляем роли, подтверждения, обучение и следы фактической работы.",
+    status: "средний риск",
+    evidence: "персонал · обучение · записи",
+  },
+  {
+    title: "Сроки процедуры",
+    text: "Смотрим, как план подготовки соотносится со стадией и дедлайном.",
+    status: "контроль",
+    evidence: "план · сроки · приоритеты",
+  },
+];
+---
+
+<section id="authority" class="section section--dark evidence-section">
+  <div class="section__inner evidence-layout page-container">
+    <div class="evidence-copy section-stack">
+      <p class="section__eyebrow">Карта проверки</p>
+      <h2 class="section__title">
+        Аккредитация держится на согласованности области, документов, записей и фактической практики.
+      </h2>
+      <p class="section__lead">
+        Показываем ключевые узлы проверки перед ПК, актуализацией области и подготовкой корректирующих действий.
+      </p>
+      <ul class="evidence-notes" aria-label="Что входит в проверку">
+        <li>Область, приложения и логика охвата.</li>
+        <li>СМК, записи и фактическая практика.</li>
+        <li>Выборка дел, ФГИС и корректирующие действия.</li>
+      </ul>
+    </div>
+
+    <div class="risk-map" aria-label="Что проверяем">
+      {evidenceNodes.map((item) => (
+        <article class="card card--dark risk-card">
+          <div class="risk-card__top">
+            <span class="risk-marker risk-card__status">{item.status}</span>
+            <span class="risk-card__evidence">{item.evidence}</span>
+          </div>
+          <h3 class="card__title risk-card__title">{item.title}</h3>
+          <p class="card__text risk-card__text">{item.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

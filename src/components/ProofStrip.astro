@@ -1,0 +1,38 @@
+---
+const proofItems = [
+  { label: "Область аккредитации", meta: "границы и подтверждаемость" },
+  { label: "СМК", meta: "документы и практика" },
+  { label: "Анкета самообследования", meta: "сверка с фактами" },
+  { label: "Выборка дел", meta: "репрезентативность" },
+  { label: "ФГИС", meta: "сведения и связка" },
+  { label: "Корректирующие действия", meta: "план исправлений" },
+  { label: "Карта рисков", meta: "приоритеты подготовки" },
+  { label: "Доказательства компетентности", meta: "готовность к проверке" },
+];
+---
+
+<section id="approach" class="proof-strip section section--dark" aria-labelledby="proof-strip-title">
+  <div class="proof-strip__inner page-container">
+    <div class="proof-strip__copy">
+      <p class="section__eyebrow">Наш подход</p>
+      <h2 id="proof-strip-title" class="section__title">
+        Что мы проверяем и как работаем
+      </h2>
+      <p class="section__lead">
+        Мы проверяем весь заявительный контур. 
+        <br>Сопровождаем вас от первичного аудита до подачи заявления и ВКС.
+      </p>
+    </div>
+
+    <div class="proof-strip__marquee" aria-label="Проверяемые объекты">
+      <div class="proof-strip__track">
+        {[...proofItems, ...proofItems].map((item, index) => (
+          <article class="proof-strip__item framed-block card--dark" aria-hidden={index >= proofItems.length ? "true" : undefined}>
+            <span class="proof-strip__label">{item.label}</span>
+            <span class="proof-strip__meta">{item.meta}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

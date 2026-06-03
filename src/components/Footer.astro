@@ -1,0 +1,87 @@
+---
+const footerServices = [
+  { label: "Подготовка к подтверждению компетентности", href: "/#resources" },
+  { label: "Аудит и актуализация области аккредитации", href: "/#resources" },
+  { label: "Корректирующие действия", href: "/#resources" },
+  { label: "Первичная аккредитация", href: "/primary-accreditation/" },
+  { label: "Специальные направления", href: "/#directions" },
+];
+
+const footerAudiences = [
+  { label: "Испытательным лабораториям", href: "/testing-labs/" },
+  { label: "Медицинским лабораториям", href: "/medical-labs/" },
+  { label: "ОС систем менеджмента", href: "/certification-bodies/" },
+  { label: "ОС продукции", href: "/certification-bodies/" },
+  { label: "Органам инспекции", href: "/#deliverables" },
+  { label: "Калибровочным лабораториям", href: "/#deliverables" },
+  { label: "Провайдерам МСИ", href: "/#deliverables" },
+  { label: "ОС халяль", href: "/#deliverables" },
+];
+
+const footerCompany = [
+  { label: "О компании", href: "/#authority" },
+  { label: "Карьера", href: "/#contact" },
+  { label: "Сотрудничество", href: "/#contact" },
+  { label: "Контакты", href: "/#contact" },
+];
+
+const footerDocs = [
+  { label: "Политика конфиденциальности", href: "/privacy-policy/" },
+  { label: "Обработка персональных данных", href: "/personal-data-consent/" },
+];
+
+const footerContacts = [
+  { label: "Разобрать задачу", href: "/#contact" },
+  { label: "Получить карту рисков", href: "/#authority" },
+  { label: "Ответы на вопросы", href: "/#faq" },
+];
+---
+
+<footer class="footer">
+  <div class="footer__inner page-container">
+    <div class="footer__brand">
+      <p class="footer-title">Рокнорд</p>
+      <p class="footer-meta">Комплексная подготовка к аккредитации<br />и подтверждению компетентности</p>
+      <p class="footer-note">Сложные процедуры. Твёрдая подготовка.</p>
+      <p class="footer-note">Документы, процессы, доказательства и риски — в логике проверки.</p>
+      <p class="footer-note">Независимая подготовка, карта рисков и проверка доказательной базы.</p>
+    </div>
+
+    <div class="footer__grid">
+      <div class="footer__group">
+        <p class="footer__group-title">Услуги</p>
+        <nav class="footer__links" aria-label="Услуги в подвале">
+          {footerServices.map((item) => <a href={item.href}>{item.label}</a>)}
+        </nav>
+      </div>
+
+      <div class="footer__group">
+        <p class="footer__group-title">Кому помогаем</p>
+        <nav class="footer__links" aria-label="Кому помогаем в подвале">
+          {footerAudiences.map((item) => <a href={item.href}>{item.label}</a>)}
+        </nav>
+      </div>
+
+      <div class="footer__group">
+        <p class="footer__group-title">Компания</p>
+        <nav class="footer__links" aria-label="Компания в подвале">
+          {footerCompany.map((item) => <a href={item.href}>{item.label}</a>)}
+        </nav>
+      </div>
+
+      <div class="footer__group">
+        <p class="footer__group-title">Документы</p>
+        <nav class="footer__links footer__legal" aria-label="Документы в подвале">
+          {footerDocs.map((item) => <a href={item.href}>{item.label}</a>)}
+        </nav>
+      </div>
+
+      <div class="footer__group">
+        <p class="footer__group-title">Контакты</p>
+        <nav class="footer__links" aria-label="Контакты в подвале">
+          {footerContacts.map((item) => <a href={item.href}>{item.label}</a>)}
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>

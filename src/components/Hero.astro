@@ -1,0 +1,48 @@
+---
+import HeroMedia from "./HeroMedia.astro";
+---
+
+<section id="top" class="hero hero--cinematic">
+  <div class="hero__media-layer" aria-hidden="true">
+    <HeroMedia
+      posterSrc="/images/hero/roknord-hero-poster.jpg"
+      posterAlt=""
+      mobileVideoMp4Src="/videos/hero/Кинематографический.mp4"
+      videoMp4Src="/videos/hero/reklamnyi-desktop-cropped.mp4"
+    />
+  </div>
+
+  <div class="hero__overlay" aria-hidden="true"></div>
+
+  <div class="hero__inner hero-layout page-container">
+    <div class="hero-statement">
+      <div class="hero-title-block">
+        <h1 class="hero-title">
+          <span class="hero-title__line hero-title__line--desktop">Комплексная подготовка</span>
+          <span class="hero-title__line hero-title__line--desktop">для аккредитации и</span>
+          <span class="hero-title__line hero-title__line--desktop">подтверждения <span class="hero-title__accent">компетентности</span></span>
+          <span class="hero-title__line hero-title__line--mobile">Комплексная</span>
+          <span class="hero-title__line hero-title__line--mobile">подготовка</span>
+          <span class="hero-title__line hero-title__line--mobile">к аккредитации</span>
+          <span class="hero-title__line hero-title__line--mobile">и подтверждению</span>
+          <span class="hero-title__line hero-title__line--mobile"><span class="hero-title__accent">компетентности</span></span>
+        </h1>
+      </div>
+    </div>
+
+    <div class="hero-supporting">
+      <div class="hero-lead-block">
+        <p class="hero-lead">
+          Понимаем, как эксперты ФСА смотрят на документы, область аккредитации, процессы, доказательства и риски.
+        </p>
+      </div>
+      <div class="hero-links-block">
+        <nav class="hero-links" aria-label="Быстрые ссылки">
+          <a class="hero-link" href="#approach"><span aria-hidden="true">→</span> <span>Подход</span></a>
+          <a class="hero-link" href="#contact"><span aria-hidden="true">→</span> <span>Форма для связи</span></a>
+          <a class="hero-link" href="#deliverables"><span aria-hidden="true">→</span> <span>Услуги по отраслям</span></a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>

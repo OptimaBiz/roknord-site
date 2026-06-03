@@ -1,0 +1,335 @@
+{
+  "pageInfo": {
+    "initial": {
+      "url": "https://www.lrqa.com/de-de/",
+      "title": "LRQA – Assurance, Zertifizierung, Inspektion, Training",
+      "h1Text": "Willkommen bei LRQA – Ihr Risk Management Advantage",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.0.0 Safari/537.36",
+      "language": "en-US",
+      "overlayNodes": [
+        "Cookie-Richtlinie",
+        "Cookies Button",
+        "Alle Cookies akzeptieren",
+        "Cookie-Einstellungen",
+        "Cookie-Details‎",
+        "Cookie-Details‎",
+        "Cookie-Details‎",
+        "Cookie-Details‎"
+      ],
+      "bodyText": "Skip content\nDeutschland (Deutsch)\nKontaktieren Sie uns\nMenü\nSuche Formular\nSuchen\nWillkommen bei LRQA – Ihr Risk Management Advantage\n\nRisiken sind omnipräsent. Wir ebenso. LRQA unterstützt Sie dabei, Risiken zu managen, Chancen zu nutzen und sich mit unseren branchenführenden, integrierten Risikomanagement-Lösungen einen Wettbewerbsvorsprung zu sichern. Wir vereinen Zertifizierung, Cyber, Nachhaltigkeit und Lieferketten, sodass Sie stets einen Schritt voraus bleiben.\n\nErfahren Sie mehr\nKontaktieren Sie uns\nCase Studies\n+49 221 9888 0900\nKontaktieren Sie uns\nWo andere nur Risiken sehen, erkennen wir Möglichkeiten – um Ihr Unternehmen und Ihre Lieferkette zu schützen.\n\nUnser Fokus: Risiken in Chancen und Wettbewerbsvorteile verwandeln. Von Assessment bis Beratung, mit unseren einzigartigen"
+    },
+    "final": {
+      "url": "https://www.lrqa.com/",
+      "title": "LRQA – Assurance, Certification, Inspection, Training",
+      "h1Text": "Welcome to LRQA, Your Risk Management Advantage.",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.0.0 Safari/537.36",
+      "language": "en-US",
+      "overlayNodes": [
+        "Privacy notice",
+        "Cookie Policy",
+        "Allow All",
+        "Cookies Details‎",
+        "Cookies Details‎",
+        "Cookies Details‎",
+        "Cookies Details‎"
+      ],
+      "bodyText": "Skip content\nGlobal (English)\nContact us\nMenu\nSearch form\nSearch\nWelcome to LRQA, Your Risk Management Advantage.\n\nRisk doesn’t sleep. Neither do we. LRQA helps you manage risk, seize opportunities and secure competitive advantage through our industry-leading connected risk management solutions. From certification and cyber to sustainability and supply chains, we connect the dots to keep you one step ahead.\n\nAbout LRQA\nContact us\nView case studies\nRequest a quote\nClimate Performance and Responsible Sourcing Risk Outlook\n\nLRQA's latest risk trends report is live! Climate volatility, regulatory pressure and supply chain exposure are reshaping how organisations are judged. The report draws on insights from 837 organisations worldwide, alongside LRQA expertise, to reveal how climate ambition, "
+    }
+  },
+  "styleInfo": {
+    "root": {
+      "vars": {
+        "--cta-colour-bg": "#0FF2B2",
+        "--nav-colour-text": "#ffffff",
+        "--iti-triangle-border": "calc(6px / 2)",
+        "--font-family-body": "\"Source Sans 3\",sans-serif",
+        "--iti-path-flags-1x": "url(\"../img/flags.webp\")",
+        "--gap-row": "0",
+        "--iti-path-flags-2x": "url(\"../img/flags@2x.webp\")",
+        "--stickyCtaCompensation": "56px",
+        "--canvas-colour": "#ffffff",
+        "--accordion-angle": "334deg",
+        "--iti-border-color": "#ccc",
+        "--text-colour-button-secondary-text": "#0F1232",
+        "--spacing-large": "5rem",
+        "--text-colour-button-hover": "#0F1232",
+        "--accordion-bg": "#ffffff",
+        "--theme-colour-text": "#0F1232",
+        "--cta-padding-top": "0.875rem",
+        "--accordion-keyline": "#F1F4F7",
+        "--iti-arrow-padding": "6px",
+        "--text-colour-button-secondary-border-hover": "#0F1232",
+        "--navPadding": "2.5rem",
+        "--optiBlock-padding-block": "0",
+        "--iti-flag-width": "16px",
+        "--cta-padding-sides": "1.875rem",
+        "--footer-padding-block": "2.5rem",
+        "--accordion-summary-content": "#0F1232",
+        "--accordion-summary-filter": "invert(97%) sepia(88%) saturate(2522%) hue-rotate(81deg) brightness(102%) contrast(90%)",
+        "--gutter-bottom": "0",
+        "--text-colour-button-secondary-bg": "#0F1232",
+        "--text-colour-button": "#0F1232",
+        "--iti-border-width": "1px",
+        "--carousel-pagination-colour": "#0F1232",
+        "--text-colour-headings": "#0F1232",
+        "--carousel-button-colour-background": "#0FF2B2",
+        "--optiBlock-padding-inline": "0",
+        "--navLevelWidth": "21.875rem",
+        "--promoBlock-angle": "6.875rem",
+        "--accordion-summary-open": "#BF1F99",
+        "--canvas-offset-bottom": "calc(-2.5rem - 3.75rem)",
+        "--iti-mobile-popup-margin": "30px",
+        "--text-colour-button-secondary-border": "#0F1232",
+        "--iti-path-globe-1x": "url(\"../img/globe.webp\")",
+        "--table-border": "#000000",
+        "--iti-dropdown-bg": "white",
+        "--gutter-left": "2.5rem",
+        "--navLevelWidth2": "20.625rem",
+        "--promoblock-angle-degree": "334deg",
+        "--acordion-max": "43.75rem",
+        "--carousel-button-colour": "#0F1232",
+        "--iti-path-globe-2x": "url(\"../img/globe@2x.webp\")",
+        "--iti-flag-sprite-width": "3904px",
+        "--promoBlock-padding-inline": "0",
+        "--text-colour-button-secondary-text-hover": "#ffffff",
+        "--text-colour": "#000000",
+        "--spacing-default": "3.75rem",
+        "--svg-tick": "url(\"/static/assets/tick-dark.svg\")",
+        "--iti-flag-sprite-height": "12px",
+        "--accordion-padding-inline": "0",
+        "--iti-arrow-height": "4px",
+        "--theme-colour-bg": "#0FF2B2",
+        "--iti-hover-color": "rgba(0, 0, 0, 0.05)",
+        "--iti-spacer-horizontal": "8px",
+        "--carousel-pagination-colour-inactive": "#cfd0d6",
+        "--accordion-summary-filter-open": "invert(22%) sepia(130%) saturate(1850%) hue-rotate(292deg) brightness(77%) contrast(133%)",
+        "--iti-dialcode-color": "#999",
+        "--canvas-offset-top": "-2.5rem",
+        "--iti-flag-height": "12px",
+        "--iti-arrow-color": "#555",
+        "--text-colour-highlight": "#BF1F99",
+        "--gutter-top": "2.5rem",
+        "--table-heading-color": "#0F1232",
+        "--cta-angle": "334deg",
+        "--iti-arrow-width": "6px",
+        "--gap-col": "1.875rem",
+        "--table-bg": "#ffffff",
+        "--carousel-button-colour-disabled": "#808080",
+        "--promo-tag": "#0F1232",
+        "--carousel-button-colour-hover": "#0F1232",
+        "--font-family-header": "\"Lato\",sans-serif",
+        "--gutter-right": "2.5rem",
+        "--spacing-small": "2.5rem"
+      },
+      "fontFamily": "\"Source Sans 3\", sans-serif"
+    },
+    "h1": {
+      "text": "Welcome to LRQA, Your Risk Management Advantage.",
+      "tag": "h1",
+      "className": "heroTitle",
+      "rect": {
+        "x": 40,
+        "y": 174,
+        "w": 700,
+        "h": 71.65625
+      },
+      "fontFamily": "Lato, sans-serif",
+      "fontSize": "32px",
+      "lineHeight": "35.84px",
+      "letterSpacing": "normal",
+      "fontWeight": "900",
+      "color": "rgb(255, 255, 255)",
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    },
+    "h2": {
+      "text": "Our connected risk management solutions",
+      "tag": "h2",
+      "className": "gridBlockTitle",
+      "rect": {
+        "x": 40,
+        "y": 1742.5625,
+        "w": 690,
+        "h": 29.890625
+      },
+      "fontFamily": "Lato, sans-serif",
+      "fontSize": "26px",
+      "lineHeight": "29.9px",
+      "letterSpacing": "normal",
+      "fontWeight": "900",
+      "color": "rgb(255, 255, 255)",
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    },
+    "body": {
+      "text": "Risk doesn’t sleep. Neither do we. LRQA helps you manage risk, seize opportunities and secure competitive advantage through our industry-leading connected risk management solutions. From certification",
+      "tag": "p",
+      "className": "heroSummary",
+      "rect": {
+        "x": 40,
+        "y": 285.65625,
+        "w": 400,
+        "h": 144
+      },
+      "fontFamily": "\"Source Sans 3\", sans-serif",
+      "fontSize": "16px",
+      "lineHeight": "24px",
+      "letterSpacing": "normal",
+      "fontWeight": "400",
+      "color": "rgb(255, 255, 255)",
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    }
+  },
+  "sectionInfo": {
+    "sections": [
+      {
+        "index": 1,
+        "tag": "header",
+        "className": "pageHeader",
+        "top": 0,
+        "height": 134,
+        "bg": "rgb(15, 18, 50)",
+        "color": "rgb(0, 0, 0)",
+        "columnsHint": 5,
+        "heading": "",
+        "text": "Global (English) Contact us Menu Search form Search",
+        "buttons": [
+          "Global (English)",
+          "Submit",
+          "Česká republika (čeština)\n                                    Czech Republic (Czech)",
+          "中文（简体）\n                                    Greater China (Chinese Simplified)",
+          "Deutschland (Deutsch)\n                                    Germany (German)"
+        ]
+      },
+      {
+        "index": 2,
+        "tag": "main",
+        "className": "",
+        "top": 134,
+        "height": 4859,
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "columnsHint": 4,
+        "heading": "Welcome to LRQA, Your Risk Management Advantage.",
+        "text": "Welcome to LRQA, Your Risk Management Advantage. Risk doesn’t sleep. Neither do we. LRQA helps you manage risk, seize opportunities and secure competitive advantage through our ind",
+        "buttons": [
+          "Play Video",
+          "About LRQA",
+          "Contact us",
+          "View case studies"
+        ]
+      },
+      {
+        "index": 3,
+        "tag": "div",
+        "className": "",
+        "top": 134,
+        "height": 4859,
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "columnsHint": 4,
+        "heading": "Welcome to LRQA, Your Risk Management Advantage.",
+        "text": "Welcome to LRQA, Your Risk Management Advantage. Risk doesn’t sleep. Neither do we. LRQA helps you manage risk, seize opportunities and secure competitive advantage through our ind",
+        "buttons": [
+          "Play Video",
+          "About LRQA",
+          "Contact us",
+          "View case studies"
+        ]
+      },
+      {
+        "index": 4,
+        "tag": "section",
+        "className": "grid headerContentArea",
+        "top": 134,
+        "height": 562,
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "columnsHint": 4,
+        "heading": "Welcome to LRQA, Your Risk Management Advantage.",
+        "text": "Welcome to LRQA, Your Risk Management Advantage. Risk doesn’t sleep. Neither do we. LRQA helps you manage risk, seize opportunities and secure competitive advantage through our ind",
+        "buttons": [
+          "Play Video",
+          "About LRQA",
+          "Contact us",
+          "View case studies"
+        ]
+      },
+      {
+        "index": 5,
+        "tag": "section",
+        "className": "grid mainContent",
+        "top": 696,
+        "height": 4298,
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "columnsHint": 5,
+        "heading": "Climate Performance and Responsible Sourcing Risk Outlook",
+        "text": "Climate Performance and Responsible Sourcing Risk Outlook LRQA's latest risk trends report is live! Climate volatility, regulatory pressure and supply chain exposure are reshaping ",
+        "buttons": [
+          "Download for free",
+          "Find out more",
+          "Get your free Early Adopter Pack",
+          "Find out more",
+          "Explore our range of services"
+        ]
+      },
+      {
+        "index": 6,
+        "tag": "footer",
+        "className": "footer canvas canvasNavy",
+        "top": 4993,
+        "height": 351,
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "columnsHint": 1,
+        "heading": "",
+        "text": "Who we are Careers Resources LRQA and any variants are trading names of LRQA Group Limited, its subsidiaries and affiliates. LRQA Group Limited, registered number 1217474, is a lim",
+        "buttons": [
+          "Who we are"
+        ]
+      }
+    ]
+  },
+  "screenshots": [
+    "/opt/roknord-site/docs/screenshots/reference/lrqa-1440.png",
+    "/opt/roknord-site/docs/screenshots/reference/lrqa-1024.png",
+    "/opt/roknord-site/docs/screenshots/reference/lrqa-768.png",
+    "/opt/roknord-site/docs/screenshots/reference/lrqa-430.png",
+    "/opt/roknord-site/docs/screenshots/reference/lrqa-390.png"
+  ],
+  "heroScreenshots": [
+    "/opt/roknord-site/docs/screenshots/reference/lrqa-hero-1440.png",
+    "/opt/roknord-site/docs/screenshots/reference/lrqa-hero-1024.png",
+    "/opt/roknord-site/docs/screenshots/reference/lrqa-hero-768.png",
+    "/opt/roknord-site/docs/screenshots/reference/lrqa-hero-430.png",
+    "/opt/roknord-site/docs/screenshots/reference/lrqa-hero-390.png"
+  ],
+  "navShots": [
+    {
+      "kind": "nav-open",
+      "viewport": 1440,
+      "result": {
+        "clicked": true,
+        "text": "Solutions"
+      }
+    },
+    {
+      "kind": "search-open",
+      "viewport": 1440,
+      "result": {
+        "clicked": true,
+        "text": ""
+      }
+    },
+    {
+      "kind": "mobile-menu",
+      "viewport": 390,
+      "result": {
+        "clicked": true,
+        "text": "Close"
+      }
+    }
+  ],
+  "issues": [
+    "Cookie banner clicked via \"Alle Cookies akzeptieren\" (#onetrust-accept-btn-handler)."
+  ]
+}

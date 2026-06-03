@@ -1,0 +1,67 @@
+---
+type Props = {
+  posterSrc: string;
+  posterAlt?: string;
+  videoWebmSrc?: string;
+  mobileVideoMp4Src?: string;
+  videoMp4Src?: string;
+  class?: string;
+};
+
+const {
+  posterSrc,
+  posterAlt = "",
+  videoWebmSrc = "",
+  mobileVideoMp4Src = "",
+  videoMp4Src = "",
+  class: className = "",
+} = Astro.props as Props;
+
+const hasMobileVideo = Boolean(mobileVideoMp4Src);
+const hasDesktopVideo = Boolean(videoWebmSrc || videoMp4Src);
+const hasVideo = hasMobileVideo || hasDesktopVideo;
+---
+
+<div class={`hero-media ${className}`.trim()} aria-hidden="true">
+  {hasVideo ? (
+    <>
+      {hasMobileVideo ? (
+        <video
+          class="hero-media__video hero-media__video--mobile"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          poster={posterSrc}
+        >
+          <source src={mobileVideoMp4Src} type="video/mp4" />
+        </video>
+      ) : null}
+      {hasDesktopVideo ? (
+        <video
+          class="hero-media__video hero-media__video--desktop"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          poster={posterSrc}
+        >
+          {videoWebmSrc ? <source src={videoWebmSrc} type="video/webm" /> : null}
+          {videoMp4Src ? <source src={videoMp4Src} type="video/mp4" /> : null}
+          <img class="hero-media__poster" src={posterSrc} alt={posterAlt} loading="eager" decoding="async" />
+        </video>
+      ) : null}
+    </>
+  ) : (
+    <img
+      class="hero-media__poster"
+      src={posterSrc}
+      alt={posterAlt}
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
+  )}
+</div>

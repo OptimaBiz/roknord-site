@@ -1,0 +1,215 @@
+---
+const serviceLinks = [
+  { label: "Подготовка к подтверждению компетентности", href: "/#formats" },
+  { label: "Аудит и актуализация области аккредитации", href: "/#deliverables" },
+  { label: "Корректирующие действия после несоответствий", href: "/#formats" },
+  { label: "Подготовка к первичной аккредитации", href: "/primary-accreditation/" },
+  { label: "Специальные направления", href: "/#directions" },
+];
+
+const audienceLinks = [
+  { label: "Испытательным лабораториям", href: "/testing-labs/" },
+  { label: "Медицинским лабораториям", href: "/medical-labs/" },
+  { label: "Органам по сертификации систем менеджмента", href: "/certification-bodies/" },
+  { label: "Органам по сертификации продукции", href: "/certification-bodies/" },
+  { label: "Органам инспекции", href: "/#contact" },
+  { label: "Калибровочным лабораториям", href: "/#contact" },
+  { label: "Провайдерам МСИ", href: "/#contact" },
+  { label: "Органам по сертификации халяль", href: "/#contact" },
+];
+
+const utilityLinks = [
+  { label: "О компании", href: "/#authority" },
+  { label: "Личный кабинет", href: "/#contact" },
+  { label: "Карьера", href: "/#contact" },
+  { label: "Сотрудничество", href: "/#contact" },
+  { label: "Контакты", href: "/#contact" },
+];
+
+const sectionLinks = [
+  { label: "Сценарии помощи", href: "/#directions" },
+  { label: "Кому помогаем", href: "/#deliverables" },
+  { label: "Ключевые услуги", href: "/#resources" },
+  { label: "Карта проверки", href: "/#authority" },
+  { label: "Как работаем", href: "/#formats" },
+  { label: "Вопросы", href: "/#faq" },
+  { label: "Контакты", href: "/#contact" },
+];
+---
+
+<header class="header">
+  <div class="header-service" aria-label="Служебная навигация">
+    <div class="topbar__inner header-service-inner page-container">
+      <nav class="utility-nav" aria-label="Служебные ссылки">
+        {utilityLinks.map((item) => (
+          <a href={item.href}>{item.label}</a>
+        ))}
+      </nav>
+      <a class="service-account service-account--mobile" href="/#contact">
+        <img class="service-account__icon" src="/icons/account_icon_1.svg" alt="" aria-hidden="true" decoding="async" />
+        <span>Личный кабинет</span>
+      </a>
+      <a class="service-cta cta-angled" href="/#contact">Разобрать задачу</a>
+      <a class="service-cta service-cta--mobile" href="/#contact">Связаться</a>
+    </div>
+  </div>
+
+  <div class="header__inner header-inner page-container">
+    <div class="header-primary">
+      <a class="brand" href="/" aria-label="Рокнорд, на главную страницу">
+        <img
+          class="brand-logo"
+          src="/images/brand/roknord-logo-transparent.png"
+          width="2508"
+          height="627"
+          alt="Рокнорд"
+        />
+      </a>
+
+      <nav class="site-nav" aria-label="Основная навигация">
+        <details class="nav-dropdown">
+          <summary aria-controls="services-panel" aria-expanded="false">Услуги</summary>
+          <div class="nav-dropdown-panel" id="services-panel">
+            <div class="container nav-dropdown-inner">
+              <p class="nav-dropdown-title">Услуги</p>
+              <div class="nav-dropdown-list">
+                {serviceLinks.map((item) => (
+                  <a href={item.href}>{item.label}</a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="nav-dropdown">
+          <summary aria-controls="audience-panel" aria-expanded="false">Кому помогаем</summary>
+          <div class="nav-dropdown-panel" id="audience-panel">
+            <div class="container nav-dropdown-inner">
+              <p class="nav-dropdown-title">Кому помогаем</p>
+              <div class="nav-dropdown-list nav-dropdown-list--columns">
+                {audienceLinks.map((item) => (
+                  <a href={item.href}>{item.label}</a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </details>
+      </nav>
+
+      <details class="mobile-menu">
+        <summary aria-label="Открыть меню" aria-controls="mobile-drawer" aria-expanded="false">
+          <span class="mobile-menu__icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="mobile-menu__label">Меню</span>
+        </summary>
+        <div class="mobile-menu-panel" id="mobile-drawer" aria-label="Мобильное меню">
+          <div class="mobile-menu-group mobile-menu-group--primary">
+            <p>Услуги</p>
+            {serviceLinks.map((item) => (
+              <a href={item.href}>{item.label}</a>
+            ))}
+          </div>
+
+          <div class="mobile-menu-group mobile-menu-group--primary">
+            <p>Кому помогаем</p>
+            {audienceLinks.map((item) => (
+              <a href={item.href}>{item.label}</a>
+            ))}
+          </div>
+
+          <div class="mobile-menu-group mobile-menu-group--company">
+            <p>Компания</p>
+            {utilityLinks.map((item) => (
+              <a href={item.href}>{item.label}</a>
+            ))}
+          </div>
+
+          <a class="service-cta cta-angled mobile-menu-cta" href="/#contact">Разобрать задачу</a>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const headerRoot = document.currentScript?.closest('header') || document.querySelector('.header');
+      const dropdowns = headerRoot ? Array.from(headerRoot.querySelectorAll('.nav-dropdown')) : [];
+      const mobileMenu = headerRoot?.querySelector('.mobile-menu');
+
+    const syncExpandedState = (details) => {
+      const summary = details.querySelector('summary');
+      if (summary) summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
+      const panel = details.querySelector('.nav-dropdown-panel, .mobile-menu-panel');
+      if (panel && panel.id) {
+        summary?.setAttribute('aria-controls', panel.id);
+      }
+    };
+
+    const closeAll = () => {
+      dropdowns.forEach((dropdown) => {
+        dropdown.open = false;
+        syncExpandedState(dropdown);
+      });
+      if (mobileMenu) {
+        mobileMenu.open = false;
+        syncExpandedState(mobileMenu);
+        document.body.style.overflow = '';
+      }
+    };
+
+    dropdowns.forEach((dropdown) => {
+      syncExpandedState(dropdown);
+      dropdown.addEventListener('toggle', () => {
+        syncExpandedState(dropdown);
+        if (!dropdown.open) return;
+        dropdowns.forEach((other) => {
+          if (other !== dropdown) {
+            other.open = false;
+            syncExpandedState(other);
+          }
+        });
+        if (mobileMenu?.open) {
+          mobileMenu.open = false;
+          syncExpandedState(mobileMenu);
+        }
+      });
+
+      dropdown.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeAll);
+      });
+    });
+
+    if (mobileMenu) {
+      syncExpandedState(mobileMenu);
+      mobileMenu.addEventListener('toggle', () => {
+        syncExpandedState(mobileMenu);
+        if (mobileMenu.open) {
+          document.body.style.overflow = 'hidden';
+          dropdowns.forEach((dropdown) => {
+            dropdown.open = false;
+            syncExpandedState(dropdown);
+          });
+        } else {
+          document.body.style.overflow = '';
+        }
+      });
+
+      mobileMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeAll);
+      });
+    }
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof Element)) return;
+      if (event.target.closest('.header')) return;
+      closeAll();
+    });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeAll();
+      });
+    })();
+  </script>
+</header>

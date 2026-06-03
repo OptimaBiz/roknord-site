@@ -22,3 +22,16 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Dev screenshots
+*.png
+*.jpg
+!public/**/*.png
+!public/**/*.jpg
+!public/**/*.svg
+
+# Editor / agent artifacts
+.agents/
+.codex/
+.playwright-mcp/
+test-results/

@@ -1,17 +1,248 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import Hero from "../components/Hero.astro";
+import ExpertMaterial from "../components/ExpertMaterial.astro";
+import ProofStrip from "../components/ProofStrip.astro";
+import RequestStrip from "../components/RequestStrip.astro";
+import ContactForm from "../components/ContactForm.astro";
+import FaqSection from "../components/FaqSection.astro";
+import PricingSection from "../components/PricingSection.astro";
+
+const scenarios = [
+  {
+    title: "Подтверждение компетентности",
+    text: "Проверяем документы, область, анкету, выборку дел и доказательства до процедуры.",
+    evidence: "Область · СМК · ФГИС",
+    link: "Проверить сценарий",
+    href: "#contact",
+  },
+  {
+    title: "Аудит и актуализация области аккредитации",
+    text: "Помогаем выявить риски в области и комплекте приложений до подачи.",
+    evidence: "Область · приложения",
+    link: "Смотреть разбор",
+    href: "#contact",
+  },
+  {
+    title: "Корректирующие действия после несоответствий",
+    text: "Структурируем корректирующие действия и подтверждающие документы.",
+    evidence: "Причина · доказательство · срок",
+    link: "Смотреть план",
+    href: "#contact",
+  },
+  {
+    title: "Первичная аккредитация",
+    text: "Собираем стартовую логику вокруг области, СМК, записей и фактической практики.",
+    evidence: "Документы · практика · следы",
+    link: "Смотреть состав",
+    href: "/primary-accreditation/",
+  },
+  {
+    title: "Специальные направления",
+    text: "Подстраиваем анализ под нетиповую область, отдельную процедуру и повышенный риск.",
+    evidence: "Спецобласть · риск · ФГИС",
+    link: "Обсудить задачу",
+    href: "#contact",
+  },
+];
+
+const audiences = [
+  {
+    title: "Испытательным лабораториям",
+    text: "Чаще всего смотрим методики, оборудование, персонал и трассировку записей.",
+    meta: "Методики · оборудование",
+    link: "Проверить формат",
+    href: "/testing-labs/",
+  },
+  {
+    title: "Медицинским лабораториям",
+    text: "Сопоставляем процессы, записи, персонал и следы лабораторной практики.",
+    meta: "Процессы · записи",
+    link: "Проверить формат",
+    href: "/medical-labs/",
+  },
+  {
+    title: "Органам по сертификации систем менеджмента",
+    text: "Смотрим СМК, выборку дел, компетентность и управляемость решений.",
+    meta: "СМК · выборка дел",
+    link: "Проверить формат",
+    href: "/certification-bodies/",
+  },
+  {
+    title: "Органам по сертификации продукции",
+    text: "Проверяем область, протоколы, несоответствия и следы корректировки.",
+    meta: "Продукция · несоответствия",
+    link: "Проверить формат",
+    href: "/certification-bodies/",
+  },
+  {
+    title: "Органам инспекции",
+    text: "Оцениваем область, процедуры, записи выездов и наблюдений.",
+    meta: "Инспекции · записи",
+    link: "Проверить формат",
+    href: "#contact",
+  },
+  {
+    title: "Калибровочным лабораториям",
+    text: "Сверяем методики, эталоны, прослеживаемость и документы.",
+    meta: "Эталоны · прослеживаемость",
+    link: "Проверить формат",
+    href: "#contact",
+  },
+  {
+    title: "Провайдерам МСИ",
+    text: "Смотрим программу, доказательства участия и корректность фиксации.",
+    meta: "МСИ · доказательства",
+    link: "Проверить формат",
+    href: "#contact",
+  },
+  {
+    title: "Органам по сертификации халяль",
+    text: "Проверяем состав области, источники доказательств и логику согласования.",
+    meta: "Халяль · доказательства",
+    link: "Проверить формат",
+    href: "#contact",
+  },
+];
+
+const processSteps = [
+  {
+    step: "01",
+    title: "Первичный разбор задачи",
+    text: "Фиксируем, что именно требуется: ПК, аккредитация, актуализация области или работа с несоответствиями.",
+    output: "контур запроса",
+  },
+  {
+    step: "02",
+    title: "Сбор исходных документов",
+    text: "Собираем область, СМК, анкеты, записи, дела и сведения, которые реально участвуют в проверке.",
+    output: "карта документов",
+  },
+  {
+    step: "03",
+    title: "Аудит области и доказательств",
+    text: "Сверяем документы, область, записи и практику на предмет процедурных разрывов.",
+    output: "перечень исходных рисков",
+  },
+  {
+    step: "04",
+    title: "Карта рисков и приоритизация",
+    text: "Выстраиваем последовательность исправлений по влиянию на процедуру и доказательную базу.",
+    output: "risk matrix",
+  },
+  {
+    step: "05",
+    title: "План корректирующих действий",
+    text: "Фиксируем ответственных, сроки и подтверждающие материалы для каждого риска.",
+    output: "план доработок",
+  },
+  {
+    step: "06",
+    title: "Подготовка к подаче или оценке",
+    text: "Собираем итоговый пакет и сценарий подготовки команды к следующему шагу процедуры.",
+    output: "пакет доказательств",
+  },
+];
 
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Рокнорд — аккредитация и подтверждение компетентности"
+  description="Рокнорд помогает выстроить документы, процессы, доказательства и риски в логике проверки — до аккредитации или подтверждения компетентности."
+>
+  <main id="content">
+    <Hero />
+    <RequestStrip />
+    <ExpertMaterial />
+    <ProofStrip />
+
+    <section id="deliverables" class="section section--light">
+      <div class="section__inner section-stack page-container">
+        <header class="section-stack section-scope">
+          <p class="section__eyebrow">Кому помогаем</p>
+          <h2 class="section__title">Для каждого типа аккредитованного лица важны свои доказательства и следы практики.</h2>
+          <p class="section__lead">Смотрим не только комплект документов, но и то, как область, записи и фактическая работа сходятся между собой.</p>
+        </header>
+
+        <div class="audience-grid" aria-label="Кому помогаем">
+          {audiences.map((item) => (
+            <article class="card card--light audience-card">
+              <p class="card__meta">{item.meta}</p>
+              <h3 class="card__title">{item.title}</h3>
+              <p class="card__text">{item.text}</p>
+              <a class="card__link" href={item.href}>
+                <span>{item.link}</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="directions" class="section section--light">
+      <div class="section__inner section-stack page-container">
+        <header class="section-stack section-scope">
+          <p class="section__eyebrow">Основные сценарии помощи</p>
+          <h2 class="section__title">Разные процедуры требуют одного фокуса: область, доказательства и управляемые риски.</h2>
+          <p class="section__lead">Выберите сценарий, чтобы понять, какие документы, записи и связки стоит сверить до следующего этапа.</p>
+        </header>
+
+        <div class="scenario-grid" aria-label="Основные сценарии помощи">
+          {scenarios.map((item, index) => (
+            <article class={`card card--light scenario-card ${index === 0 ? "scenario-card--featured" : ""}`}>
+              <p class="card__meta">Сценарий {index + 1}</p>
+              <h3 class="card__title">{item.title}</h3>
+              <p class="card__text">{item.text}</p>
+              <div class="card__deliverable" aria-label="Что обычно проверяем">
+                <span>Что проверяем</span>
+                <strong>{item.evidence}</strong>
+              </div>
+              <a class="card__link" href={item.href}>
+                <span>{item.link}</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="formats" class="section section--light process-section">
+      <div class="section__inner page-container">
+        <div class="process-shell framed-block">
+          <div class="process-intro section-stack">
+            <p class="section__eyebrow">Как работаем</p>
+            <h2 class="section__title">
+              Процесс подготовки ведёт от первичного запроса к карте рисков и пакету доказательств.
+            </h2>
+            <p class="section__lead">
+              Каждый этап даёт конкретный артефакт: карту исходных документов, перечень рисков, план доработок и пакет доказательств.
+            </p>
+          </div>
+
+          <div class="process-grid" aria-label="Этапы работы">
+            {processSteps.map((item) => (
+              <article class="card card--dark process-step">
+                <span class="process-step__number">{item.step}</span>
+                <div class="section-stack">
+                  <h3 class="card__title process-step__title">{item.title}</h3>
+                  <p class="card__text process-step__text">{item.text}</p>
+                  <div class="process-step__output">
+                    <span>Output</span>
+                    <strong>{item.output}</strong>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <PricingSection />
+    <ContactForm />
+    <FaqSection />
+  </main>
+</BaseLayout>

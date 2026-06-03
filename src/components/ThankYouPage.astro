@@ -1,0 +1,235 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Обращение отправлено — Рокнорд"
+  description="Подтверждение отправки обращения в Рокнорд. Мы принимаем запрос в работу и возвращаемся с первичным ответом."
+>
+  <main id="content">
+    <section class="thank-you">
+      <div class="thank-you__inner page-container">
+        <div class="thank-you__panel">
+          <div class="thank-you__copy">
+            <p class="section__eyebrow">Обращение принято</p>
+            <h1>Спасибо. Мы получили ваш запрос.</h1>
+            <p>
+              Сообщение передано. Мы ответим в течение рабочего дня.
+            </p>
+          </div>
+
+          <div class="thank-you__next" aria-label="Что происходит дальше">
+            <p class="thank-you__label">Дальше</p>
+            <ul>
+              <li>Заключение договора;</li>
+              <li>Регистрация личного кабинета;</li>
+              <li>Сопровождение услуги</li>
+            </ul>
+          </div>
+
+          <div class="thank-you__actions">
+            <a class="thank-you__button cta-angled" href="/">На главную</a>
+            <a class="thank-you__link" href="/#resources">К услугам</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .thank-you {
+    position: relative;
+    overflow: hidden;
+    min-height: calc(100svh - var(--header-total-height, 7rem));
+    padding-block: clamp(var(--space-10), 8vw, var(--space-16));
+    background:
+      linear-gradient(90deg, rgba(0, 250, 176, 0.1) 0 1px, transparent 1px 100%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 100%),
+      linear-gradient(135deg, var(--lrqa-navy) 0%, var(--lrqa-nav) 48%, var(--lrqa-dark-mass) 100%);
+    background-size: 5rem 5rem, 5rem 5rem, auto;
+    color: var(--lrqa-white);
+  }
+
+  .thank-you::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(100deg, transparent 0%, rgba(0, 250, 176, 0.12) 46%, transparent 68%);
+    transform: translateX(-100%);
+    opacity: 0.9;
+  }
+
+  .thank-you__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .thank-you__panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.52fr);
+    gap: clamp(var(--space-6), 5vw, var(--space-12));
+    align-items: start;
+    padding: clamp(var(--space-6), 5vw, var(--space-10));
+    border: 1px solid var(--color-border-strong);
+    border-top: 2px solid var(--lrqa-mint);
+    background: rgba(15, 11, 56, 0.84);
+  }
+
+  .thank-you__panel::after {
+    content: "";
+    position: absolute;
+    right: var(--space-5);
+    bottom: var(--space-5);
+    width: 7.5rem;
+    height: 7.5rem;
+    border-right: 1px solid rgba(0, 250, 176, 0.48);
+    border-bottom: 1px solid rgba(0, 250, 176, 0.48);
+    pointer-events: none;
+  }
+
+  .thank-you__copy {
+    display: grid;
+    gap: var(--space-5);
+    max-width: 52rem;
+  }
+
+  .thank-you h1 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: clamp(2.4rem, 5.8vw, 6rem);
+    font-weight: var(--font-weight-hero-title);
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .thank-you__copy p:not(.section__eyebrow) {
+    margin: 0;
+    max-width: 42rem;
+    color: var(--lrqa-border-soft);
+    font-size: clamp(var(--font-size-md), 0.5vw + 1rem, var(--font-size-xl));
+    line-height: var(--line-height-relaxed);
+  }
+
+  .thank-you__next {
+    display: grid;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    border: 1px solid rgba(222, 221, 228, 0.34);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .thank-you__label {
+    margin: 0;
+    color: var(--lrqa-mint);
+    font-size: var(--font-size-2xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+  }
+
+  .thank-you__next ul {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--lrqa-border-soft);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .thank-you__next li {
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  .thank-you__next li::before {
+    content: "";
+    flex: 0 0 0.62rem;
+    width: 0.62rem;
+    height: 0.62rem;
+    margin-top: 0.45rem;
+    background: var(--lrqa-mint);
+  }
+
+  .thank-you__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    align-items: center;
+    grid-column: 1 / -1;
+  }
+
+  .thank-you__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.35rem;
+    padding: var(--space-3) var(--space-8);
+    background: var(--lrqa-mint);
+    color: var(--lrqa-black);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .thank-you__button:hover,
+  .thank-you__button:focus-visible {
+    background: var(--lrqa-mint-2);
+  }
+
+  .thank-you__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3.35rem;
+    color: var(--lrqa-white);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    border-bottom: 2px solid var(--lrqa-mint);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .thank-you::before {
+      animation: thank-you-scan 7s var(--easing-standard) infinite;
+    }
+  }
+
+  @keyframes thank-you-scan {
+    0%,
+    28% {
+      transform: translateX(-100%);
+    }
+
+    58%,
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .thank-you {
+      background-size: 3.4rem 3.4rem, 3.4rem 3.4rem, auto;
+    }
+
+    .thank-you__panel {
+      grid-template-columns: 1fr;
+      padding: var(--space-5);
+    }
+
+    .thank-you h1 {
+      font-size: clamp(2rem, 10vw, 3.1rem);
+      line-height: 1.02;
+    }
+
+    .thank-you__actions,
+    .thank-you__button,
+    .thank-you__link {
+      width: 100%;
+    }
+
+    .thank-you__link {
+      justify-content: center;
+    }
+  }
+</style>

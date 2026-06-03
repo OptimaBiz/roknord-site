@@ -1,0 +1,31 @@
+<aside class="cookie-panel" data-cookie-panel hidden aria-label="Уведомление о cookies">
+  <p class="cookie-panel__text">
+    Используем cookies. Продолжая пользоваться сайтом, вы соглашаетесь с обработкой данных.
+  </p>
+  <div class="cookie-panel__actions">
+    <a class="cookie-panel__link" href="/privacy-policy/">Подробнее</a>
+    <button class="cookie-panel__button cta-angled" type="button" data-cookie-accept>Принять</button>
+  </div>
+</aside>
+
+<script is:inline>
+  (() => {
+    const key = "roknord-cookie-consent";
+    const panel = document.querySelector("[data-cookie-panel]");
+    const accept = document.querySelector("[data-cookie-accept]");
+    if (!panel || !accept) return;
+
+    try {
+      if (window.localStorage.getItem(key) === "accepted") return;
+    } catch {}
+
+    panel.hidden = false;
+
+    accept.addEventListener("click", () => {
+      try {
+        window.localStorage.setItem(key, "accepted");
+      } catch {}
+      panel.hidden = true;
+    });
+  })();
+</script>

@@ -1,0 +1,298 @@
+@import "@fontsource/montserrat/400.css";
+@import "@fontsource/montserrat/500.css";
+@import "@fontsource/montserrat/600.css";
+@import "@fontsource/montserrat/700.css";
+@import "@fontsource/montserrat/800.css";
+@import "@fontsource/montserrat/900.css";
+
+:root {
+  --color-dark-foundation: #0F1232;
+  --color-mint-action: #0FF2B2;
+  --color-magenta-editorial: #BF1F99;
+  --color-divider-light: #F1F4F7;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-surface-page: linear-gradient(180deg, var(--lrqa-nav) 0%, var(--lrqa-navy) 100%);
+  --color-surface-light: var(--lrqa-card-light);
+  --color-surface-card: var(--lrqa-white);
+  --color-surface-card-dark: var(--lrqa-navy-2);
+  --color-text-primary: var(--lrqa-white);
+  --color-text-muted: var(--lrqa-border-soft);
+  --color-text-inverse: var(--lrqa-black);
+  --color-border-subtle: var(--lrqa-border-soft);
+  --color-border-strong: var(--lrqa-dark-border);
+  --color-status-risk-low: var(--lrqa-mint);
+  --color-status-risk-medium: var(--lrqa-warning);
+  --color-status-risk-high: #D95B5B;
+  --color-gradient-navy-1: color-mix(in srgb, var(--lrqa-navy) 78%, var(--lrqa-white));
+  --color-gradient-navy-2: color-mix(in srgb, var(--lrqa-navy) 90%, var(--lrqa-black));
+  --color-gradient-navy-3: color-mix(in srgb, var(--lrqa-nav) 84%, var(--lrqa-white));
+  --color-gradient-navy-4: color-mix(in srgb, var(--lrqa-dark-mass) 86%, var(--lrqa-white));
+  --color-gradient-navy-5: color-mix(in srgb, var(--lrqa-dark-mass) 86%, var(--lrqa-mint));
+  --color-gradient-navy-6: color-mix(in srgb, var(--lrqa-navy) 88%, var(--lrqa-black));
+  --color-gradient-navy-7: color-mix(in srgb, var(--lrqa-navy) 84%, var(--lrqa-mint));
+  --color-gradient-navy-8: color-mix(in srgb, var(--lrqa-nav) 86%, var(--lrqa-white));
+
+  --lrqa-navy: #0E0B3A;
+  --lrqa-navy-2: #0F0B38;
+  --lrqa-nav: #110D34;
+  --lrqa-dark-mass: #0F0C37;
+  --lrqa-mint: #00FAB0;
+  --lrqa-mint-2: #00F8AF;
+  --lrqa-mint-3: #00F9B0;
+  --lrqa-white: #FFFFFF;
+  --lrqa-white-soft: #FEFEFE;
+  --lrqa-card-light: #F9F9FA;
+  --lrqa-card-grey: #ECECEC;
+  --lrqa-warning: #FED503;
+  --lrqa-black: #000000;
+  --lrqa-dark-border: #27274E;
+  --lrqa-muted-dark: #3A3752;
+  --lrqa-muted: #55536E;
+  --lrqa-muted-2: #73718B;
+  --lrqa-border: #B9B8C5;
+  --lrqa-border-soft: #DEDDE4;
+
+  --color-bg: var(--color-surface-page);
+  --color-bg-elevated: var(--color-surface-card-dark);
+  --color-surface: var(--color-surface-card-dark);
+  --color-surface-elevated: var(--lrqa-nav);
+  --color-surface-contrast: var(--lrqa-navy-2);
+  --color-surface-soft: var(--color-surface-light);
+  --color-text: var(--color-text-primary);
+  --color-text-subtle: var(--lrqa-border);
+  --color-border: var(--color-border-subtle);
+  --color-border-strong: var(--lrqa-dark-border);
+  --color-border-soft: var(--color-border-subtle);
+  --color-accent: var(--color-mint-action);
+  --color-accent-hover: var(--lrqa-mint-2);
+  --color-accent-strong: var(--lrqa-mint-3);
+  --color-accent-soft: rgba(0, 250, 176, 0.14);
+  --color-success: var(--color-status-risk-low);
+  --color-warning: var(--color-status-risk-medium);
+  --color-danger: var(--color-status-risk-high);
+  --color-info: var(--color-status-risk-low);
+  --color-overlay: rgba(15, 12, 55, 0.78);
+  --color-glow-primary: rgba(0, 250, 176, 0.16);
+  --color-glow-secondary: rgba(0, 248, 175, 0.1);
+  --color-page-backdrop: var(--lrqa-navy-2);
+  --color-grid-line: rgba(255, 255, 255, 0.035);
+  --color-grid-mask: rgba(0, 0, 0, 0.88);
+  --color-surface-translucent: rgba(255, 255, 255, 0.04);
+  --color-surface-translucent-strong: rgba(255, 255, 255, 0.08);
+  --color-surface-panel: var(--lrqa-card-light);
+  --color-surface-header: var(--lrqa-nav);
+  --color-surface-header-soft: var(--lrqa-navy-2);
+  --color-surface-mega-nav: color-mix(in srgb, var(--lrqa-nav) 60%, var(--lrqa-muted-dark));
+  --color-surface-mega-nav-hover: var(--color-accent-soft);
+  --color-surface-quote: var(--lrqa-card-grey);
+  --color-surface-footer: var(--lrqa-dark-mass);
+  --color-editorial-accent: var(--color-magenta-editorial);
+  --color-promo-border-accent: var(--color-editorial-accent);
+  --color-promo-label-bg: var(--color-editorial-accent);
+  --color-promo-label-text: var(--lrqa-white);
+  --frame-border-width: 1px;
+  --frame-bevel-size-sm: 3rem;
+  --frame-bevel-size-md: 4.5rem;
+  --frame-bevel-size-lg: 6rem;
+  --editorial-frame-bevel: 2.25rem;
+  --editorial-label-bevel: var(--space-5);
+  --button-bevel: var(--space-5);
+  --cta-shape-angled: polygon(var(--button-bevel) 0, 100% 0, calc(100% - var(--button-bevel)) 100%, 0 100%);
+
+  --page-min-width: 20rem;
+  --grid-line-size: 1px;
+  --grid-line-gap: 5rem 5rem;
+  --grid-mask-stop: 84%;
+  --backdrop-opacity: 0.32;
+  --focus-ring-width: 0.2rem;
+  --focus-outline-width: 0.14rem;
+  --focus-outline-offset: 0.14rem;
+  --selection-background: rgba(0, 250, 176, 0.34);
+  --input-focus-shadow: 0 0 0 0.2rem rgba(0, 250, 176, 0.16);
+  --input-background: rgba(255, 255, 255, 0.04);
+
+  --font-family-base: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-family-heading: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-family-base);
+  --font-heading: var(--font-family-heading);
+  --font-size-hero-title: 2rem;
+  --line-height-hero-title: 1.12;
+  --font-weight-hero-title: 900;
+  --font-size-section-title: 1.375rem;
+  --line-height-section-title: 1.09;
+  --font-weight-section-title: 900;
+  --font-size-body: 1rem;
+  --line-height-body: 1.5;
+
+  --font-size-2xs: 0.6875rem;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.35rem;
+  --font-size-2xl: 1.7rem;
+  --font-size-3xl: 2.2rem;
+  --font-size-4xl: 3rem;
+  --font-size-5xl: 4.15rem;
+  --font-size-6xl: 6.25rem;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.02;
+  --line-height-snug: 1.16;
+  --line-height-base: 1.5;
+  --line-height-relaxed: 1.68;
+  --line-height-display: 0.96;
+
+  --letter-spacing-tight: 0;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.08em;
+
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-9: 2.5rem;
+  --space-10: 3rem;
+  --space-11: 3.5rem;
+  --space-12: 4rem;
+  --space-14: 5rem;
+  --space-16: 6rem;
+  --space-20: 8rem;
+
+  --page-gutter-mobile: 30px;
+  --page-gutter-tablet: 40px;
+  --page-gutter-desktop: 64px;
+  --container-max: 1240px;
+  --container-wide: var(--container-max);
+  --container-padding: var(--page-gutter-mobile);
+  --section-y-xl: 5rem;
+  --section-y-lg: 3.75rem;
+  --section-y-md: 2.5rem;
+  --section-gap: clamp(var(--section-y-lg), 4vw, var(--section-y-xl));
+  --section-padding-y: clamp(var(--section-y-md), 7vw, var(--section-y-xl));
+  --section-padding-x: var(--container-padding);
+  --card-padding-xl: 2.5rem;
+  --card-padding-lg: 1.5rem;
+  --card-gap-lg: 1.5rem;
+  --proof-strip-x: var(--container-padding);
+  --nav-height: 5.25rem;
+  --utility-height: 2.25rem;
+  --hero-min-height: 36.625rem;
+  --footer-padding-block: 2.5rem;
+  --grid-gap: clamp(var(--card-gap-lg), 2vw, var(--space-8));
+  --content-gap: var(--space-6);
+
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-pill: 0;
+
+  --border-width-hairline: 1px;
+  --border-width-default: 1px;
+  --border-width-strong: 2px;
+  --border-style-default: solid;
+  --border-default: var(--border-width-default) var(--border-style-default) var(--color-border);
+  --border-strong: var(--border-width-strong) var(--border-style-default) var(--color-border-strong);
+
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+  --shadow-card: none;
+  --shadow-card-hover: none;
+
+  --z-index-base: 0;
+  --z-index-raised: 1;
+  --z-index-header: 50;
+  --z-index-floating: 90;
+  --z-index-tooltip: 300;
+
+  --duration-fast: 140ms;
+  --duration-normal: 220ms;
+  --duration-slow: 340ms;
+  --easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --easing-emphasis: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: color var(--duration-fast) var(--easing-standard), background-color var(--duration-fast) var(--easing-standard), border-color var(--duration-fast) var(--easing-standard), transform var(--duration-fast) var(--easing-standard);
+  --transition-base: color var(--duration-normal) var(--easing-standard), background-color var(--duration-normal) var(--easing-standard), border-color var(--duration-normal) var(--easing-standard), transform var(--duration-normal) var(--easing-standard), opacity var(--duration-normal) var(--easing-standard);
+  --transition-slow: color var(--duration-slow) var(--easing-emphasis), background-color var(--duration-slow) var(--easing-emphasis), border-color var(--duration-slow) var(--easing-emphasis), transform var(--duration-slow) var(--easing-emphasis), opacity var(--duration-slow) var(--easing-emphasis);
+
+  --cta-padding-y: 0.875rem;
+  --cta-padding-x: 1.875rem;
+  --button-height-md: 3.4rem;
+  --button-padding-x-md: var(--cta-padding-x);
+  --button-gap: var(--space-2);
+  --button-radius: 0;
+  --button-font-size: var(--font-size-sm);
+  --button-font-weight: var(--font-weight-semibold);
+  --input-height: 3rem;
+  --input-padding-x: 1rem;
+  --input-padding-y: 0.8125rem;
+  --input-radius: 0;
+  --input-border: var(--border-default);
+  --input-placeholder: var(--lrqa-border);
+
+  --card-radius: 0;
+  --card-padding: clamp(var(--card-padding-lg), 2.5vw, var(--card-padding-xl));
+  --card-border: var(--border-default);
+  --section-border: var(--border-default);
+  --section-radius: 0;
+  --section-padding: var(--section-padding-y) var(--section-padding-x);
+  --panel-radius: 0;
+  --panel-padding: clamp(var(--card-padding-lg), 2.8vw, var(--card-padding-xl));
+  --section-surface-background: var(--color-surface-light);
+  --section-surface-blur: 0;
+
+  --gradient-page: linear-gradient(180deg, var(--lrqa-nav) 0%, var(--lrqa-navy) 100%);
+  --gradient-grid-line:
+    linear-gradient(var(--color-grid-line) var(--grid-line-size), transparent var(--grid-line-size)),
+    linear-gradient(90deg, var(--color-grid-line) var(--grid-line-size), transparent var(--grid-line-size));
+  --gradient-header: linear-gradient(180deg, var(--lrqa-nav), var(--lrqa-navy-2));
+  --gradient-button-primary: linear-gradient(180deg, var(--lrqa-mint), var(--lrqa-mint-2));
+  --gradient-button-primary-hover: linear-gradient(180deg, var(--lrqa-mint-3), var(--lrqa-mint));
+
+  --button-primary-shadow: none;
+  --button-primary-border: var(--lrqa-mint);
+  --button-primary-border-hover: var(--lrqa-mint-2);
+  --button-secondary-border-hover: var(--lrqa-mint);
+  --button-secondary-bg-hover: rgba(0, 250, 176, 0.08);
+  --button-ghost-bg-hover: rgba(0, 250, 176, 0.1);
+  --card-hover-border: var(--lrqa-mint);
+  --card-hover-translate: 0;
+  --button-hover-translate: 0;
+  --link-hover-translate: 0.18rem;
+
+  --hero-top-padding: clamp(var(--section-y-md), 3.2vw, var(--section-y-lg));
+  --hero-bottom-padding: clamp(var(--section-y-md), 3.4vw, var(--section-y-lg));
+  --header-height: var(--nav-height);
+  --header-service-height: var(--utility-height);
+  --header-total-height: calc(var(--header-service-height) + var(--header-height));
+  --header-backdrop-blur: 0;
+  --brand-mark-size: 2.75rem;
+  --hero-descriptor-max-width: 52rem;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --container-padding: var(--page-gutter-tablet);
+  }
+}
+
+@media (min-width: 75rem) {
+  :root {
+    --container-padding: var(--page-gutter-desktop);
+  }
+}

@@ -1,0 +1,44 @@
+<section class="request-strip" aria-label="Быстрый запрос">
+  <div class="request-strip__inner page-container">
+    <div class="request-strip__contact-group">
+      <a class="request-strip__phone" href="tel:+78123898178">
+        <img class="request-strip__phone-icon" src="/icons/phone_icon.svg" alt="" aria-hidden="true" decoding="async" />
+        <span>8 812 38 98 178</span>
+      </a>
+      <span class="request-strip__separator" aria-hidden="true"></span>
+      <a class="request-strip__action" href="#contact">
+        <img class="request-strip__icon" src="/icons/envelope_icon.svg" alt="" aria-hidden="true" decoding="async" />
+        <span>Написать нам</span>
+      </a>
+    </div>
+  </div>
+  <script is:inline>
+    (() => {
+      const requestStrip = document.currentScript?.closest(".request-strip");
+
+      if (requestStrip) {
+        const syncRequestStripStickyState = () => {
+          const rect = requestStrip.getBoundingClientRect();
+          const processSection = document.getElementById("formats");
+          const contactSection = document.getElementById("contact");
+          const processRect = processSection?.getBoundingClientRect();
+          const contactRect = contactSection?.getBoundingClientRect();
+          const processHeight = processRect?.height || 0;
+          const phoneOnly =
+            Boolean(processRect) &&
+            Boolean(contactRect) &&
+            processHeight > 0 &&
+            processRect.top <= processHeight * -0.5 &&
+            contactRect.bottom > 0;
+
+          requestStrip.classList.toggle("request-strip--stuck", rect.top <= 0);
+          requestStrip.classList.toggle("request-strip--phone-only", phoneOnly);
+        };
+
+        syncRequestStripStickyState();
+        document.addEventListener("scroll", syncRequestStripStickyState, { passive: true });
+        window.addEventListener("resize", syncRequestStripStickyState);
+      }
+    })();
+  </script>
+</section>

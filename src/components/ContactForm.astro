@@ -1,0 +1,628 @@
+---
+type Props = {
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  showMessage?: boolean;
+  submitLabel?: string;
+  statusText?: string;
+  successUrl?: string;
+  subject?: string;
+  formName?: string;
+  embedded?: boolean;
+};
+
+const {
+  id = "contact",
+  eyebrow = "Контакты",
+  title = "Свяжитесь с нами. Внимательно изучим вашу ситуацию.",
+  description = "Укажите, что считаете уместным. Ответим в течение рабочего дня.",
+  showMessage = true,
+  submitLabel = "Отправить",
+  statusText = "После отправки вы перейдёте на страницу подтверждения.",
+  successUrl = "/thank-you/",
+  subject = "Заявка с сайта Рокнорд",
+  formName = "Контактная форма",
+  embedded = false,
+} = Astro.props as Props;
+
+const titleId = `${id}-form-title`;
+---
+
+<section id={id} class:list={["contact-form-section", embedded && "contact-form-section--embedded"]} aria-labelledby={titleId}>
+  <div class="contact-form-section__inner page-container">
+    <div class="contact-form-shell">
+      <div class="contact-form-copy">
+        <p class="section__eyebrow">{eyebrow}</p>
+        <h2 id={titleId}>{title}</h2>
+        {description && <p>{description}</p>}
+        <div class="contact-form-copy__signal" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <form
+        class="contact-form"
+        action="https://formspree.io/f/mjgpywnr"
+        method="POST"
+        data-contact-form
+        data-success-url={successUrl}
+        novalidate
+      >
+        <input type="hidden" name="_subject" value={subject} />
+        <input type="hidden" name="form_name" value={formName} />
+        <input type="text" name="_gotcha" class="contact-form__trap" tabindex="-1" autocomplete="off" />
+
+        <div class="contact-form__grid">
+          <label class="contact-field">
+            <span>Имя</span>
+            <input
+              name="name"
+              type="text"
+              autocomplete="name"
+              minlength="2"
+              maxlength="80"
+              placeholder="Как к вам обращаться"
+              required
+            />
+          </label>
+
+          <label class="contact-field">
+            <span>Телефон</span>
+            <input
+              name="phone"
+              type="tel"
+              autocomplete="tel"
+              inputmode="tel"
+              pattern="^[+0-9()\\s-]{6,24}$"
+              placeholder="+7 000 000 00 00"
+              required
+            />
+          </label>
+        </div>
+
+        <label class="contact-field">
+          <span>Почта</span>
+          <input name="email" type="email" autocomplete="email" placeholder="name@company.ru" required />
+        </label>
+
+        {showMessage && (
+          <label class="contact-field">
+            <span>Текст сообщения</span>
+            <textarea
+              name="message"
+              rows="5"
+              minlength="10"
+              maxlength="1200"
+              placeholder="Ваш текст"
+              required
+            ></textarea>
+          </label>
+        )}
+
+        <button class="contact-form__submit cta-angled" type="submit" data-contact-submit data-default-text={submitLabel}>
+          <span data-contact-submit-text>{submitLabel}</span>
+        </button>
+
+        <label class="contact-consent">
+          <input name="personal_data_consent" type="checkbox" value="accepted" required />
+          <span>
+            Я согласен на обработку <a href="/personal-data-consent/">Персональных данных</a> и ознакомлен с
+            <a href="/privacy-policy/">Политикой конфиденциальности</a>.
+          </span>
+        </label>
+
+        <p class="contact-form__status" data-contact-status role="status" aria-live="polite">
+          {statusText}
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const contactRoot = document.currentScript?.closest(".contact-form-section");
+      const contactForm = contactRoot?.querySelector("[data-contact-form]");
+      const contactStatus = contactRoot?.querySelector("[data-contact-status]");
+      const contactSubmit = contactRoot?.querySelector("[data-contact-submit]");
+      const contactSubmitText = contactRoot?.querySelector("[data-contact-submit-text]");
+
+      const setContactStatus = (message, type) => {
+        if (!contactStatus) return;
+        contactStatus.textContent = message;
+        contactStatus.dataset.state = type;
+      };
+
+      contactForm?.addEventListener("submit", async (event) => {
+        if (!(contactForm instanceof HTMLFormElement)) return;
+
+        event.preventDefault();
+        setContactStatus("", "");
+
+        if (!contactForm.checkValidity()) {
+          contactForm.reportValidity();
+          setContactStatus("Заполните форму и подтвердите согласие.", "error");
+          return;
+        }
+
+        if (contactSubmit instanceof HTMLButtonElement) contactSubmit.disabled = true;
+        if (contactSubmitText) contactSubmitText.textContent = "Отправляем";
+        setContactStatus("Передаём обращение.", "pending");
+
+        try {
+          const response = await fetch(contactForm.action, {
+            method: contactForm.method,
+            body: new FormData(contactForm),
+            headers: {
+              Accept: "application/json",
+            },
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => null);
+            const formspreeCaptchaError = typeof errorData?.error === "string" && errorData.error.includes("reCAPTCHA");
+            const errorMessage = formspreeCaptchaError
+              ? "Отправка заблокирована настройкой Formspree CAPTCHA. Отключите CAPTCHA для AJAX-отправки в настройках формы."
+              : "Formspree не принял обращение. Проверьте настройки формы.";
+            throw new Error(errorMessage);
+          }
+
+          const successUrl = contactForm.dataset.successUrl || "/thank-you/";
+          window.location.assign(successUrl);
+        } catch (error) {
+          const message = error instanceof Error ? error.message : "Не удалось отправить форму.";
+          setContactStatus(message, "error");
+        } finally {
+          if (contactSubmit instanceof HTMLButtonElement) contactSubmit.disabled = false;
+          if (contactSubmitText && contactSubmit instanceof HTMLButtonElement) {
+            contactSubmitText.textContent = contactSubmit.dataset.defaultText || "Отправить";
+          }
+        }
+      });
+    })();
+  </script>
+</section>
+
+<style>
+  .contact-form-section {
+    position: relative;
+    overflow: hidden;
+    scroll-margin-top: calc(var(--header-total-height, 7rem) + var(--space-4));
+    padding-block: var(--section-padding-y);
+    border-top: 1px solid var(--color-border-strong);
+    background:
+      linear-gradient(90deg, rgba(0, 250, 176, 0.1) 0 1px, transparent 1px 100%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 100%),
+      linear-gradient(135deg, var(--lrqa-navy) 0%, var(--lrqa-nav) 48%, var(--lrqa-dark-mass) 100%);
+    background-size: 5rem 5rem, 5rem 5rem, auto;
+    color: var(--lrqa-white);
+  }
+
+  .contact-form-section--embedded {
+    padding-block: 0;
+    border-top: 0;
+    background: transparent;
+  }
+
+  .contact-form-section--embedded::before {
+    content: none;
+  }
+
+  .contact-form-section--embedded .contact-form-section__inner {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  .contact-form-section--embedded .contact-form-shell {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-inline: 0;
+    padding: clamp(var(--space-5), 3vw, var(--space-6));
+    border-color: var(--lrqa-border-soft);
+    background: var(--lrqa-white);
+    color: var(--lrqa-black);
+  }
+
+  .contact-form-section--embedded .contact-form-copy h2 {
+    color: var(--lrqa-black);
+    font-size: clamp(1.55rem, 1vw + 1.2rem, 2.05rem);
+    line-height: var(--line-height-snug);
+  }
+
+  .contact-form-section--embedded .contact-form-copy {
+    gap: var(--space-3);
+  }
+
+  .contact-form-section--embedded .contact-form-copy .section__eyebrow {
+    color: var(--lrqa-muted-dark);
+  }
+
+  .contact-form-section--embedded .contact-form-copy p:not(.section__eyebrow) {
+    color: var(--lrqa-muted);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .contact-form-section--embedded .contact-form-copy__signal {
+    display: none;
+  }
+
+  .contact-form-section--embedded .contact-form {
+    order: 0;
+    gap: var(--space-3);
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .contact-form-section--embedded .contact-form::before,
+  .contact-form-section--embedded .contact-form-shell::before,
+  .contact-form-section--embedded .contact-form-shell::after {
+    content: none;
+  }
+
+  .contact-form-section--embedded .contact-form__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .contact-form-section--embedded .contact-field {
+    gap: var(--space-2);
+  }
+
+  .contact-form-section--embedded .contact-field span {
+    color: var(--lrqa-muted);
+  }
+
+  .contact-form-section--embedded .contact-field input,
+  .contact-form-section--embedded .contact-field textarea {
+    min-height: 3rem;
+    border-color: var(--lrqa-border);
+    background: var(--lrqa-white-soft);
+    color: var(--lrqa-black);
+  }
+
+  .contact-form-section--embedded .contact-field input::placeholder,
+  .contact-form-section--embedded .contact-field textarea::placeholder {
+    color: var(--lrqa-muted-2);
+  }
+
+  .contact-form-section--embedded .contact-consent {
+    color: var(--lrqa-muted);
+  }
+
+  .contact-form-section--embedded .contact-consent a {
+    color: var(--lrqa-black);
+  }
+
+  .contact-form-section--embedded .contact-form__status {
+    color: var(--lrqa-muted);
+  }
+
+  .contact-form-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(100deg, transparent 0%, rgba(0, 250, 176, 0.13) 46%, transparent 68%);
+    transform: translateX(-100%);
+    opacity: 0.9;
+  }
+
+  .contact-form-section__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-form-shell {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(22rem, 0.72fr);
+    gap: clamp(var(--space-6), 5vw, var(--space-12));
+    align-items: stretch;
+    margin-inline: calc(var(--container-padding) * -1);
+    padding-block: clamp(var(--space-5), 4vw, var(--space-8));
+    padding-inline: var(--container-padding);
+    border: 1px solid var(--color-border-strong);
+    background: rgba(15, 11, 56, 0.84);
+  }
+
+  .contact-form-shell::before,
+  .contact-form-shell::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .contact-form-shell::before {
+    inset: 0;
+    border-top: 2px solid var(--lrqa-mint);
+    clip-path: polygon(0 0, 34% 0, 42% 0.55rem, 100% 0, 100% 100%, 0 100%);
+    opacity: 0.72;
+  }
+
+  .contact-form-shell::after {
+    right: var(--space-5);
+    bottom: var(--space-5);
+    width: 7.5rem;
+    height: 7.5rem;
+    border-right: 1px solid rgba(0, 250, 176, 0.48);
+    border-bottom: 1px solid rgba(0, 250, 176, 0.48);
+  }
+
+  .contact-form-copy {
+    display: grid;
+    align-content: start;
+    gap: var(--space-5);
+    max-width: 45rem;
+  }
+
+  .contact-form-copy h2 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4.4vw, 4.8rem);
+    font-weight: var(--font-weight-hero-title);
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .contact-form-copy p:not(.section__eyebrow) {
+    margin: 0;
+    max-width: 38rem;
+    color: var(--lrqa-border-soft);
+    font-size: clamp(var(--font-size-md), 0.45vw + 0.95rem, var(--font-size-lg));
+    line-height: var(--line-height-relaxed);
+  }
+
+  .contact-form-copy__signal {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(2rem, 5.5rem));
+    gap: var(--space-3);
+    margin-top: auto;
+    padding-top: var(--space-8);
+  }
+
+  .contact-form-copy__signal span {
+    height: 0.32rem;
+    background: var(--lrqa-mint);
+    transform-origin: left center;
+  }
+
+  .contact-form-copy__signal span:nth-child(2) {
+    opacity: 0.56;
+  }
+
+  .contact-form-copy__signal span:nth-child(3) {
+    opacity: 0.28;
+  }
+
+  .contact-form {
+    position: relative;
+    display: grid;
+    gap: var(--space-4);
+    padding: clamp(var(--space-5), 3vw, var(--space-7));
+    border: 1px solid rgba(222, 221, 228, 0.34);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035)),
+      var(--lrqa-navy-2);
+  }
+
+  .contact-form::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-left: 0.28rem solid var(--lrqa-mint);
+    opacity: 0.9;
+  }
+
+  .contact-form__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .contact-field {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .contact-field span {
+    color: var(--lrqa-border-soft);
+    font-size: var(--font-size-2xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+  }
+
+  .contact-field input,
+  .contact-field textarea {
+    min-height: 3.1rem;
+    border: 1px solid rgba(222, 221, 228, 0.5);
+    padding: var(--space-3) var(--space-4);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--lrqa-white);
+  }
+
+  .contact-field textarea {
+    min-height: 8.2rem;
+    resize: vertical;
+  }
+
+  .contact-field input:user-invalid,
+  .contact-field textarea:user-invalid,
+  .contact-consent input:user-invalid {
+    border-color: var(--color-danger);
+  }
+
+  .contact-form__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 16rem);
+    min-height: 3.35rem;
+    margin-top: var(--space-1);
+    border: 0;
+    padding: var(--space-3) var(--space-8);
+    background: var(--lrqa-mint);
+    color: var(--lrqa-black);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+  }
+
+  .contact-form__submit:hover,
+  .contact-form__submit:focus-visible {
+    background: var(--lrqa-mint-2);
+  }
+
+  .contact-form__submit:disabled {
+    opacity: 0.62;
+    cursor: wait;
+  }
+
+  .contact-consent {
+    display: grid;
+    grid-template-columns: 1.05rem minmax(0, 1fr);
+    gap: var(--space-3);
+    align-items: start;
+    color: var(--lrqa-border-soft);
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .contact-consent input {
+    width: 1.05rem;
+    height: 1.05rem;
+    margin: 0.18rem 0 0;
+    accent-color: var(--lrqa-mint);
+  }
+
+  .contact-consent a {
+    color: var(--lrqa-white);
+    border-bottom: 1px solid var(--lrqa-mint);
+  }
+
+  .contact-consent a:hover,
+  .contact-consent a:focus-visible {
+    color: var(--lrqa-mint);
+  }
+
+  .contact-form__status {
+    min-height: 1.25rem;
+    margin: 0;
+    color: var(--lrqa-border-soft);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-snug);
+  }
+
+  .contact-form__status[data-state="success"] {
+    color: var(--lrqa-mint);
+  }
+
+  .contact-form__status[data-state="error"] {
+    color: var(--color-danger);
+  }
+
+  .contact-form__status[data-state="pending"] {
+    color: var(--lrqa-warning);
+  }
+
+  .contact-form__trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .contact-form-section::before {
+      animation: contact-scan 7s var(--easing-standard) infinite;
+    }
+
+    .contact-form-copy__signal span {
+      animation: contact-pulse 1.9s var(--easing-standard) infinite;
+    }
+
+    .contact-form-copy__signal span:nth-child(2) {
+      animation-delay: 160ms;
+    }
+
+    .contact-form-copy__signal span:nth-child(3) {
+      animation-delay: 320ms;
+    }
+  }
+
+  @keyframes contact-scan {
+    0%,
+    28% {
+      transform: translateX(-100%);
+    }
+
+    58%,
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes contact-pulse {
+    0%,
+    100% {
+      transform: scaleX(0.54);
+      opacity: 0.34;
+    }
+
+    45% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .contact-form-shell {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+
+    .contact-form-copy h2 {
+      font-size: clamp(1.75rem, 8vw, 2.45rem);
+      line-height: 1.04;
+    }
+
+    .contact-form-section--embedded .contact-form-copy h2 {
+      font-size: clamp(1.45rem, 7vw, 2rem);
+      line-height: 1.08;
+    }
+
+    .contact-form-copy__signal {
+      padding-top: 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .contact-form-section {
+      background-size: 3.4rem 3.4rem, 3.4rem 3.4rem, auto;
+    }
+
+    .contact-form-shell {
+      padding-block: var(--space-4);
+      padding-inline: var(--container-padding);
+    }
+
+    .contact-form {
+      padding: var(--space-5);
+    }
+
+    .contact-form__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-form__submit {
+      width: 100%;
+    }
+  }
+</style>

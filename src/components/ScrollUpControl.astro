@@ -1,0 +1,62 @@
+<button class="scroll-up-control" type="button" aria-label="Подняться выше" data-scroll-up data-visible="false" aria-hidden="true" tabindex="-1">
+  <span aria-hidden="true">↑</span>
+</button>
+
+<script is:inline>
+  (() => {
+    const control = document.querySelector("[data-scroll-up]");
+    if (!control) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const updateVisibility = () => {
+      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      const topSection = document.getElementById("top") || document.querySelector(".hero");
+      const topSectionScrolled = topSection ? topSection.getBoundingClientRect().bottom < window.innerHeight - 24 : false;
+      const visible = scrollY >= 24 || topSectionScrolled;
+      control.dataset.visible = visible ? "true" : "false";
+      control.setAttribute("aria-hidden", visible ? "false" : "true");
+      control.tabIndex = visible ? 0 : -1;
+    };
+
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+    const animateScrollTo = (targetY) => {
+      if (reduceMotion) {
+        window.scrollTo({ top: targetY, behavior: "auto" });
+        return;
+      }
+
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const duration = Math.min(900, Math.max(450, Math.abs(distance) * 0.35));
+      let startTime = null;
+
+      const step = (timestamp) => {
+        if (startTime === null) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeOutCubic(progress);
+        window.scrollTo(0, startY + distance * eased);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+
+      window.requestAnimationFrame(step);
+    };
+
+    control.addEventListener("click", () => {
+      animateScrollTo(0);
+    });
+
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    window.addEventListener("resize", updateVisibility);
+    window.addEventListener("load", updateVisibility);
+    window.addEventListener("hashchange", updateVisibility);
+    updateVisibility();
+    window.requestAnimationFrame(updateVisibility);
+    window.setTimeout(updateVisibility, 0);
+    window.setTimeout(updateVisibility, 250);
+    window.setTimeout(updateVisibility, 1000);
+  })();
+</script>

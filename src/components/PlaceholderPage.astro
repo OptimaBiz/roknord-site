@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+type Props = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  points: string[];
+  note: string;
+};
+
+const { eyebrow, title, description, points, note } = Astro.props as Props;
+---
+
+<BaseLayout title={title} description={description}>
+  <main id="content">
+    <section class="hero">
+      <div class="page-container">
+        <div class="band section-stack">
+          <p class="eyebrow">{eyebrow}</p>
+          <h1 class="section-heading">{title}</h1>
+          <p class="section-lead">{description}</p>
+          <ul class="pill-list" aria-label={title}>
+            {points.map((point) => <li class="pill">{point}</li>)}
+          </ul>
+          <p class="meta">{note}</p>
+          <div>
+            <a class="button button-secondary" href="/">На главную</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

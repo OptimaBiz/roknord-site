@@ -1,0 +1,129 @@
+/* Shared media placeholder utilities used by hero and promo/content blocks. */
+
+.hero-actions,
+.text-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.image-placeholder {
+  position: relative;
+  display: grid;
+  min-height: 18rem;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: var(--lrqa-white);
+  isolation: isolate;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--frame-bevel-size-md)), calc(100% - var(--frame-bevel-size-md)) 100%, 0 100%);
+}
+
+.image-placeholder::before,
+.image-placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.image-placeholder::before {
+  z-index: -2;
+  background: var(--color-border-strong);
+}
+
+.image-placeholder::after {
+  z-index: -1;
+  inset: var(--frame-border-width);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--lrqa-white) 8%, transparent), transparent 34%),
+    linear-gradient(145deg, transparent 0 58%, color-mix(in srgb, var(--color-mint-action) 17%, transparent) 58% 62%, transparent 62% 100%),
+    color-mix(in srgb, var(--color-surface-card-dark) 88%, var(--lrqa-black));
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - max(0px, calc(var(--frame-bevel-size-md) - var(--frame-border-width)))),
+    calc(100% - max(0px, calc(var(--frame-bevel-size-md) - var(--frame-border-width)))) 100%,
+    0 100%
+  );
+}
+
+.image-placeholder__frame {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: end;
+  gap: var(--space-3);
+  min-height: 100%;
+  padding: clamp(var(--card-padding-lg), 3vw, var(--card-padding-xl));
+}
+
+.image-placeholder__frame::before,
+.image-placeholder__frame::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.image-placeholder__frame::before {
+  top: 12%;
+  right: 9%;
+  width: min(38%, 12rem);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--lrqa-white) 18%, transparent);
+  clip-path: polygon(18% 0, 100% 0, 82% 100%, 0 100%);
+}
+
+.image-placeholder__frame::after {
+  right: 10%;
+  bottom: 18%;
+  width: 42%;
+  height: 0.32rem;
+  background: var(--color-mint-action);
+  transform: rotate(-8deg);
+}
+
+.image-placeholder__label {
+  width: fit-content;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  background: color-mix(in srgb, var(--color-surface-card-dark) 72%, transparent);
+  color: var(--color-mint-action);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.image-placeholder__note {
+  max-width: 22rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-size: clamp(var(--font-size-lg), 1vw + 1rem, var(--font-size-3xl));
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.image-placeholder--hero {
+  min-height: clamp(22rem, 34vw, 31rem);
+}
+
+.image-placeholder--promo {
+  width: min(78%, 35rem);
+  min-height: clamp(17rem, 24vw, 23rem);
+  margin: auto;
+}
+
+.image-placeholder--report {
+  min-height: 13rem;
+}
+
+.image-placeholder--card {
+  min-height: 18rem;
+}
+
+.image-placeholder--article {
+  min-height: 15rem;
+}

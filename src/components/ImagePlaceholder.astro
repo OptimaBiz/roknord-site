@@ -1,0 +1,20 @@
+---
+type Props = {
+  label?: string;
+  note?: string;
+  class?: string;
+};
+
+const {
+  label = "Будущий визуал",
+  note = "Изображение",
+  class: className = "",
+} = Astro.props as Props;
+---
+
+<div class={`image-placeholder image-placeholder--system ${className}`.trim()} aria-label={label}>
+  <div class="image-placeholder__frame">
+    <span class="image-placeholder__label">{label}</span>
+    <span class="image-placeholder__note">{note}</span>
+  </div>
+</div>

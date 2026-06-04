@@ -3,37 +3,37 @@ const faq = [
   {
     question: "Это официальная услуга Росаккредитации?",
     answer:
-      "Нет. Рокнорд проводит независимую подготовку: проверку готовности, карты рисков, доказательной базы и связки документов с практикой.",
+      "Рокнорд проводит независимую подготовку и сопровождение: проверку, составление карты рисков, исправление доказательной базы и связки документов с практикой.",
   },
   {
     question: "Когда лучше начинать подготовку?",
     answer:
-      "До подачи заявления, до выездной оценки и до ответа по несоответствиям. Раньше видно, где область, записи или ФГИС расходятся с фактом.",
+      "Начинать лучше за 3-6 месяцев до подачи заявления.",
   },
   {
     question: "Можно ли проверить только область аккредитации или анкету?",
     answer:
-      "Да. Можно начать с точечной проверки области, анкеты самообследования, выборки дел или отдельных документов СМК.",
+      "Да. Можно начать с первичного аудита.",
   },
   {
     question: "Работаете ли вы с ПК и актуализацией / расширением области?",
     answer:
-      "Да. Мы смотрим процедуру подтверждения компетентности, актуализацию области и связанные корректирующие действия как единый контур.",
+      "Да. Мы составляем процедуру подтверждения компетентности, актуализацию области и связанные корректирующие действия как единый контур.",
   },
   {
     question: "Можно ли работать удалённо?",
     answer:
-      "Да, если для задачи достаточно документов, записей, сведений ФГИС и согласованной дистанционной коммуникации с командой.",
+      "Частично да, если для задачи достаточно документов, записей, сведений ФГИС и согласованной дистанционной коммуникации с командой.",
   },
   {
-    question: "Что клиент получает на выходе?",
+    question: "Что я как Клиент получаю?",
     answer:
-      "В зависимости от запроса это может быть карта рисков, перечень слабых мест, план корректирующих действий, комментарии к области или пакет доказательств.",
+      "Вы получаете поддержку независимых специалистов по аккредитации. Состав работ и результат определяются вашей задачей.",
   },
   {
     question: "Можно ли обещать исход процедуры?",
     answer:
-      "Нет. Рокнорд не обещает исход процедуры и не подменяет официальную оценку. Мы помогаем подготовить документы, практику и доказательства в логике проверки.",
+      "Рокнорд не может повлиять на исход процедуры и не подменяет официальную оценку. Мы помогаем подготовить вашу организацию к проверке в логике ФСА.",
   },
 ];
 ---
@@ -43,9 +43,8 @@ const faq = [
     <div class="faq-shell">
       <div class="section-stack faq-intro">
         <p class="section__eyebrow">Вопросы</p>
-        <h2 class="section__title">Коротко о границах работы, сроках и результате подготовки.</h2>
+        <h2 class="section__title">О границах работы, сроках и результате.</h2>
         <p class="section__lead">
-          Отвечаем без обещаний исхода процедуры: что проверяем, где видим риск и что можно подготовить заранее.
         </p>
       </div>
 
@@ -62,3 +61,70 @@ const faq = [
     </div>
   </div>
 </section>
+
+<section class="faq-cta-strip" aria-label="Задать вопрос" hidden>
+  <div class="page-container faq-cta-inner">
+    <p class="faq-cta-question">Возникли вопросы по вашей процедуре?</p>
+    <a class="faq-cta-btn cta-angled" href="#contact">
+      <span>Задать вопрос</span>
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .faq-cta-strip {
+    background: var(--lrqa-navy);
+    border-top: 1px solid var(--lrqa-dark-border);
+  }
+
+  .faq-cta-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-5) var(--space-10);
+    padding-block: clamp(var(--space-8), 5vw, var(--space-12));
+  }
+
+  .faq-cta-question {
+    flex: 1 1 18rem;
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: clamp(1.35rem, 1.2vw + 1rem, 2rem);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-snug);
+    color: var(--lrqa-white);
+  }
+
+  .faq-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel) * 0.5);
+    background: var(--gradient-button-primary);
+    color: var(--lrqa-black);
+    font-size: var(--button-font-size);
+    font-weight: var(--button-font-weight);
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+    transition: background 0.2s ease, transform 0.18s ease;
+  }
+
+  .faq-cta-btn:hover,
+  .faq-cta-btn:focus-visible {
+    background: var(--gradient-button-primary-hover);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 600px) {
+    .faq-cta-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-6);
+    }
+
+    .faq-cta-question {
+      flex: none;
+    }
+  }
+</style>

@@ -777,7 +777,7 @@
 
 .faq-answer {
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--lrqa-muted);
   line-height: var(--line-height-relaxed);
 }
 

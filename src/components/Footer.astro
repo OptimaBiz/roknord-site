@@ -13,7 +13,7 @@
           alt="Рокнорд"
         />
       </a>
-      <p class="footer__tagline">Консалтинговые услуги в сфере аккредитации и подтверждения компетентности</p>
+      <p class="footer__tagline">Консалтинговые услуги в области подтверждения соответствия и аккредитации.</p>
     </div>
 
     <div class="footer__divider" aria-hidden="true"></div>
@@ -45,6 +45,12 @@
     <span>Все права защищены</span>
     <span class="footer__dot" aria-hidden="true">●</span>
     <span>ISO/IEC 27001</span>
+    <span class="footer__dot" aria-hidden="true">●</span>
+    <span>Санкт-Петербург, Россия</span>
+    <a class="footer__ask-btn cta-angled" href="#contact">
+      <span>Задать вопрос</span>
+      <span aria-hidden="true">→</span>
+    </a>
   </div>
 </footer>
 
@@ -164,6 +170,26 @@
     line-height: 1;
   }
 
+  .footer__ask-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-left: auto;
+    padding: var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel) * 0.5);
+    background: var(--gradient-button-primary);
+    color: var(--lrqa-black);
+    font-size: var(--button-font-size);
+    font-weight: var(--button-font-weight);
+    white-space: nowrap;
+    transition: background 0.2s ease, transform 0.18s ease;
+  }
+
+  .footer__ask-btn:hover,
+  .footer__ask-btn:focus-visible {
+    background: var(--gradient-button-primary-hover);
+    transform: translateY(-1px);
+  }
+
   @media (max-width: 48rem) {
     .footer__inner {
       grid-template-columns: 1fr;
@@ -191,6 +217,11 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+    }
+
+    .footer__ask-btn {
+      margin-left: 0;
+      margin-top: var(--space-3);
     }
 
     .footer__dot {

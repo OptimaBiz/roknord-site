@@ -47,7 +47,7 @@ const scenarios = [
   <div class="section__inner section-stack page-container">
     <header class="section-stack section-scope">
       <p class="section__eyebrow">Когда обращаются к нам</p>
-      <h2 class="section__title">К нам обращаются, чтобы заранее понять, где процедура может пойти не по плану.</h2>
+      <h2 class="section__title">К нам обращаются, чтобы заранее понять и устранить риски.</h2>
       <p class="section__lead">Выберите ситуацию, которая ближе к вашей.</p>
     </header>
 
@@ -78,6 +78,14 @@ const scenarios = [
 </section>
 
 <style>
+  /* ── Фиксированная структура: элементы карточки выровнены по горизонтали ── */
+  @media (min-width: 40rem) {
+    .scenario-card {
+      grid-template-rows: auto auto 1fr auto auto;
+      align-content: stretch;
+    }
+  }
+
   /* ── Layered elements above pseudo-elements ────────── */
   .scenario-card--featured > *:not(.card-spotlight):not(.card-ripple) {
     position: relative;

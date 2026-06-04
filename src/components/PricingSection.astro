@@ -195,14 +195,19 @@ const commonItems = [
     background-color: var(--lrqa-white);
   }
 
+  .pricing-wrap--featured .pricing-card {
+    padding-top: calc(var(--font-size-2xs) * 1.6 + var(--space-1) * 2 + var(--space-4));
+  }
+
   .pricing-card__top {
     display: grid;
     gap: var(--space-4);
   }
 
   .pricing-card__badge {
-    display: inline-block;
-    width: fit-content;
+    position: absolute;
+    top: 0;
+    left: 0;
     padding: var(--space-1) var(--space-3);
     background: var(--lrqa-mint);
     color: var(--lrqa-black);
@@ -210,6 +215,7 @@ const commonItems = [
     font-weight: var(--font-weight-semibold);
     letter-spacing: var(--letter-spacing-wide);
     text-transform: uppercase;
+    line-height: 1.6;
   }
 
   .pricing-card__name {
@@ -373,6 +379,43 @@ const commonItems = [
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
     color: var(--lrqa-muted-dark);
+    transform-origin: left center;
+    transition:
+      transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+      opacity 0.18s ease,
+      color 0.18s ease;
+    will-change: transform;
+  }
+
+  /* scroll-in: начальное состояние */
+  .pricing-common__item[data-common-item] {
+    opacity: 0;
+    transform: scale(0.78);
+  }
+  .pricing-common__item.is-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* desktop hover: активный растёт, остальные чуть уменьшаются */
+  @media (hover: hover) {
+    .pricing-common__list:has(.pricing-common__item:hover) .pricing-common__item {
+      opacity: 0.55;
+      transform: scale(0.9);
+      color: var(--lrqa-muted);
+    }
+    .pricing-common__list .pricing-common__item:hover {
+      opacity: 1 !important;
+      transform: scale(1.1) !important;
+      color: var(--lrqa-muted-dark) !important;
+    }
+  }
+
+  /* mobile tap */
+  .pricing-common__item.is-tapped {
+    transform: scale(1.1);
+    opacity: 1;
+    color: var(--lrqa-muted-dark);
   }
 
   .pricing-common__check {
@@ -382,6 +425,12 @@ const commonItems = [
     height: 1rem;
     background: var(--lrqa-mint);
     clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .pricing-common__item:hover .pricing-common__check,
+  .pricing-common__item.is-tapped .pricing-common__check {
+    transform: scale(1.3);
   }
 
   /* CTA block */
@@ -489,4 +538,44 @@ const commonItems = [
       wrap.classList.remove("is-active");
     });
   });
+
+  // Блок "Что входит во все форматы" — scroll-in + tap/hover эффект
+  (() => {
+    const items = document.querySelectorAll<HTMLElement>(".pricing-common__item");
+    if (!items.length) return;
+
+    items.forEach((el) => el.setAttribute("data-common-item", ""));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            const idx = Number(el.dataset.idx ?? 0);
+            setTimeout(() => el.classList.add("is-in"), idx * 55);
+            observer.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    items.forEach((el, i) => {
+      el.dataset.idx = String(i);
+      observer.observe(el);
+    });
+
+    // mobile tap
+    items.forEach((el) => {
+      let tapTimer: ReturnType<typeof setTimeout>;
+      el.addEventListener("touchstart", () => {
+        clearTimeout(tapTimer);
+        items.forEach((x) => x.classList.remove("is-tapped"));
+        el.classList.add("is-tapped");
+      }, { passive: true });
+      el.addEventListener("touchend", () => {
+        tapTimer = setTimeout(() => el.classList.remove("is-tapped"), 500);
+      }, { passive: true });
+    });
+  })();
 </script>

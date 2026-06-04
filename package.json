@@ -14,5 +14,8 @@
   "dependencies": {
     "@fontsource/montserrat": "^5.2.8",
     "astro": "^6.4.2"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0"
   }
 }

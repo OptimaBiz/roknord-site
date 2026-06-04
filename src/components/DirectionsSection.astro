@@ -48,7 +48,12 @@ const scenarios = [
 
     <div class="scenario-grid" aria-label="Основные сценарии помощи">
       {scenarios.map((item, index) => (
-        <article class={`card card--light scenario-card ${index === 0 ? "scenario-card--featured" : ""}`}>
+        <article
+          class="card card--light scenario-card scenario-card--featured"
+          style={`--i: ${index}`}
+        >
+          <span class="card-spotlight" aria-hidden="true"></span>
+          <span class="card-ripple" aria-hidden="true"></span>
           <p class="card__meta">Сценарий {index + 1}</p>
           <h3 class="card__title">{item.title}</h3>
           <p class="card__text">{item.text}</p>
@@ -65,3 +70,289 @@ const scenarios = [
     </div>
   </div>
 </section>
+
+<style>
+  /* ── Layered elements above pseudo-elements ────────── */
+  .scenario-card--featured > *:not(.card-spotlight):not(.card-ripple) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Spotlight ──────────────────────────────────────── */
+  .card-spotlight {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(
+      circle at var(--mx, 50%) var(--my, 38%),
+      rgba(0, 250, 176, 0.12) 0%,
+      rgba(0, 250, 176, 0.05) 42%,
+      transparent 70%
+    );
+    transition: opacity 0.3s ease;
+  }
+
+  /* Desktop: show on hover */
+  @media (hover: hover) {
+    .scenario-card--featured.card-entered:hover .card-spotlight {
+      opacity: 1;
+    }
+  }
+
+  /* Touch: show on active tap */
+  .scenario-card--featured.card-entered.card-touching .card-spotlight {
+    opacity: 1;
+    transition: opacity 0.15s ease;
+  }
+
+  /* ── Tap ripple ─────────────────────────────────────── */
+  .card-ripple {
+    position: absolute;
+    top: var(--ry, 50%);
+    left: var(--rx, 50%);
+    z-index: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    width: 4rem;
+    height: 4rem;
+    transform: translate(-50%, -50%) scale(0);
+    background: radial-gradient(circle, rgba(0, 250, 176, 0.28) 0%, transparent 70%);
+    opacity: 0;
+  }
+
+  @keyframes ripple-burst {
+    0%   { transform: translate(-50%, -50%) scale(0);  opacity: 1; }
+    60%  { transform: translate(-50%, -50%) scale(6);  opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(10); opacity: 0; }
+  }
+
+  .scenario-card--featured.card-entered.card-rippling .card-ripple {
+    animation: ripple-burst 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* ── Entrance: hidden state ─────────────────────────── */
+  .scenario-card--featured {
+    opacity: 0;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 0%,
+      var(--editorial-frame-bevel) 0%,
+      0 0%
+    );
+    will-change: clip-path, opacity;
+  }
+
+  /* ── Entrance animation ─────────────────────────────── */
+  @keyframes card-reveal {
+    0% {
+      opacity: 0;
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 0%,
+        var(--editorial-frame-bevel) 0%,
+        0 0%
+      );
+    }
+    28% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 100%,
+        var(--editorial-frame-bevel) 100%,
+        0 calc(100% - var(--editorial-frame-bevel))
+      );
+    }
+  }
+
+  .scenario-card--featured.card-animating {
+    animation: card-reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* ── Post-entrance state ────────────────────────────── */
+  .scenario-card--featured.card-entered {
+    opacity: 1;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      var(--editorial-frame-bevel) 100%,
+      0 calc(100% - var(--editorial-frame-bevel))
+    );
+    animation: none;
+    will-change: filter, transform;
+    transition:
+      transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.3s ease;
+  }
+
+  /* Desktop hover lift */
+  @media (hover: hover) {
+    .scenario-card--featured.card-entered:hover {
+      transform: translateY(-4px) scale(1.008);
+      filter:
+        drop-shadow(0 18px 40px rgba(0, 250, 176, 0.13))
+        drop-shadow(0 4px 14px rgba(14, 11, 58, 0.14));
+    }
+  }
+
+  /* Touch press feedback */
+  .scenario-card--featured.card-entered.card-touching {
+    transform: scale(0.982);
+    filter: drop-shadow(0 6px 20px rgba(0, 250, 176, 0.2));
+    transition:
+      transform 0.12s ease,
+      filter 0.12s ease;
+  }
+
+  /* ── Deliverable scan-line ──────────────────────────── */
+  .card__deliverable {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card__deliverable::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: -80%;
+    width: 60%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 250, 176, 0.16) 40%,
+      rgba(0, 250, 176, 0.26) 50%,
+      rgba(0, 250, 176, 0.16) 60%,
+      transparent 100%
+    );
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @keyframes deliverable-scan {
+    0%   { left: -80%;  opacity: 1; }
+    100% { left: 130%;  opacity: 1; }
+  }
+
+  /* Desktop: trigger on hover */
+  @media (hover: hover) {
+    .scenario-card--featured.card-entered:hover .card__deliverable::after {
+      animation: deliverable-scan 0.65s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+    }
+  }
+
+  /* Touch: trigger via class */
+  .scenario-card--featured.card-entered.card-touching .card__deliverable::after {
+    animation: deliverable-scan 0.65s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+  }
+
+  /* ── Reduced motion ─────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .scenario-card--featured,
+    .scenario-card--featured.card-animating {
+      opacity: 1;
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 100%,
+        var(--editorial-frame-bevel) 100%,
+        0 calc(100% - var(--editorial-frame-bevel))
+      );
+      animation: none;
+      will-change: auto;
+    }
+
+    .scenario-card--featured.card-entered {
+      transition: none;
+    }
+
+    .card-spotlight,
+    .card-ripple {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const cards = document.querySelectorAll<HTMLElement>(
+    '#directions .scenario-card--featured'
+  );
+
+  if (cards.length) {
+    // Per-card IntersectionObserver — each card animates when it scrolls into view
+    cards.forEach((card) => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          observer.disconnect();
+
+          card.classList.add('card-animating');
+          card.addEventListener(
+            'animationend',
+            () => {
+              card.classList.remove('card-animating');
+              card.classList.add('card-entered');
+            },
+            { once: true }
+          );
+        },
+        { threshold: 0.12 }
+      );
+      observer.observe(card);
+    });
+
+    // Desktop: mouse spotlight
+    cards.forEach((card) => {
+      card.addEventListener('mousemove', (e: MouseEvent) => {
+        if (!card.classList.contains('card-entered')) return;
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${((e.clientX - rect.left) / rect.width) * 100}%`);
+        card.style.setProperty('--my', `${((e.clientY - rect.top) / rect.height) * 100}%`);
+      });
+    });
+
+    // Touch: spotlight + ripple + scan-line on tap
+    cards.forEach((card) => {
+      let touchEndTimer: ReturnType<typeof setTimeout>;
+
+      card.addEventListener('touchstart', (e: TouchEvent) => {
+        if (!card.classList.contains('card-entered')) return;
+        clearTimeout(touchEndTimer);
+
+        const touch = e.touches[0];
+        const rect = card.getBoundingClientRect();
+        const x = ((touch.clientX - rect.left) / rect.width) * 100;
+        const y = ((touch.clientY - rect.top) / rect.height) * 100;
+
+        // Spotlight position
+        card.style.setProperty('--mx', `${x}%`);
+        card.style.setProperty('--my', `${y}%`);
+
+        // Ripple position (px from card top-left)
+        card.style.setProperty('--rx', `${touch.clientX - rect.left}px`);
+        card.style.setProperty('--ry', `${touch.clientY - rect.top}px`);
+
+        // Restart ripple animation
+        card.classList.remove('card-rippling');
+        void (card as HTMLElement).offsetWidth; // reflow to reset animation
+        card.classList.add('card-touching', 'card-rippling');
+      }, { passive: true });
+
+      const endTouch = () => {
+        touchEndTimer = setTimeout(() => {
+          card.classList.remove('card-touching', 'card-rippling');
+        }, 380);
+      };
+
+      card.addEventListener('touchend', endTouch, { passive: true });
+      card.addEventListener('touchcancel', endTouch, { passive: true });
+    });
+  }
+</script>

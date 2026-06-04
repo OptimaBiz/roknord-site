@@ -1,0 +1,48 @@
+---
+type NavItem = { label: string; href: string; isLogin?: boolean };
+
+type Props = {
+  serviceLinks: NavItem[];
+  audienceLinks: NavItem[];
+  utilityLinks: NavItem[];
+};
+
+const { serviceLinks, audienceLinks, utilityLinks } = Astro.props;
+---
+
+<details class="mobile-menu">
+  <summary aria-label="Открыть меню" aria-controls="mobile-drawer" aria-expanded="false">
+    <span class="mobile-menu__icon" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+    <span class="mobile-menu__label">Меню</span>
+  </summary>
+  <div class="mobile-menu-panel" id="mobile-drawer" aria-label="Мобильное меню">
+    <div class="mobile-menu-group mobile-menu-group--primary">
+      <p>Наши компетенции</p>
+      {serviceLinks.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))}
+    </div>
+
+    <div class="mobile-menu-group mobile-menu-group--primary">
+      <p>Помогаем Клиентам</p>
+      {audienceLinks.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))}
+    </div>
+
+    <div class="mobile-menu-group mobile-menu-group--company">
+      <p>Компания</p>
+      {utilityLinks.map((item) => (
+        item.isLogin
+          ? <a href={item.href} data-login-trigger>{item.label}</a>
+          : <a href={item.href}>{item.label}</a>
+      ))}
+    </div>
+
+    <a class="service-cta cta-angled mobile-menu-cta" href="/#contact">Разобрать задачу</a>
+  </div>
+</details>

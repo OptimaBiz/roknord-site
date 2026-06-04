@@ -155,11 +155,20 @@
 .promo-cover {
   position: relative;
   width: min(58%, 18rem);
-  height: auto;
   aspect-ratio: 1 / 1.42;
+  overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--lrqa-white) 28%, transparent);
   background: var(--lrqa-white);
   box-shadow: 0 1.4rem 3rem rgba(0, 0, 0, 0.28);
+}
+
+.promo-cover__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none;
 }
 
 .promo-visual-shape {

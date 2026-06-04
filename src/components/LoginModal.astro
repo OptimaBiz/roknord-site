@@ -1,0 +1,307 @@
+---
+---
+
+<div class="login-modal" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-modal-title" hidden>
+  <div class="login-modal__overlay" data-login-close></div>
+  <div class="login-modal__card">
+    <button class="login-modal__close" data-login-close aria-label="Закрыть">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <line x1="3" y1="3" x2="17" y2="17" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        <line x1="17" y1="3" x2="3" y2="17" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <div class="login-modal__header">
+      <p class="login-modal__eyebrow">Вход для Клиентов</p>
+      <h2 class="login-modal__title" id="login-modal-title">Личный кабинет</h2>
+    </div>
+
+    <form class="login-modal__form" novalidate>
+      <div class="login-modal__field">
+        <label class="login-modal__label" for="login-email">Электронная почта</label>
+        <input
+          class="login-modal__input"
+          type="email"
+          id="login-email"
+          name="email"
+          autocomplete="email"
+          placeholder="you@company.ru"
+        />
+      </div>
+
+      <div class="login-modal__field">
+        <label class="login-modal__label" for="login-password">Пароль</label>
+        <input
+          class="login-modal__input"
+          type="password"
+          id="login-password"
+          name="password"
+          autocomplete="current-password"
+          placeholder="••••••••"
+        />
+        <a class="login-modal__forgot" href="#contact" data-login-close>Забыли пароль?</a>
+      </div>
+
+      <button class="login-modal__submit" type="submit">
+        <span>Войти</span>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+          <line x1="0" y1="6" x2="12" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <polyline points="7,1 14,6 7,11" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </form>
+
+    <p class="login-modal__notice">
+      Данные для входа предоставляются после заключения договора.
+    </p>
+  </div>
+</div>
+
+<style>
+  .login-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+  }
+
+  .login-modal[hidden] {
+    display: none;
+  }
+
+  .login-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 11, 58, 0.82);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    cursor: pointer;
+  }
+
+  .login-modal__card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 26rem;
+    background: var(--lrqa-white);
+    padding: clamp(2rem, 5vw, 2.75rem);
+    display: grid;
+    gap: 1.75rem;
+    box-shadow: 0 32px 80px rgba(14, 11, 58, 0.45), 0 0 0 1px rgba(14, 11, 58, 0.08);
+    animation: modal-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes modal-in {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .login-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    background: none;
+    border: none;
+    color: var(--lrqa-muted);
+    cursor: pointer;
+    transition: color 0.15s ease;
+    padding: 0;
+  }
+
+  .login-modal__close:hover {
+    color: var(--lrqa-black);
+  }
+
+  .login-modal__header {
+    display: grid;
+    gap: 0.35rem;
+    padding-right: 2rem;
+  }
+
+  .login-modal__eyebrow {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-editorial-accent);
+  }
+
+  .login-modal__title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 4vw, 1.9rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--lrqa-navy);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .login-modal__subtitle {
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+    color: var(--lrqa-muted);
+    line-height: 1.4;
+  }
+
+  .login-modal__form {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .login-modal__field {
+    display: grid;
+    gap: 0.5rem;
+    position: relative;
+  }
+
+  .login-modal__label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--lrqa-muted-dark);
+    text-transform: uppercase;
+  }
+
+  .login-modal__input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--lrqa-border);
+    background: var(--lrqa-card-light);
+    color: var(--lrqa-black);
+    font-family: inherit;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .login-modal__input::placeholder {
+    color: var(--lrqa-border);
+  }
+
+  .login-modal__input:focus {
+    border-color: var(--lrqa-mint);
+    box-shadow: 0 0 0 3px rgba(0, 250, 176, 0.15);
+  }
+
+  .login-modal__forgot {
+    justify-self: end;
+    font-size: 0.8125rem;
+    color: var(--lrqa-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--lrqa-border-soft);
+    transition: color 0.15s, border-color 0.15s;
+    margin-top: 0.15rem;
+  }
+
+  .login-modal__forgot:hover {
+    color: var(--lrqa-muted-dark);
+    border-bottom-color: var(--lrqa-muted);
+  }
+
+  .login-modal__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    background: var(--lrqa-mint);
+    color: var(--lrqa-black);
+    font-family: inherit;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    border: none;
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.15s ease;
+    margin-top: 0.25rem;
+  }
+
+  .login-modal__submit:hover {
+    background: var(--lrqa-mint-2);
+    transform: translateY(-1px);
+  }
+
+  .login-modal__submit:active {
+    transform: translateY(0);
+  }
+
+  .login-modal__notice {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--lrqa-border);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 30rem) {
+    .login-modal__card {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const modal = document.getElementById('login-modal') as HTMLElement;
+  const focusableSelectors = 'input, button, a[href]';
+
+  function openModal() {
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    const first = modal.querySelector<HTMLElement>(focusableSelectors);
+    first?.focus();
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    (document.querySelector<HTMLElement>('[data-login-trigger]'))?.focus();
+  }
+
+  // Triggers (desktop utility nav + mobile header link)
+  document.querySelectorAll<HTMLElement>('[data-login-trigger]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      openModal();
+    });
+  });
+
+  // Close buttons and overlay
+  modal.querySelectorAll<HTMLElement>('[data-login-close]').forEach(el => {
+    el.addEventListener('click', () => closeModal());
+  });
+
+  // Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !modal.hidden) closeModal();
+  });
+
+  // Focus trap
+  modal.addEventListener('keydown', e => {
+    if (e.key !== 'Tab') return;
+    const focusable = Array.from(modal.querySelectorAll<HTMLElement>(focusableSelectors));
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+</script>

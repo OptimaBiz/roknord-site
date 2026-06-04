@@ -8,7 +8,7 @@
 - Prefer small, reviewable diffs.
 - Do not invent regulatory claims, guarantees, affiliations, or official status.
 - If a user request conflicts with this canon, flag the conflict before implementing.
-- For UI tasks, preserve approved Roknord brand tokens and navigation structure.
+- For UI tasks, preserve approved Roknord brand tokens, navigation structure, and current Astro/CSS architecture.
 
 ## Brand Invariant
 
@@ -16,26 +16,29 @@
 
 Сложные процедуры. Твёрдая подготовка.
 
-Документы, процессы, доказательства и риски — в логике проверки ФСА (Росаккредитация).
+Документы, процессы, доказательства и риски — в логике проверки ФСА / Росаккредитации.
 
 ## Positioning
 
 Рокнорд — независимая экспертная подготовка к процедурам Росаккредитации.
 
-Рокнорд — не сертификационный центр, не государственная услуга, не инфобизнес, не "аккредитация под ключ с гарантией".
+Рокнорд — не сертификационный центр, не государственная услуга, не инфобизнес и не «аккредитация под ключ с гарантией».
 
 Position Roknord around:
-- readiness audit;
+
+- independent readiness audit;
 - risk map;
 - evidence review;
 - accreditation scope review;
 - QMS / СМК review;
 - FGIS / ФГИС consistency review;
-- corrective action preparation.
+- corrective action preparation;
+- document, process, evidence, and risk logic.
 
 ## Forbidden Claims
 
 Never use these claims in copy, UI, CTA text, proposals, summaries, or agent output:
+
 - гарантируем прохождение;
 - гарантия прохождения;
 - гарантия аккредитации;
@@ -47,11 +50,16 @@ Never use these claims in copy, UI, CTA text, proposals, summaries, or agent out
 - официальное сопровождение;
 - обеспечим положительное решение;
 - аккредитация под ключ с гарантией;
-- Не гарантия прохождения.
+- пройдёте без замечаний;
+- гарантированно расширим область;
+- обеспечим возобновление аккредитации.
+
+Do not use pseudo-safe negations as marketing claims, for example: «не гарантия прохождения».
 
 ## Allowed Language
 
 Prefer:
+
 - независимый аудит готовности;
 - карта рисков;
 - проверка доказательств;
@@ -61,11 +69,16 @@ Prefer:
 - сопоставление документов и фактической практики;
 - проверка доказательной базы;
 - выявление рисков до подачи;
-- план корректирующих действий.
+- план корректирующих действий;
+- проверка анкеты самообследования;
+- анализ выборки дел;
+- подготовка к интервью / witness;
+- проверка связки «требование → процедура → запись → доказательство».
 
 ## Visual Direction
 
 Roknord visual system:
+
 - dark navy base with mint accents, white surfaces, and restrained grey neutrals;
 - large dark hero;
 - large typography;
@@ -73,70 +86,54 @@ Roknord visual system:
 - image-led sections;
 - sharp rectangular rhythm;
 - corporate assurance feel;
-- fewer dashboards;
+- fewer dashboards unless the dashboard directly explains evidence/risk logic;
 - fewer equal cards;
-- no generic SaaS/Tilda look.
+- no generic SaaS/Tilda look;
+- mobile as a separate composition, not a compressed desktop.
 
 Do not copy external brand assets, logos, texts, images, or exact HTML/CSS from any outside site.
-Repeat the color system, composition principles, header/hero rhythm, large image placeholders, blocky solution/resource sections, and corporate assurance mood.
 
-## Header Navigation Canon
+Use external references only for composition principles, rhythm, enterprise navigation logic, large image placeholders, blocky solution/resource sections, and corporate assurance mood.
 
-The site header has two levels:
+## Current Implementation Canon
 
-1. A stationary top service row.
-2. A main product navigation row with the Roknord logo on the left and only two primary items: `Услуги` and `Кому помогаем`.
+The current repository uses Astro/CSS and a token-first design system.
 
-Top service row links:
-- О компании
-- Личный кабинет
-- Карьера
-- Сотрудничество
-- Контакты
+Primary implementation files to inspect before UI edits:
 
-Top service row CTA:
-- Разобрать задачу
+- `src/styles/tokens.css`
+- `src/styles/global.css`
+- `src/styles/utilities.css`
+- `src/styles/header.css`
+- `src/styles/hero.css`
+- `src/styles/promo.css`
+- `src/components/Header.astro`
+- `src/components/Hero.astro`
+- `src/components/RequestStrip.astro`
+- relevant section components under `src/components/`
 
-Dropdown `Услуги`:
-- Подготовка к подтверждению компетентности
-- Аудит и актуализация области аккредитации
-- Корректирующие действия после несоответствий
-- Подготовка к первичной аккредитации
-- Специальные направления
+Do not introduce local one-off hex/rgb/hsl values in components when a token already exists.
 
-Dropdown `Кому помогаем`:
-- Испытательным лабораториям
-- Медицинским лабораториям
-- Органам по сертификации систем менеджмента
-- Органам по сертификации продукции
-- Органам инспекции
-- Калибровочным лабораториям
-- Провайдерам МСИ
-- Органам по сертификации халяль
+## Typography Canon
 
-Do not place `О компании`, `Материалы`, or `Контакты` in the main navigation row. `О компании` and `Контакты` belong only in the top service row. Do not return `Материалы` to header/navigation unless a separate approved placement is added.
+The current implemented site uses Montserrat.
 
-## Editorial Promo Pattern
+Use the existing tokens from `src/styles/tokens.css`:
 
-For editorial, promo, report, and expert-material blocks, use a magenta/purple accent-frame and an integrated angled label-tab. The label-tab is part of the top border line, not a floating green badge inside the card.
+- `--font-family-base`
+- `--font-family-heading`
+- `--font-body`
+- `--font-heading`
 
-Use tokens for this pattern:
-- `--color-editorial-accent`
-- `--color-promo-border-accent`
-- `--color-promo-label-bg`
-- `--color-promo-label-text`
-- `--editorial-frame-bevel`
-- `--editorial-label-bevel`
-- `--button-bevel`
+Do not switch the project back to Lato / Source Sans 3 unless explicitly requested.
 
-Reusable style pattern:
-- editorial cards use a shared frame utility with a beveled lower-left corner;
-- editorial label-tabs use a shared angled tab utility attached to the frame;
-- all filled CTA buttons use a shared two-sided angled CTA shape utility.
+Lato and Source Sans 3 may appear in older LRQA extraction notes as reference observations, but they are not the current implementation requirement.
 
-Do not replace the promo/report label-tab with green. Green is reserved for CTA, links, arrows, and key brand accents.
+## Color Canon
 
-## Mandatory Color Canon
+Use the current token system in `src/styles/tokens.css`.
+
+The repository already contains the LRQA-derived base tokens:
 
 ```css
 --lrqa-navy: #0E0B3A;
@@ -158,37 +155,3 @@ Do not replace the promo/report label-tab with green. Green is reserved for CTA,
 --lrqa-muted-2: #73718B;
 --lrqa-border: #B9B8C5;
 --lrqa-border-soft: #DEDDE4;
-```
-
-Do not use the previous approximate palette as part of the approved canon:
-- #B7FF00
-- #D7FF3F
-- #003A40
-- #002D32
-- #F4F1EA
-
-## Claude Code Engineering Rules
-
-- Work in the local repository tree only.
-- Do not commit or push without an explicit user command.
-- Keep changes narrow unless the task explicitly asks for a radical visual redesign.
-- Use Astro/CSS.
-- Avoid heavy libraries.
-- Avoid decorative JavaScript.
-- Desktop first.
-- Mobile clean and readable.
-- After frontend changes, run `npm run build` and report the result.
-- Do not modify application source files unless the task explicitly requires it.
-
-## Repo-Local Skills / Reference Files
-
-- `roknord-brand`: brand, positioning, accreditation framing, forbidden and allowed language.
-- `roknord-copy-rules`: Russian evidence-driven B2B copy rules for headings, sections, CTAs, and legal-safe wording.
-- `roknord-ui-style`: strict visual canon, composition rules, UI anti-template checks.
-- `roknord-lrqa-visual-reference`: visual-system canon and composition rules.
-
-## Claude Review Roles
-
-- Use `roknord_art_director` logic for strict senior visual direction review.
-- Use `roknord_qa_guardian` logic for strict QA and brand-compliance review.
-- Use `roknord_frontend_implementer` logic for Astro/CSS implementation of approved Roknord visual briefs.

@@ -150,11 +150,11 @@ const commonItems = [
     padding: 1px;
     background: var(--lrqa-border-soft);
     transition: background 220ms var(--easing-standard), box-shadow 220ms var(--easing-standard);
-    animation: pricing-pulse 3s ease-in-out infinite;
   }
 
   .pricing-wrap--featured {
     background: var(--lrqa-mint);
+    animation: pricing-pulse 3s ease-in-out infinite;
   }
 
   /* Magneto layer: mint cursor-follow on ::before */
@@ -310,7 +310,9 @@ const commonItems = [
 
   .pricing-card__link:hover,
   .pricing-card__link:focus-visible {
+    animation: none;
     color: var(--lrqa-muted-dark);
+    border-bottom-color: var(--lrqa-mint);
   }
 
   @keyframes link-shimmer {

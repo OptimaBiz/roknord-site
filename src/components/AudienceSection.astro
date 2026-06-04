@@ -5,7 +5,7 @@ const audiences = [
     text: "Чаще всего смотрим методики, оборудование, персонал и трассировку записей.",
     link: "Проверить формат",
     href: "/testing-labs/",
-    image: "/images/materials/lab.png",
+    image: "/images/materials/lab.webp",
     imageAlt: "Сотрудники испытательной лаборатории за работой с микроскопом и документами",
   },
   {
@@ -13,49 +13,49 @@ const audiences = [
     text: "Сопоставляем процессы, записи, персонал и следы лабораторной практики.",
     link: "Проверить формат",
     href: "/medical-labs/",
-    image: "/images/materials/medlab.png",
+    image: "/images/materials/medlab.webp",
   },
   {
     title: "Органам по сертификации систем менеджмента",
     text: "Смотрим СМК, выборку дел, компетентность и управляемость решений.",
     link: "Проверить формат",
     href: "/certification-bodies/",
-    image: "/images/materials/смк.png",
+    image: "/images/materials/смк.webp",
   },
   {
     title: "Органам по сертификации продукции",
     text: "Проверяем область, протоколы, несоответствия и следы корректировки.",
     link: "Проверить формат",
     href: "/certification-bodies/",
-    image: "/images/materials/product.png",
+    image: "/images/materials/product.webp",
   },
   {
     title: "Органам инспекции",
     text: "Оцениваем область, процедуры, записи выездов и наблюдений.",
     link: "Проверить формат",
     href: "#contact",
-    image: "/images/materials/insp.png",
+    image: "/images/materials/insp.webp",
   },
   {
     title: "Калибровочным лабораториям",
     text: "Сверяем методики, эталоны, прослеживаемость и документы.",
     link: "Проверить формат",
     href: "#contact",
-    image: "/images/materials/testing-lab-1.png",
+    image: "/images/materials/calibro.webp",
   },
   {
     title: "Провайдерам МСИ",
     text: "Смотрим программу, доказательства участия и корректность фиксации.",
     link: "Проверить формат",
     href: "#contact",
-    image: "/images/materials/testing-lab-1.png",
+    image: "/images/materials/metodasi.webp",
   },
   {
     title: "Органам по сертификации халяль",
     text: "Проверяем состав области, источники доказательств и логику согласования.",
     link: "Проверить формат",
     href: "#contact",
-    image: "/images/materials/testing-lab-1.png",
+    image: "/images/materials/halal.webp",
   },
 ];
 ---
@@ -109,9 +109,7 @@ const audiences = [
     background-position: center;
     filter: saturate(0.30) contrast(0.88) brightness(0.95) grayscale(0.25);
     pointer-events: none;
-    will-change: transform;
     transform: translateZ(0);
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   /* затемнение */
@@ -122,39 +120,18 @@ const audiences = [
     z-index: 1;
     background: rgba(14, 11, 58, 0.62);
     pointer-events: none;
-    transition: background 0.6s ease;
+    transition: background 0.15s ease;
   }
 
-  /* десктоп: приподъём + зум фона */
   @media (hover: hover) {
-    .audience-card {
-      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                  box-shadow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    .audience-card:hover,
-    .audience-card:focus-within {
-      transform: translateY(-5px);
-      box-shadow: 0 24px 52px rgba(0, 0, 0, 0.30);
-    }
-
-    .audience-card:hover::after,
-    .audience-card:focus-within::after {
-      transform: scale(1.05) translateZ(0);
-    }
-
     .audience-card:hover::before,
     .audience-card:focus-within::before {
-      background: rgba(14, 11, 58, 0.50);
+      background: rgba(14, 11, 58, 0.90);
     }
   }
 
-  /* мобильный: плавное осветление оверлея при тапе, без сдвига */
-  @media (hover: none) {
-    .audience-card:active::before {
-      background: rgba(14, 11, 58, 0.45);
-      transition: background 0.15s ease;
-    }
+  .audience-card.is-tapped::before {
+    background: rgba(14, 11, 58, 0.90);
   }
 
   .audience-card .card__title,
@@ -197,10 +174,8 @@ const audiences = [
     }
   }
 
-  @media (hover: none) {
-    .audience-card:active .card__link span[aria-hidden] {
-      animation: arrow-fwd 0.9s ease-in-out infinite alternate;
-    }
+  .audience-card.is-tapped .card__link span[aria-hidden] {
+    animation: arrow-fwd 0.9s ease-in-out infinite alternate;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -212,3 +187,42 @@ const audiences = [
     }
   }
 </style>
+
+<script>
+  const cards = document.querySelectorAll<HTMLElement>(".audience-card");
+  let activeCard: HTMLElement | null = null;
+
+  function clearCard(card: HTMLElement) {
+    card.classList.remove("is-tapped");
+    if (activeCard === card) activeCard = null;
+  }
+
+  cards.forEach((card) => {
+    let didMove = false;
+
+    card.addEventListener("touchstart", () => {
+      didMove = false;
+      if (activeCard && activeCard !== card) activeCard.classList.remove("is-tapped");
+      card.classList.add("is-tapped");
+      activeCard = card;
+    }, { passive: true });
+
+    card.addEventListener("touchmove", () => {
+      if (!didMove) {
+        didMove = true;
+        clearCard(card);
+      }
+    }, { passive: true });
+
+    card.addEventListener("touchcancel", () => {
+      clearCard(card);
+    }, { passive: true });
+  });
+
+  // Снимаем эффект если тап вне карточки
+  document.addEventListener("touchstart", (e) => {
+    if (activeCard && !(e.target as Element).closest(".audience-card")) {
+      clearCard(activeCard);
+    }
+  }, { passive: true });
+</script>

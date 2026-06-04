@@ -56,6 +56,8 @@ const audiences = [
     link: "Проверить формат",
     href: "#contact",
     image: "/images/materials/halal.webp",
+    logo: "/images/materials/halal_logo_v5.svg",
+    logoAlt: "Логотип халяль",
   },
 ];
 ---
@@ -63,17 +65,29 @@ const audiences = [
 <section id="deliverables" class="section section--light">
   <div class="section__inner section-stack page-container">
     <header class="section-stack section-scope">
-      <p class="section__eyebrow">Кому помогаем</p>
+      <p class="section__eyebrow">Помогаем нашим Клиентам</p>
       <h2 class="section__title">Для каждого типа аккредитованного лица важны свои доказательства и следы практики.</h2>
       <p class="section__lead">Смотрим не только комплект документов, но и то, как область, записи и фактическая работа сходятся между собой.</p>
     </header>
 
-    <div class="audience-grid" aria-label="Кому помогаем">
+    <div class="audience-grid" aria-label="Помогаем нашим Клиентам">
       {audiences.map((item) => (
         <article
           class="card audience-card"
           style={item.image ? `--bg-image: url('${item.image}');` : undefined}
         >
+          {item.logo && (
+            <div class="audience-card__logo-wrap">
+              <img
+                class="audience-card__logo"
+                src={item.logo}
+                alt={item.logoAlt ?? ""}
+                width="680"
+                height="420"
+                decoding="async"
+              />
+            </div>
+          )}
           <h3 class="card__title">{item.title}</h3>
           <p class="card__text">{item.text}</p>
           <a class="card__link" href={item.href}>
@@ -89,6 +103,7 @@ const audiences = [
 <style>
   .audience-card {
     position: relative;
+    z-index: 0;
     min-height: 26rem;
     align-content: end;
     color: var(--lrqa-white);
@@ -117,7 +132,7 @@ const audiences = [
     content: "";
     position: absolute;
     inset: 0;
-    z-index: 1;
+    z-index: 2;
     background: rgba(14, 11, 58, 0.62);
     pointer-events: none;
     transition: background 0.15s ease;
@@ -134,11 +149,26 @@ const audiences = [
     background: rgba(14, 11, 58, 0.90);
   }
 
+  .audience-card__logo-wrap {
+    position: absolute;
+    top: var(--space-5);
+    left: calc(var(--space-5) - 20%);
+    z-index: 1;
+    width: min(80%, 25rem);
+    pointer-events: none;
+  }
+
+  .audience-card__logo {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   .audience-card .card__title,
   .audience-card .card__text,
   .audience-card .card__link {
     position: relative;
-    z-index: 2;
+    z-index: 3;
   }
 
   .audience-card .card__title {

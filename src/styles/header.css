@@ -27,7 +27,7 @@
 }
 
 .request-strip--stuck::before {
-  clip-path: inset(0 0 100% 0);
+  clip-path: inset(0 0 0 0);
 }
 
 @keyframes request-strip-reveal {

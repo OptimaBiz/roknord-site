@@ -53,7 +53,7 @@ docs/                     # Design canon, implementation brief, visual QA report
   3. `ExpertMaterial` — promo card for expert PDF/material
   4. `ProofStrip` — approach marquee strip, `#approach`
   5. `AudienceSection` — audience cards, `#deliverables`
-  6. `DirectionsSection` — scenario cards, `#directions`
+  6. `Scenarios` — scenario cards, `#directions`
   7. `ProcessSection` — how-we-work steps, `#formats`
   8. `PricingSection` — pricing packages, `#pricing`
   9. `ContactForm` — lead form, `#contact`
@@ -100,7 +100,7 @@ docs/                     # Design canon, implementation brief, visual QA report
 - **data**: inline `audiences[]` array (5 items)
 - **animations**: GPU-accelerated hover effects, photo overlay transitions
 
-### src/components/DirectionsSection.astro (358 lines)
+### src/components/Scenarios.astro (358 lines)
 - **purpose**: scenario cards — "Основные сценарии помощи"
 - **section id**: `#directions`
 - **data**: inline `scenarios[]` array (5 items)
@@ -191,7 +191,7 @@ responsive.css    # All @media overrides (48rem tablet, 64rem desktop, 47.99rem 
 | `#top` | Hero | Главный экран |
 | `#approach` | ProofStrip | Наш подход |
 | `#deliverables` | AudienceSection | Кому помогаем |
-| `#directions` | DirectionsSection | Основные сценарии |
+| `#directions` | Scenarios | Основные сценарии |
 | `#formats` | ProcessSection | Как работаем |
 | `#pricing` | PricingSection | Стоимость |
 | `#contact` | ContactForm | Контактная форма |

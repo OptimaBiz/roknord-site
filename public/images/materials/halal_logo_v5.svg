@@ -1,0 +1,21 @@
+<svg width="100%" viewBox="0 0 680 420" role="img" style="" xmlns="http://www.w3.org/2000/svg">
+<title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Halal Certification Logo</title>
+<desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Minimal halal logo with Arabic and Latin text</desc>
+
+<defs>
+  
+<mask id="imagine-text-gaps-bupb20" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="680" height="420" fill="white"/><rect x="-91.984375" y="-63" width="184.07955932617188" height="105" fill="black" rx="2"/><rect x="-61.2734375" y="50" width="122.546875" height="29" fill="black" rx="2"/></mask></defs>
+
+<g transform="translate(340,210)" style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">
+
+  <circle r="130" fill="none" stroke="#c9a84c" stroke-width="1" stroke-dasharray="4 3" style="fill:none;stroke:rgb(201, 168, 76);color:rgb(0, 0, 0);stroke-width:1px;stroke-dasharray:4px, 3px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <text x="0" y="18" text-anchor="middle" font-size="88" font-weight="700" letter-spacing="2" style="fill:rgb(26, 107, 60);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:serif;font-size:88px;font-weight:700;text-anchor:middle;dominant-baseline:auto">حلال</text>
+
+  <line x1="-70" y1="36" x2="70" y2="36" stroke="#c9a84c" stroke-width="1.5" mask="url(#imagine-text-gaps-bupb20)" style="fill:rgb(0, 0, 0);stroke:rgb(201, 168, 76);color:rgb(0, 0, 0);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <polygon points="0,0 4,8 -4,8" transform="translate(0,36)" style="fill:rgb(201, 168, 76);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <text x="0" y="72" text-anchor="middle" font-size="22" font-weight="700" letter-spacing="8" style="fill:rgb(26, 107, 60);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:22px;font-weight:700;text-anchor:middle;dominant-baseline:auto">HALAL</text>
+
+</g>
+</svg>

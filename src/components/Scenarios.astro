@@ -41,9 +41,9 @@ const scenarios = [
 <section id="directions" class="section section--light">
   <div class="section__inner section-stack page-container">
     <header class="section-stack section-scope">
-      <p class="section__eyebrow">Основные сценарии помощи</p>
-      <h2 class="section__title">Разные процедуры требуют одного фокуса: область, доказательства и управляемые риски.</h2>
-      <p class="section__lead">Выберите сценарий, чтобы понять, какие документы, записи и связки стоит сверить до следующего этапа.</p>
+      <p class="section__eyebrow">Когда обращаются к нам</p>
+      <h2 class="section__title">К нам обращаются, чтобы заранее понять, где процедура может пойти не по плану.</h2>
+      <p class="section__lead">Выберите ситуацию, которая ближе к вашей.</p>
     </header>
 
     <div class="scenario-grid" aria-label="Основные сценарии помощи">
@@ -94,14 +94,14 @@ const scenarios = [
     transition: opacity 0.3s ease;
   }
 
-  /* Desktop: show on hover */
+  /* Desktop hover: spotlight follows cursor */
   @media (hover: hover) {
     .scenario-card--featured.card-entered:hover .card-spotlight {
       opacity: 1;
     }
   }
 
-  /* Touch: show on active tap */
+  /* Press: show spotlight on touch and mouse click */
   .scenario-card--featured.card-entered.card-touching .card-spotlight {
     opacity: 1;
     transition: opacity 0.15s ease;
@@ -135,6 +135,7 @@ const scenarios = [
   /* ── Entrance: hidden state ─────────────────────────── */
   .scenario-card--featured {
     opacity: 0;
+    border-color: transparent;
     clip-path: polygon(
       0 0,
       100% 0,
@@ -174,11 +175,14 @@ const scenarios = [
 
   .scenario-card--featured.card-animating {
     animation: card-reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    border-color: transparent;
   }
 
   /* ── Post-entrance state ────────────────────────────── */
   .scenario-card--featured.card-entered {
     opacity: 1;
+    border-color: rgba(0, 250, 176, 0.32);
+    box-shadow: 0 0 0 0 transparent;
     clip-path: polygon(
       0 0,
       100% 0,
@@ -189,21 +193,26 @@ const scenarios = [
     animation: none;
     will-change: filter, transform;
     transition:
-      transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-      filter 0.3s ease;
+      background 0.35s ease,
+      border-color 0.35s ease,
+      box-shadow 0.35s ease,
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* Desktop hover lift */
   @media (hover: hover) {
     .scenario-card--featured.card-entered:hover {
-      transform: translateY(-4px) scale(1.008);
+      transform: translateY(-10px) scale(1.018);
+      background: rgba(0, 250, 176, 0.08);
+      box-shadow: 0 0 0 2px rgba(0, 250, 176, 0.9);
       filter:
-        drop-shadow(0 18px 40px rgba(0, 250, 176, 0.13))
-        drop-shadow(0 4px 14px rgba(14, 11, 58, 0.14));
+        drop-shadow(0 20px 40px rgba(14, 11, 58, 0.32))
+        drop-shadow(0 6px 14px rgba(14, 11, 58, 0.2));
     }
   }
 
-  /* Touch press feedback */
+  /* Press feedback — desktop click and mobile tap */
   .scenario-card--featured.card-entered.card-touching {
     transform: scale(0.982);
     filter: drop-shadow(0 6px 20px rgba(0, 250, 176, 0.2));
@@ -241,14 +250,7 @@ const scenarios = [
     100% { left: 130%;  opacity: 1; }
   }
 
-  /* Desktop: trigger on hover */
-  @media (hover: hover) {
-    .scenario-card--featured.card-entered:hover .card__deliverable::after {
-      animation: deliverable-scan 0.65s cubic-bezier(0.4, 0, 0.6, 1) forwards;
-    }
-  }
-
-  /* Touch: trigger via class */
+  /* Press: trigger scan-line on touch and mouse click */
   .scenario-card--featured.card-entered.card-touching .card__deliverable::after {
     animation: deliverable-scan 0.65s cubic-bezier(0.4, 0, 0.6, 1) forwards;
   }
@@ -270,6 +272,7 @@ const scenarios = [
     }
 
     .scenario-card--featured.card-entered {
+      border-color: rgba(0, 250, 176, 0.32);
       transition: none;
     }
 
@@ -303,7 +306,7 @@ const scenarios = [
             { once: true }
           );
         },
-        { threshold: 0.12 }
+        { threshold: 0 }
       );
       observer.observe(card);
     });
@@ -318,41 +321,45 @@ const scenarios = [
       });
     });
 
-    // Touch: spotlight + ripple + scan-line on tap
+    // Touch + mouse: spotlight + ripple + scan-line on tap/click
     cards.forEach((card) => {
-      let touchEndTimer: ReturnType<typeof setTimeout>;
+      let endTimer: ReturnType<typeof setTimeout>;
 
-      card.addEventListener('touchstart', (e: TouchEvent) => {
+      const startPress = (clientX: number, clientY: number) => {
         if (!card.classList.contains('card-entered')) return;
-        clearTimeout(touchEndTimer);
+        clearTimeout(endTimer);
 
-        const touch = e.touches[0];
         const rect = card.getBoundingClientRect();
-        const x = ((touch.clientX - rect.left) / rect.width) * 100;
-        const y = ((touch.clientY - rect.top) / rect.height) * 100;
+        const x = ((clientX - rect.left) / rect.width) * 100;
+        const y = ((clientY - rect.top) / rect.height) * 100;
 
-        // Spotlight position
         card.style.setProperty('--mx', `${x}%`);
         card.style.setProperty('--my', `${y}%`);
+        card.style.setProperty('--rx', `${clientX - rect.left}px`);
+        card.style.setProperty('--ry', `${clientY - rect.top}px`);
 
-        // Ripple position (px from card top-left)
-        card.style.setProperty('--rx', `${touch.clientX - rect.left}px`);
-        card.style.setProperty('--ry', `${touch.clientY - rect.top}px`);
-
-        // Restart ripple animation
         card.classList.remove('card-rippling');
-        void (card as HTMLElement).offsetWidth; // reflow to reset animation
+        void (card as HTMLElement).offsetWidth;
         card.classList.add('card-touching', 'card-rippling');
-      }, { passive: true });
+      };
 
-      const endTouch = () => {
-        touchEndTimer = setTimeout(() => {
+      const endPress = () => {
+        endTimer = setTimeout(() => {
           card.classList.remove('card-touching', 'card-rippling');
         }, 380);
       };
 
-      card.addEventListener('touchend', endTouch, { passive: true });
-      card.addEventListener('touchcancel', endTouch, { passive: true });
+      card.addEventListener('touchstart', (e: TouchEvent) => {
+        startPress(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
+      card.addEventListener('touchend', endPress, { passive: true });
+      card.addEventListener('touchcancel', endPress, { passive: true });
+
+      card.addEventListener('mousedown', (e: MouseEvent) => {
+        startPress(e.clientX, e.clientY);
+      });
+      card.addEventListener('mouseup', endPress);
+      card.addEventListener('mouseleave', endPress);
     });
   }
 </script>

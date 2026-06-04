@@ -21,8 +21,10 @@
           const rect = requestStrip.getBoundingClientRect();
           const processSection = document.getElementById("formats");
           const contactSection = document.getElementById("contact");
+          const deliverablesSection = document.getElementById("deliverables");
           const processRect = processSection?.getBoundingClientRect();
           const contactRect = contactSection?.getBoundingClientRect();
+          const deliverablesRect = deliverablesSection?.getBoundingClientRect();
           const processHeight = processRect?.height || 0;
           const phoneOnly =
             Boolean(processRect) &&
@@ -30,9 +32,16 @@
             processHeight > 0 &&
             processRect.top <= processHeight * -0.5 &&
             contactRect.bottom > 0;
+          const stuck = rect.top <= 0;
+          const onLight =
+            stuck &&
+            Boolean(deliverablesRect) &&
+            deliverablesRect.top < rect.height &&
+            deliverablesRect.bottom > 0;
 
-          requestStrip.classList.toggle("request-strip--stuck", rect.top <= 0);
+          requestStrip.classList.toggle("request-strip--stuck", stuck);
           requestStrip.classList.toggle("request-strip--phone-only", phoneOnly);
+          requestStrip.classList.toggle("request-strip--on-light", onLight);
         };
 
         syncRequestStripStickyState();

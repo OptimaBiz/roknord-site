@@ -30,7 +30,7 @@ const utilityLinks = [
 
 const sectionLinks = [
   { label: "Сценарии помощи", href: "/#directions" },
-  { label: "Кому помогаем", href: "/#deliverables" },
+  { label: "Помогаем нашим Клиентам", href: "/#deliverables" },
   { label: "Ключевые услуги", href: "/#resources" },
   { label: "Карта проверки", href: "/#authority" },
   { label: "Как работаем", href: "/#formats" },
@@ -72,10 +72,10 @@ const sectionLinks = [
 
       <nav class="site-nav" aria-label="Основная навигация">
         <details class="nav-dropdown">
-          <summary aria-controls="services-panel" aria-expanded="false">Услуги</summary>
+          <summary aria-controls="services-panel" aria-expanded="false">Наши компетенции</summary>
           <div class="nav-dropdown-panel" id="services-panel">
             <div class="container nav-dropdown-inner">
-              <p class="nav-dropdown-title">Услуги</p>
+              <p class="nav-dropdown-title">Наши компетенции</p>
               <div class="nav-dropdown-list">
                 {serviceLinks.map((item) => (
                   <a href={item.href}>{item.label}</a>
@@ -85,10 +85,10 @@ const sectionLinks = [
           </div>
         </details>
         <details class="nav-dropdown">
-          <summary aria-controls="audience-panel" aria-expanded="false">Кому помогаем</summary>
+          <summary aria-controls="audience-panel" aria-expanded="false">Помогаем нашим Клиентам</summary>
           <div class="nav-dropdown-panel" id="audience-panel">
             <div class="container nav-dropdown-inner">
-              <p class="nav-dropdown-title">Кому помогаем</p>
+              <p class="nav-dropdown-title">Помогаем нашим Клиентам</p>
               <div class="nav-dropdown-list nav-dropdown-list--columns">
                 {audienceLinks.map((item) => (
                   <a href={item.href}>{item.label}</a>

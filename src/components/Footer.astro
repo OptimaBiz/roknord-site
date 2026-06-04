@@ -1,87 +1,200 @@
 ---
-const footerServices = [
-  { label: "Подготовка к подтверждению компетентности", href: "/#resources" },
-  { label: "Аудит и актуализация области аккредитации", href: "/#resources" },
-  { label: "Корректирующие действия", href: "/#resources" },
-  { label: "Первичная аккредитация", href: "/primary-accreditation/" },
-  { label: "Специальные направления", href: "/#directions" },
-];
-
-const footerAudiences = [
-  { label: "Испытательным лабораториям", href: "/testing-labs/" },
-  { label: "Медицинским лабораториям", href: "/medical-labs/" },
-  { label: "ОС систем менеджмента", href: "/certification-bodies/" },
-  { label: "ОС продукции", href: "/certification-bodies/" },
-  { label: "Органам инспекции", href: "/#deliverables" },
-  { label: "Калибровочным лабораториям", href: "/#deliverables" },
-  { label: "Провайдерам МСИ", href: "/#deliverables" },
-  { label: "ОС халяль", href: "/#deliverables" },
-];
-
-const footerCompany = [
-  { label: "О компании", href: "/#authority" },
-  { label: "Карьера", href: "/#contact" },
-  { label: "Сотрудничество", href: "/#contact" },
-  { label: "Контакты", href: "/#contact" },
-];
-
-const footerDocs = [
-  { label: "Политика конфиденциальности", href: "/privacy-policy/" },
-  { label: "Обработка персональных данных", href: "/personal-data-consent/" },
-];
-
-const footerContacts = [
-  { label: "Разобрать задачу", href: "/#contact" },
-  { label: "Получить карту рисков", href: "/#authority" },
-  { label: "Ответы на вопросы", href: "/#faq" },
-];
 ---
 
 <footer class="footer">
   <div class="footer__inner page-container">
-    <div class="footer__brand">
-      <p class="footer-title">Рокнорд</p>
-      <p class="footer-meta">Комплексная подготовка к аккредитации<br />и подтверждению компетентности</p>
-      <p class="footer-note">Сложные процедуры. Твёрдая подготовка.</p>
-      <p class="footer-note">Документы, процессы, доказательства и риски — в логике проверки.</p>
-      <p class="footer-note">Независимая подготовка, карта рисков и проверка доказательной базы.</p>
+    <div class="footer__col footer__col--brand">
+      <a class="footer__logo-link" href="/" aria-label="Рокнорд, на главную страницу">
+        <img
+          class="footer__logo"
+          src="/images/brand/roknord-logo-transparent.png"
+          width="2508"
+          height="627"
+          alt="Рокнорд"
+        />
+      </a>
+      <p class="footer__tagline">Консалтинговые услуги в сфере аккредитации и подтверждения компетентности</p>
     </div>
 
-    <div class="footer__grid">
-      <div class="footer__group">
-        <p class="footer__group-title">Наши компетенции</p>
-        <nav class="footer__links" aria-label="Наши компетенции в подвале">
-          {footerServices.map((item) => <a href={item.href}>{item.label}</a>)}
-        </nav>
-      </div>
+    <div class="footer__divider" aria-hidden="true"></div>
 
-      <div class="footer__group">
-        <p class="footer__group-title">Помогаем нашим Клиентам</p>
-        <nav class="footer__links" aria-label="Помогаем нашим Клиентам в подвале">
-          {footerAudiences.map((item) => <a href={item.href}>{item.label}</a>)}
-        </nav>
-      </div>
+    <div class="footer__col footer__col--nav">
+      <nav aria-label="Компания">
+        <a class="footer__nav-link" href="/#authority">О компании</a>
+        <a class="footer__nav-link" href="/#contact">Карьера</a>
+        <a class="footer__nav-link" href="/#contact">Партнёрам</a>
+        <a class="footer__nav-link" href="/privacy-policy/">Юридическая информация</a>
+      </nav>
+    </div>
 
-      <div class="footer__group">
-        <p class="footer__group-title">Компания</p>
-        <nav class="footer__links" aria-label="Компания в подвале">
-          {footerCompany.map((item) => <a href={item.href}>{item.label}</a>)}
-        </nav>
-      </div>
+    <div class="footer__divider" aria-hidden="true"></div>
 
-      <div class="footer__group">
-        <p class="footer__group-title">Документы</p>
-        <nav class="footer__links footer__legal" aria-label="Документы в подвале">
-          {footerDocs.map((item) => <a href={item.href}>{item.label}</a>)}
-        </nav>
-      </div>
-
-      <div class="footer__group">
-        <p class="footer__group-title">Контакты</p>
-        <nav class="footer__links" aria-label="Контакты в подвале">
-          {footerContacts.map((item) => <a href={item.href}>{item.label}</a>)}
-        </nav>
-      </div>
+    <div class="footer__col footer__col--nav">
+      <nav aria-label="Личный кабинет и документы">
+        <a class="footer__nav-link" href="#" data-login-trigger>Личный кабинет</a>
+        <a class="footer__nav-link" href="/privacy-policy/">Политика конфиденциальности</a>
+        <a class="footer__nav-link" href="/#contact">Политика в области качества</a>
+        <a class="footer__nav-link" href="/#contact">Контакты</a>
+      </nav>
     </div>
   </div>
+
+  <div class="footer__bottom page-container">
+    <span>© 2026 Рокнорд</span>
+    <span class="footer__dot" aria-hidden="true">●</span>
+    <span>Все права защищены</span>
+    <span class="footer__dot" aria-hidden="true">●</span>
+    <span>ISO/IEC 27001</span>
+  </div>
 </footer>
+
+<style>
+  @keyframes footer-breathe {
+    0%   { background-position: 0% 0%; }
+    50%  { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+  }
+
+  .footer {
+    padding-block: clamp(var(--footer-padding-block), 5vw, var(--section-y-lg));
+    background: linear-gradient(
+      135deg,
+      var(--lrqa-navy)      0%,
+      var(--lrqa-nav)       30%,
+      var(--lrqa-muted-dark) 60%,
+      var(--lrqa-navy-2)    100%
+    );
+    background-size: 300% 300%;
+    animation: footer-breathe 14s ease-in-out infinite;
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer {
+      animation: none;
+      background: var(--lrqa-navy);
+      background-size: auto;
+    }
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .footer__divider {
+    width: 1px;
+    align-self: stretch;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--lrqa-muted-dark) 18%,
+      var(--lrqa-muted-dark) 82%,
+      transparent 100%
+    );
+  }
+
+  .footer__col {
+    padding-inline: var(--space-8);
+  }
+
+  .footer__col--brand {
+    padding-left: 0;
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+  }
+
+  .footer__col--nav {
+    align-self: start;
+  }
+
+  .footer__logo-link {
+    display: inline-block;
+  }
+
+  .footer__logo {
+    display: block;
+    width: 10rem;
+    height: auto;
+  }
+
+  .footer__tagline {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .footer__col--nav nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .footer__nav-link {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    transition: var(--transition-fast);
+  }
+
+  .footer__nav-link:hover,
+  .footer__nav-link:focus-visible {
+    color: var(--color-mint-action);
+  }
+
+  .footer__bottom {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-top: var(--space-8);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border-strong);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+  }
+
+  .footer__dot {
+    color: var(--lrqa-mint);
+    font-size: 0.4em;
+    line-height: 1;
+  }
+
+  @media (max-width: 48rem) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .footer__divider {
+      display: none;
+    }
+
+    .footer__col {
+      padding-inline: 0;
+    }
+
+    .footer__col--brand {
+      padding-bottom: var(--space-2);
+    }
+
+    .footer__col--nav nav {
+      gap: var(--space-4);
+    }
+
+    .footer__bottom {
+      gap: var(--space-2);
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer__dot {
+      display: none;
+    }
+  }
+</style>

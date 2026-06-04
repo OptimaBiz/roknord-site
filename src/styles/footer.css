@@ -1,66 +1,4 @@
-/* Footer, cookie panel, and scroll control styles. */
-
-.footer {
-  padding-block: clamp(var(--footer-padding-block), 5vw, var(--section-y-lg));
-  background: var(--color-surface-card-dark);
-  border-top: 1px solid var(--color-border-strong);
-}
-
-.footer__inner {
-  display: grid;
-  gap: var(--space-8);
-}
-
-.footer__brand {
-  display: grid;
-  gap: var(--space-3);
-  padding: var(--card-padding-lg);
-  border: 1px solid var(--color-border-strong);
-  background: color-mix(in srgb, var(--color-surface-card-dark) 86%, var(--lrqa-black));
-}
-
-.footer__grid {
-  display: grid;
-  gap: var(--space-6);
-}
-
-.footer__group {
-  display: grid;
-  gap: var(--space-3);
-  align-content: start;
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--color-border-strong);
-}
-
-.footer__group-title {
-  margin: 0;
-  color: var(--color-mint-action);
-  font-size: var(--font-size-2xs);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-}
-
-.footer__links {
-  display: grid;
-  gap: var(--space-3);
-}
-
-.footer__links a {
-  color: var(--color-text-primary);
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-relaxed);
-  transition: var(--transition-fast);
-}
-
-.footer__links a:hover,
-.footer__links a:focus-visible {
-  color: var(--color-mint-action);
-}
-
-.footer__legal a {
-  color: var(--color-text-muted);
-}
+/* Cookie panel and scroll control styles. */
 
 .cookie-panel {
   position: fixed;
@@ -171,15 +109,4 @@
     animation-timeline: scroll();
     animation-range: 24px 25px;
   }
-}
-
-.footer-meta {
-  margin: 0;
-  color: var(--lrqa-white);
-  line-height: var(--line-height-relaxed);
-}
-
-.footer-note {
-  margin: 0;
-  line-height: var(--line-height-relaxed);
 }

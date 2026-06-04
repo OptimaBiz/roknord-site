@@ -21,7 +21,7 @@ const { serviceLinks, audienceLinks, utilityLinks } = Astro.props;
   </summary>
   <div class="mobile-menu-panel" id="mobile-drawer" aria-label="Мобильное меню">
     <div class="mobile-menu-group mobile-menu-group--primary">
-      <p>Наши компетенции</p>
+      <p>Услуги</p>
       {serviceLinks.map((item) => (
         <a href={item.href}>{item.label}</a>
       ))}

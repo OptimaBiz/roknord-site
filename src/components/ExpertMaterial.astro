@@ -25,7 +25,12 @@
         </a>
       </div>
       <div class="promo-visual">
-        <div class="promo-cover">
+        <div
+          class="promo-cover"
+          data-promo-cover-pan
+          tabindex="0"
+          aria-label="Интерактивный просмотр первой страницы материала"
+        >
           <iframe
             class="promo-cover__frame"
             src="/pdf/roknord_karta_riskov_pk_os_smk_2026.pdf#page=1&toolbar=0&navpanes=0&scrollbar=0&view=FitH"
@@ -38,3 +43,94 @@
     </article>
   </div>
 </section>
+
+<script>
+  (() => {
+    const cover = document.querySelector('[data-promo-cover-pan]');
+    if (!cover) return;
+
+    let isPanning = false;
+    let keyboardX = 0;
+    let keyboardY = 0;
+
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+    const setPan = (clientX, clientY) => {
+      const rect = cover.getBoundingClientRect();
+      const ratioX = clamp((clientX - rect.left) / rect.width, 0, 1);
+      const ratioY = clamp((clientY - rect.top) / rect.height, 0, 1);
+      const maxX = rect.width * 0.22;
+      const maxY = rect.height * 0.22;
+
+      keyboardX = (0.5 - ratioX) * 2 * maxX;
+      keyboardY = (0.5 - ratioY) * 2 * maxY;
+
+      cover.style.setProperty('--cover-pan-x', `${keyboardX}px`);
+      cover.style.setProperty('--cover-pan-y', `${keyboardY}px`);
+    };
+
+    const setKeyboardPan = () => {
+      cover.style.setProperty('--cover-pan-x', `${keyboardX}px`);
+      cover.style.setProperty('--cover-pan-y', `${keyboardY}px`);
+    };
+
+    const resetPan = () => {
+      keyboardX = 0;
+      keyboardY = 0;
+      cover.style.setProperty('--cover-pan-x', '0px');
+      cover.style.setProperty('--cover-pan-y', '0px');
+    };
+
+    cover.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'mouse') setPan(event.clientX, event.clientY);
+    });
+
+    cover.addEventListener('pointermove', (event) => {
+      if (event.pointerType !== 'mouse' && !isPanning) return;
+      setPan(event.clientX, event.clientY);
+    });
+
+    cover.addEventListener('pointerdown', (event) => {
+      isPanning = true;
+      cover.classList.add('is-panning');
+      cover.setPointerCapture?.(event.pointerId);
+      setPan(event.clientX, event.clientY);
+    });
+
+    const stopPanning = (event) => {
+      isPanning = false;
+      cover.classList.remove('is-panning');
+      cover.releasePointerCapture?.(event.pointerId);
+    };
+
+    cover.addEventListener('pointerup', stopPanning);
+    cover.addEventListener('pointercancel', stopPanning);
+
+    cover.addEventListener('pointerleave', (event) => {
+      if (event.pointerType === 'mouse' && !isPanning) resetPan();
+    });
+
+    cover.addEventListener('keydown', (event) => {
+      const rect = cover.getBoundingClientRect();
+      const stepX = rect.width * 0.07;
+      const stepY = rect.height * 0.07;
+      const maxX = rect.width * 0.22;
+      const maxY = rect.height * 0.22;
+
+      if (event.key === 'Escape') {
+        resetPan();
+        return;
+      }
+
+      if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
+      event.preventDefault();
+
+      if (event.key === 'ArrowLeft') keyboardX = clamp(keyboardX + stepX, -maxX, maxX);
+      if (event.key === 'ArrowRight') keyboardX = clamp(keyboardX - stepX, -maxX, maxX);
+      if (event.key === 'ArrowUp') keyboardY = clamp(keyboardY + stepY, -maxY, maxY);
+      if (event.key === 'ArrowDown') keyboardY = clamp(keyboardY - stepY, -maxY, maxY);
+
+      setKeyboardPan();
+    });
+  })();
+</script>

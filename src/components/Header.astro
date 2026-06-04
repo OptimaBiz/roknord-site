@@ -2,22 +2,22 @@
 import MobileMenu from "./MobileMenu.astro";
 
 const serviceLinks = [
-  { label: "Подготовка к подтверждению компетентности", href: "/#formats" },
-  { label: "Аудит и актуализация области аккредитации", href: "/#deliverables" },
-  { label: "Корректирующие действия после несоответствий", href: "/#formats" },
-  { label: "Подготовка к первичной аккредитации", href: "/primary-accreditation/" },
-  { label: "Специальные направления", href: "/#directions" },
+  { label: "Подготовка к подтверждению компетентности", href: "/#scenario-confirmation" },
+  { label: "Аудит и актуализация области аккредитации", href: "/#scenario-scope-audit" },
+  { label: "Корректирующие действия после несоответствий", href: "/#scenario-corrective-actions" },
+  { label: "Подготовка к первичной аккредитации", href: "/#scenario-primary-accreditation" },
+  { label: "Специальные направления", href: "/#scenario-special-directions" },
 ];
 
 const audienceLinks = [
-  { label: "Испытательным лабораториям", href: "/testing-labs/" },
-  { label: "Медицинским лабораториям", href: "/medical-labs/" },
-  { label: "Органам по сертификации систем менеджмента", href: "/certification-bodies/" },
-  { label: "Органам по сертификации продукции", href: "/certification-bodies/" },
-  { label: "Органам инспекции", href: "/#contact" },
-  { label: "Калибровочным лабораториям", href: "/#contact" },
-  { label: "Провайдерам МСИ", href: "/#contact" },
-  { label: "Органам по сертификации халяль", href: "/#contact" },
+  { label: "Испытательным лабораториям", href: "/#audience-testing" },
+  { label: "Медицинским лабораториям", href: "/#audience-medical" },
+  { label: "Органам по сертификации систем менеджмента", href: "/#audience-cert-ms" },
+  { label: "Органам по сертификации продукции", href: "/#audience-cert-product" },
+  { label: "Органам инспекции", href: "/#audience-inspection" },
+  { label: "Калибровочным лабораториям", href: "/#audience-calibration" },
+  { label: "Провайдерам МСИ", href: "/#audience-msi" },
+  { label: "Органам по сертификации халяль", href: "/#audience-halal" },
 ];
 
 const utilityLinks = [
@@ -72,10 +72,10 @@ const sectionLinks = [
 
       <nav class="site-nav" aria-label="Основная навигация">
         <details class="nav-dropdown">
-          <summary aria-controls="services-panel" aria-expanded="false">Наши компетенции</summary>
+          <summary aria-controls="services-panel" aria-expanded="false">Услуги</summary>
           <div class="nav-dropdown-panel" id="services-panel">
             <div class="container nav-dropdown-inner">
-              <p class="nav-dropdown-title">Наши компетенции</p>
+              <p class="nav-dropdown-title">Услуги</p>
               <div class="nav-dropdown-list">
                 {serviceLinks.map((item) => (
                   <a href={item.href}>{item.label}</a>

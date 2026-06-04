@@ -1,39 +1,44 @@
 ---
 const scenarios = [
   {
+    id: "scenario-confirmation",
     title: "Подтверждение компетентности",
     text: "Проверяем документы, область, анкету, выборку дел и доказательства до процедуры.",
     evidence: "Область · СМК · ФГИС",
-    link: "Проверить сценарий",
-    href: "#contact",
+    link: "Связаться",
+    href: "#pricing",
   },
   {
+    id: "scenario-scope-audit",
     title: "Аудит и актуализация области аккредитации",
     text: "Помогаем выявить риски в области и комплекте приложений до подачи.",
     evidence: "Область · приложения",
-    link: "Смотреть разбор",
-    href: "#contact",
+    link: "Выбрать",
+    href: "#pricing",
   },
   {
+    id: "scenario-corrective-actions",
     title: "Корректирующие действия после несоответствий",
     text: "Структурируем корректирующие действия и подтверждающие документы.",
     evidence: "Причина · доказательство · срок",
-    link: "Смотреть план",
-    href: "#contact",
+    link: "Заказать",
+    href: "#pricing",
   },
   {
+    id: "scenario-primary-accreditation",
     title: "Первичная аккредитация",
     text: "Собираем стартовую логику вокруг области, СМК, записей и фактической практики.",
-    evidence: "Документы · практика · следы",
-    link: "Смотреть состав",
-    href: "/primary-accreditation/",
+    evidence: "Документы · практика · структура",
+    link: "Узнать",
+    href: "#pricing",
   },
   {
+    id: "scenario-special-directions",
     title: "Специальные направления",
     text: "Подстраиваем анализ под нетиповую область, отдельную процедуру и повышенный риск.",
     evidence: "Спецобласть · риск · ФГИС",
-    link: "Обсудить задачу",
-    href: "#contact",
+    link: "Обсудить",
+    href: "#pricing",
   },
 ];
 ---
@@ -46,15 +51,16 @@ const scenarios = [
       <p class="section__lead">Выберите ситуацию, которая ближе к вашей.</p>
     </header>
 
-    <div class="scenario-grid" aria-label="Основные сценарии помощи">
+    <div class="scenario-grid" aria-label="Основные сценарии">
       {scenarios.map((item, index) => (
         <article
+          id={item.id}
           class="card card--light scenario-card scenario-card--featured"
           style={`--i: ${index}`}
         >
           <span class="card-spotlight" aria-hidden="true"></span>
           <span class="card-ripple" aria-hidden="true"></span>
-          <p class="card__meta">Сценарий {index + 1}</p>
+          <p class="card__meta">Услуга</p>
           <h3 class="card__title">{item.title}</h3>
           <p class="card__text">{item.text}</p>
           <div class="card__deliverable" aria-label="Что обычно проверяем">
@@ -62,8 +68,8 @@ const scenarios = [
             <strong>{item.evidence}</strong>
           </div>
           <a class="card__link" href={item.href}>
-            <span>{item.link}</span>
             <span aria-hidden="true">→</span>
+            <span>{item.link}</span>
           </a>
         </article>
       ))}
@@ -101,8 +107,9 @@ const scenarios = [
     }
   }
 
-  /* Press: show spotlight on touch and mouse click */
-  .scenario-card--featured.card-entered.card-touching .card-spotlight {
+  /* Press / desktop hover: show spotlight */
+  .scenario-card--featured.card-entered.card-touching .card-spotlight,
+  .scenario-card--featured.card-entered.card-hovering .card-spotlight {
     opacity: 1;
     transition: opacity 0.15s ease;
   }
@@ -134,6 +141,7 @@ const scenarios = [
 
   /* ── Entrance: hidden state ─────────────────────────── */
   .scenario-card--featured {
+    scroll-margin-top: calc(var(--header-total-height, 7rem) + var(--space-4));
     opacity: 0;
     border-color: transparent;
     clip-path: polygon(
@@ -250,8 +258,9 @@ const scenarios = [
     100% { left: 130%;  opacity: 1; }
   }
 
-  /* Press: trigger scan-line on touch and mouse click */
-  .scenario-card--featured.card-entered.card-touching .card__deliverable::after {
+  /* Press / desktop hover: trigger scan-line */
+  .scenario-card--featured.card-entered.card-touching .card__deliverable::after,
+  .scenario-card--featured.card-entered.card-hovering .card__deliverable::after {
     animation: deliverable-scan 0.65s cubic-bezier(0.4, 0, 0.6, 1) forwards;
   }
 
@@ -284,7 +293,7 @@ const scenarios = [
 </style>
 
 <script>
-  const cards = document.querySelectorAll<HTMLElement>(
+  const cards = document.querySelectorAll(
     '#directions .scenario-card--featured'
   );
 
@@ -313,7 +322,7 @@ const scenarios = [
 
     // Desktop: mouse spotlight
     cards.forEach((card) => {
-      card.addEventListener('mousemove', (e: MouseEvent) => {
+      card.addEventListener('mousemove', (e) => {
         if (!card.classList.contains('card-entered')) return;
         const rect = card.getBoundingClientRect();
         card.style.setProperty('--mx', `${((e.clientX - rect.left) / rect.width) * 100}%`);
@@ -321,13 +330,13 @@ const scenarios = [
       });
     });
 
-    // Touch + mouse: spotlight + ripple + scan-line on tap/click
+    // Touch + mouse: spotlight + ripple + scan-line on tap/click/hover
     cards.forEach((card) => {
-      let endTimer: ReturnType<typeof setTimeout>;
+      let endTimer;
+      let hoverTimer;
 
-      const startPress = (clientX: number, clientY: number) => {
+      const setEffectPoint = (clientX: number, clientY: number) => {
         if (!card.classList.contains('card-entered')) return;
-        clearTimeout(endTimer);
 
         const rect = card.getBoundingClientRect();
         const x = ((clientX - rect.left) / rect.width) * 100;
@@ -337,10 +346,30 @@ const scenarios = [
         card.style.setProperty('--my', `${y}%`);
         card.style.setProperty('--rx', `${clientX - rect.left}px`);
         card.style.setProperty('--ry', `${clientY - rect.top}px`);
+      };
+
+      const startPress = (clientX: number, clientY: number) => {
+        if (!card.classList.contains('card-entered')) return;
+        clearTimeout(endTimer);
+        setEffectPoint(clientX, clientY);
 
         card.classList.remove('card-rippling');
-        void (card as HTMLElement).offsetWidth;
+        void card.offsetWidth;
         card.classList.add('card-touching', 'card-rippling');
+      };
+
+      const startHover = (clientX: number, clientY: number) => {
+        if (!card.classList.contains('card-entered')) return;
+        clearTimeout(hoverTimer);
+        setEffectPoint(clientX, clientY);
+
+        card.classList.remove('card-rippling', 'card-hovering');
+        void card.offsetWidth;
+        card.classList.add('card-hovering', 'card-rippling');
+
+        hoverTimer = setTimeout(() => {
+          card.classList.remove('card-hovering', 'card-rippling');
+        }, 700);
       };
 
       const endPress = () => {
@@ -349,17 +378,24 @@ const scenarios = [
         }, 380);
       };
 
-      card.addEventListener('touchstart', (e: TouchEvent) => {
+      card.addEventListener('touchstart', (e) => {
         startPress(e.touches[0].clientX, e.touches[0].clientY);
       }, { passive: true });
       card.addEventListener('touchend', endPress, { passive: true });
       card.addEventListener('touchcancel', endPress, { passive: true });
 
-      card.addEventListener('mousedown', (e: MouseEvent) => {
+      card.addEventListener('mouseenter', (e) => {
+        startHover(e.clientX, e.clientY);
+      });
+      card.addEventListener('mousedown', (e) => {
         startPress(e.clientX, e.clientY);
       });
       card.addEventListener('mouseup', endPress);
-      card.addEventListener('mouseleave', endPress);
+      card.addEventListener('mouseleave', () => {
+        clearTimeout(hoverTimer);
+        card.classList.remove('card-hovering');
+        endPress();
+      });
     });
   }
 </script>

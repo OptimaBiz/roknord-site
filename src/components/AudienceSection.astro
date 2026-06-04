@@ -1,6 +1,7 @@
 ---
 const audiences = [
   {
+    id: "audience-testing",
     title: "Испытательным лабораториям",
     text: "Чаще всего смотрим методики, оборудование, персонал и трассировку записей.",
     link: "Проверить формат",
@@ -9,6 +10,7 @@ const audiences = [
     imageAlt: "Сотрудники испытательной лаборатории за работой с микроскопом и документами",
   },
   {
+    id: "audience-medical",
     title: "Медицинским лабораториям",
     text: "Сопоставляем процессы, записи, персонал и следы лабораторной практики.",
     link: "Проверить формат",
@@ -16,6 +18,7 @@ const audiences = [
     image: "/images/materials/medlab.webp",
   },
   {
+    id: "audience-cert-ms",
     title: "Органам по сертификации систем менеджмента",
     text: "Смотрим СМК, выборку дел, компетентность и управляемость решений.",
     link: "Проверить формат",
@@ -23,6 +26,7 @@ const audiences = [
     image: "/images/materials/смк.webp",
   },
   {
+    id: "audience-cert-product",
     title: "Органам по сертификации продукции",
     text: "Проверяем область, протоколы, несоответствия и следы корректировки.",
     link: "Проверить формат",
@@ -30,6 +34,7 @@ const audiences = [
     image: "/images/materials/product.webp",
   },
   {
+    id: "audience-inspection",
     title: "Органам инспекции",
     text: "Оцениваем область, процедуры, записи выездов и наблюдений.",
     link: "Проверить формат",
@@ -37,6 +42,7 @@ const audiences = [
     image: "/images/materials/insp.webp",
   },
   {
+    id: "audience-calibration",
     title: "Калибровочным лабораториям",
     text: "Сверяем методики, эталоны, прослеживаемость и документы.",
     link: "Проверить формат",
@@ -44,6 +50,7 @@ const audiences = [
     image: "/images/materials/calibro.webp",
   },
   {
+    id: "audience-msi",
     title: "Провайдерам МСИ",
     text: "Смотрим программу, доказательства участия и корректность фиксации.",
     link: "Проверить формат",
@@ -51,6 +58,7 @@ const audiences = [
     image: "/images/materials/metodasi.webp",
   },
   {
+    id: "audience-halal",
     title: "Органам по сертификации халяль",
     text: "Проверяем состав области, источники доказательств и логику согласования.",
     link: "Проверить формат",
@@ -66,13 +74,14 @@ const audiences = [
   <div class="section__inner section-stack page-container">
     <header class="section-stack section-scope">
       <p class="section__eyebrow">Помогаем нашим Клиентам</p>
-      <h2 class="section__title">Для каждого типа аккредитованного лица важны свои доказательства и следы практики.</h2>
-      <p class="section__lead">Смотрим не только комплект документов, но и то, как область, записи и фактическая работа сходятся между собой.</p>
+      <h2 class="section__title">Для каждого типа аккредитованного лица различные доказательства и практика их применения.</h2>
+      <p class="section__lead">Создаем не просто комплект документов, а систему, в которой область, записи и фактическая работа сходятся между собой.</p>
     </header>
 
     <div class="audience-grid" aria-label="Помогаем нашим Клиентам">
       {audiences.map((item) => (
         <article
+          id={item.id}
           class="card audience-card"
           style={item.image ? `--bg-image: url('${item.image}');` : undefined}
         >

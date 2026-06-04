@@ -99,6 +99,7 @@
 
   .hero-title {
     text-align: center;
+    transform-origin: center;
   }
 
   .audience-grid {
@@ -469,11 +470,16 @@
     width: 100%;
     max-width: none;
     margin-inline: 0;
-    font-size: clamp(1.75rem, 7vw, 2.25rem);
+    font-size: clamp(2.425rem, calc(10.5vw - 0.2rem), 3.175rem);
     line-height: 1.12;
-    font-weight: 900;
-    letter-spacing: -0.01em;
+    font-weight: var(--font-weight-regular);
+    font-kerning: normal;
+    font-stretch: 92%;
+    font-feature-settings: "kern" 1, "liga" 1;
+    letter-spacing: 0;
     text-align: left;
+    transform: scaleX(0.96);
+    transform-origin: left center;
   }
 
   .hero-lead {

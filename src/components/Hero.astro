@@ -48,3 +48,65 @@ import HeroMedia from "./HeroMedia.astro";
     </div>
   </div>
 </section>
+
+<script>
+  const heroLinks = Array.from(document.querySelectorAll('.hero-links .hero-link'));
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (heroLinks.length > 0 && !prefersReducedMotion.matches) {
+    let activeIndex = 0;
+    let intervalId;
+
+    const setActive = (index) => {
+      heroLinks.forEach((link, linkIndex) => {
+        link.classList.toggle('hero-link--active', linkIndex === index);
+      });
+    };
+
+    const startCycle = () => {
+      setActive(activeIndex);
+      intervalId = window.setInterval(() => {
+        activeIndex = (activeIndex + 1) % heroLinks.length;
+        setActive(activeIndex);
+      }, 1400);
+    };
+
+    const stopCycle = () => {
+      if (intervalId) {
+        window.clearInterval(intervalId);
+        intervalId = undefined;
+      }
+    };
+
+    heroLinks.forEach((link, index) => {
+      link.addEventListener('mouseenter', () => {
+        stopCycle();
+        activeIndex = index;
+        setActive(activeIndex);
+      });
+
+      link.addEventListener('focus', () => {
+        stopCycle();
+        activeIndex = index;
+        setActive(activeIndex);
+      });
+
+      link.addEventListener('blur', () => {
+        if (prefersReducedMotion.matches) return;
+        stopCycle();
+        startCycle();
+      });
+    });
+
+    prefersReducedMotion.addEventListener('change', () => {
+      stopCycle();
+      if (!prefersReducedMotion.matches) {
+        startCycle();
+      } else {
+        heroLinks.forEach((link) => link.classList.remove('hero-link--active'));
+      }
+    });
+
+    startCycle();
+  }
+</script>

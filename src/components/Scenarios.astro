@@ -64,7 +64,7 @@ const scenarios = [
           <h3 class="card__title">{item.title}</h3>
           <p class="card__text">{item.text}</p>
           <div class="card__deliverable" aria-label="Что обычно проверяем">
-            <span>Что проверяем</span>
+            <span class="card__deliverable-label">Что проверяем</span>
             <strong>{item.evidence}</strong>
           </div>
           <a class="card__link" href={item.href}>
@@ -348,6 +348,19 @@ const scenarios = [
       );
     }
 
+    .scenario-card--featured.card-entered.card-awake .card-spotlight {
+      opacity: 1;
+      animation: none;
+      background:
+        radial-gradient(
+          circle at var(--mx, 50%) var(--my, 38%),
+          rgba(0, 250, 176, 0.22) 0%,
+          rgba(191, 31, 153, 0.12) 34%,
+          rgba(0, 250, 176, 0.08) 54%,
+          transparent 74%
+        );
+    }
+
     .scenario-card--featured.card-entered.card-awake .card__title {
       transform: translateY(-0.12rem);
     }
@@ -357,6 +370,23 @@ const scenarios = [
   .card__deliverable {
     position: relative;
     overflow: hidden;
+  }
+
+  .card__deliverable-label {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-0.35rem);
+    transition:
+      max-height 0.28s ease,
+      opacity 0.24s ease,
+      transform 0.28s ease;
+  }
+
+  .scenario-card--featured.card-entered.card-awake .card__deliverable-label,
+  .scenario-card--featured.card-entered.card-touching .card__deliverable-label {
+    max-height: 2rem;
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .card__deliverable::after {
@@ -455,6 +485,43 @@ const scenarios = [
   );
 
   if (cards.length) {
+    let activeTouchCard = null;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    const clearActiveTouchCard = () => {
+      if (!activeTouchCard) return;
+      activeTouchCard.classList.remove('card-awake');
+      activeTouchCard = null;
+    };
+
+    const selectTouchCard = (card) => {
+      if (activeTouchCard && activeTouchCard !== card) {
+        activeTouchCard.classList.remove('card-awake');
+      }
+      activeTouchCard = card;
+    };
+
+    const handleMobileScroll = () => {
+      clearActiveTouchCard();
+    };
+
+    const handleMobileTouchMove = (event) => {
+      if (!activeTouchCard) return;
+      const touch = event.touches?.[0];
+      if (!touch) return;
+
+      if (
+        Math.abs(touch.clientX - touchStartX) > 8 ||
+        Math.abs(touch.clientY - touchStartY) > 8
+      ) {
+        clearActiveTouchCard();
+      }
+    };
+
+    window.addEventListener('scroll', handleMobileScroll, { passive: true });
+    window.addEventListener('touchmove', handleMobileTouchMove, { passive: true });
+
     // Per-card IntersectionObserver — each card animates when it scrolls into view
     cards.forEach((card) => {
       const observer = new IntersectionObserver(
@@ -491,7 +558,6 @@ const scenarios = [
     cards.forEach((card) => {
       let endTimer;
       let hoverTimer;
-      let awakeTimer;
 
       const setEffectPoint = (clientX: number, clientY: number) => {
         if (!card.classList.contains('card-entered')) return;
@@ -506,11 +572,16 @@ const scenarios = [
         card.style.setProperty('--ry', `${clientY - rect.top}px`);
       };
 
-      const startPress = (clientX: number, clientY: number) => {
+      const startPress = (clientX: number, clientY: number, persistAwake = false) => {
         if (!card.classList.contains('card-entered')) return;
         clearTimeout(endTimer);
-        clearTimeout(awakeTimer);
         setEffectPoint(clientX, clientY);
+
+        if (persistAwake) {
+          selectTouchCard(card);
+          touchStartX = clientX;
+          touchStartY = clientY;
+        }
 
         card.classList.remove('card-rippling');
         void card.offsetWidth;
@@ -535,17 +606,16 @@ const scenarios = [
         endTimer = setTimeout(() => {
           card.classList.remove('card-touching', 'card-rippling');
         }, 380);
-
-        awakeTimer = setTimeout(() => {
-          card.classList.remove('card-awake');
-        }, 720);
       };
 
       card.addEventListener('touchstart', (e) => {
-        startPress(e.touches[0].clientX, e.touches[0].clientY);
+        startPress(e.touches[0].clientX, e.touches[0].clientY, true);
       }, { passive: true });
       card.addEventListener('touchend', endPress, { passive: true });
-      card.addEventListener('touchcancel', endPress, { passive: true });
+      card.addEventListener('touchcancel', () => {
+        endPress();
+        if (activeTouchCard === card) clearActiveTouchCard();
+      }, { passive: true });
 
       card.addEventListener('mouseenter', (e) => {
         startHover(e.clientX, e.clientY);
@@ -558,6 +628,11 @@ const scenarios = [
         clearTimeout(hoverTimer);
         card.classList.remove('card-hovering');
         endPress();
+      });
+
+      card.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'touch') return;
+        if (activeTouchCard === card) clearActiveTouchCard();
       });
     });
   }

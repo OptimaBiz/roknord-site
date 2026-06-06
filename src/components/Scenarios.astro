@@ -108,6 +108,46 @@ const scenarios = [
     transition: opacity 0.3s ease;
   }
 
+  @keyframes card-awake-glow {
+    0% {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    45% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.04);
+    }
+  }
+
+  @keyframes card-awake-link {
+    0% {
+      transform: translateX(0);
+      letter-spacing: var(--letter-spacing-normal);
+    }
+    40% {
+      transform: translateX(0.25rem);
+      letter-spacing: 0.03em;
+    }
+    100% {
+      transform: translateX(0.08rem);
+      letter-spacing: var(--letter-spacing-normal);
+    }
+  }
+
+  @keyframes card-awake-arrow {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(0.2rem);
+    }
+  }
+
   /* Desktop hover: spotlight follows cursor */
   @media (hover: hover) {
     .scenario-card--featured.card-entered:hover .card-spotlight {
@@ -120,6 +160,19 @@ const scenarios = [
   .scenario-card--featured.card-entered.card-hovering .card-spotlight {
     opacity: 1;
     transition: opacity 0.15s ease;
+  }
+
+  .scenario-card--featured.card-entered.card-awake .card-spotlight {
+    opacity: 1;
+    background:
+      radial-gradient(
+        circle at var(--mx, 50%) var(--my, 38%),
+        rgba(0, 250, 176, 0.22) 0%,
+        rgba(191, 31, 153, 0.12) 34%,
+        rgba(0, 250, 176, 0.08) 54%,
+        transparent 74%
+      );
+    animation: card-awake-glow 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   /* ── Tap ripple ─────────────────────────────────────── */
@@ -237,6 +290,69 @@ const scenarios = [
       filter 0.12s ease;
   }
 
+  .scenario-card--featured.card-entered.card-awake {
+    box-shadow:
+      0 0 0 1px rgba(0, 250, 176, 0.95),
+      0 18px 44px rgba(14, 11, 58, 0.22);
+  }
+
+  .scenario-card--featured.card-entered.card-touching.card-awake {
+    transform: scale(0.988);
+  }
+
+  .scenario-card--featured.card-entered.card-awake .card__title,
+  .scenario-card--featured.card-entered.card-awake .card__text,
+  .scenario-card--featured.card-entered.card-awake .card__deliverable {
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scenario-card--featured.card-entered.card-awake .card__title {
+    transform: translateY(-0.08rem);
+  }
+
+  .scenario-card--featured.card-entered.card-awake .card__deliverable {
+    transform: translateY(0.02rem);
+  }
+
+  .scenario-card--featured.card-entered.card-awake .card__link {
+    position: relative;
+    padding: 0.28rem 0.7rem 0.28rem 0.55rem;
+    margin-left: -0.55rem;
+    border: 1px solid rgba(0, 250, 176, 0.16);
+    background: rgba(0, 250, 176, 0.07);
+    box-shadow: 0 0 0 1px rgba(191, 31, 153, 0.08) inset;
+    color: var(--lrqa-mint-2);
+    animation: card-awake-link 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .scenario-card--featured.card-entered.card-awake .card__link span:first-child {
+    animation: card-awake-arrow 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .scenario-card--featured.card-entered.card-awake .card__link span:last-child {
+    text-shadow: 0 0 0.9rem rgba(0, 250, 176, 0.22);
+  }
+
+  .scenario-card--featured.card-entered.card-awake .card__link:hover,
+  .scenario-card--featured.card-entered.card-awake .card__link:focus-visible {
+    transform: translateX(0.12rem);
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .scenario-card--featured.card-entered.card-awake {
+      transform: scale(0.993);
+      background: linear-gradient(
+        180deg,
+        rgba(0, 250, 176, 0.1) 0%,
+        rgba(255, 255, 255, 0) 58%
+      );
+    }
+
+    .scenario-card--featured.card-entered.card-awake .card__title {
+      transform: translateY(-0.12rem);
+    }
+  }
+
   /* ── Deliverable scan-line ──────────────────────────── */
   .card__deliverable {
     position: relative;
@@ -272,6 +388,11 @@ const scenarios = [
     animation: deliverable-scan 0.65s cubic-bezier(0.4, 0, 0.6, 1) forwards;
   }
 
+  .scenario-card--featured.card-entered.card-awake .card__deliverable::after {
+    opacity: 1;
+    animation: deliverable-scan 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
   /* ── Reduced motion ─────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
     .scenario-card--featured,
@@ -291,6 +412,34 @@ const scenarios = [
     .scenario-card--featured.card-entered {
       border-color: rgba(0, 250, 176, 0.32);
       transition: none;
+    }
+
+    .scenario-card--featured.card-entered.card-awake,
+    .scenario-card--featured.card-entered.card-touching.card-awake {
+      transform: none;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .scenario-card--featured.card-entered.card-awake .card-spotlight,
+    .scenario-card--featured.card-entered.card-awake .card__link,
+    .scenario-card--featured.card-entered.card-awake .card__link span:first-child {
+      animation: none;
+    }
+
+    .scenario-card--featured.card-entered.card-awake .card__link {
+      padding: 0;
+      margin-left: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      color: var(--color-mint-action);
+    }
+
+    .scenario-card--featured.card-entered.card-awake .card__title,
+    .scenario-card--featured.card-entered.card-awake .card__text,
+    .scenario-card--featured.card-entered.card-awake .card__deliverable {
+      transform: none;
     }
 
     .card-spotlight,
@@ -342,6 +491,7 @@ const scenarios = [
     cards.forEach((card) => {
       let endTimer;
       let hoverTimer;
+      let awakeTimer;
 
       const setEffectPoint = (clientX: number, clientY: number) => {
         if (!card.classList.contains('card-entered')) return;
@@ -359,11 +509,12 @@ const scenarios = [
       const startPress = (clientX: number, clientY: number) => {
         if (!card.classList.contains('card-entered')) return;
         clearTimeout(endTimer);
+        clearTimeout(awakeTimer);
         setEffectPoint(clientX, clientY);
 
         card.classList.remove('card-rippling');
         void card.offsetWidth;
-        card.classList.add('card-touching', 'card-rippling');
+        card.classList.add('card-touching', 'card-rippling', 'card-awake');
       };
 
       const startHover = (clientX: number, clientY: number) => {
@@ -384,6 +535,10 @@ const scenarios = [
         endTimer = setTimeout(() => {
           card.classList.remove('card-touching', 'card-rippling');
         }, 380);
+
+        awakeTimer = setTimeout(() => {
+          card.classList.remove('card-awake');
+        }, 720);
       };
 
       card.addEventListener('touchstart', (e) => {

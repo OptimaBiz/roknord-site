@@ -54,9 +54,9 @@
 .hero__overlay {
   z-index: 1;
   background:
-    radial-gradient(circle at 16% 34%, rgba(7, 9, 35, 0.18) 0%, transparent 30%),
-    linear-gradient(90deg, rgba(7, 9, 35, 0.64) 0%, rgba(7, 9, 35, 0.58) 40%, rgba(7, 9, 35, 0.64) 100%),
-    linear-gradient(180deg, rgba(7, 9, 35, 0.28) 0%, rgba(7, 9, 35, 0.56) 58%, rgba(7, 9, 35, 0.74) 100%);
+    radial-gradient(circle at 16% 34%, rgba(7, 9, 35, 0.12) 0%, transparent 30%),
+    linear-gradient(90deg, rgba(7, 9, 35, 0.48) 0%, rgba(7, 9, 35, 0.42) 40%, rgba(7, 9, 35, 0.48) 100%),
+    linear-gradient(180deg, rgba(7, 9, 35, 0.20) 0%, rgba(7, 9, 35, 0.40) 58%, rgba(7, 9, 35, 0.56) 100%);
 }
 
 .hero-layout {

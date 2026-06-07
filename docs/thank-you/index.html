@@ -1,0 +1,170 @@
+<!DOCTYPE html><html lang="ru"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v6.4.2"><meta name="description" content="Подтверждение отправки обращения в Рокнорд. Мы принимаем запрос в работу и возвращаемся с первичным ответом."><meta name="theme-color" content="" id="theme-color-meta"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><title>Обращение отправлено — Рокнорд</title><script>
+      const themeColorMeta = document.getElementById("theme-color-meta");
+      if (themeColorMeta) {
+        const themeColor = getComputedStyle(document.documentElement).getPropertyValue("--color-bg").trim();
+        if (themeColor) themeColorMeta.setAttribute("content", themeColor);
+      }
+    </script><link rel="stylesheet" href="/_astro/BaseLayout.Brhe0AVW.css">
+<link rel="stylesheet" href="/_astro/index.CJ0HiMsG.css"></head> <body> <a class="skip-link" href="#content">Перейти к содержимому</a> <div class="site-shell"> <header class="header"> <div class="header-service" aria-label="Служебная навигация"> <div class="topbar__inner header-service-inner page-container"> <nav class="utility-nav" aria-label="Служебные ссылки"> <a href="/#authority">О компании</a><a href="#" data-login-trigger>Личный кабинет</a><a href="/#contact">Карьера</a><a href="/#contact">Партнерам</a><a href="/#contact">Контакты</a> </nav> <a class="service-account service-account--mobile" href="#" data-login-trigger> <img class="service-account__icon" src="/icons/account_icon_1.svg" alt="" aria-hidden="true" decoding="async"> <span>Личный кабинет</span> </a> <a class="service-cta cta-angled" href="/#contact">Бесплатная консультация</a> <a class="service-cta service-cta--mobile" href="/#contact">Связаться</a> </div> </div> <div class="header__inner header-inner page-container"> <div class="header-primary"> <a class="brand" href="/" aria-label="Рокнорд, на главную страницу"> <img class="brand-logo" src="/images/brand/roknord-logo-transparent.png" width="2508" height="627" alt="Рокнорд"> </a> <nav class="site-nav" aria-label="Основная навигация"> <details class="nav-dropdown"> <summary aria-controls="services-panel" aria-expanded="false">Услуги</summary> <div class="nav-dropdown-panel" id="services-panel"> <div class="container nav-dropdown-inner"> <p class="nav-dropdown-title">Услуги</p> <div class="nav-dropdown-list"> <a href="/#scenario-confirmation">Подготовка к подтверждению компетентности</a><a href="/#scenario-scope-audit">Аудит и актуализация области аккредитации</a><a href="/#scenario-corrective-actions">Корректирующие действия после несоответствий</a><a href="/#scenario-primary-accreditation">Подготовка к первичной аккредитации</a><a href="/#scenario-special-directions">Специальные направления</a> </div> </div> </div> </details> <details class="nav-dropdown"> <summary aria-controls="audience-panel" aria-expanded="false">Помогаем нашим Клиентам</summary> <div class="nav-dropdown-panel" id="audience-panel"> <div class="container nav-dropdown-inner"> <p class="nav-dropdown-title">Помогаем нашим Клиентам</p> <div class="nav-dropdown-list nav-dropdown-list--columns"> <a href="/#audience-testing">Испытательным лабораториям</a><a href="/#audience-medical">Медицинским лабораториям</a><a href="/#audience-cert-ms">Органам по сертификации систем менеджмента</a><a href="/#audience-cert-product">Органам по сертификации продукции</a><a href="/#audience-inspection">Органам инспекции</a><a href="/#audience-calibration">Калибровочным лабораториям</a><a href="/#audience-msi">Провайдерам МСИ</a><a href="/#audience-halal">Органам по сертификации халяль</a> </div> </div> </div> </details> </nav> <details class="mobile-menu"> <summary aria-label="Открыть меню" aria-controls="mobile-drawer" aria-expanded="false"> <span class="mobile-menu__icon" aria-hidden="true"> <span></span> <span></span> <span></span> </span> <span class="mobile-menu__label">Меню</span> </summary> <div class="mobile-menu-panel" id="mobile-drawer" aria-label="Мобильное меню"> <div class="mobile-menu-group mobile-menu-group--primary"> <p>Услуги</p> <a href="/#scenario-confirmation">Подготовка к подтверждению компетентности</a><a href="/#scenario-scope-audit">Аудит и актуализация области аккредитации</a><a href="/#scenario-corrective-actions">Корректирующие действия после несоответствий</a><a href="/#scenario-primary-accreditation">Подготовка к первичной аккредитации</a><a href="/#scenario-special-directions">Специальные направления</a> </div> <div class="mobile-menu-group mobile-menu-group--primary"> <p>Помогаем нашим Клиентам</p> <a href="/#audience-testing">Испытательным лабораториям</a><a href="/#audience-medical">Медицинским лабораториям</a><a href="/#audience-cert-ms">Органам по сертификации систем менеджмента</a><a href="/#audience-cert-product">Органам по сертификации продукции</a><a href="/#audience-inspection">Органам инспекции</a><a href="/#audience-calibration">Калибровочным лабораториям</a><a href="/#audience-msi">Провайдерам МСИ</a><a href="/#audience-halal">Органам по сертификации халяль</a> </div> <div class="mobile-menu-group mobile-menu-group--company"> <p>Компания</p> <a href="/#authority">О компании</a><a href="#" data-login-trigger>Личный кабинет</a><a href="/#contact">Карьера</a><a href="/#contact">Партнерам</a><a href="/#contact">Контакты</a> </div> <a class="service-cta cta-angled mobile-menu-cta" href="/#contact">Разобрать задачу</a> </div> </details> </div> </div> <script>
+    (() => {
+      const headerRoot = document.currentScript?.closest('header') || document.querySelector('.header');
+      const dropdowns = headerRoot ? Array.from(headerRoot.querySelectorAll('.nav-dropdown')) : [];
+      const mobileMenu = headerRoot?.querySelector('.mobile-menu');
+
+    const syncExpandedState = (details) => {
+      const summary = details.querySelector('summary');
+      if (summary) summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
+      const panel = details.querySelector('.nav-dropdown-panel, .mobile-menu-panel');
+      if (panel && panel.id) {
+        summary?.setAttribute('aria-controls', panel.id);
+      }
+    };
+
+    const closeAll = () => {
+      dropdowns.forEach((dropdown) => {
+        dropdown.open = false;
+        syncExpandedState(dropdown);
+      });
+      if (mobileMenu) {
+        mobileMenu.open = false;
+        syncExpandedState(mobileMenu);
+        document.body.style.overflow = '';
+      }
+    };
+
+    dropdowns.forEach((dropdown) => {
+      syncExpandedState(dropdown);
+      dropdown.addEventListener('toggle', () => {
+        syncExpandedState(dropdown);
+        if (!dropdown.open) return;
+        dropdowns.forEach((other) => {
+          if (other !== dropdown) {
+            other.open = false;
+            syncExpandedState(other);
+          }
+        });
+        if (mobileMenu?.open) {
+          mobileMenu.open = false;
+          syncExpandedState(mobileMenu);
+        }
+      });
+
+      dropdown.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeAll);
+      });
+    });
+
+    if (mobileMenu) {
+      syncExpandedState(mobileMenu);
+      mobileMenu.addEventListener('toggle', () => {
+        syncExpandedState(mobileMenu);
+        if (mobileMenu.open) {
+          document.body.style.overflow = 'hidden';
+          dropdowns.forEach((dropdown) => {
+            dropdown.open = false;
+            syncExpandedState(dropdown);
+          });
+        } else {
+          document.body.style.overflow = '';
+        }
+      });
+
+      mobileMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeAll);
+      });
+    }
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof Element)) return;
+      if (event.target.closest('.header')) return;
+      closeAll();
+    });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeAll();
+      });
+    })();
+  </script> </header>  <main id="content" data-astro-cid-ygcb6ok6> <section class="thank-you" data-astro-cid-ygcb6ok6> <div class="thank-you__inner page-container" data-astro-cid-ygcb6ok6> <div class="thank-you__panel" data-astro-cid-ygcb6ok6> <div class="thank-you__copy" data-astro-cid-ygcb6ok6> <p class="section__eyebrow" data-astro-cid-ygcb6ok6>Обращение принято</p> <h1 data-astro-cid-ygcb6ok6>Спасибо. Мы получили ваш запрос.</h1> <p data-astro-cid-ygcb6ok6>
+Сообщение передано. Мы ответим в течение рабочего дня.
+</p> </div> <div class="thank-you__next" aria-label="Что происходит дальше" data-astro-cid-ygcb6ok6> <p class="thank-you__label" data-astro-cid-ygcb6ok6>Дальше</p> <ul data-astro-cid-ygcb6ok6> <li data-astro-cid-ygcb6ok6>Заключение договора;</li> <li data-astro-cid-ygcb6ok6>Регистрация личного кабинета;</li> <li data-astro-cid-ygcb6ok6>Сопровождение услуги</li> </ul> </div> <div class="thank-you__actions" data-astro-cid-ygcb6ok6> <a class="thank-you__button cta-angled" href="/" data-astro-cid-ygcb6ok6>На главную</a> <a class="thank-you__link" href="/#resources" data-astro-cid-ygcb6ok6>К услугам</a> </div> </div> </div> </section> </main>  <footer class="footer" data-astro-cid-sz7xmlte> <div class="footer__inner page-container" data-astro-cid-sz7xmlte> <div class="footer__col footer__col--brand" data-astro-cid-sz7xmlte> <a class="footer__logo-link" href="/#contact" aria-label="Рокнорд, к форме связи" data-astro-cid-sz7xmlte> <img class="footer__logo" src="/images/brand/roknord-logo-transparent.png" width="2508" height="627" alt="Рокнорд" data-astro-cid-sz7xmlte> </a> <p class="footer__tagline" data-astro-cid-sz7xmlte>Консалтинговые услуги в области подтверждения соответствия и аккредитации.</p> </div> <div class="footer__divider" aria-hidden="true" data-astro-cid-sz7xmlte></div> <div class="footer__col footer__col--nav" data-astro-cid-sz7xmlte> <nav aria-label="Компания" data-astro-cid-sz7xmlte> <a class="footer__nav-link" href="/#contact" data-astro-cid-sz7xmlte>О компании</a> <a class="footer__nav-link" href="/#contact" data-astro-cid-sz7xmlte>Карьера</a> <a class="footer__nav-link" href="/#contact" data-astro-cid-sz7xmlte>Партнёрам</a> <a class="footer__nav-link" href="/#contact" data-astro-cid-sz7xmlte>Юридическая информация</a> </nav> </div> <div class="footer__divider" aria-hidden="true" data-astro-cid-sz7xmlte></div> <div class="footer__col footer__col--nav" data-astro-cid-sz7xmlte> <nav aria-label="Личный кабинет и документы" data-astro-cid-sz7xmlte> <a class="footer__nav-link" href="/#contact" data-astro-cid-sz7xmlte>Личный кабинет</a> <a class="footer__nav-link" href="/#contact" data-astro-cid-sz7xmlte>Политика конфиденциальности</a> <a class="footer__nav-link" href="/#contact" data-astro-cid-sz7xmlte>Политика в области качества</a> <a class="footer__nav-link" href="/#contact" data-astro-cid-sz7xmlte>Контакты</a> </nav> </div> </div> <div class="footer__bottom page-container" data-astro-cid-sz7xmlte> <span data-astro-cid-sz7xmlte>© 2026 Рокнорд</span> <span class="footer__dot" aria-hidden="true" data-astro-cid-sz7xmlte>●</span> <span data-astro-cid-sz7xmlte>Все права защищены</span> <span class="footer__dot" aria-hidden="true" data-astro-cid-sz7xmlte>●</span> <span data-astro-cid-sz7xmlte>ISO/IEC 27001</span> <span class="footer__dot" aria-hidden="true" data-astro-cid-sz7xmlte>●</span> <span data-astro-cid-sz7xmlte>Санкт-Петербург, Россия</span> <a class="footer__ask-btn cta-angled" href="#contact" data-astro-cid-sz7xmlte> <span data-astro-cid-sz7xmlte>Задать вопрос</span> <span aria-hidden="true" data-astro-cid-sz7xmlte>→</span> </a> </div> </footer> <aside class="cookie-panel" data-cookie-panel hidden aria-label="Уведомление о cookies"> <p class="cookie-panel__text">
+Используем cookies. Продолжая пользоваться сайтом, вы соглашаетесь с обработкой данных.
+</p> <div class="cookie-panel__actions"> <a class="cookie-panel__link" href="/privacy-policy/">Подробнее</a> <button class="cookie-panel__button cta-angled" type="button" data-cookie-accept>Принять</button> </div> </aside> <script>
+  (() => {
+    const key = "roknord-cookie-consent";
+    const panel = document.querySelector("[data-cookie-panel]");
+    const accept = document.querySelector("[data-cookie-accept]");
+    if (!panel || !accept) return;
+
+    try {
+      if (window.localStorage.getItem(key) === "accepted") return;
+    } catch {}
+
+    panel.hidden = false;
+
+    accept.addEventListener("click", () => {
+      try {
+        window.localStorage.setItem(key, "accepted");
+      } catch {}
+      panel.hidden = true;
+    });
+  })();
+</script> <button class="scroll-up-control" type="button" aria-label="Подняться выше" data-scroll-up data-visible="false" aria-hidden="true" tabindex="-1"> <span aria-hidden="true">↑</span> </button> <script>
+  (() => {
+    const control = document.querySelector("[data-scroll-up]");
+    if (!control) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const updateVisibility = () => {
+      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      const topSection = document.getElementById("top") || document.querySelector(".hero");
+      const topSectionScrolled = topSection ? topSection.getBoundingClientRect().bottom < window.innerHeight - 24 : false;
+      const visible = scrollY >= 24 || topSectionScrolled;
+      control.dataset.visible = visible ? "true" : "false";
+      control.setAttribute("aria-hidden", visible ? "false" : "true");
+      control.tabIndex = visible ? 0 : -1;
+    };
+
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+    const animateScrollTo = (targetY) => {
+      if (reduceMotion) {
+        window.scrollTo({ top: targetY, behavior: "auto" });
+        return;
+      }
+
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const duration = Math.min(900, Math.max(450, Math.abs(distance) * 0.35));
+      let startTime = null;
+
+      const step = (timestamp) => {
+        if (startTime === null) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeOutCubic(progress);
+        window.scrollTo(0, startY + distance * eased);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+
+      window.requestAnimationFrame(step);
+    };
+
+    control.addEventListener("click", () => {
+      animateScrollTo(0);
+    });
+
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    window.addEventListener("resize", updateVisibility);
+    window.addEventListener("load", updateVisibility);
+    window.addEventListener("hashchange", updateVisibility);
+    updateVisibility();
+    window.requestAnimationFrame(updateVisibility);
+    window.setTimeout(updateVisibility, 0);
+    window.setTimeout(updateVisibility, 250);
+    window.setTimeout(updateVisibility, 1000);
+  })();
+</script> <div class="login-modal" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-modal-title" hidden data-astro-cid-o4dbeirz> <div class="login-modal__overlay" data-login-close data-astro-cid-o4dbeirz></div> <div class="login-modal__card" data-astro-cid-o4dbeirz> <button class="login-modal__close" data-login-close aria-label="Закрыть" data-astro-cid-o4dbeirz> <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" data-astro-cid-o4dbeirz> <line x1="3" y1="3" x2="17" y2="17" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" data-astro-cid-o4dbeirz></line> <line x1="17" y1="3" x2="3" y2="17" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" data-astro-cid-o4dbeirz></line> </svg> </button> <div class="login-modal__header" data-astro-cid-o4dbeirz> <p class="login-modal__eyebrow" data-astro-cid-o4dbeirz>Вход для Клиентов</p> <h2 class="login-modal__title" id="login-modal-title" data-astro-cid-o4dbeirz>Личный кабинет</h2> </div> <form class="login-modal__form" novalidate data-astro-cid-o4dbeirz> <div class="login-modal__field" data-astro-cid-o4dbeirz> <label class="login-modal__label" for="login-email" data-astro-cid-o4dbeirz>Электронная почта</label> <input class="login-modal__input" type="email" id="login-email" name="email" autocomplete="email" placeholder="you@company.ru" data-astro-cid-o4dbeirz> </div> <div class="login-modal__field" data-astro-cid-o4dbeirz> <label class="login-modal__label" for="login-password" data-astro-cid-o4dbeirz>Пароль</label> <input class="login-modal__input" type="password" id="login-password" name="password" autocomplete="current-password" placeholder="••••••••" data-astro-cid-o4dbeirz> <a class="login-modal__forgot" href="#contact" data-login-close data-astro-cid-o4dbeirz>Забыли пароль?</a> </div> <button class="login-modal__submit" type="submit" data-astro-cid-o4dbeirz> <span data-astro-cid-o4dbeirz>Войти</span> <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true" data-astro-cid-o4dbeirz> <line x1="0" y1="6" x2="12" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" data-astro-cid-o4dbeirz></line> <polyline points="7,1 14,6 7,11" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round" data-astro-cid-o4dbeirz></polyline> </svg> </button> </form> <p class="login-modal__notice" data-astro-cid-o4dbeirz>
+Данные для входа предоставляются после заключения договора.
+</p> </div> </div>  <script type="module">const t=document.getElementById("login-modal"),c="input, button, a[href]";function r(){t.hidden=!1,document.body.style.overflow="hidden",t.querySelector(c)?.focus()}function d(){t.hidden=!0,document.body.style.overflow="",document.querySelector("[data-login-trigger]")?.focus()}document.querySelectorAll("[data-login-trigger]").forEach(e=>{e.addEventListener("click",o=>{o.preventDefault(),r()})});t.querySelectorAll("[data-login-close]").forEach(e=>{e.addEventListener("click",()=>d())});document.addEventListener("keydown",e=>{e.key==="Escape"&&!t.hidden&&d()});t.addEventListener("keydown",e=>{if(e.key!=="Tab")return;const o=Array.from(t.querySelectorAll(c)),n=o[0],l=o[o.length-1];e.shiftKey&&document.activeElement===n?(e.preventDefault(),l.focus()):!e.shiftKey&&document.activeElement===l&&(e.preventDefault(),n.focus())});</script> </div> </body></html>

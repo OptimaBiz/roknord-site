@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Рокнорд favicon">
+  <rect width="512" height="512" fill="#050936"/>
+  <g fill-rule="evenodd" clip-rule="evenodd">
+    <!-- left white stem -->
+    <path fill="#FFFFFF" d="M142 124H200V279L142 337V124Z"/>
+    <!-- turquoise main diagonal -->
+    <path fill="#0FF2B2" d="M322 124H389L166 388H142V337L322 124Z"/>
+    <!-- lower right white leg -->
+    <path fill="#FFFFFF" d="M300 290L401 388H327L262 325L300 290Z"/>
+  </g>
+</svg>

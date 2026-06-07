@@ -99,7 +99,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   .thank-you h1 {
     margin: 0;
     font-family: var(--font-heading);
-    font-size: clamp(2.4rem, 5.8vw, 6rem);
+    font-size: calc(clamp(2.4rem, 5.8vw, 6rem) * var(--hero-heading-scale));
     font-weight: var(--font-weight-hero-title);
     line-height: 0.98;
     letter-spacing: 0;
@@ -218,7 +218,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     }
 
     .thank-you h1 {
-      font-size: clamp(2rem, 10vw, 3.1rem);
+      font-size: calc(clamp(2rem, 10vw, 3.1rem) * var(--hero-heading-scale));
       line-height: 1.02;
     }
 

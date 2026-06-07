@@ -144,8 +144,13 @@
     gap: var(--space-7);
   }
 
+  .material-download__inner > .contact-form-section--embedded {
+    max-width: none;
+    margin-top: 0;
+  }
+
   .material-download__title {
-    font-size: clamp(1.85rem, 7.5vw, 2.65rem);
+    font-size: calc(clamp(1.85rem, 7.5vw, 2.65rem) * var(--hero-heading-scale));
     line-height: 1.04;
   }
 
@@ -479,7 +484,7 @@
     width: 100%;
     max-width: none;
     margin-inline: 0;
-    font-size: clamp(2.425rem, calc(10.5vw - 0.2rem), 3.175rem);
+    font-size: calc(clamp(2.425rem, calc(10.5vw - 0.2rem), 3.175rem) * var(--hero-heading-scale));
     line-height: 1.12;
     font-weight: var(--font-weight-regular);
     font-kerning: normal;
@@ -522,7 +527,7 @@
   }
 
   .section-heading {
-    font-size: clamp(2rem, 8vw, 2.7rem);
+    font-size: calc(clamp(2rem, 8vw, 2.7rem) * var(--hero-heading-scale));
     line-height: 1.04;
   }
 

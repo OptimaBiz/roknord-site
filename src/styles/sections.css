@@ -106,7 +106,7 @@
 .section-heading {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: clamp(2.65rem, 3vw + 1.15rem, 4.8rem);
+  font-size: calc(clamp(2.65rem, 3vw + 1.15rem, 4.8rem) * var(--hero-heading-scale));
   line-height: var(--line-height-section-title);
   font-weight: var(--font-weight-section-title);
   letter-spacing: var(--letter-spacing-tight);

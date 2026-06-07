@@ -20,9 +20,9 @@
 
 .material-download__inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.78fr);
-  gap: clamp(var(--space-8), 7vw, var(--space-14));
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, 32rem);
+  gap: clamp(var(--space-10), 8vw, var(--space-16));
+  align-items: start;
 }
 
 .material-download__copy {
@@ -31,10 +31,17 @@
   max-width: 48rem;
 }
 
+.material-download__inner > .contact-form-section--embedded {
+  width: 100%;
+  max-width: 32rem;
+  justify-self: end;
+  margin-top: clamp(var(--space-3), 1.5vw, var(--space-6));
+}
+
 .material-download__title {
   margin: 0;
   font-family: var(--font-family-heading);
-  font-size: clamp(2.4rem, 4.8vw, 5.4rem);
+  font-size: calc(clamp(2.4rem, 4.8vw, 5.4rem) * var(--hero-heading-scale));
   line-height: 0.98;
   font-weight: var(--font-weight-hero-title);
   letter-spacing: 0;

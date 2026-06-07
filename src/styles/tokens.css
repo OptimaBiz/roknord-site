@@ -116,6 +116,7 @@
   --font-family-heading: "Montserrat", ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-family-base);
   --font-heading: var(--font-family-heading);
+  --hero-heading-scale: 0.8;
   --font-size-hero-title: 2rem;
   --line-height-hero-title: 1.12;
   --font-weight-hero-title: 900;

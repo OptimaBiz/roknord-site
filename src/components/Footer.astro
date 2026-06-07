@@ -1,4 +1,6 @@
 ---
+
+const logoSrc = `${import.meta.env.BASE_URL}images/brand/roknord-logo-transparent.png`;
 ---
 
 <footer class="footer">
@@ -7,7 +9,7 @@
       <a class="footer__logo-link" href="/#contact" aria-label="Рокнорд, к форме связи">
         <img
           class="footer__logo"
-          src="/images/brand/roknord-logo-transparent.png"
+          src={logoSrc}
           width="2508"
           height="627"
           alt="Рокнорд"

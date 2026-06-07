@@ -1,6 +1,8 @@
 ---
 import MobileMenu from "./MobileMenu.astro";
 
+const logoSrc = `${import.meta.env.BASE_URL}images/brand/roknord-logo-transparent.png`;
+
 const serviceLinks = [
   { label: "Подготовка к подтверждению компетентности", href: "/#scenario-confirmation" },
   { label: "Аудит и актуализация области аккредитации", href: "/#scenario-scope-audit" },
@@ -63,7 +65,7 @@ const sectionLinks = [
       <a class="brand" href="/" aria-label="Рокнорд, на главную страницу">
         <img
           class="brand-logo"
-          src="/images/brand/roknord-logo-transparent.png"
+          src={logoSrc}
           width="2508"
           height="627"
           alt="Рокнорд"

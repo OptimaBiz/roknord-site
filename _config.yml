@@ -1,0 +1,13 @@
+source: docs
+destination: _site
+exclude:
+  - node_modules
+  - src
+  - dist
+  - public
+  - test-results
+  - .astro
+  - .agents
+  - .claude
+  - .codex
+  - roknord-dist.zip

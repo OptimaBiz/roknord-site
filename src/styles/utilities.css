@@ -208,7 +208,189 @@
 }
 
 .cta-angled {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   clip-path: var(--cta-shape-angled);
+}
+
+.cta-angled::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    108deg,
+    transparent 18%,
+    color-mix(in srgb, var(--lrqa-white) 18%, transparent) 48%,
+    transparent 78%
+  );
+  transform: translateX(-120%);
+  transition: transform var(--duration-slow) var(--easing-standard);
+}
+
+:where(
+  .button,
+  .service-cta,
+  .request-strip__action,
+  .promo-cta,
+  .pricing-cta__btn,
+  .faq-cta-btn,
+  .contact-form__submit,
+  .thank-you__button,
+  .cookie-panel__button,
+  .footer__ask-btn,
+  .login-modal__submit,
+  .mobile-menu-cta
+) {
+  transform: translateY(0) scale(1);
+  transform-origin: center;
+  transition:
+    transform var(--duration-normal) var(--easing-standard),
+    filter var(--duration-normal) var(--easing-standard),
+    background-color var(--duration-normal) var(--easing-standard),
+    border-color var(--duration-normal) var(--easing-standard),
+    color var(--duration-normal) var(--easing-standard),
+    box-shadow var(--duration-normal) var(--easing-standard) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :where(
+    .button,
+    .service-cta,
+    .request-strip__action,
+    .promo-cta,
+    .pricing-cta__btn,
+    .faq-cta-btn,
+    .contact-form__submit,
+    .thank-you__button,
+    .cookie-panel__button,
+    .footer__ask-btn,
+    .login-modal__submit,
+    .mobile-menu-cta
+  ):not(:disabled):hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    filter: brightness(1.035);
+  }
+
+  .cta-angled:not(:disabled):hover::after,
+  .cta-angled:not(:disabled):focus-visible::after {
+    transform: translateX(120%);
+  }
+
+  :where(
+    .button,
+    .service-cta,
+    .request-strip__action,
+    .promo-cta,
+    .pricing-cta__btn,
+    .faq-cta-btn,
+    .contact-form__submit,
+    .thank-you__button,
+    .cookie-panel__button,
+    .footer__ask-btn,
+    .login-modal__submit,
+    .mobile-menu-cta
+  ):not(:disabled):active {
+    transform: translateY(0) scale(0.985) !important;
+    transition-duration: var(--duration-fast) !important;
+  }
+}
+
+@media (hover: none), (pointer: coarse), (max-width: 47.99rem) {
+  .cta-angled::after {
+    display: none;
+  }
+
+  :where(
+    .button,
+    .service-cta,
+    .request-strip__action,
+    .promo-cta,
+    .pricing-cta__btn,
+    .faq-cta-btn,
+    .contact-form__submit,
+    .thank-you__button,
+    .cookie-panel__button,
+    .footer__ask-btn,
+    .login-modal__submit,
+    .mobile-menu-cta
+  ):not(:disabled):hover {
+    transform: none !important;
+    filter: none;
+  }
+
+  :where(
+    .button,
+    .service-cta,
+    .request-strip__action,
+    .promo-cta,
+    .pricing-cta__btn,
+    .faq-cta-btn,
+    .contact-form__submit,
+    .thank-you__button,
+    .cookie-panel__button,
+    .footer__ask-btn,
+    .login-modal__submit,
+    .mobile-menu-cta
+  ):not(:disabled):active {
+    transform: scale(0.97) !important;
+    filter: brightness(0.96);
+    transition-duration: var(--duration-fast) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-angled::after {
+    display: none;
+  }
+
+  :where(
+    .button,
+    .service-cta,
+    .request-strip__action,
+    .promo-cta,
+    .pricing-cta__btn,
+    .faq-cta-btn,
+    .contact-form__submit,
+    .thank-you__button,
+    .cookie-panel__button,
+    .footer__ask-btn,
+    .login-modal__submit,
+    .mobile-menu-cta
+  ),
+  :where(
+    .button,
+    .service-cta,
+    .request-strip__action,
+    .promo-cta,
+    .pricing-cta__btn,
+    .faq-cta-btn,
+    .contact-form__submit,
+    .thank-you__button,
+    .cookie-panel__button,
+    .footer__ask-btn,
+    .login-modal__submit,
+    .mobile-menu-cta
+  ):not(:disabled):hover,
+  :where(
+    .button,
+    .service-cta,
+    .request-strip__action,
+    .promo-cta,
+    .pricing-cta__btn,
+    .faq-cta-btn,
+    .contact-form__submit,
+    .thank-you__button,
+    .cookie-panel__button,
+    .footer__ask-btn,
+    .login-modal__submit,
+    .mobile-menu-cta
+  ):not(:disabled):active {
+    transform: none !important;
+    filter: none !important;
+  }
 }
 
 .editorial-frame {

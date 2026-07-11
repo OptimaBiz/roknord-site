@@ -231,6 +231,7 @@
 }
 
 .motion-control {
+  position: relative;
   transform: translateY(0) scale(1);
   transform-origin: center;
   transition:
@@ -242,20 +243,28 @@
     box-shadow var(--duration-normal) var(--easing-standard) !important;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .motion-control:not(:disabled):hover {
-    transform: translateY(-2px) scale(1.01) !important;
-    filter: brightness(1.035);
-  }
+.motion-control:not(:disabled):hover,
+.motion-control:not(:disabled):focus-visible {
+  transform: translateY(-2px) scale(1.01) !important;
+  filter: brightness(1.06) saturate(1.04);
+  box-shadow: 0 0.65rem 1.5rem color-mix(in srgb, var(--lrqa-black) 18%, transparent);
+}
 
+.motion-control.cta-angled:not(:disabled):hover::after,
+.motion-control.cta-angled:not(:disabled):focus-visible::after {
+  transform: translateX(120%);
+}
+
+.motion-control:not(:disabled):active {
+  transform: translateY(0) scale(0.985) !important;
+  filter: brightness(0.97);
+  transition-duration: var(--duration-fast) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
   .motion-control.cta-angled:not(:disabled):hover::after,
   .motion-control.cta-angled:not(:disabled):focus-visible::after {
     transform: translateX(120%);
-  }
-
-  .motion-control:not(:disabled):active {
-    transform: translateY(0) scale(0.985) !important;
-    transition-duration: var(--duration-fast) !important;
   }
 }
 
@@ -267,11 +276,13 @@
   .motion-control:not(:disabled):hover {
     transform: none !important;
     filter: none;
+    box-shadow: none;
   }
 
   .motion-control:not(:disabled):active {
     transform: scale(0.97) !important;
     filter: brightness(0.96);
+    box-shadow: none;
     transition-duration: var(--duration-fast) !important;
   }
 }

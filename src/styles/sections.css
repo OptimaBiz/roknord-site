@@ -107,8 +107,6 @@
   line-height: var(--line-height-section-title);
   font-weight: var(--font-weight-section-title);
   letter-spacing: var(--letter-spacing-tight);
-  overflow-wrap: break-word;
-  hyphens: auto;
 }
 
 .section-heading {
@@ -132,10 +130,24 @@
   color: var(--color-text-muted);
   font-size: clamp(var(--font-size-body), 0.6vw + 0.95rem, var(--font-size-lg));
   line-height: var(--line-height-relaxed);
-  overflow-wrap: break-word;
-  hyphens: auto;
 }
 
 .section-lead--dark {
   color: var(--color-text-muted);
+}
+
+@media (max-width: 47.99rem) {
+  .section__title {
+    font-size: clamp(1.55rem, 6.5vw, 2rem);
+    line-height: 1.08;
+  }
+
+  .section-heading {
+    font-size: clamp(1.125rem, 5.5vw, 2.1rem);
+    line-height: 1.08;
+  }
+
+  .hero > .page-container .section-heading {
+    font-size: clamp(1.125rem, 5.5vw, 1.5rem);
+  }
 }

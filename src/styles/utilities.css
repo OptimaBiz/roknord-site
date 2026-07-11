@@ -398,29 +398,29 @@
 
 .image-card__media--direction-1 {
   background-image:
-    linear-gradient(135deg, rgba(0, 250, 176, 0.12), transparent 52%),
-    linear-gradient(120deg, rgba(255, 255, 255, 0.08), transparent 34%),
+    linear-gradient(135deg, color-mix(in srgb, var(--lrqa-mint) 12%, transparent), transparent 52%),
+    linear-gradient(120deg, color-mix(in srgb, var(--lrqa-white) 8%, transparent), transparent 34%),
     linear-gradient(160deg, var(--color-gradient-navy-1) 0%, var(--lrqa-navy) 44%, var(--color-gradient-navy-3) 100%);
 }
 
 .image-card__media--direction-2 {
   background-image:
-    linear-gradient(140deg, rgba(208, 0, 155, 0.16), transparent 46%),
-    linear-gradient(125deg, rgba(255, 255, 255, 0.06), transparent 38%),
+    linear-gradient(140deg, color-mix(in srgb, var(--color-editorial-accent) 16%, transparent), transparent 46%),
+    linear-gradient(125deg, color-mix(in srgb, var(--lrqa-white) 6%, transparent), transparent 38%),
     linear-gradient(155deg, var(--color-gradient-navy-4) 0%, var(--lrqa-dark-mass) 50%, var(--color-gradient-navy-5) 100%);
 }
 
 .image-card__media--direction-3 {
   background-image:
-    linear-gradient(135deg, rgba(0, 250, 176, 0.1), transparent 42%),
-    linear-gradient(45deg, rgba(208, 0, 155, 0.12), transparent 58%),
+    linear-gradient(135deg, color-mix(in srgb, var(--lrqa-mint) 10%, transparent), transparent 42%),
+    linear-gradient(45deg, color-mix(in srgb, var(--color-editorial-accent) 12%, transparent), transparent 58%),
     linear-gradient(160deg, var(--color-gradient-navy-6) 0%, var(--lrqa-navy) 46%, var(--color-gradient-navy-7) 100%);
 }
 
 .image-card__media--direction-4 {
   background-image:
-    linear-gradient(130deg, rgba(255, 255, 255, 0.08), transparent 34%),
-    linear-gradient(145deg, rgba(0, 250, 176, 0.1), transparent 58%),
+    linear-gradient(130deg, color-mix(in srgb, var(--lrqa-white) 8%, transparent), transparent 34%),
+    linear-gradient(145deg, color-mix(in srgb, var(--lrqa-mint) 10%, transparent), transparent 58%),
     linear-gradient(165deg, var(--color-gradient-navy-7) 0%, var(--lrqa-navy-2) 50%, var(--lrqa-nav) 100%);
 }
 
@@ -432,22 +432,22 @@
 
 .image-card__media--resource-1 {
   background-image:
-    linear-gradient(135deg, rgba(208, 0, 155, 0.16), transparent 42%),
-    linear-gradient(130deg, rgba(255, 255, 255, 0.07), transparent 36%),
+    linear-gradient(135deg, color-mix(in srgb, var(--color-editorial-accent) 16%, transparent), transparent 42%),
+    linear-gradient(130deg, color-mix(in srgb, var(--lrqa-white) 7%, transparent), transparent 36%),
     linear-gradient(160deg, var(--color-gradient-navy-4) 0%, var(--lrqa-navy) 45%, var(--color-gradient-navy-3) 100%);
 }
 
 .image-card__media--resource-2 {
   background-image:
-    linear-gradient(140deg, rgba(0, 250, 176, 0.14), transparent 42%),
-    linear-gradient(120deg, rgba(255, 255, 255, 0.06), transparent 38%),
+    linear-gradient(140deg, color-mix(in srgb, var(--lrqa-mint) 14%, transparent), transparent 42%),
+    linear-gradient(120deg, color-mix(in srgb, var(--lrqa-white) 6%, transparent), transparent 38%),
     linear-gradient(165deg, var(--color-gradient-navy-7) 0%, var(--lrqa-dark-mass) 46%, var(--color-gradient-navy-8) 100%);
 }
 
 .image-card__media--resource-3 {
   background-image:
-    linear-gradient(135deg, rgba(208, 0, 155, 0.14), transparent 44%),
-    linear-gradient(50deg, rgba(0, 250, 176, 0.1), transparent 52%),
+    linear-gradient(135deg, color-mix(in srgb, var(--color-editorial-accent) 14%, transparent), transparent 44%),
+    linear-gradient(50deg, color-mix(in srgb, var(--lrqa-mint) 10%, transparent), transparent 52%),
     linear-gradient(160deg, var(--lrqa-nav) 0%, var(--lrqa-navy) 44%, var(--color-gradient-navy-5) 100%);
 }
 

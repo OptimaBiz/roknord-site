@@ -17,9 +17,9 @@
     L 98 70
     C 98 66 94 62 90 62
     Z
-  " fill="#0a1628"/>
+  " fill="#121316"/>
 
-  <path d="M 148 85 Q 158 100 148 115" fill="none" stroke="#0a1628" stroke-width="4" stroke-linecap="round"/>
-  <path d="M 160 76 Q 174 100 160 124" fill="none" stroke="#0a1628" stroke-width="3.5" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 148 85 Q 158 100 148 115" fill="none" stroke="#121316" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 160 76 Q 174 100 160 124" fill="none" stroke="#121316" stroke-width="3.5" stroke-linecap="round" opacity="0.6"/>
 
 </svg>

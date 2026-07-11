@@ -44,8 +44,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     min-height: calc(100svh - var(--header-total-height, 7rem));
     padding-block: clamp(var(--space-10), 8vw, var(--space-16));
     background:
-      linear-gradient(90deg, rgba(0, 250, 176, 0.1) 0 1px, transparent 1px 100%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 100%),
+      linear-gradient(90deg, color-mix(in srgb, var(--lrqa-mint) 10%, transparent) 0 1px, transparent 1px 100%),
+      linear-gradient(180deg, color-mix(in srgb, var(--lrqa-white) 4.5%, transparent) 0 1px, transparent 1px 100%),
       linear-gradient(135deg, var(--lrqa-navy) 0%, var(--lrqa-nav) 48%, var(--lrqa-dark-mass) 100%);
     background-size: 5rem 5rem, 5rem 5rem, auto;
     color: var(--lrqa-white);
@@ -56,7 +56,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(100deg, transparent 0%, rgba(0, 250, 176, 0.12) 46%, transparent 68%);
+    background: linear-gradient(100deg, transparent 0%, color-mix(in srgb, var(--lrqa-mint) 12%, transparent) 46%, transparent 68%);
     transform: translateX(-100%);
     opacity: 0.9;
   }
@@ -85,8 +85,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     bottom: var(--space-5);
     width: 7.5rem;
     height: 7.5rem;
-    border-right: 1px solid rgba(0, 250, 176, 0.48);
-    border-bottom: 1px solid rgba(0, 250, 176, 0.48);
+    border-right: 1px solid color-mix(in srgb, var(--lrqa-mint) 48%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--lrqa-mint) 48%, transparent);
     pointer-events: none;
   }
 

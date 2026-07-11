@@ -184,8 +184,8 @@
 .promo-cover.is-panning {
   border-color: var(--lrqa-mint);
   box-shadow:
-    0 1.6rem 3.4rem rgba(0, 0, 0, 0.34),
-    0 0 0 2px rgba(0, 250, 176, 0.28);
+    0 1.6rem 3.4rem color-mix(in srgb, var(--lrqa-black) 34%, transparent),
+    0 0 0 2px color-mix(in srgb, var(--lrqa-mint) 28%, transparent);
 }
 
 .promo-cover__frame {
@@ -290,4 +290,14 @@
 
 .promo-risk-block i:nth-child(3) {
   width: 58%;
+}
+
+@media (max-width: 47.99rem) {
+  .promo-title {
+    font-size: clamp(1.4rem, 7vw, 2.1rem);
+    line-height: 1.08;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: manual;
+  }
 }

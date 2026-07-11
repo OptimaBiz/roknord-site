@@ -12,4 +12,42 @@
       </a>
     </div>
   </div>
+  <script is:inline>
+    (() => {
+      const initialize = () => {
+        const strip = document.querySelector(".request-strip");
+        const formats = document.getElementById("formats");
+        if (!strip || !formats) return;
+
+        let updateQueued = false;
+
+        const updateState = () => {
+          const stripRect = strip.getBoundingClientRect();
+          const formatsRect = formats.getBoundingClientRect();
+          const isStuck = stripRect.top <= 0;
+          const phoneOnly = formatsRect.top <= stripRect.height;
+
+          strip.classList.toggle("request-strip--stuck", isStuck);
+          strip.classList.toggle("request-strip--phone-only", phoneOnly);
+          updateQueued = false;
+        };
+
+        const queueUpdate = () => {
+          if (updateQueued) return;
+          updateQueued = true;
+          window.requestAnimationFrame(updateState);
+        };
+
+        window.addEventListener("scroll", queueUpdate, { passive: true });
+        window.addEventListener("resize", queueUpdate);
+        updateState();
+      };
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initialize, { once: true });
+      } else {
+        initialize();
+      }
+    })();
+  </script>
 </section>

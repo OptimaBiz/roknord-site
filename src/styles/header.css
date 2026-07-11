@@ -1,8 +1,9 @@
 /* Header, request strip, desktop nav, and mobile drawer styles. */
 
 .request-strip {
-  position: relative;
-  z-index: 2;
+  position: sticky;
+  top: 0;
+  z-index: calc(var(--z-index-header) - 1);
   border: 0;
   background: transparent;
   color: var(--color-text-inverse);

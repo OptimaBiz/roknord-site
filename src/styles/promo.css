@@ -175,8 +175,8 @@
   z-index: 2;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(14, 11, 58, 0.18), transparent 18%, transparent 82%, rgba(14, 11, 58, 0.18)),
-    linear-gradient(180deg, rgba(14, 11, 58, 0.12), transparent 20%, transparent 82%, rgba(14, 11, 58, 0.16));
+    linear-gradient(90deg, color-mix(in srgb, var(--lrqa-navy) 18%, transparent), transparent 18%, transparent 82%, color-mix(in srgb, var(--lrqa-navy) 18%, transparent)),
+    linear-gradient(180deg, color-mix(in srgb, var(--lrqa-navy) 12%, transparent), transparent 20%, transparent 82%, color-mix(in srgb, var(--lrqa-navy) 16%, transparent));
 }
 
 .promo-cover:hover,

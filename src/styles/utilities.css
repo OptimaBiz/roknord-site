@@ -87,6 +87,7 @@
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
+  font-family: var(--font-family-mono);
 }
 
 .card__meta {
@@ -96,6 +97,7 @@
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
+  font-family: var(--font-family-mono);
 }
 
 .card__title {
@@ -313,14 +315,14 @@
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(180deg, rgba(14, 11, 58, 0.16) 0%, rgba(14, 11, 58, 0.56) 48%, rgba(14, 11, 58, 0.92) 100%);
+    linear-gradient(180deg, color-mix(in srgb, var(--lrqa-navy) 16%, transparent) 0%, color-mix(in srgb, var(--lrqa-navy) 56%, transparent) 48%, color-mix(in srgb, var(--lrqa-navy) 92%, transparent) 100%);
   transition: var(--transition-fast);
 }
 
 .image-card:hover::before,
 .image-card:focus-within::before {
   background:
-    linear-gradient(180deg, rgba(14, 11, 58, 0.2) 0%, rgba(14, 11, 58, 0.62) 44%, rgba(14, 11, 58, 0.96) 100%);
+    linear-gradient(180deg, color-mix(in srgb, var(--lrqa-navy) 20%, transparent) 0%, color-mix(in srgb, var(--lrqa-navy) 62%, transparent) 44%, color-mix(in srgb, var(--lrqa-navy) 96%, transparent) 100%);
 }
 
 .image-card__media {

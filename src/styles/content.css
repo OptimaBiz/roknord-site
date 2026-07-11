@@ -165,7 +165,7 @@
 }
 
 .download-dialog::backdrop {
-  background: rgba(14, 11, 58, 0.72);
+  background: color-mix(in srgb, var(--lrqa-navy) 72%, transparent);
 }
 
 .download-dialog__body {
@@ -351,6 +351,7 @@
 }
 
 .proof-strip__meta {
+  font-family: var(--font-family-mono);
   color: var(--color-mint-action);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);

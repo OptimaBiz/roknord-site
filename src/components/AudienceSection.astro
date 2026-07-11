@@ -147,7 +147,7 @@ const audiences = [
     position: absolute;
     inset: 0;
     z-index: 2;
-    background: rgba(14, 11, 58, 0.62);
+    background: color-mix(in srgb, var(--lrqa-navy) 62%, transparent);
     pointer-events: none;
     transition: background-color var(--duration-normal) var(--easing-standard);
   }
@@ -155,7 +155,7 @@ const audiences = [
   @media (hover: hover) {
     .audience-card:hover::before,
     .audience-card:focus-within::before {
-      background: rgba(14, 11, 58, 0.90);
+      background: color-mix(in srgb, var(--lrqa-navy) 90%, transparent);
     }
   }
 

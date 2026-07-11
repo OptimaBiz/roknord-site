@@ -247,7 +247,7 @@
     grid-column: 2;
     width: 1px;
     height: 1.65rem;
-    background: rgba(14, 11, 58, 0.38);
+    background: color-mix(in srgb, var(--lrqa-navy) 38%, transparent);
   }
 
   .request-strip--phone-only .request-strip__separator,
@@ -271,7 +271,7 @@
   .hero__media-layer {
     inset: 0;
     background:
-      linear-gradient(180deg, rgba(8, 10, 36, 0.3) 0%, rgba(8, 10, 36, 0.68) 100%),
+      linear-gradient(180deg, color-mix(in srgb, var(--lrqa-navy) 30%, transparent) 0%, color-mix(in srgb, var(--lrqa-navy) 68%, transparent) 100%),
       linear-gradient(146deg, transparent 0 58%, color-mix(in srgb, var(--color-mint-action) 12%, transparent) 58% 60%, transparent 60% 100%);
   }
 
@@ -279,9 +279,9 @@
     background:
       linear-gradient(
         to bottom,
-        rgba(10, 12, 34, 0.16) 0%,
-        rgba(10, 12, 34, 0.42) 36%,
-        rgba(10, 12, 34, 0.78) 100%
+        color-mix(in srgb, var(--lrqa-navy) 16%, transparent) 0%,
+        color-mix(in srgb, var(--lrqa-navy) 42%, transparent) 36%,
+        color-mix(in srgb, var(--lrqa-navy) 78%, transparent) 100%
       ),
       linear-gradient(146deg, transparent 0 58%, color-mix(in srgb, var(--color-mint-action) 12%, transparent) 58% 60%, transparent 60% 100%);
   }
@@ -289,8 +289,8 @@
   .hero-layout::before {
     inset: -1rem 0;
     background:
-      radial-gradient(circle at 16% 24%, rgba(7, 9, 35, 0.6) 0%, rgba(7, 9, 35, 0.42) 28%, transparent 68%),
-      linear-gradient(180deg, rgba(7, 9, 35, 0.42) 0%, rgba(7, 9, 35, 0.22) 54%, rgba(7, 9, 35, 0.1) 100%);
+      radial-gradient(circle at 16% 24%, color-mix(in srgb, var(--lrqa-navy) 60%, transparent) 0%, color-mix(in srgb, var(--lrqa-navy) 42%, transparent) 28%, transparent 68%),
+      linear-gradient(180deg, color-mix(in srgb, var(--lrqa-navy) 42%, transparent) 0%, color-mix(in srgb, var(--lrqa-navy) 22%, transparent) 54%, color-mix(in srgb, var(--lrqa-navy) 10%, transparent) 100%);
     filter: blur(1.5px);
   }
 
@@ -393,9 +393,8 @@
     height: 1.5rem;
   }
 
-  .brand-logo {
-    height: 1.5rem;
-    transform: none;
+  .brand-wordmark {
+    font-size: 1.7rem;
   }
 
   .site-nav {
@@ -491,7 +490,7 @@
   .hero-link {
     text-shadow:
       0 1px 2px rgba(0, 0, 0, 0.42),
-      0 0 16px rgba(7, 9, 35, 0.18);
+      0 0 16px color-mix(in srgb, var(--lrqa-navy) 18%, transparent);
   }
 
   .hero-title__accent {

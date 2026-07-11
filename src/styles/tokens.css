@@ -148,6 +148,11 @@
   --type-card-title: var(--font-size-2xl);
   --type-section-title: clamp(1.75rem, 2.2vw + 1rem, var(--font-size-4xl));
   --type-display: clamp(2rem, 2.6vw + 1.2rem, var(--font-size-5xl));
+  --type-page-title: clamp(2.4rem, 4.5vw, 5.1rem);
+  --type-feature-title: clamp(var(--font-size-2xl), 0.85vw + 1.15rem, 2.65rem);
+  --type-subsection-title: clamp(1.25rem, 0.65vw + 1rem, var(--font-size-2xl));
+  --type-data-display: clamp(2rem, 2vw + 1.25rem, 3.5rem);
+  --type-step-number: clamp(var(--font-size-2xl), 2vw + 1rem, var(--font-size-4xl));
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;

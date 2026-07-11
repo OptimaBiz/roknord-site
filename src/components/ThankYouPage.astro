@@ -99,7 +99,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   .thank-you h1 {
     margin: 0;
     font-family: var(--font-heading);
-    font-size: calc(clamp(2.4rem, 5.8vw, 6rem) * var(--hero-heading-scale));
+    font-size: calc(var(--type-page-title) * var(--hero-heading-scale));
     font-weight: var(--font-weight-hero-title);
     line-height: 0.98;
     letter-spacing: 0;
@@ -109,7 +109,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     margin: 0;
     max-width: 42rem;
     color: var(--lrqa-border-soft);
-    font-size: clamp(var(--font-size-md), 0.5vw + 1rem, var(--font-size-xl));
+    font-size: var(--type-lead);
     line-height: var(--line-height-relaxed);
   }
 
@@ -200,7 +200,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     }
 
     .thank-you h1 {
-      font-size: calc(clamp(2rem, 10vw, 3.1rem) * var(--hero-heading-scale));
+      font-size: calc(var(--type-display) * var(--hero-heading-scale));
       line-height: 1.02;
     }
 

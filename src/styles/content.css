@@ -41,7 +41,7 @@
 .material-download__title {
   margin: 0;
   font-family: var(--font-family-heading);
-  font-size: calc(clamp(2.4rem, 4.5vw, 5.1rem) * var(--hero-heading-scale));
+  font-size: calc(var(--type-page-title) * var(--hero-heading-scale));
   line-height: 0.98;
   font-weight: var(--font-weight-hero-title);
   letter-spacing: 0;
@@ -51,7 +51,7 @@
   margin: 0;
   max-width: 42rem;
   color: var(--lrqa-border-soft);
-  font-size: clamp(var(--font-size-lg), 0.55vw + 1rem, var(--font-size-xl));
+  font-size: var(--type-lead);
   line-height: var(--line-height-relaxed);
 }
 
@@ -95,7 +95,7 @@
 .download-dialog h2 {
   margin: 0;
   font-family: var(--font-family-heading);
-  font-size: clamp(1.8rem, 1.2vw + 1.4rem, 2.45rem);
+  font-size: var(--type-card-title);
   line-height: var(--line-height-snug);
 }
 
@@ -273,7 +273,7 @@
 }
 
 .solution-title {
-  font-size: clamp(var(--font-size-2xl), 0.85vw + 1.15rem, 2.65rem);
+  font-size: var(--type-feature-title);
 }
 
 .solution-text,
@@ -515,7 +515,7 @@
 }
 
 .risk-card__title {
-  font-size: clamp(1.1rem, 0.42vw + 1rem, 1.5rem);
+  font-size: var(--type-card-title);
 }
 
 .risk-card__text {
@@ -593,7 +593,7 @@
 .process-step__number {
   color: var(--color-mint-action);
   font-family: var(--font-heading);
-  font-size: clamp(var(--font-size-2xl), 2vw + 1rem, var(--font-size-4xl));
+  font-size: var(--type-step-number);
   font-weight: var(--font-weight-hero-title);
   line-height: 1;
 }
@@ -653,7 +653,7 @@
 }
 
 .deliverable-title {
-  font-size: clamp(1.35rem, 0.65vw + 1rem, var(--font-size-2xl));
+  font-size: var(--type-subsection-title);
 }
 
 .resources {
@@ -677,7 +677,7 @@
 }
 
 .resource-title {
-  font-size: clamp(1.25rem, 0.65vw + 1rem, 1.95rem);
+  font-size: var(--type-subsection-title);
 }
 
 .formats-shell {

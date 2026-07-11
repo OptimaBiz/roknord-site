@@ -55,6 +55,10 @@ Prefer:
 
 ## Visual Direction
 
+Типографика всех текущих и новых страниц, блоков и компонентов регулируется
+`docs/TYPOGRAPHY_CANON.md`. Произвольные локальные размеры не добавлять: сначала
+выбрать существующую семантическую роль или расширить канон именованным токеном.
+
 Roknord visual system:
 - dark navy base with mint accents, white surfaces, and restrained grey neutrals;
 - large dark hero;

@@ -279,8 +279,8 @@
     background:
       linear-gradient(
         to bottom,
-        color-mix(in srgb, var(--lrqa-navy) 16%, transparent) 0%,
-        color-mix(in srgb, var(--lrqa-navy) 42%, transparent) 36%,
+        color-mix(in srgb, var(--lrqa-navy) 34%, transparent) 0%,
+        color-mix(in srgb, var(--lrqa-navy) 56%, transparent) 42%,
         color-mix(in srgb, var(--lrqa-navy) 78%, transparent) 100%
       ),
       linear-gradient(146deg, transparent 0 58%, color-mix(in srgb, var(--color-mint-action) 12%, transparent) 58% 60%, transparent 60% 100%);
@@ -304,12 +304,12 @@
   .hero-layout {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: flex-start;
     min-height: inherit;
-    padding-top: 0;
-    padding-bottom: calc(var(--hero-mobile-text-gap) * 2);
-    gap: 0;
+    padding-top: clamp(var(--space-10), 9svh, var(--space-14));
+    padding-bottom: var(--hero-mobile-text-gap);
+    gap: var(--space-6);
   }
 
   .header-service {
@@ -456,7 +456,7 @@
     width: 100%;
     align-self: flex-start;
     margin-inline: 0;
-    margin-bottom: var(--hero-mobile-text-gap);
+    margin-bottom: 0;
   }
 
   .hero-title-block {
@@ -470,7 +470,7 @@
     width: 100%;
     align-self: flex-start;
     margin-inline: 0;
-    gap: var(--hero-mobile-text-gap);
+    gap: var(--space-5);
   }
 
   .hero-lead-block,
@@ -531,12 +531,13 @@
   }
 
   .hero-links {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(12px, 2svh, 14px);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3) var(--space-5);
+    width: 100%;
     margin-top: 0;
     text-align: left;
-    justify-items: start;
+    align-items: center;
   }
 
   .hero-link {
@@ -553,6 +554,21 @@
     text-decoration: none;
   }
 
+  .hero-link--primary {
+    grid-column: 1 / -1;
+    justify-content: center;
+    width: 100%;
+    min-height: 3.25rem;
+    padding: var(--space-3) calc(var(--space-6) + var(--button-bevel) * 0.4);
+    background: var(--color-mint-action);
+    color: var(--color-text-inverse);
+    text-shadow: none;
+  }
+
+  .hero-link--secondary {
+    justify-self: start;
+  }
+
   .hero-link {
     transition:
       color 0.24s ease,
@@ -560,7 +576,7 @@
       text-shadow 0.24s ease;
   }
 
-  .hero-link::before {
+  .hero-link--secondary::before {
     content: "→";
     color: var(--color-mint-action);
     font-size: 20px;

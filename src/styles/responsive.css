@@ -618,11 +618,35 @@
   }
 
   .proof-strip__track {
+    grid-template-columns: 1fr;
     gap: var(--space-3);
   }
 
   .proof-strip__item {
-    flex-basis: min(78vw, 18rem);
+    grid-template-rows: minmax(2.4em, auto) minmax(2.7em, auto);
+    min-width: 0;
+    min-height: 9rem;
+    padding: var(--space-5);
+  }
+
+  .proof-strip__label,
+  .proof-strip__meta {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: manual;
+  }
+
+  .proof-strip__label {
+    min-height: 2.4em;
+    font-size: clamp(1rem, 4.6vw, var(--font-size-lg));
+  }
+
+  .proof-strip__meta {
+    min-height: 2.7em;
+    font-size: clamp(var(--font-size-2xs), 2.8vw, var(--font-size-xs));
+    letter-spacing: clamp(0.04em, 0.5vw, 0.08em);
   }
 
   .mobile-menu-group a,

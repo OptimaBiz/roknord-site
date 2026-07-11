@@ -130,6 +130,65 @@ const titleId = `${id}-form-title`;
       const contactSubmit = contactRoot?.querySelector("[data-contact-submit]");
       const contactSubmitText = contactRoot?.querySelector("[data-contact-submit-text]");
 
+      if (contactRoot?.id === "contact" && !document.documentElement.hasAttribute("data-contact-anchor-ready")) {
+        document.documentElement.setAttribute("data-contact-anchor-ready", "");
+
+        const getContactScrollTop = () => {
+          const requestStrip = document.querySelector(".request-strip");
+          const stickyOffset = requestStrip?.getBoundingClientRect().height || 0;
+          return Math.max(0, contactRoot.getBoundingClientRect().top + window.scrollY - stickyOffset);
+        };
+
+        const alignContact = (behavior = "auto") => {
+          window.scrollTo({ top: getContactScrollTop(), behavior });
+        };
+
+        const settleContactPosition = () => {
+          window.requestAnimationFrame(() => {
+            window.requestAnimationFrame(() => alignContact("auto"));
+          });
+        };
+
+        const scrollToContact = () => {
+          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          alignContact(reduceMotion ? "auto" : "smooth");
+
+          if (reduceMotion) {
+            settleContactPosition();
+            return;
+          }
+
+          if ("onscrollend" in window) {
+            window.addEventListener("scrollend", settleContactPosition, { once: true });
+          } else {
+            window.setTimeout(settleContactPosition, 900);
+          }
+        };
+
+        document.addEventListener("click", (event) => {
+          if (!(event.target instanceof Element)) return;
+          const anchor = event.target.closest('a[href="#contact"], a[href="/#contact"]');
+          if (!(anchor instanceof HTMLAnchorElement)) return;
+
+          const targetUrl = new URL(anchor.href, window.location.href);
+          if (targetUrl.pathname !== window.location.pathname || targetUrl.hash !== "#contact") return;
+
+          event.preventDefault();
+          window.history.pushState(null, "", "#contact");
+          scrollToContact();
+        });
+
+        if (window.location.hash === "#contact") {
+          if (document.readyState === "complete") {
+            settleContactPosition();
+          } else {
+            window.addEventListener("load", settleContactPosition, { once: true });
+          }
+
+          document.fonts?.ready.then(settleContactPosition);
+        }
+      }
+
       const setContactStatus = (message, type) => {
         if (!contactStatus) return;
         contactStatus.textContent = message;
@@ -190,7 +249,7 @@ const titleId = `${id}-form-title`;
   .contact-form-section {
     position: relative;
     overflow: hidden;
-    scroll-margin-top: calc(var(--header-total-height, 7rem) + var(--space-4));
+    scroll-margin-top: 0;
     padding-block: var(--section-padding-y);
     border-top: 1px solid var(--color-border-strong);
     background:

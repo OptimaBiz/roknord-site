@@ -4,7 +4,7 @@
 <div class="login-modal" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-modal-title" hidden>
   <div class="login-modal__overlay" data-login-close></div>
   <div class="login-modal__card">
-    <button class="login-modal__close" data-login-close aria-label="Закрыть">
+      <button class="login-modal__close motion-control" data-login-close aria-label="Закрыть">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <line x1="3" y1="3" x2="17" y2="17" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
         <line x1="17" y1="3" x2="3" y2="17" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
@@ -42,7 +42,7 @@
         <a class="login-modal__forgot" href="#contact" data-login-close>Забыли пароль?</a>
       </div>
 
-      <button class="login-modal__submit" type="submit">
+      <button class="login-modal__submit motion-control" type="submit">
         <span>Войти</span>
         <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
           <line x1="0" y1="6" x2="12" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -233,11 +233,6 @@
 
   .login-modal__submit:hover {
     background: var(--lrqa-mint-2);
-    transform: translateY(-1px);
-  }
-
-  .login-modal__submit:active {
-    transform: translateY(0);
   }
 
   .login-modal__notice {

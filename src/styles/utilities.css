@@ -230,20 +230,7 @@
   transition: transform var(--duration-slow) var(--easing-standard);
 }
 
-:where(
-  .button,
-  .service-cta,
-  .request-strip__action,
-  .promo-cta,
-  .pricing-cta__btn,
-  .faq-cta-btn,
-  .contact-form__submit,
-  .thank-you__button,
-  .cookie-panel__button,
-  .footer__ask-btn,
-  .login-modal__submit,
-  .mobile-menu-cta
-) {
+.motion-control {
   transform: translateY(0) scale(1);
   transform-origin: center;
   transition:
@@ -256,43 +243,17 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :where(
-    .button,
-    .service-cta,
-    .request-strip__action,
-    .promo-cta,
-    .pricing-cta__btn,
-    .faq-cta-btn,
-    .contact-form__submit,
-    .thank-you__button,
-    .cookie-panel__button,
-    .footer__ask-btn,
-    .login-modal__submit,
-    .mobile-menu-cta
-  ):not(:disabled):hover {
+  .motion-control:not(:disabled):hover {
     transform: translateY(-2px) scale(1.01) !important;
     filter: brightness(1.035);
   }
 
-  .cta-angled:not(:disabled):hover::after,
-  .cta-angled:not(:disabled):focus-visible::after {
+  .motion-control.cta-angled:not(:disabled):hover::after,
+  .motion-control.cta-angled:not(:disabled):focus-visible::after {
     transform: translateX(120%);
   }
 
-  :where(
-    .button,
-    .service-cta,
-    .request-strip__action,
-    .promo-cta,
-    .pricing-cta__btn,
-    .faq-cta-btn,
-    .contact-form__submit,
-    .thank-you__button,
-    .cookie-panel__button,
-    .footer__ask-btn,
-    .login-modal__submit,
-    .mobile-menu-cta
-  ):not(:disabled):active {
+  .motion-control:not(:disabled):active {
     transform: translateY(0) scale(0.985) !important;
     transition-duration: var(--duration-fast) !important;
   }
@@ -303,38 +264,12 @@
     display: none;
   }
 
-  :where(
-    .button,
-    .service-cta,
-    .request-strip__action,
-    .promo-cta,
-    .pricing-cta__btn,
-    .faq-cta-btn,
-    .contact-form__submit,
-    .thank-you__button,
-    .cookie-panel__button,
-    .footer__ask-btn,
-    .login-modal__submit,
-    .mobile-menu-cta
-  ):not(:disabled):hover {
+  .motion-control:not(:disabled):hover {
     transform: none !important;
     filter: none;
   }
 
-  :where(
-    .button,
-    .service-cta,
-    .request-strip__action,
-    .promo-cta,
-    .pricing-cta__btn,
-    .faq-cta-btn,
-    .contact-form__submit,
-    .thank-you__button,
-    .cookie-panel__button,
-    .footer__ask-btn,
-    .login-modal__submit,
-    .mobile-menu-cta
-  ):not(:disabled):active {
+  .motion-control:not(:disabled):active {
     transform: scale(0.97) !important;
     filter: brightness(0.96);
     transition-duration: var(--duration-fast) !important;
@@ -346,48 +281,9 @@
     display: none;
   }
 
-  :where(
-    .button,
-    .service-cta,
-    .request-strip__action,
-    .promo-cta,
-    .pricing-cta__btn,
-    .faq-cta-btn,
-    .contact-form__submit,
-    .thank-you__button,
-    .cookie-panel__button,
-    .footer__ask-btn,
-    .login-modal__submit,
-    .mobile-menu-cta
-  ),
-  :where(
-    .button,
-    .service-cta,
-    .request-strip__action,
-    .promo-cta,
-    .pricing-cta__btn,
-    .faq-cta-btn,
-    .contact-form__submit,
-    .thank-you__button,
-    .cookie-panel__button,
-    .footer__ask-btn,
-    .login-modal__submit,
-    .mobile-menu-cta
-  ):not(:disabled):hover,
-  :where(
-    .button,
-    .service-cta,
-    .request-strip__action,
-    .promo-cta,
-    .pricing-cta__btn,
-    .faq-cta-btn,
-    .contact-form__submit,
-    .thank-you__button,
-    .cookie-panel__button,
-    .footer__ask-btn,
-    .login-modal__submit,
-    .mobile-menu-cta
-  ):not(:disabled):active {
+  .motion-control,
+  .motion-control:not(:disabled):hover,
+  .motion-control:not(:disabled):active {
     transform: none !important;
     filter: none !important;
   }

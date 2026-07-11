@@ -27,7 +27,7 @@ const hasVideo = Boolean(mobileVideoMp4Src || videoWebmSrc || videoMp4Src);
       muted
       loop
       playsinline
-      preload="none"
+      preload="metadata"
       poster={posterSrc}
       data-hero-video
       data-mobile-src={mobileVideoMp4Src}
@@ -52,7 +52,8 @@ const hasVideo = Boolean(mobileVideoMp4Src || videoWebmSrc || videoMp4Src);
     const saveData = Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
 
     if (video && !reduceMotion && !saveData) {
-      const source = window.matchMedia('(max-width: 47.99rem)').matches
+      const isMobile = window.matchMedia('(max-width: 47.99rem)').matches;
+      const source = isMobile
         ? video.dataset.mobileSrc
         : video.dataset.desktopSrc;
 
@@ -62,21 +63,7 @@ const hasVideo = Boolean(mobileVideoMp4Src || videoWebmSrc || videoMp4Src);
         video.play().catch(() => {});
       };
 
-      const scheduleVideo = () => {
-        window.setTimeout(() => {
-          if ('requestIdleCallback' in window) {
-            window.requestIdleCallback(startVideo, { timeout: 1200 });
-          } else {
-            startVideo();
-          }
-        }, 1800);
-      };
-
-      if (document.readyState === 'complete') {
-        scheduleVideo();
-      } else {
-        window.addEventListener('load', scheduleVideo, { once: true });
-      }
+      startVideo();
     }
   </script>
 )}

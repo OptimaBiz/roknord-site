@@ -1,11 +1,7 @@
-@import "@fontsource/jura/400.css";
-@import "@fontsource/jura/500.css";
-@import "@fontsource/jura/600.css";
-@import "@fontsource/jura/700.css";
-@import "@fontsource/exo-2/400.css";
-@import "@fontsource/exo-2/500.css";
-@import "@fontsource/exo-2/600.css";
-@import "@fontsource/exo-2/700.css";
+@import "@fontsource/onest/400.css";
+@import "@fontsource/onest/500.css";
+@import "@fontsource/onest/600.css";
+@import "@fontsource/onest/700.css";
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
 @import "@fontsource/jetbrains-mono/600.css";
@@ -117,18 +113,18 @@
   --input-focus-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--lrqa-mint) 16%, transparent);
   --input-background: color-mix(in srgb, var(--lrqa-white) 4%, transparent);
 
-  --font-family-base: "Exo 2", ui-sans-serif, system-ui, sans-serif;
-  --font-family-heading: "Jura", ui-sans-serif, system-ui, sans-serif;
+  --font-family-base: "Onest", ui-sans-serif, system-ui, sans-serif;
+  --font-family-heading: "Onest", ui-sans-serif, system-ui, sans-serif;
   --font-family-mono: "JetBrains Mono", ui-monospace, monospace;
   --font-body: var(--font-family-base);
   --font-heading: var(--font-family-heading);
   --hero-heading-scale: 0.88;
   --font-size-hero-title: 2rem;
   --line-height-hero-title: 1.12;
-  --font-weight-hero-title: 700;
+  --font-weight-hero-title: 600;
   --font-size-section-title: 1.375rem;
   --line-height-section-title: 1.09;
-  --font-weight-section-title: 700;
+  --font-weight-section-title: 600;
   --font-size-body: 1rem;
   --line-height-body: 1.5;
 

@@ -41,7 +41,7 @@
 .material-download__title {
   margin: 0;
   font-family: var(--font-family-heading);
-  font-size: calc(clamp(2.4rem, 4.8vw, 5.4rem) * var(--hero-heading-scale));
+  font-size: calc(clamp(2.4rem, 4.5vw, 5.1rem) * var(--hero-heading-scale));
   line-height: 0.98;
   font-weight: var(--font-weight-hero-title);
   letter-spacing: 0;

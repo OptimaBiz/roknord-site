@@ -120,7 +120,7 @@
   font-family: var(--font-heading);
   font-size: calc(clamp(1.8rem, calc(3.75vw + 1.05rem), 3.3rem) * var(--hero-heading-scale));
   line-height: 1.1;
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--font-weight-medium);
   font-kerning: normal;
   font-stretch: 92%;
   font-feature-settings: "kern" 1, "liga" 1;

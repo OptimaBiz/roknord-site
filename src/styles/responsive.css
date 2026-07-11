@@ -79,6 +79,27 @@
 }
 
 @media (max-width: 62rem) {
+  .material-download__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .material-download__inner > .contact-form-section--embedded {
+    max-width: none;
+    justify-self: stretch;
+    margin-top: 0;
+  }
+
+  .material-download__title {
+    font-size: clamp(2rem, 5.5vw, 3.1rem);
+    line-height: 1.04;
+  }
+
+  .promo-title {
+    font-size: clamp(1.5rem, 3.2vw, 2rem);
+    line-height: 1.08;
+  }
+
   .section-intro--wide {
     grid-template-columns: 1fr;
   }
@@ -488,7 +509,7 @@
     margin-inline: 0;
     font-size: clamp(1.55rem, 7.65vw, 2.55rem);
     line-height: 1.08;
-    font-weight: var(--font-weight-regular);
+    font-weight: var(--font-weight-medium);
     font-kerning: normal;
     font-stretch: 92%;
     font-feature-settings: "kern" 1, "liga" 1;

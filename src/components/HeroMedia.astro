@@ -18,6 +18,7 @@ const {
 } = Astro.props as Props;
 
 const hasVideo = Boolean(mobileVideoMp4Src || videoWebmSrc || videoMp4Src);
+const defaultVideoSrc = videoMp4Src || videoWebmSrc || mobileVideoMp4Src;
 ---
 
 <div class={`hero-media ${className}`.trim()} aria-hidden="true">
@@ -29,13 +30,16 @@ const hasVideo = Boolean(mobileVideoMp4Src || videoWebmSrc || videoMp4Src);
       loop
       playsinline
       preload="auto"
+      src={defaultVideoSrc}
       poster={posterSrc}
       disablepictureinpicture
       data-hero-video
+      data-mobile-video-src={mobileVideoMp4Src}
+      data-desktop-video-src={videoMp4Src || videoWebmSrc}
     >
-      {mobileVideoMp4Src && <source src={mobileVideoMp4Src} type="video/mp4" media="(max-width: 47.99rem)" />}
-      {videoWebmSrc && <source src={videoWebmSrc} type="video/webm" media="(min-width: 48rem)" />}
       {videoMp4Src && <source src={videoMp4Src} type="video/mp4" media="(min-width: 48rem)" />}
+      {videoWebmSrc && <source src={videoWebmSrc} type="video/webm" media="(min-width: 48rem)" />}
+      {mobileVideoMp4Src && <source src={mobileVideoMp4Src} type="video/mp4" media="(max-width: 47.99rem)" />}
       {!videoMp4Src && videoWebmSrc && <source src={videoWebmSrc} type="video/webm" />}
       {!videoMp4Src && mobileVideoMp4Src && <source src={mobileVideoMp4Src} type="video/mp4" />}
     </video>
@@ -58,13 +62,41 @@ const hasVideo = Boolean(mobileVideoMp4Src || videoWebmSrc || videoMp4Src);
     if (video) {
       video.defaultMuted = true;
       video.muted = true;
+      video.playsInline = true;
+      video.autoplay = true;
+
+      const desktopQuery = window.matchMedia('(min-width: 48rem)');
+      const desktopSrc = video.dataset.desktopVideoSrc || video.currentSrc || video.src;
+      const mobileSrc = video.dataset.mobileVideoSrc || desktopSrc;
+
+      const getPreferredSrc = () => (desktopQuery.matches ? desktopSrc : mobileSrc);
 
       const startVideo = () => {
         if (!video.paused) return;
         video.play().catch(() => {});
       };
 
+      const syncVideoSource = () => {
+        const preferredSrc = getPreferredSrc();
+        if (!preferredSrc || video.getAttribute('src') === preferredSrc) return;
+
+        video.setAttribute('src', preferredSrc);
+        video.load();
+      };
+
+      syncVideoSource();
       startVideo();
+      const handleViewportChange = () => {
+        syncVideoSource();
+        startVideo();
+      };
+
+      if (typeof desktopQuery.addEventListener === 'function') {
+        desktopQuery.addEventListener('change', handleViewportChange);
+      } else {
+        desktopQuery.addListener(handleViewportChange);
+      }
+
       video.addEventListener('loadeddata', startVideo, { once: true });
       video.addEventListener('canplay', startVideo, { once: true });
       window.addEventListener('pageshow', startVideo);

@@ -55,12 +55,13 @@
 }
 
 .hero-layout {
+  --hero-content-gap: clamp(var(--space-7), 3vw, var(--space-9));
   position: relative;
   z-index: 3;
   display: grid;
   justify-items: center;
   align-content: center;
-  gap: clamp(var(--space-6), 3vw, var(--space-9));
+  gap: var(--hero-content-gap);
   min-height: calc(100% - (var(--hero-top-padding) + var(--hero-bottom-padding)));
   isolation: isolate;
 }
@@ -96,7 +97,7 @@
 
 .hero-supporting {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--hero-content-gap);
   justify-items: center;
   align-content: start;
   margin-inline: 0;
@@ -164,7 +165,7 @@
   flex-wrap: nowrap;
   justify-content: center;
   gap: var(--space-3) var(--space-5);
-  margin-top: var(--space-2);
+  margin-top: 0;
   text-align: center;
 }
 
@@ -202,24 +203,4 @@
 .hero-link:hover > span:first-child,
 .hero-link:focus-visible > span:first-child {
   transform: translateX(0.125rem);
-}
-
-.hero-link--primary {
-  min-height: 3.25rem;
-  padding: var(--space-3) calc(var(--space-8) + var(--button-bevel) * 0.4);
-  background: var(--color-mint-action);
-  color: var(--color-text-inverse);
-  text-shadow: none;
-}
-
-.hero-link--primary > span:first-child {
-  color: currentColor;
-}
-
-.hero-link--primary:hover,
-.hero-link--primary:focus-visible {
-  background: var(--lrqa-mint-2);
-  color: var(--color-text-inverse);
-  text-decoration: none;
-  transform: translateY(-1px);
 }

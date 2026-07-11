@@ -24,15 +24,21 @@ const hasVideo = Boolean(mobileVideoMp4Src || videoWebmSrc || videoMp4Src);
   {hasVideo ? (
     <video
       class="hero-media__video"
+      autoplay
       muted
       loop
       playsinline
-      preload="metadata"
+      preload="auto"
       poster={posterSrc}
+      disablepictureinpicture
       data-hero-video
-      data-mobile-src={mobileVideoMp4Src}
-      data-desktop-src={videoMp4Src || videoWebmSrc}
-    ></video>
+    >
+      {mobileVideoMp4Src && <source src={mobileVideoMp4Src} type="video/mp4" media="(max-width: 47.99rem)" />}
+      {videoWebmSrc && <source src={videoWebmSrc} type="video/webm" media="(min-width: 48rem)" />}
+      {videoMp4Src && <source src={videoMp4Src} type="video/mp4" media="(min-width: 48rem)" />}
+      {!videoMp4Src && videoWebmSrc && <source src={videoWebmSrc} type="video/webm" />}
+      {!videoMp4Src && mobileVideoMp4Src && <source src={mobileVideoMp4Src} type="video/mp4" />}
+    </video>
   ) : (
     <img
       class="hero-media__poster"
@@ -48,22 +54,23 @@ const hasVideo = Boolean(mobileVideoMp4Src || videoWebmSrc || videoMp4Src);
 {hasVideo && (
   <script>
     const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const saveData = Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
 
-    if (video && !reduceMotion && !saveData) {
-      const isMobile = window.matchMedia('(max-width: 47.99rem)').matches;
-      const source = isMobile
-        ? video.dataset.mobileSrc
-        : video.dataset.desktopSrc;
+    if (video) {
+      video.defaultMuted = true;
+      video.muted = true;
 
       const startVideo = () => {
-        if (!source || video.src) return;
-        video.src = source;
+        if (!video.paused) return;
         video.play().catch(() => {});
       };
 
       startVideo();
+      video.addEventListener('loadeddata', startVideo, { once: true });
+      video.addEventListener('canplay', startVideo, { once: true });
+      window.addEventListener('pageshow', startVideo);
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') startVideo();
+      });
     }
   </script>
 )}

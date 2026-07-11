@@ -58,6 +58,7 @@
 
 .section-stack {
   display: grid;
+  min-width: 0;
   gap: var(--space-6);
 }
 
@@ -80,6 +81,10 @@
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
+  min-width: 0;
+  width: fit-content;
+  max-width: 100%;
+  flex-wrap: wrap;
 }
 
 .section__eyebrow::before,
@@ -96,11 +101,14 @@
 
 .section__title {
   margin: 0;
+  min-width: 0;
   font-family: var(--font-heading);
   font-size: clamp(2rem, 1.65vw + 1.15rem, 3.35rem);
   line-height: var(--line-height-section-title);
   font-weight: var(--font-weight-section-title);
   letter-spacing: var(--letter-spacing-tight);
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .section-heading {
@@ -119,10 +127,13 @@
 .section__lead,
 .section-lead {
   margin: 0;
+  min-width: 0;
   max-width: 47rem;
   color: var(--color-text-muted);
   font-size: clamp(var(--font-size-body), 0.6vw + 0.95rem, var(--font-size-lg));
   line-height: var(--line-height-relaxed);
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .section-lead--dark {

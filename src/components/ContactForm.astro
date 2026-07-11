@@ -539,49 +539,6 @@ const titleId = `${id}-form-title`;
     opacity: 0;
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .contact-form-section::before {
-      animation: contact-scan 7s var(--easing-standard) infinite;
-    }
-
-    .contact-form-copy__signal span {
-      animation: contact-pulse 1.9s var(--easing-standard) infinite;
-    }
-
-    .contact-form-copy__signal span:nth-child(2) {
-      animation-delay: 160ms;
-    }
-
-    .contact-form-copy__signal span:nth-child(3) {
-      animation-delay: 320ms;
-    }
-  }
-
-  @keyframes contact-scan {
-    0%,
-    28% {
-      transform: translateX(-100%);
-    }
-
-    58%,
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
-  @keyframes contact-pulse {
-    0%,
-    100% {
-      transform: scaleX(0.54);
-      opacity: 0.34;
-    }
-
-    45% {
-      transform: scaleX(1);
-      opacity: 1;
-    }
-  }
-
   @media (max-width: 860px) {
     .contact-form-shell {
       grid-template-columns: 1fr;

@@ -10,27 +10,14 @@ html {
   color-scheme: dark;
   background: var(--color-surface-page);
   scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  body {
-    animation: page-enter 220ms ease-out both;
-  }
-}
-
-@keyframes page-enter {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+  scroll-padding-top: var(--space-4);
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
   min-width: var(--page-min-width);
+  overflow-x: clip;
   font-family: var(--font-body);
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
@@ -64,13 +51,7 @@ canvas {
 a {
   color: inherit;
   text-decoration: none;
-  transition:
-    color var(--transition-base),
-    background-color var(--transition-base),
-    border-color var(--transition-base),
-    box-shadow var(--transition-base),
-    opacity var(--transition-base),
-    transform var(--transition-base);
+  transition: var(--transition-base);
 }
 
 button,
@@ -86,23 +67,11 @@ button {
   color: inherit;
   padding: 0;
   cursor: pointer;
-  transition:
-    color var(--transition-base),
-    background-color var(--transition-base),
-    border-color var(--transition-base),
-    box-shadow var(--transition-base),
-    opacity var(--transition-base),
-    transform var(--transition-base);
+  transition: var(--transition-base);
 }
 
 summary {
-  transition:
-    color var(--transition-base),
-    background-color var(--transition-base),
-    border-color var(--transition-base),
-    box-shadow var(--transition-base),
-    opacity var(--transition-base),
-    transform var(--transition-base);
+  transition: var(--transition-base);
 }
 
 input,
@@ -154,4 +123,19 @@ textarea:focus {
 
 .skip-link:focus {
   transform: translate(-50%, var(--space-4));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

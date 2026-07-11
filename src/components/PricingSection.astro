@@ -42,7 +42,6 @@ const commonItems = [
 <section id="pricing" class="pricing-section section section--light" aria-labelledby="pricing-title">
   <div class="section__inner page-container">
     <div class="pricing-shell">
-
       <header class="pricing-intro">
         <p class="section__eyebrow">Форматы работы</p>
         <h2 id="pricing-title" class="section__title">
@@ -55,34 +54,30 @@ const commonItems = [
 
       <div class="pricing-grid" aria-label="Форматы работы">
         {packages.map((pkg) => (
-          <div class={`pricing-wrap js-magneto${pkg.featured ? " pricing-wrap--featured" : ""}`}>
-            <article class="pricing-card">
-              <div class="pricing-card__top">
-                {pkg.featured && <span class="pricing-card__badge">Расширенный формат</span>}
-                <h3 class="pricing-card__name">{pkg.name}</h3>
-                <div class="pricing-card__price">
-                  <strong>{pkg.price}</strong>
-                  <span>{pkg.priceNote}</span>
-                </div>
+          <article class={`pricing-card${pkg.featured ? " pricing-card--featured" : ""}`}>
+            <div class="pricing-card__top">
+              {pkg.featured && <span class="pricing-card__badge">Расширенный формат</span>}
+              <h3 class="pricing-card__name">{pkg.name}</h3>
+              <div class="pricing-card__price">
+                <strong>{pkg.price}</strong>
+                <span>{pkg.priceNote}</span>
               </div>
+            </div>
 
-              <p class="pricing-card__lead">{pkg.lead}</p>
+            <p class="pricing-card__lead">{pkg.lead}</p>
 
-              <div class="pricing-card__deliverables">
-                <p class="pricing-card__deliverables-label">Что получите на выходе</p>
-                <ul>
-                  {pkg.deliverables.map((item) => (
-                    <li>{item}</li>
-                  ))}
-                </ul>
-              </div>
+            <div class="pricing-card__deliverables">
+              <p class="pricing-card__deliverables-label">Что получите на выходе</p>
+              <ul>
+                {pkg.deliverables.map((item) => <li>{item}</li>)}
+              </ul>
+            </div>
 
-              <a class="pricing-card__link" href={pkg.href}>
-                <span>{pkg.cta}</span>
-                <span aria-hidden="true">→</span>
-              </a>
-            </article>
-          </div>
+            <a class="pricing-card__link" href={pkg.href}>
+              <span>{pkg.cta}</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
         ))}
       </div>
 
@@ -102,7 +97,6 @@ const commonItems = [
         <p class="pricing-cta__question">Не уверены, какой формат подходит?</p>
         <a class="pricing-cta__btn" href="#contact">Задать вопрос</a>
       </div>
-
     </div>
   </div>
 </section>
@@ -112,470 +106,222 @@ const commonItems = [
     border-top: 1px solid var(--lrqa-border-soft);
   }
 
-  .pricing-shell {
+  .pricing-shell,
+  .pricing-intro {
     display: grid;
+  }
+
+  .pricing-shell {
     gap: clamp(var(--space-9), 5vw, var(--space-12));
   }
 
   .pricing-intro {
-    display: grid;
     gap: var(--space-4);
     max-width: 54rem;
   }
 
-  /* Cards grid */
   .pricing-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-4);
-    align-items: stretch;
-  }
-
-  /* Auto-pulse every 3s */
-  @keyframes pricing-pulse {
-    0%, 55%, 100% {
-      box-shadow: 0 0 0 0 rgba(191, 31, 153, 0);
-    }
-    10% {
-      box-shadow: 0 0 0 1px rgba(191, 31, 153, 0.9), 0 0 18px 4px rgba(191, 31, 153, 0.3);
-    }
-    38% {
-      box-shadow: 0 0 0 1px rgba(191, 31, 153, 0.2), 0 0 6px 1px rgba(191, 31, 153, 0.08);
-    }
-  }
-
-  /* Magneto wrapper */
-  .pricing-wrap {
-    position: relative;
-    padding: 1px;
-    background: var(--lrqa-border-soft);
-    transition: background 220ms var(--easing-standard), box-shadow 220ms var(--easing-standard);
-  }
-
-  .pricing-wrap--featured {
-    background: var(--lrqa-mint);
-    animation: pricing-pulse 3s ease-in-out infinite;
-  }
-
-  /* Magneto layer: mint cursor-follow on ::before */
-  .pricing-wrap::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      380px circle at var(--mx, -9999px) var(--my, -9999px),
-      rgba(0, 250, 176, 1),
-      transparent 60%
-    );
-    opacity: 0;
-    transition: opacity 300ms var(--easing-standard);
-    pointer-events: none;
-  }
-
-  .pricing-wrap.is-active::before {
-    opacity: 1;
-  }
-
-  /* Magenta border + glow on hover/tap */
-  .pricing-wrap.is-active {
-    background: var(--color-magenta-editorial);
-    box-shadow: 0 0 28px 5px rgba(191, 31, 153, 0.35);
-    animation: none;
   }
 
   .pricing-card {
-    position: relative;
     display: grid;
     grid-template-rows: auto auto 1fr auto;
     gap: var(--space-6);
-    padding: clamp(var(--space-5), 3vw, var(--space-8));
+    min-width: 0;
+    padding: clamp(var(--space-6), 3vw, var(--space-9));
+    border: 1px solid var(--lrqa-border-soft);
+    background: var(--lrqa-white);
     color: var(--lrqa-black);
-    height: 100%;
-    box-sizing: border-box;
-    background-color: var(--lrqa-white);
+    transition: border-color var(--duration-normal) var(--easing-standard);
   }
 
-  .pricing-wrap--featured .pricing-card {
-    padding-top: calc(var(--font-size-2xs) * 1.6 + var(--space-1) * 2 + var(--space-4));
+  .pricing-card--featured {
+    border-color: var(--lrqa-mint);
   }
 
-  .pricing-card__top {
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  .pricing-card__badge {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: var(--space-1) var(--space-3);
-    background: var(--lrqa-mint);
-    color: var(--lrqa-black);
-    font-size: var(--font-size-2xs);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-    line-height: 1.6;
-  }
-
-  .pricing-card__name {
-    margin: 0;
-    font-family: var(--font-heading);
-    font-size: clamp(1.35rem, 1vw + 1rem, 1.9rem);
-    line-height: var(--line-height-snug);
-    font-weight: var(--font-weight-section-title);
-    letter-spacing: 0;
-  }
-
-  .pricing-card__price {
-    display: grid;
-    gap: var(--space-2);
-    padding-block: var(--space-4);
-    border-top: 1px solid var(--lrqa-border-soft);
-    border-bottom: 1px solid var(--lrqa-border-soft);
-  }
-
-  .pricing-card__price strong {
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 3vw, 3.8rem);
-    line-height: 0.98;
-    font-weight: var(--font-weight-hero-title);
-    letter-spacing: 0;
-  }
-
-  .pricing-card__price span {
-    color: var(--lrqa-muted);
-    font-size: var(--font-size-2xs);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-  }
-
-  .pricing-card__lead {
-    margin: 0;
-    color: var(--lrqa-muted);
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-relaxed);
-  }
-
-  /* Deliverables */
+  .pricing-card__top,
+  .pricing-card__price,
   .pricing-card__deliverables {
     display: grid;
     gap: var(--space-3);
-    padding: var(--space-4);
-    background: var(--lrqa-card-light);
-    border-left: 0.28rem solid var(--lrqa-mint);
   }
 
-  .pricing-card__deliverables-label {
-    margin: 0;
-    color: var(--lrqa-muted);
+  .pricing-card__badge {
+    width: fit-content;
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-editorial-accent);
+    color: var(--lrqa-white);
     font-size: var(--font-size-2xs);
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-bold);
     letter-spacing: var(--letter-spacing-wide);
     text-transform: uppercase;
   }
 
-  .pricing-card__deliverables ul {
+  .pricing-card__name,
+  .pricing-card__lead,
+  .pricing-card__deliverables-label,
+  .pricing-common__label,
+  .pricing-cta__question {
+    margin: 0;
+  }
+
+  .pricing-card__name {
+    font-size: clamp(1.45rem, 1vw + 1.1rem, 2.25rem);
+    line-height: var(--line-height-snug);
+  }
+
+  .pricing-card__price strong {
+    font-size: clamp(2rem, 2vw + 1.25rem, 3.5rem);
+    line-height: 1;
+  }
+
+  .pricing-card__price span,
+  .pricing-card__lead {
+    color: var(--lrqa-muted);
+  }
+
+  .pricing-card__lead {
+    line-height: var(--line-height-relaxed);
+  }
+
+  .pricing-card__deliverables {
+    align-content: start;
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--lrqa-border-soft);
+  }
+
+  .pricing-card__deliverables-label,
+  .pricing-common__label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+  }
+
+  .pricing-card__deliverables ul,
+  .pricing-common__list {
     margin: 0;
     padding: 0;
     list-style: none;
-    display: grid;
-    gap: var(--space-2);
   }
 
   .pricing-card__deliverables li {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-2);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
+    position: relative;
+    padding: var(--space-2) 0 var(--space-2) var(--space-5);
     color: var(--lrqa-muted-dark);
-    line-height: var(--line-height-snug);
   }
 
   .pricing-card__deliverables li::before {
     content: "";
-    flex-shrink: 0;
-    width: 0.4rem;
-    height: 0.4rem;
+    position: absolute;
+    top: 1.05rem;
+    left: 0;
+    width: 0.5rem;
+    height: 0.5rem;
     background: var(--lrqa-mint);
   }
 
   .pricing-card__link {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
-    width: fit-content;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: var(--button-height-md);
+    padding: var(--cta-padding-y) var(--cta-padding-x);
+    background: var(--lrqa-mint);
     color: var(--lrqa-black);
-    border-bottom: 2px solid var(--lrqa-mint);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    transition: var(--transition-fast);
+    font-weight: var(--font-weight-bold);
   }
 
-  .pricing-card__link:hover,
-  .pricing-card__link:focus-visible {
-    animation: none;
-    color: var(--lrqa-muted-dark);
-    border-bottom-color: var(--lrqa-mint);
+  .pricing-card__link span:last-child {
+    transition: transform var(--duration-fast) var(--easing-standard);
   }
 
-  @keyframes link-shimmer {
-    0%, 60%, 100% {
-      color: var(--lrqa-black);
-      text-shadow: none;
-      border-bottom-color: var(--lrqa-mint);
-    }
-    18% {
-      color: var(--color-magenta-editorial);
-      text-shadow: 0 0 10px rgba(191, 31, 153, 0.45);
-      border-bottom-color: var(--color-magenta-editorial);
-    }
-    40% {
-      color: var(--lrqa-muted-dark);
-      text-shadow: none;
-      border-bottom-color: var(--lrqa-mint);
-    }
+  .pricing-card__link:hover span:last-child,
+  .pricing-card__link:focus-visible span:last-child {
+    transform: translateX(var(--space-1));
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .pricing-card__link {
-      animation: link-shimmer 3s ease-in-out infinite;
-    }
-  }
-
-  /* Common guarantees */
   .pricing-common {
     display: grid;
     gap: var(--space-5);
-    padding: clamp(var(--space-5), 3vw, var(--space-8));
+    padding: clamp(var(--space-5), 3vw, var(--space-7));
     border: 1px solid var(--lrqa-border-soft);
-    background: var(--lrqa-white);
-  }
-
-  .pricing-common__label {
-    margin: 0;
-    color: var(--lrqa-muted);
-    font-size: var(--font-size-2xs);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
   }
 
   .pricing-common__list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3) var(--space-6);
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--space-4);
   }
 
   .pricing-common__item {
     display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
+    align-items: flex-start;
+    gap: var(--space-3);
     color: var(--lrqa-muted-dark);
-    transform-origin: left center;
-    transition:
-      transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
-      opacity 0.18s ease,
-      color 0.18s ease;
-    will-change: transform;
-  }
-
-  /* scroll-in: начальное состояние */
-  .pricing-common__item[data-common-item] {
-    opacity: 0;
-    transform: scale(0.78);
-  }
-  .pricing-common__item.is-in {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  /* desktop hover: активный растёт, остальные чуть уменьшаются */
-  @media (hover: hover) {
-    .pricing-common__list:has(.pricing-common__item:hover) .pricing-common__item {
-      opacity: 0.55;
-      transform: scale(0.9);
-      color: var(--lrqa-muted);
-    }
-    .pricing-common__list .pricing-common__item:hover {
-      opacity: 1 !important;
-      transform: scale(1.1) !important;
-      color: var(--lrqa-muted-dark) !important;
-    }
-  }
-
-  /* mobile tap */
-  .pricing-common__item.is-tapped {
-    transform: scale(1.1);
-    opacity: 1;
-    color: var(--lrqa-muted-dark);
+    line-height: var(--line-height-snug);
   }
 
   .pricing-common__check {
-    display: inline-block;
-    flex-shrink: 0;
+    flex: none;
     width: 1rem;
     height: 1rem;
+    margin-top: 0.1rem;
     background: var(--lrqa-mint);
     clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .pricing-common__item:hover .pricing-common__check,
-  .pricing-common__item.is-tapped .pricing-common__check {
-    transform: scale(1.3);
-  }
-
-  /* CTA block */
   .pricing-cta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-5) var(--space-8);
+    justify-content: space-between;
+    gap: var(--space-5);
     padding: clamp(var(--space-5), 3vw, var(--space-7));
     border: 1px solid var(--lrqa-border-soft);
-    background: var(--lrqa-card-light);
   }
 
   .pricing-cta__question {
-    margin: 0;
-    font-family: var(--font-heading);
     font-size: clamp(1.1rem, 0.5vw + 0.9rem, 1.45rem);
     font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-snug);
-    color: var(--lrqa-black);
   }
 
   .pricing-cta__btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
     padding: var(--cta-padding-y) var(--cta-padding-x);
     background: var(--gradient-button-primary);
     color: var(--lrqa-black);
     font-size: var(--button-font-size);
     font-weight: var(--button-font-weight);
-    white-space: nowrap;
-    transition: var(--transition-fast);
   }
 
-  .pricing-cta__btn:hover,
-  .pricing-cta__btn:focus-visible {
-    background: var(--gradient-button-primary-hover);
-  }
-
-  /* Responsive */
-  @media (max-width: 760px) {
-    .pricing-grid {
-      grid-template-columns: 1fr;
-      align-items: start;
+  @media (hover: hover) {
+    .pricing-card:hover {
+      border-color: var(--lrqa-mint);
     }
+  }
 
-    .pricing-wrap {
-      width: 100%;
+  @media (max-width: 60rem) {
+    .pricing-common__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .pricing-grid,
+    .pricing-common__list {
+      grid-template-columns: 1fr;
     }
 
     .pricing-card {
       grid-template-rows: auto;
     }
 
-    .pricing-card__price strong {
-      font-size: clamp(2rem, 8vw, 2.8rem);
-    }
-
-    .pricing-common__list {
-      flex-direction: column;
-      gap: var(--space-3);
-    }
-
     .pricing-cta {
-      flex-direction: column;
       align-items: flex-start;
-      gap: var(--space-4);
     }
   }
 </style>
-
-<script>
-  document.querySelectorAll<HTMLElement>(".js-magneto").forEach((wrap) => {
-    const card = wrap.querySelector<HTMLElement>(".pricing-card");
-
-    function setPos(clientX: number, clientY: number) {
-      const rect = wrap.getBoundingClientRect();
-      const x = `${clientX - rect.left}px`;
-      const y = `${clientY - rect.top}px`;
-      wrap.style.setProperty("--mx", x);
-      wrap.style.setProperty("--my", y);
-      if (card) {
-        card.style.setProperty("--mx", x);
-        card.style.setProperty("--my", y);
-      }
-    }
-
-    wrap.addEventListener("mousemove", (e: MouseEvent) => {
-      setPos(e.clientX, e.clientY);
-      wrap.classList.add("is-active");
-    });
-
-    wrap.addEventListener("touchstart", (e: TouchEvent) => {
-      const t = e.touches[0];
-      setPos(t.clientX, t.clientY);
-      wrap.classList.add("is-active");
-    }, { passive: true });
-
-    wrap.addEventListener("touchend", () => {
-      setTimeout(() => wrap.classList.remove("is-active"), 600);
-    }, { passive: true });
-
-    wrap.addEventListener("mouseleave", () => {
-      wrap.classList.remove("is-active");
-    });
-  });
-
-  // Блок "Что входит во все форматы" — scroll-in + tap/hover эффект
-  (() => {
-    const items = document.querySelectorAll<HTMLElement>(".pricing-common__item");
-    if (!items.length) return;
-
-    items.forEach((el) => el.setAttribute("data-common-item", ""));
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const el = entry.target as HTMLElement;
-            const idx = Number(el.dataset.idx ?? 0);
-            setTimeout(() => el.classList.add("is-in"), idx * 55);
-            observer.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    items.forEach((el, i) => {
-      el.dataset.idx = String(i);
-      observer.observe(el);
-    });
-
-    // mobile tap
-    items.forEach((el) => {
-      let tapTimer: ReturnType<typeof setTimeout>;
-      el.addEventListener("touchstart", () => {
-        clearTimeout(tapTimer);
-        items.forEach((x) => x.classList.remove("is-tapped"));
-        el.classList.add("is-tapped");
-      }, { passive: true });
-      el.addEventListener("touchend", () => {
-        tapTimer = setTimeout(() => el.classList.remove("is-tapped"), 500);
-      }, { passive: true });
-    });
-  })();
-</script>

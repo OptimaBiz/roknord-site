@@ -26,8 +26,8 @@ const proofItems = [
 
     <div class="proof-strip__marquee" aria-label="Проверяемые объекты">
       <div class="proof-strip__track">
-        {[...proofItems, ...proofItems].map((item, index) => (
-          <article class="proof-strip__item framed-block card--dark" aria-hidden={index >= proofItems.length ? "true" : undefined}>
+        {proofItems.map((item) => (
+          <article class="proof-strip__item framed-block card--dark">
             <span class="proof-strip__label">{item.label}</span>
             <span class="proof-strip__meta">{item.meta}</span>
           </article>

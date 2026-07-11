@@ -41,14 +41,9 @@
   height: 100%;
   object-fit: cover;
   object-position: 40% 52%;
-  transform: scale(1.24);
+  transform: scale(1.08);
   transform-origin: center;
   filter: brightness(0.86) saturate(0.86) contrast(0.98);
-  transition: filter 0.3s ease, transform 0.3s ease;
-}
-
-.hero-media__video--mobile {
-  display: none;
 }
 
 .hero__overlay {
@@ -130,8 +125,6 @@
   font-feature-settings: "kern" 1, "liga" 1;
   letter-spacing: 0;
   text-align: left;
-  transform: scaleX(0.96);
-  transform-origin: left center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-shadow:
@@ -209,16 +202,4 @@
 .hero-link:hover > span:first-child,
 .hero-link:focus-visible > span:first-child {
   transform: translateX(0.125rem);
-}
-
-.hero-link--active {
-  color: var(--color-mint-action);
-  transform: translateX(0.12rem);
-  text-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.42),
-    0 0 20px rgba(0, 250, 176, 0.28);
-}
-
-.hero-link--active > span:first-child {
-  transform: translateX(0.14rem);
 }

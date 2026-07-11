@@ -17,43 +17,22 @@ const {
   class: className = "",
 } = Astro.props as Props;
 
-const hasMobileVideo = Boolean(mobileVideoMp4Src);
-const hasDesktopVideo = Boolean(videoWebmSrc || videoMp4Src);
-const hasVideo = hasMobileVideo || hasDesktopVideo;
+const hasVideo = Boolean(mobileVideoMp4Src || videoWebmSrc || videoMp4Src);
 ---
 
 <div class={`hero-media ${className}`.trim()} aria-hidden="true">
   {hasVideo ? (
-    <>
-      {hasMobileVideo ? (
-        <video
-          class="hero-media__video hero-media__video--mobile"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="auto"
-          poster={posterSrc}
-        >
-          <source src={mobileVideoMp4Src} type="video/mp4" />
-        </video>
-      ) : null}
-      {hasDesktopVideo ? (
-        <video
-          class="hero-media__video hero-media__video--desktop"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="auto"
-          poster={posterSrc}
-        >
-          {videoWebmSrc ? <source src={videoWebmSrc} type="video/webm" /> : null}
-          {videoMp4Src ? <source src={videoMp4Src} type="video/mp4" /> : null}
-          <img class="hero-media__poster" src={posterSrc} alt={posterAlt} loading="eager" decoding="async" />
-        </video>
-      ) : null}
-    </>
+    <video
+      class="hero-media__video"
+      muted
+      loop
+      playsinline
+      preload="none"
+      poster={posterSrc}
+      data-hero-video
+      data-mobile-src={mobileVideoMp4Src}
+      data-desktop-src={videoMp4Src || videoWebmSrc}
+    ></video>
   ) : (
     <img
       class="hero-media__poster"
@@ -65,3 +44,39 @@ const hasVideo = hasMobileVideo || hasDesktopVideo;
     />
   )}
 </div>
+
+{hasVideo && (
+  <script>
+    const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const saveData = Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
+
+    if (video && !reduceMotion && !saveData) {
+      const source = window.matchMedia('(max-width: 47.99rem)').matches
+        ? video.dataset.mobileSrc
+        : video.dataset.desktopSrc;
+
+      const startVideo = () => {
+        if (!source || video.src) return;
+        video.src = source;
+        video.play().catch(() => {});
+      };
+
+      const scheduleVideo = () => {
+        window.setTimeout(() => {
+          if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(startVideo, { timeout: 1200 });
+          } else {
+            startVideo();
+          }
+        }, 1800);
+      };
+
+      if (document.readyState === 'complete') {
+        scheduleVideo();
+      } else {
+        window.addEventListener('load', scheduleVideo, { once: true });
+      }
+    }
+  </script>
+)}

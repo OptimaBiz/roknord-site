@@ -83,8 +83,16 @@ const audiences = [
         <article
           id={item.id}
           class="card audience-card"
-          style={item.image ? `--bg-image: url('${item.image}');` : undefined}
         >
+          {item.image && (
+            <img
+              class="audience-card__media"
+              src={item.image}
+              alt={item.imageAlt ?? ""}
+              loading="lazy"
+              decoding="async"
+            />
+          )}
           {item.logo && (
             <div class="audience-card__logo-wrap">
               <img
@@ -118,22 +126,19 @@ const audiences = [
     color: var(--lrqa-white);
     background: transparent;
     border-color: transparent;
-    cursor: pointer;
+    cursor: default;
   }
 
   /* фон — фото или плейсхолдер, GPU-слой */
-  .audience-card::after {
-    content: "";
+  .audience-card__media {
     position: absolute;
     inset: 0;
     z-index: 0;
-    background-color: var(--lrqa-navy-2);
-    background-image: var(--bg-image, none);
-    background-size: cover;
-    background-position: center;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     filter: saturate(0.30) contrast(0.88) brightness(0.95) grayscale(0.25);
     pointer-events: none;
-    transform: translateZ(0);
   }
 
   /* затемнение */
@@ -144,7 +149,7 @@ const audiences = [
     z-index: 2;
     background: rgba(14, 11, 58, 0.62);
     pointer-events: none;
-    transition: background 0.15s ease;
+    transition: background-color var(--duration-normal) var(--easing-standard);
   }
 
   @media (hover: hover) {
@@ -152,10 +157,6 @@ const audiences = [
     .audience-card:focus-within::before {
       background: rgba(14, 11, 58, 0.90);
     }
-  }
-
-  .audience-card.is-tapped::before {
-    background: rgba(14, 11, 58, 0.90);
   }
 
   .audience-card__logo-wrap {
@@ -198,70 +199,22 @@ const audiences = [
   .audience-card .card__link span[aria-hidden] {
     color: var(--lrqa-mint);
     display: inline-block;
-    will-change: transform;
-  }
-
-  @keyframes arrow-fwd {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(7px); }
+    transition: transform var(--duration-fast) var(--easing-standard);
   }
 
   @media (hover: hover) {
     .audience-card:hover .card__link span[aria-hidden],
     .audience-card:focus-within .card__link span[aria-hidden] {
-      animation: arrow-fwd 0.9s ease-in-out infinite alternate;
+      transform: translateX(var(--space-1));
     }
-  }
-
-  .audience-card.is-tapped .card__link span[aria-hidden] {
-    animation: arrow-fwd 0.9s ease-in-out infinite alternate;
   }
 
   @media (prefers-reduced-motion: reduce) {
     .audience-card,
-    .audience-card::after,
+    .audience-card__media,
     .audience-card::before {
       transition: none;
       animation: none;
     }
   }
 </style>
-
-<script>
-  const cards = document.querySelectorAll<HTMLElement>(".audience-card");
-  let activeCard: HTMLElement | null = null;
-
-  function clearCard(card: HTMLElement) {
-    card.classList.remove("is-tapped");
-    if (activeCard === card) activeCard = null;
-  }
-
-  cards.forEach((card) => {
-    let didMove = false;
-
-    card.addEventListener("touchstart", () => {
-      didMove = false;
-      if (activeCard && activeCard !== card) activeCard.classList.remove("is-tapped");
-      card.classList.add("is-tapped");
-      activeCard = card;
-    }, { passive: true });
-
-    card.addEventListener("touchmove", () => {
-      if (!didMove) {
-        didMove = true;
-        clearCard(card);
-      }
-    }, { passive: true });
-
-    card.addEventListener("touchcancel", () => {
-      clearCard(card);
-    }, { passive: true });
-  });
-
-  // Снимаем эффект если тап вне карточки
-  document.addEventListener("touchstart", (e) => {
-    if (activeCard && !(e.target as Element).closest(".audience-card")) {
-      clearCard(activeCard);
-    }
-  }, { passive: true });
-</script>

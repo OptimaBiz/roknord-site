@@ -18,16 +18,11 @@ import HeroMedia from "./HeroMedia.astro";
     <div class="hero-statement">
       <div class="hero-title-block">
         <h1 class="hero-title">
-          <span class="hero-title__line hero-title__line--desktop">Комплексная</span>
-          <span class="hero-title__line hero-title__line--desktop">подготовка</span>
-          <span class="hero-title__line hero-title__line--desktop">к аккредитации</span>
-          <span class="hero-title__line hero-title__line--desktop">и подтверждению</span>
-          <span class="hero-title__line hero-title__line--desktop"><span class="hero-title__accent">компетентности</span></span>
-          <span class="hero-title__line hero-title__line--mobile">Комплексная</span>
-          <span class="hero-title__line hero-title__line--mobile">подготовка</span>
-          <span class="hero-title__line hero-title__line--mobile">к аккредитации</span>
-          <span class="hero-title__line hero-title__line--mobile">и подтверждению</span>
-          <span class="hero-title__line hero-title__line--mobile"><span class="hero-title__accent">компетентности</span></span>
+          <span class="hero-title__line">Комплексная</span>
+          <span class="hero-title__line">подготовка</span>
+          <span class="hero-title__line">к аккредитации</span>
+          <span class="hero-title__line">и подтверждению</span>
+          <span class="hero-title__line"><span class="hero-title__accent">компетентности</span></span>
         </h1>
       </div>
     </div>
@@ -48,65 +43,3 @@ import HeroMedia from "./HeroMedia.astro";
     </div>
   </div>
 </section>
-
-<script>
-  const heroLinks = Array.from(document.querySelectorAll('.hero-links .hero-link'));
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-  if (heroLinks.length > 0 && !prefersReducedMotion.matches) {
-    let activeIndex = 0;
-    let intervalId;
-
-    const setActive = (index) => {
-      heroLinks.forEach((link, linkIndex) => {
-        link.classList.toggle('hero-link--active', linkIndex === index);
-      });
-    };
-
-    const startCycle = () => {
-      setActive(activeIndex);
-      intervalId = window.setInterval(() => {
-        activeIndex = (activeIndex + 1) % heroLinks.length;
-        setActive(activeIndex);
-      }, 1400);
-    };
-
-    const stopCycle = () => {
-      if (intervalId) {
-        window.clearInterval(intervalId);
-        intervalId = undefined;
-      }
-    };
-
-    heroLinks.forEach((link, index) => {
-      link.addEventListener('mouseenter', () => {
-        stopCycle();
-        activeIndex = index;
-        setActive(activeIndex);
-      });
-
-      link.addEventListener('focus', () => {
-        stopCycle();
-        activeIndex = index;
-        setActive(activeIndex);
-      });
-
-      link.addEventListener('blur', () => {
-        if (prefersReducedMotion.matches) return;
-        stopCycle();
-        startCycle();
-      });
-    });
-
-    prefersReducedMotion.addEventListener('change', () => {
-      stopCycle();
-      if (!prefersReducedMotion.matches) {
-        startCycle();
-      } else {
-        heroLinks.forEach((link) => link.classList.remove('hero-link--active'));
-      }
-    });
-
-    startCycle();
-  }
-</script>

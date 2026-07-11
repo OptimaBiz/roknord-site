@@ -189,24 +189,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     border-bottom: 2px solid var(--lrqa-mint);
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .thank-you::before {
-      animation: thank-you-scan 7s var(--easing-standard) infinite;
-    }
-  }
-
-  @keyframes thank-you-scan {
-    0%,
-    28% {
-      transform: translateX(-100%);
-    }
-
-    58%,
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
   @media (max-width: 760px) {
     .thank-you {
       background-size: 3.4rem 3.4rem, 3.4rem 3.4rem, auto;

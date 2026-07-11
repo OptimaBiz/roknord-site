@@ -57,12 +57,6 @@ const logoSrc = `${import.meta.env.BASE_URL}images/brand/roknord-logo-transparen
 </footer>
 
 <style>
-  @keyframes footer-breathe {
-    0%   { background-position: 0% 0%; }
-    50%  { background-position: 100% 100%; }
-    100% { background-position: 0% 0%; }
-  }
-
   .footer {
     padding-block: clamp(var(--footer-padding-block), 5vw, var(--section-y-lg));
     background: linear-gradient(
@@ -72,17 +66,7 @@ const logoSrc = `${import.meta.env.BASE_URL}images/brand/roknord-logo-transparen
       var(--lrqa-muted-dark) 60%,
       var(--lrqa-navy-2)    100%
     );
-    background-size: 300% 300%;
-    animation: footer-breathe 14s ease-in-out infinite;
     border-top: 1px solid var(--color-border-strong);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .footer {
-      animation: none;
-      background: var(--lrqa-navy);
-      background-size: auto;
-    }
   }
 
   .footer__inner {

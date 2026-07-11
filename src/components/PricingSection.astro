@@ -169,7 +169,8 @@ const commonItems = [
   }
 
   .pricing-card__name {
-    font-size: clamp(1.45rem, 1vw + 1.1rem, 2.25rem);
+    font-size: var(--type-card-title);
+    font-weight: var(--font-weight-semibold);
     line-height: var(--line-height-snug);
   }
 
@@ -287,8 +288,8 @@ const commonItems = [
   }
 
   .pricing-cta__question {
-    font-size: clamp(1.1rem, 0.5vw + 0.9rem, 1.45rem);
-    font-weight: var(--font-weight-bold);
+    font-size: var(--type-lead);
+    font-weight: var(--font-weight-semibold);
   }
 
   .pricing-cta__btn {

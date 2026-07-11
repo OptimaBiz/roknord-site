@@ -128,7 +128,7 @@
 
   .login-modal__eyebrow {
     margin: 0;
-    font-size: 0.7rem;
+    font-size: var(--type-caption);
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -138,17 +138,17 @@
   .login-modal__title {
     margin: 0;
     font-family: var(--font-heading);
-    font-size: clamp(1.5rem, 4vw, 1.9rem);
-    font-weight: 900;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
+    font-size: var(--type-card-title);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading);
+    letter-spacing: 0;
     color: var(--lrqa-navy);
     -webkit-font-smoothing: antialiased;
   }
 
   .login-modal__subtitle {
     margin: 0.25rem 0 0;
-    font-size: 0.875rem;
+    font-size: var(--type-control);
     color: var(--lrqa-muted);
     line-height: 1.4;
   }
@@ -165,7 +165,7 @@
   }
 
   .login-modal__label {
-    font-size: 0.8125rem;
+    font-size: var(--type-label);
     font-weight: 600;
     letter-spacing: 0.04em;
     color: var(--lrqa-muted-dark);
@@ -180,8 +180,8 @@
     background: var(--lrqa-card-light);
     color: var(--lrqa-black);
     font-family: inherit;
-    font-size: 0.9375rem;
-    line-height: 1.4;
+    font-size: var(--type-body);
+    line-height: var(--line-height-base);
     outline: none;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
     -webkit-appearance: none;
@@ -199,7 +199,7 @@
 
   .login-modal__forgot {
     justify-self: end;
-    font-size: 0.8125rem;
+    font-size: var(--type-label);
     color: var(--lrqa-muted);
     text-decoration: none;
     border-bottom: 1px solid var(--lrqa-border-soft);
@@ -222,7 +222,7 @@
     background: var(--lrqa-mint);
     color: var(--lrqa-black);
     font-family: inherit;
-    font-size: 0.9375rem;
+    font-size: var(--type-control);
     font-weight: 700;
     letter-spacing: 0.01em;
     border: none;
@@ -237,7 +237,7 @@
 
   .login-modal__notice {
     margin: 0;
-    font-size: 0.75rem;
+    font-size: var(--type-caption);
     color: var(--lrqa-border);
     text-align: center;
     line-height: 1.4;

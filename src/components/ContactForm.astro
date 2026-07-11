@@ -287,7 +287,7 @@ const titleId = `${id}-form-title`;
 
   .contact-form-section--embedded .contact-form-copy h2 {
     color: var(--lrqa-black);
-    font-size: clamp(1.55rem, 1vw + 1.2rem, 2.05rem);
+    font-size: var(--type-card-title);
     line-height: var(--line-height-snug);
   }
 
@@ -422,7 +422,7 @@ const titleId = `${id}-form-title`;
   .contact-form-copy h2 {
     margin: 0;
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 4.4vw, 4.8rem);
+    font-size: var(--type-section-title);
     font-weight: var(--font-weight-hero-title);
     line-height: 0.98;
     letter-spacing: 0;
@@ -432,7 +432,7 @@ const titleId = `${id}-form-title`;
     margin: 0;
     max-width: 38rem;
     color: var(--lrqa-border-soft);
-    font-size: clamp(var(--font-size-md), 0.45vw + 0.95rem, var(--font-size-lg));
+    font-size: var(--type-lead);
     line-height: var(--line-height-relaxed);
   }
 
@@ -491,7 +491,7 @@ const titleId = `${id}-form-title`;
 
   .contact-field span {
     color: var(--lrqa-border-soft);
-    font-size: var(--font-size-2xs);
+    font-size: var(--type-caption);
     font-weight: var(--font-weight-semibold);
     letter-spacing: var(--letter-spacing-wide);
     text-transform: uppercase;
@@ -504,6 +504,8 @@ const titleId = `${id}-form-title`;
     padding: var(--space-3) var(--space-4);
     background: rgba(255, 255, 255, 0.06);
     color: var(--lrqa-white);
+    font-size: var(--type-body);
+    line-height: var(--line-height-base);
   }
 
   .contact-field textarea {
@@ -528,7 +530,7 @@ const titleId = `${id}-form-title`;
     padding: var(--space-3) var(--space-8);
     background: var(--lrqa-mint);
     color: var(--lrqa-black);
-    font-size: var(--font-size-sm);
+    font-size: var(--type-control);
     font-weight: var(--font-weight-bold);
     cursor: pointer;
   }
@@ -605,12 +607,12 @@ const titleId = `${id}-form-title`;
     }
 
     .contact-form-copy h2 {
-      font-size: clamp(1.75rem, 8vw, 2.45rem);
+      font-size: var(--type-section-title);
       line-height: 1.04;
     }
 
     .contact-form-section--embedded .contact-form-copy h2 {
-      font-size: clamp(1.45rem, 7vw, 2rem);
+      font-size: var(--type-card-title);
       line-height: 1.08;
     }
 

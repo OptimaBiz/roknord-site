@@ -103,9 +103,9 @@
 .card__title {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: clamp(1.2rem, 0.55vw + 1rem, 1.9rem);
+  font-size: var(--type-card-title);
   line-height: var(--line-height-section-title);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-tight);
 }
 

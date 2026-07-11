@@ -103,7 +103,7 @@
   margin: 0;
   min-width: 0;
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 1.65vw + 1.15rem, 3.35rem);
+  font-size: var(--type-section-title);
   line-height: var(--line-height-section-title);
   font-weight: var(--font-weight-section-title);
   letter-spacing: var(--letter-spacing-tight);
@@ -112,7 +112,7 @@
 .section-heading {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: calc(clamp(2.65rem, 3vw + 1.15rem, 4.8rem) * var(--hero-heading-scale));
+  font-size: var(--type-display);
   line-height: var(--line-height-section-title);
   font-weight: var(--font-weight-section-title);
   letter-spacing: var(--letter-spacing-tight);
@@ -128,7 +128,7 @@
   min-width: 0;
   max-width: 47rem;
   color: var(--color-text-muted);
-  font-size: clamp(var(--font-size-body), 0.6vw + 0.95rem, var(--font-size-lg));
+  font-size: var(--type-lead);
   line-height: var(--line-height-relaxed);
 }
 
@@ -138,7 +138,7 @@
 
 @media (max-width: 47.99rem) {
   .section__title {
-    font-size: clamp(1.55rem, 6.5vw, 2rem);
+    font-size: var(--type-section-title);
     line-height: 1.08;
   }
 

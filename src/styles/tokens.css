@@ -128,17 +128,26 @@
   --font-size-body: 1rem;
   --line-height-body: 1.5;
 
-  --font-size-2xs: 0.6875rem;
-  --font-size-xs: 0.75rem;
+  --font-size-2xs: 0.75rem;
+  --font-size-xs: 0.8125rem;
   --font-size-sm: 0.875rem;
   --font-size-md: 1rem;
   --font-size-lg: 1.125rem;
-  --font-size-xl: 1.35rem;
-  --font-size-2xl: 1.7rem;
-  --font-size-3xl: 2.2rem;
-  --font-size-4xl: 3rem;
-  --font-size-5xl: 4.15rem;
-  --font-size-6xl: 6.25rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.5rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 4rem;
+
+  --type-caption: var(--font-size-2xs);
+  --type-label: var(--font-size-xs);
+  --type-control: var(--font-size-sm);
+  --type-body: var(--font-size-md);
+  --type-lead: var(--font-size-lg);
+  --type-card-title: var(--font-size-2xl);
+  --type-section-title: clamp(1.75rem, 2.2vw + 1rem, var(--font-size-4xl));
+  --type-display: clamp(2rem, 2.6vw + 1.2rem, var(--font-size-5xl));
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -150,6 +159,9 @@
   --line-height-base: 1.5;
   --line-height-relaxed: 1.68;
   --line-height-display: 0.96;
+  --line-height-caption: 1.4;
+  --line-height-control: 1.2;
+  --line-height-heading: 1.1;
 
   --letter-spacing-tight: 0;
   --letter-spacing-normal: 0;

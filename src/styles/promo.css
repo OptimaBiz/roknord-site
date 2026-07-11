@@ -100,7 +100,7 @@
 .promo-title {
   margin: 0;
   font-family: var(--font-family-heading);
-  font-size: clamp(2rem, 1.55vw + 1.15rem, 3.35rem);
+  font-size: var(--type-section-title);
   line-height: var(--line-height-snug);
   font-weight: var(--font-weight-section-title);
 }
@@ -108,7 +108,7 @@
 .promo-text {
   margin: 0;
   color: var(--lrqa-border-soft);
-  font-size: clamp(var(--font-size-md), 0.45vw + 0.95rem, var(--font-size-lg));
+  font-size: var(--type-body);
   line-height: var(--line-height-relaxed);
 }
 
@@ -294,7 +294,7 @@
 
 @media (max-width: 47.99rem) {
   .promo-title {
-    font-size: clamp(1.4rem, 7vw, 2.1rem);
+    font-size: var(--type-section-title);
     line-height: 1.08;
     overflow-wrap: normal;
     word-break: normal;

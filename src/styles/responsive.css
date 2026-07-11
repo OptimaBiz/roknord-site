@@ -96,7 +96,7 @@
   }
 
   .promo-title {
-    font-size: clamp(1.5rem, 3.2vw, 2rem);
+    font-size: var(--type-card-title);
     line-height: 1.08;
   }
 
@@ -543,7 +543,7 @@
   }
 
   .section__title {
-    font-size: clamp(1.65rem, 6vw, 2.25rem);
+    font-size: var(--type-section-title);
     line-height: 1.06;
   }
 
@@ -720,7 +720,7 @@
   }
 
   .promo-title {
-    font-size: clamp(1.4rem, 7vw, 2.1rem);
+    font-size: var(--type-section-title);
     line-height: 1.08;
   }
 

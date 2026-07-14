@@ -289,7 +289,7 @@
   }
 
   .motion-control {
-    transition-duration: 80ms !important;
+    transition-duration: var(--duration-fast) !important;
   }
 
   .motion-control:not(:disabled):hover,

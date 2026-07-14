@@ -589,6 +589,7 @@
     font-size: 20px;
     line-height: 1;
     font-weight: 400;
+    transition: transform var(--duration-fast) var(--easing-standard);
   }
 
   .hero-link > span:first-child {
@@ -608,7 +609,13 @@
 
   @media (prefers-reduced-motion: reduce) {
     .hero-link {
-      transition: none;
+      transition:
+        color var(--duration-fast) var(--easing-standard),
+        text-shadow var(--duration-fast) var(--easing-standard);
+    }
+
+    .hero-link::before {
+      transition: color var(--duration-fast) var(--easing-standard);
     }
   }
 

@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import "../styles/sections.css";
 import Header from "../components/Header.astro";
@@ -29,6 +30,7 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <title>{title}</title>
+    <ClientRouter fallback="animate" />
     <script is:inline>
       const themeColorMeta = document.getElementById("theme-color-meta");
       if (themeColorMeta) {

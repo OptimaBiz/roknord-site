@@ -308,6 +308,7 @@
   }
 
   .hero-layout::before {
+    display: block;
     inset: -1rem 0;
     background:
       radial-gradient(circle at 16% 24%, color-mix(in srgb, var(--lrqa-navy) 60%, transparent) 0%, color-mix(in srgb, var(--lrqa-navy) 42%, transparent) 28%, transparent 68%),

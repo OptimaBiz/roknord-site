@@ -248,18 +248,11 @@
   overflow: visible;
 }
 
-.brand-wordmark {
-  color: var(--lrqa-white);
-  font-family: var(--font-family-heading);
-  font-size: 1.9rem;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.035em;
-  line-height: 1;
-  white-space: nowrap;
-}
-
-.brand-wordmark span {
-  color: var(--lrqa-mint);
+.brand-logo {
+  display: block;
+  width: auto;
+  height: 1.8rem;
+  object-fit: contain;
 }
 
 .site-nav {

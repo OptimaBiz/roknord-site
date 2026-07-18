@@ -2,7 +2,14 @@
   <div class="footer__inner page-container">
     <div class="footer__col footer__col--brand">
       <a class="footer__logo-link" href="/#contact" aria-label="Рокнорд, к форме связи">
-        <span class="footer__wordmark" aria-hidden="true">РО<span>К</span>НОРД</span>
+        <img
+          class="footer__logo"
+          src="/images/brand/roknord-logo-transparent.png"
+          width="2508"
+          height="627"
+          alt="Рокнорд"
+          decoding="async"
+        />
       </a>
       <p class="footer__tagline">Экспертные услуги в области подтверждения соответствия и аккредитации.</p>
     </div>
@@ -96,18 +103,11 @@
     display: inline-block;
   }
 
-  .footer__wordmark {
+  .footer__logo {
     display: inline-block;
-    color: var(--lrqa-white);
-    font-family: var(--font-family-heading);
-    font-size: 2rem;
-    font-weight: var(--font-weight-bold);
-    letter-spacing: 0.035em;
-    line-height: 1;
-  }
-
-  .footer__wordmark span {
-    color: var(--lrqa-mint);
+    width: auto;
+    height: 2rem;
+    object-fit: contain;
   }
 
   .footer__tagline {

@@ -86,7 +86,12 @@ body:has(.cookie-panel:not([hidden])) .scroll-up-control {
   opacity: 0;
   pointer-events: none;
   transform: translateY(0.5rem);
-  transition: var(--transition-fast);
+  transition:
+    color var(--duration-fast) var(--easing-standard),
+    background-color var(--duration-fast) var(--easing-standard),
+    border-color var(--duration-fast) var(--easing-standard),
+    opacity var(--duration-fast) var(--easing-standard),
+    transform var(--duration-fast) var(--easing-standard);
 }
 
 .scroll-up-control:hover,

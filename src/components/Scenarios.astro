@@ -1,49 +1,37 @@
 ---
-const scenarios = [
-  { id: "scenario-confirmation", title: "Подтверждение компетентности", text: "Проверяем область, СМК, анкету самообследования, выборку дел и доказательства до процедуры.", evidence: "Область · СМК · ФГИС · выборка дел" },
-  { id: "scenario-primary-accreditation", title: "Первичная аккредитация", text: "Собираем стартовую логику: от границ области до записей, подтверждающих фактическую практику.", evidence: "Область · документы · практика" },
-  { id: "scenario-scope-audit", title: "Актуализация области аккредитации", text: "Находим неподтверждённые позиции, несогласованности и риски в комплекте приложений до подачи.", evidence: "Область · приложения · подтверждаемость" },
-  { id: "scenario-corrective-actions", title: "Корректирующие действия после несоответствий", text: "Связываем причину, действие, срок и доказательство так, чтобы изменения были прослеживаемыми.", evidence: "Причина · действие · доказательство" },
-  { id: "scenario-special-directions", title: "Специальные направления", text: "Настраиваем проверку под нетиповую область, отдельную процедуру или повышенный регуляторный риск.", evidence: "Специальная область · риск · ФГИС" },
+const situations = [
+  { id: "scenario-confirmation", title: "Скоро подтверждение компетентности", text: "Нужно понять, что не готово, распределить работу и успеть без аврала." },
+  { id: "scenario-corrective-actions", title: "Получены замечания", text: "Нужно быстро разобраться в причинах, подготовить действия и подтвердить изменения." },
+  { id: "scenario-scope-audit", title: "Нужно расширить или изменить область", text: "Новая методика, контракт или площадка требуют согласовать область с реальными ресурсами." },
+  { id: "scenario-primary-accreditation", title: "Запускается новая лаборатория", text: "Нужно выстроить систему с нуля: область, СМК, персонал, оборудование и записи." },
+  { id: "scenario-special-directions", title: "Нет сильной внутренней функции качества", text: "Нужна внешняя экспертная поддержка, которая держит подготовку и изменения под контролем." },
 ];
-const [featuredScenario, ...otherScenarios] = scenarios;
 ---
 
-<section id="directions" class="section section--light scenarios-section" aria-labelledby="scenarios-title">
+<section id="directions" class="section section--light situations-section" aria-labelledby="situations-title">
   <div class="section__inner page-container">
-    <header class="scenarios-intro">
-      <p class="section__eyebrow">С какой задачей вы пришли</p>
-      <h2 id="scenarios-title" class="section__title">Начинаем не с пакета услуг, а с вашей процедуры</h2>
-      <p class="section__lead">Выберите ближайшую ситуацию. Если задача не укладывается в типовой сценарий, первичная оценка поможет определить объём работы.</p>
+    <header class="situations-intro">
+      <p class="section__eyebrow">Когда к нам обращаются</p>
+      <h2 id="situations-title" class="section__title">Когда цена ошибки выше стоимости подготовки</h2>
+      <p class="section__lead">Срыв процедуры может остановить работу, контракт или развитие области. Мы подключаемся там, где нужны ясность, темп и независимый взгляд.</p>
     </header>
 
-    <div class="scenarios-layout">
-      <article id={featuredScenario.id} class="scenario-featured">
-        <p class="scenario-featured__meta">Частый сценарий</p>
-        <h3>{featuredScenario.title}</h3>
-        <p>{featuredScenario.text}</p>
-        <div class="scenario-featured__evidence"><span>Что проверяем</span><strong>{featuredScenario.evidence}</strong></div>
-        <a class="scenario-featured__cta cta-angled motion-control" href="#contact"><span>Получить оценку</span><span aria-hidden="true">→</span></a>
-      </article>
-
-      <div class="scenario-list" aria-label="Другие сценарии работы">
-        {otherScenarios.map((item, index) => (
-          <article id={item.id} class="scenario-row">
-            <span class="scenario-row__number" aria-hidden="true">0{index + 2}</span>
-            <div class="scenario-row__copy"><h3>{item.title}</h3><p>{item.text}</p><span>{item.evidence}</span></div>
-          </article>
-        ))}
-      </div>
+    <div class="situations-list">
+      {situations.map((item, index) => (
+        <article id={item.id} class="situation-row">
+          <span aria-hidden="true">0{index + 1}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+          <a href="#contact" aria-label={`Обсудить ситуацию: ${item.title}`}>Обсудить <span aria-hidden="true">→</span></a>
+        </article>
+      ))}
     </div>
   </div>
 </section>
 
 <style>
-  .scenarios-section{border-top:1px solid var(--lrqa-border-soft)}.scenarios-section .section__inner,.scenarios-intro,.scenario-featured,.scenario-list,.scenario-row__copy{display:grid}.scenarios-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}
-  .scenarios-intro{grid-template-columns:minmax(0,.85fr) minmax(20rem,1.15fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.scenarios-intro .section__eyebrow{grid-column:1/-1}.scenarios-intro .section__title,.scenarios-intro .section__lead{margin:0}
-  .scenarios-layout{display:grid;grid-template-columns:minmax(20rem,.82fr) minmax(0,1.18fr);gap:clamp(1rem,2vw,2rem)}.scenario-featured{align-content:start;gap:1.35rem;padding:clamp(1.5rem,3vw,3rem);color:var(--lrqa-white);background:var(--lrqa-navy);border-top:4px solid var(--color-mint-action)}
-  .scenario-featured__meta,.scenario-featured h3,.scenario-featured p,.scenario-featured__evidence span,.scenario-featured__evidence strong,.scenario-row h3,.scenario-row p,.scenario-row__copy>span{margin:0}.scenario-featured__meta{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.scenario-featured h3{font-size:clamp(1.75rem,3.2vw,3.3rem);line-height:1.02;text-wrap:balance}.scenario-featured>p:not(.scenario-featured__meta){color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
-  .scenario-featured__evidence{display:grid;gap:.5rem;margin-top:auto;padding-top:1.25rem;border-top:1px solid var(--lrqa-dark-border)}.scenario-featured__evidence span{color:var(--lrqa-muted-2);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.scenario-featured__cta{display:inline-flex;align-items:center;justify-content:space-between;gap:1rem;width:fit-content;padding:var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel)*.5);color:var(--lrqa-black);background:var(--gradient-button-primary);font-weight:var(--font-weight-semibold);text-decoration:none}
-  .scenario-list{border-top:1px solid var(--lrqa-border)}.scenario-row{display:grid;grid-template-columns:3rem minmax(0,1fr);gap:clamp(1rem,2.5vw,2rem);padding:clamp(1.25rem,2.5vw,2rem) 0;border-bottom:1px solid var(--lrqa-border-soft);scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.scenario-row__number{color:var(--lrqa-muted-2);font-family:var(--font-family-mono);font-size:var(--font-size-sm)}.scenario-row__copy{grid-template-columns:minmax(11rem,.8fr) minmax(0,1.2fr);gap:.65rem clamp(1.25rem,4vw,4rem)}.scenario-row h3{font-size:clamp(1.05rem,.55vw + 1rem,1.45rem);line-height:1.25}.scenario-row p{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}.scenario-row__copy>span{grid-column:2;color:var(--lrqa-muted-dark);font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold)}
-  @media(max-width:64rem){.scenarios-intro,.scenarios-layout{grid-template-columns:1fr}}@media(max-width:42rem){.scenario-row__copy{grid-template-columns:1fr}.scenario-row__copy>span{grid-column:1}}
+  .situations-section .section__inner,.situations-intro{display:grid}.situations-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}.situations-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.situations-intro .section__eyebrow{grid-column:1/-1}.situations-intro .section__title,.situations-intro .section__lead{margin:0}
+  .situations-list{border-top:1px solid var(--lrqa-border)}.situation-row{display:grid;grid-template-columns:3rem minmax(14rem,.8fr) minmax(0,1.2fr) auto;gap:1rem clamp(1.5rem,4vw,4rem);align-items:start;padding:clamp(1.35rem,2.7vw,2.35rem) 0;border-bottom:1px solid var(--lrqa-border-soft);scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.situation-row>span{color:var(--lrqa-muted-2);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.situation-row h3,.situation-row p{margin:0}.situation-row h3{font-size:clamp(1.15rem,.8vw + 1rem,1.75rem);line-height:1.2}.situation-row p{max-width:42rem;color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}.situation-row a{display:inline-flex;gap:.55rem;color:var(--lrqa-black);font-weight:var(--font-weight-semibold);text-decoration:none;white-space:nowrap}.situation-row a span{color:var(--color-mint-action)}
+  @media(max-width:64rem){.situations-intro{grid-template-columns:1fr}.situation-row{grid-template-columns:2.5rem minmax(0,1fr) auto}.situation-row p{grid-column:2/4}}
+  @media(max-width:42rem){.situation-row{grid-template-columns:2.25rem minmax(0,1fr)}.situation-row p,.situation-row a{grid-column:2}.situation-row a{width:fit-content}}
 </style>

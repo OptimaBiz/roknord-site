@@ -1,34 +1,28 @@
 ---
 const faq = [
   {
-    question: "Это официальная услуга Росаккредитации?",
-    answer:
-      "Рокнорд проводит независимую подготовку и сопровождение: проверку, составление карты рисков, исправление доказательной базы и связки документов с практикой.",
+    question: "Чем сопровождение отличается от аудита?",
+    answer: "Аудит показывает текущее состояние и риски. Сопровождение идёт дальше: мы помогаем исправить проблемы, внедрить изменения, подготовить команду и пройти ключевые этапы процедуры.",
   },
   {
-    question: "Когда лучше начинать подготовку?",
-    answer:
-      "Начинать лучше за 3-6 месяцев до подачи заявления.",
+    question: "На каком этапе можно подключить Рокнорд?",
+    answer: "На любом: до подачи, во время подготовки к ВКС, после замечаний, при изменении области или при запуске новой лаборатории. Чем раньше подключаемся, тем больше вариантов спокойно исправить систему.",
   },
   {
-    question: "Можно ли проверить только область аккредитации или анкету?",
-    answer:
-      "Да. Можно начать с первичного аудита.",
+    question: "Можно заказать только отдельную задачу?",
+    answer: "Да. Можно отдельно проверить область, СМК, анкету, выборку дел, корректирующие действия или другой конкретный блок.",
   },
   {
-    question: "Работаете ли вы с ПК и актуализацией / расширением области?",
-    answer:
-      "Да. Мы составляем процедуру подтверждения компетентности, актуализацию области и связанные корректирующие действия как единый контур.",
+    question: "Вы гарантируете решение Росаккредитации?",
+    answer: "Нет. Решение принимает государственный орган. Мы отвечаем за качество независимой проверки, подготовленных материалов, рекомендаций и согласованного сопровождения.",
   },
   {
-    question: "Можно ли работать удалённо?",
-    answer:
-      "Частично да, если для задачи достаточно документов, записей, сведений ФГИС и согласованной дистанционной коммуникации с командой.",
+    question: "Можно работать удалённо?",
+    answer: "Большую часть задач можно выполнить дистанционно. Выезд нужен, когда важно увидеть фактическую практику, площадку, оборудование или работу сотрудников на месте.",
   },
   {
-    question: "Что я как Клиент получаю?",
-    answer:
-      "Вы получаете поддержку независимых специалистов по аккредитации. Состав работ и результат определяются вашей задачей.",
+    question: "Как начинается работа?",
+    answer: "С короткого разговора о задаче, сроках и текущем состоянии. После этого мы предлагаем понятный состав работ, результат, сроки и стоимость.",
   },
 ];
 ---
@@ -38,87 +32,17 @@ const faq = [
     <div class="faq-shell">
       <div class="section-stack faq-intro">
         <p class="section__eyebrow">Вопросы</p>
-        <h2 class="section__title">О границах работы, сроках и результате.</h2>
-        <p class="section__lead">
-        </p>
+        <h2 class="section__title">Прямые ответы без сложных формулировок</h2>
       </div>
 
       <div class="faq-list" aria-label="Вопросы и ответы">
         {faq.map((item) => (
           <details class="faq-item">
             <summary class="faq-question">{item.question}</summary>
-            <div class="faq-answer-wrap">
-              <p class="faq-answer">{item.answer}</p>
-            </div>
+            <div class="faq-answer-wrap"><p class="faq-answer">{item.answer}</p></div>
           </details>
         ))}
       </div>
     </div>
   </div>
 </section>
-
-<section class="faq-cta-strip" aria-label="Задать вопрос" hidden>
-  <div class="page-container faq-cta-inner">
-    <p class="faq-cta-question">Возникли вопросы по вашей процедуре?</p>
-    <a class="faq-cta-btn cta-angled motion-control" href="#contact">
-      <span>Задать вопрос</span>
-      <span aria-hidden="true">→</span>
-    </a>
-  </div>
-</section>
-
-<style>
-  .faq-cta-strip {
-    background: var(--lrqa-navy);
-    border-top: 1px solid var(--lrqa-dark-border);
-  }
-
-  .faq-cta-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-5) var(--space-10);
-    padding-block: clamp(var(--space-8), 5vw, var(--space-12));
-  }
-
-  .faq-cta-question {
-    flex: 1 1 18rem;
-    margin: 0;
-    font-family: var(--font-heading);
-    font-size: var(--type-card-title);
-    font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-snug);
-    color: var(--lrqa-white);
-  }
-
-  .faq-cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel) * 0.5);
-    background: var(--gradient-button-primary);
-    color: var(--lrqa-black);
-    font-size: var(--button-font-size);
-    font-weight: var(--button-font-weight);
-    white-space: nowrap;
-    letter-spacing: 0.01em;
-    transition: background 0.2s ease, transform 0.18s ease;
-  }
-
-  .faq-cta-btn:hover,
-  .faq-cta-btn:focus-visible {
-    background: var(--gradient-button-primary-hover);
-  }
-
-  @media (max-width: 600px) {
-    .faq-cta-inner {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--space-6);
-    }
-
-    .faq-cta-question {
-      flex: none;
-    }
-  }
-</style>

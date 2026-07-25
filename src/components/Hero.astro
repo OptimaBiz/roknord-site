@@ -1,10 +1,10 @@
 ---
 import HeroMedia from "./HeroMedia.astro";
 
-const outcomes = [
-  "Карта рисков с приоритетами",
-  "План корректирующих действий",
-  "Проверка доказательной базы",
+const principles = [
+  "Разбираемся в вашей ситуации",
+  "Готовим документы и практику",
+  "Сопровождаем до завершения процедуры",
 ];
 ---
 
@@ -17,221 +17,39 @@ const outcomes = [
       videoMp4Src="/videos/hero/reklamnyi-desktop-cropped.mp4"
     />
   </div>
-
   <div class="hero__overlay" aria-hidden="true"></div>
 
   <div class="hero__inner hero-layout page-container">
-    <div class="hero-statement">
-      <p class="hero-kicker">Независимый аудит готовности</p>
-      <div class="hero-title-block">
-        <h1 class="hero-title">
-          Покажем риски до подачи и подготовим доказательства к проверке ФСА
-        </h1>
-      </div>
+    <div class="hero-copy">
+      <p class="hero-kicker">Независимая экспертная команда</p>
+      <h1 class="hero-title">Сопровождаем аккредитацию без хаоса и аврала</h1>
       <p class="hero-lead">
-        Сопоставим область аккредитации, СМК, записи и фактическую практику. Вы получите понятную карту рисков и порядок действий без авральной переделки документов перед процедурой.
+        Берём на себя подготовку к аккредитации, подтверждению компетентности, расширению области и работе с замечаниями. Помогаем привести в порядок не только документы, но и то, как организация работает на практике.
       </p>
-      <div class="hero-actions" aria-label="Основные действия">
-        <a class="hero-action hero-action--primary cta-angled motion-control" href="#contact">
-          <span>Получить оценку готовности</span>
-          <span aria-hidden="true">→</span>
-        </a>
-        <a class="hero-action hero-action--secondary motion-control" href="#approach">
-          Посмотреть состав аудита
-        </a>
+      <div class="hero-actions">
+        <a class="hero-action hero-action--primary cta-angled motion-control" href="#contact"><span>Обсудить задачу</span><span aria-hidden="true">→</span></a>
+        <a class="hero-action hero-action--secondary motion-control" href="#approach">Как мы работаем</a>
       </div>
     </div>
 
-    <aside class="hero-supporting hero-result" aria-label="Результаты первичного аудита">
-      <p class="hero-result__label">На выходе</p>
-      <ul class="hero-result__list">
-        {outcomes.map((item, index) => (
-          <li>
-            <span class="hero-result__number" aria-hidden="true">0{index + 1}</span>
-            <span>{item}</span>
-          </li>
-        ))}
+    <aside class="hero-assurance" aria-label="Что входит в сопровождение">
+      <p class="hero-assurance__label">Не разовая проверка</p>
+      <h2>Работаем рядом с вашей командой</h2>
+      <ul>
+        {principles.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><strong>{item}</strong></li>)}
       </ul>
-      <p class="hero-result__note">Работа строится вокруг проверяемой связки, а не вокруг количества подготовленных файлов.</p>
     </aside>
   </div>
 </section>
 
 <style>
-  .hero-layout {
-    grid-template-columns: minmax(0, 1.2fr) minmax(19rem, 0.65fr);
-    justify-items: stretch;
-    align-content: end;
-    align-items: end;
-    gap: clamp(2rem, 6vw, 6.5rem);
-  }
-
-  .hero-statement,
-  .hero-title-block,
-  .hero-supporting {
-    justify-items: start;
-    text-align: left;
-  }
-
-  .hero-statement {
-    display: grid;
-    gap: clamp(1rem, 2vw, 1.75rem);
-    max-width: 58rem;
-  }
-
-  .hero-kicker,
-  .hero-result__label,
-  .hero-result__note {
-    margin: 0;
-  }
-
-  .hero-kicker {
-    color: var(--color-mint-action);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-  }
-
-  .hero-title {
-    max-width: 17ch;
-    font-size: clamp(2.4rem, 5.4vw, 5.6rem);
-    font-weight: var(--font-weight-semibold);
-    line-height: 0.98;
-    text-align: left;
-    text-wrap: balance;
-  }
-
-  .hero-lead {
-    margin: 0;
-    width: min(100%, 47rem);
-    font-size: clamp(1rem, 0.5vw + 0.95rem, 1.3rem);
-    text-align: left;
-  }
-
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.85rem 1.25rem;
-  }
-
-  .hero-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-3);
-    min-height: 3.25rem;
-    font-weight: var(--font-weight-semibold);
-    text-decoration: none;
-  }
-
-  .hero-action--primary {
-    padding: var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel) * 0.5);
-    color: var(--lrqa-black);
-    background: var(--gradient-button-primary);
-  }
-
-  .hero-action--secondary {
-    color: var(--lrqa-white);
-    border-bottom: 1px solid color-mix(in srgb, var(--lrqa-white) 68%, transparent);
-  }
-
-  .hero-action--secondary:hover,
-  .hero-action--secondary:focus-visible {
-    color: var(--color-mint-action);
-    border-color: var(--color-mint-action);
-  }
-
-  .hero-result {
-    display: grid;
-    gap: 1rem;
-    align-self: end;
-    width: 100%;
-    padding: clamp(1.25rem, 2.5vw, 2rem);
-    color: var(--lrqa-white);
-    background: color-mix(in srgb, var(--lrqa-navy) 82%, transparent);
-    border-top: 3px solid var(--color-mint-action);
-    backdrop-filter: blur(10px);
-  }
-
-  .hero-result__label {
-    color: var(--color-mint-action);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-  }
-
-  .hero-result__list {
-    display: grid;
-    gap: 0;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .hero-result__list li {
-    display: grid;
-    grid-template-columns: 2.25rem minmax(0, 1fr);
-    gap: 0.75rem;
-    align-items: start;
-    padding: 1rem 0;
-    border-top: 1px solid color-mix(in srgb, var(--lrqa-white) 22%, transparent);
-    font-size: clamp(0.95rem, 0.25vw + 0.9rem, 1.08rem);
-    line-height: 1.35;
-  }
-
-  .hero-result__number {
-    color: var(--color-mint-action);
-    font-family: var(--font-family-mono);
-    font-size: var(--font-size-xs);
-  }
-
-  .hero-result__note {
-    color: var(--lrqa-border-soft);
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-relaxed);
-  }
-
-  @media (max-width: 64rem) {
-    .hero-layout {
-      grid-template-columns: 1fr;
-      align-content: center;
-      gap: 2rem;
-    }
-
-    .hero-title {
-      max-width: 18ch;
-    }
-
-    .hero-result {
-      max-width: 44rem;
-    }
-  }
-
-  @media (max-width: 47.99rem) {
-    .hero {
-      min-height: auto;
-      padding-top: 7.5rem;
-    }
-
-    .hero-title {
-      font-size: clamp(2.15rem, 10vw, 3.6rem);
-    }
-
-    .hero-actions,
-    .hero-action {
-      width: 100%;
-    }
-
-    .hero-action--secondary {
-      width: fit-content;
-      justify-self: start;
-    }
-
-    .hero-result {
-      backdrop-filter: none;
-    }
-  }
+  .hero-layout{grid-template-columns:minmax(0,1.2fr) minmax(18rem,.62fr);align-items:end;justify-items:stretch;gap:clamp(2rem,6vw,7rem)}
+  .hero-copy{display:grid;gap:clamp(1rem,2vw,1.6rem);max-width:62rem;text-align:left}.hero-kicker,.hero-title,.hero-lead,.hero-assurance p,.hero-assurance h2{margin:0}
+  .hero-kicker{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
+  .hero-title{max-width:14ch;font-size:clamp(2.7rem,6vw,6.4rem);font-weight:var(--font-weight-semibold);line-height:.94;text-align:left;text-wrap:balance}
+  .hero-lead{max-width:48rem;color:var(--lrqa-white);font-size:clamp(1rem,.5vw + .95rem,1.28rem);line-height:1.55;text-align:left}
+  .hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.4rem}.hero-action{display:inline-flex;align-items:center;justify-content:center;gap:.75rem;min-height:3.25rem;font-weight:var(--font-weight-semibold);text-decoration:none}.hero-action--primary{padding:var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel)*.5);color:var(--lrqa-black);background:var(--gradient-button-primary)}.hero-action--secondary{color:var(--lrqa-white);border-bottom:1px solid color-mix(in srgb,var(--lrqa-white) 62%,transparent)}
+  .hero-assurance{display:grid;gap:1.15rem;padding:clamp(1.35rem,2.6vw,2.25rem);background:color-mix(in srgb,var(--lrqa-navy) 86%,transparent);border-top:3px solid var(--color-mint-action);backdrop-filter:blur(10px)}.hero-assurance__label{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.hero-assurance h2{max-width:16ch;color:var(--lrqa-white);font-size:clamp(1.45rem,2vw,2.4rem);line-height:1.08}.hero-assurance ul{display:grid;margin:0;padding:0;list-style:none}.hero-assurance li{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:.75rem;padding:1rem 0;border-top:1px solid color-mix(in srgb,var(--lrqa-white) 20%,transparent)}.hero-assurance li span{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.hero-assurance li strong{color:var(--lrqa-white);font-size:.98rem;line-height:1.35}
+  @media(max-width:64rem){.hero-layout{grid-template-columns:1fr;align-content:center}.hero-assurance{max-width:42rem}}
+  @media(max-width:47.99rem){.hero{min-height:auto;padding-top:7.5rem}.hero-title{font-size:clamp(2.45rem,11vw,4rem)}.hero-actions,.hero-action--primary{width:100%}.hero-action--secondary{width:fit-content}.hero-assurance{backdrop-filter:none}}
 </style>

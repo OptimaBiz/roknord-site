@@ -1,15 +1,8 @@
 ---
-const featuredAudiences = [
-  { id: "audience-testing", title: "Испытательным лабораториям", text: "Методики, оборудование, персонал и прослеживаемость записей.", href: "/testing-labs/", image: "/images/materials/lab.webp", imageAlt: "Работа в испытательной лаборатории" },
-  { id: "audience-medical", title: "Медицинским лабораториям", text: "Процессы, записи, персонал и доказательства лабораторной практики.", href: "/medical-labs/", image: "/images/materials/medlab.webp", imageAlt: "Работа в медицинской лаборатории" },
-  { id: "audience-cert-ms", title: "Органам по сертификации систем менеджмента", text: "СМК, выборка дел, компетентность и управляемость решений.", href: "/certification-bodies/", image: "/images/materials/смк.webp", imageAlt: "Рабочая встреча по системе менеджмента" },
-  { id: "audience-cert-product", title: "Органам по сертификации продукции", text: "Область, протоколы, решения и следы корректирующих действий.", href: "/certification-bodies/", image: "/images/materials/product.webp", imageAlt: "Проверка продукции и документов" },
-];
-const compactAudiences = [
-  { id: "audience-inspection", title: "Органам инспекции", text: "Область, процедуры, записи выездов и наблюдений." },
-  { id: "audience-calibration", title: "Калибровочным лабораториям", text: "Методики, эталоны, прослеживаемость и документы." },
-  { id: "audience-msi", title: "Провайдерам МСИ", text: "Программа, доказательства участия и фиксация результатов." },
-  { id: "audience-halal", title: "Органам по сертификации халяль", text: "Состав области, источники доказательств и логика согласования." },
+const audiences = [
+  { id: "audience-testing", title: "Испытательные и калибровочные лаборатории", text: "ПК, РОА, первичная аккредитация, замечания и постоянная поддержка качества.", href: "/testing-labs/", image: "/images/materials/lab.webp", imageAlt: "Работа в лаборатории" },
+  { id: "audience-cert-ms", title: "Органы по сертификации", text: "СМК, компетентность, выборка дел, область и подготовка к оценке.", href: "/certification-bodies/", image: "/images/materials/смк.webp", imageAlt: "Рабочая встреча по системе менеджмента" },
+  { id: "audience-inspection", title: "Органы инспекции и специальные направления", text: "Процедуры, записи, наблюдения и доказательства для вашей области.", href: "#contact", image: "/images/materials/insp.webp", imageAlt: "Проверка документов и процессов" },
 ];
 ---
 
@@ -17,41 +10,35 @@ const compactAudiences = [
   <div class="section__inner page-container">
     <header class="audience-intro">
       <p class="section__eyebrow">Кому помогаем</p>
-      <h2 id="audience-title" class="section__title">Одна логика проверки — разные доказательства для каждого типа аккредитованного лица</h2>
-      <p class="section__lead">Не переносим один комплект документов из проекта в проект. Проверяем процессы, записи и доказательства, которые должны подтверждать именно вашу область.</p>
+      <h2 id="audience-title" class="section__title">Работаем с теми, чья компетентность должна быть доказана</h2>
+      <p class="section__lead">У каждого типа аккредитованного лица свои требования и практика. Поэтому начинаем не с шаблона, а с вашей области, процессов и команды.</p>
     </header>
 
-    <div class="audience-featured" aria-label="Основные направления">
-      {featuredAudiences.map((item, index) => (
-        <article id={item.id} class:list={["audience-card", index === 0 && "audience-card--lead"]}>
+    <div class="audience-grid">
+      {audiences.map((item, index) => (
+        <article id={item.id} class="audience-card">
           <img class="audience-card__media" src={item.image} alt={item.imageAlt} loading="lazy" decoding="async" />
           <div class="audience-card__content">
-            <span class="audience-card__number" aria-hidden="true">0{index + 1}</span>
-            <h3>{item.title}</h3><p>{item.text}</p>
+            <span aria-hidden="true">0{index + 1}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
             <a href={item.href}><span>Подробнее</span><span aria-hidden="true">→</span></a>
           </div>
         </article>
       ))}
     </div>
 
-    <div class="audience-compact">
-      <div class="audience-compact__intro"><p>Другие направления</p><span>Для нетиповой области начинаем с оценки документов и границ задачи.</span></div>
-      <div class="audience-compact__list">
-        {compactAudiences.map((item, index) => (
-          <article id={item.id} class="audience-compact__item"><span aria-hidden="true">0{index + 5}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></article>
-        ))}
-      </div>
-      <a class="audience-compact__cta cta-angled motion-control" href="#contact"><span>Получить оценку</span><span aria-hidden="true">→</span></a>
+    <div class="audience-note">
+      <strong>Не нашли свой тип организации?</strong>
+      <p>Работаем также с медицинскими лабораториями, провайдерами МСИ и нетиповыми областями. Сначала уточним задачу и честно скажем, можем ли быть полезны.</p>
+      <a href="#contact">Обсудить задачу <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
 
 <style>
-  .audience-section .section__inner,.audience-intro,.audience-card__content,.audience-compact,.audience-compact__list{display:grid}.audience-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}
-  .audience-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.audience-intro .section__eyebrow{grid-column:1/-1}.audience-intro .section__title,.audience-intro .section__lead{margin:0}
-  .audience-featured{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);grid-template-rows:repeat(3,minmax(11rem,auto));gap:1rem}.audience-card{position:relative;min-height:15rem;overflow:hidden;isolation:isolate;scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.audience-card--lead{grid-row:1/span 3}
-  .audience-card__media{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;filter:saturate(.35) contrast(.9) brightness(.9) grayscale(.2);transition:transform var(--duration-normal) var(--easing-standard)}.audience-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,color-mix(in srgb,var(--lrqa-navy) 18%,transparent),color-mix(in srgb,var(--lrqa-navy) 94%,transparent))}
-  .audience-card__content{align-content:end;gap:.75rem;min-height:100%;padding:clamp(1.25rem,2.5vw,2.5rem);color:var(--lrqa-white)}.audience-card__number,.audience-card h3,.audience-card p,.audience-compact p,.audience-compact h3{margin:0}.audience-card__number{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.audience-card h3{max-width:24ch;font-size:clamp(1.2rem,1.2vw + 1rem,2.25rem);line-height:1.08;text-wrap:balance}.audience-card:not(.audience-card--lead) h3{font-size:clamp(1.05rem,.55vw + 1rem,1.45rem)}.audience-card p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}.audience-card a{display:inline-flex;gap:.75rem;width:fit-content;color:var(--lrqa-white);font-weight:var(--font-weight-semibold);text-decoration:none}.audience-card a span:last-child{color:var(--color-mint-action)}
-  .audience-compact{grid-template-columns:minmax(15rem,.55fr) minmax(0,1.45fr);gap:1.5rem clamp(2rem,5vw,5rem);align-items:start;padding-top:clamp(1.5rem,3vw,3rem);border-top:1px solid var(--lrqa-border)}.audience-compact__intro{display:grid;gap:.65rem}.audience-compact__intro p{font-size:clamp(1.2rem,1vw + 1rem,1.8rem);font-weight:var(--font-weight-semibold)}.audience-compact__intro span{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}.audience-compact__list{border-top:1px solid var(--lrqa-border-soft)}.audience-compact__item{display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:1rem;padding:1.15rem 0;border-bottom:1px solid var(--lrqa-border-soft);scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.audience-compact__item>span{color:var(--lrqa-muted-2);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.audience-compact__item h3{font-size:1rem;line-height:1.3}.audience-compact__item p{margin-top:.35rem;color:var(--lrqa-muted);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}.audience-compact__cta{grid-column:2;display:inline-flex;justify-content:space-between;gap:1rem;width:fit-content;padding:var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel)*.5);color:var(--lrqa-black);background:var(--gradient-button-primary);font-weight:var(--font-weight-semibold);text-decoration:none}
-  @media(hover:hover){.audience-card:hover .audience-card__media,.audience-card:focus-within .audience-card__media{transform:scale(1.035)}}@media(max-width:64rem){.audience-intro,.audience-compact{grid-template-columns:1fr}.audience-featured{grid-template-columns:1fr 1fr;grid-template-rows:auto}.audience-card--lead{grid-column:1/-1;grid-row:auto;min-height:24rem}.audience-compact__cta{grid-column:1}}@media(max-width:42rem){.audience-featured{grid-template-columns:1fr}.audience-card,.audience-card--lead{grid-column:auto;min-height:21rem}}
+  .audience-section .section__inner,.audience-intro{display:grid}.audience-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}.audience-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.audience-intro .section__eyebrow{grid-column:1/-1}.audience-intro .section__title,.audience-intro .section__lead{margin:0}
+  .audience-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.audience-card{position:relative;min-height:28rem;overflow:hidden;isolation:isolate;scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.audience-card__media{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;filter:saturate(.35) contrast(.9) brightness(.88) grayscale(.15);transition:transform var(--duration-normal) var(--easing-standard)}.audience-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,color-mix(in srgb,var(--lrqa-navy) 12%,transparent),color-mix(in srgb,var(--lrqa-navy) 96%,transparent))}.audience-card__content{display:grid;align-content:end;gap:.85rem;min-height:100%;padding:clamp(1.4rem,2.6vw,2.6rem);color:var(--lrqa-white)}.audience-card__content>span,.audience-card h3,.audience-card p{margin:0}.audience-card__content>span{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.audience-card h3{font-size:clamp(1.35rem,1.4vw + 1rem,2.25rem);line-height:1.08;text-wrap:balance}.audience-card p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}.audience-card a{display:inline-flex;gap:.65rem;width:fit-content;color:var(--lrqa-white);font-weight:var(--font-weight-semibold);text-decoration:none}.audience-card a span:last-child{color:var(--color-mint-action)}
+  .audience-note{display:grid;grid-template-columns:minmax(14rem,.55fr) minmax(0,1.1fr) auto;gap:1rem clamp(2rem,5vw,5rem);align-items:start;padding-top:1.5rem;border-top:1px solid var(--lrqa-border)}.audience-note strong,.audience-note p{margin:0}.audience-note p{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}.audience-note a{display:inline-flex;gap:.55rem;color:var(--lrqa-black);font-weight:var(--font-weight-semibold);text-decoration:none;white-space:nowrap}.audience-note a span{color:var(--color-mint-action)}
+  @media(hover:hover){.audience-card:hover .audience-card__media,.audience-card:focus-within .audience-card__media{transform:scale(1.035)}}@media(max-width:64rem){.audience-intro,.audience-note{grid-template-columns:1fr}.audience-grid{grid-template-columns:1fr 1fr}.audience-card:first-child{grid-column:1/-1}.audience-card{min-height:23rem}}@media(max-width:42rem){.audience-grid{grid-template-columns:1fr}.audience-card:first-child{grid-column:auto}.audience-card{min-height:22rem}}
 </style>

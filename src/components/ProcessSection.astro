@@ -1,26 +1,26 @@
 ---
 const processSteps = [
-  { step: "01", title: "Вводная диагностика", text: "Уточняем процедуру, сроки, тип аккредитованного лица и текущую точку подготовки.", output: "Перечень исходных материалов и границы задачи" },
-  { step: "02", title: "Аудит контура", text: "Сопоставляем область, СМК, записи, ФГИС и фактическую практику.", output: "Карта рисков с приоритетами" },
-  { step: "03", title: "Корректирующие действия", text: "Определяем, что изменить и какими записями подтвердить внедрение изменений.", output: "План действий, ответственные и доказательства" },
-  { step: "04", title: "Контроль готовности", text: "Повторно проверяем критичные связки перед подачей заявления или ВКС.", output: "Контрольный перечень перед процедурой" },
+  { step: "01", title: "Понимаем задачу", text: "Разбираем процедуру, сроки, текущую готовность и риски для работы или контракта.", output: "Понятные границы проекта" },
+  { step: "02", title: "Проверяем реальное состояние", text: "Проводим независимый аудит документов, записей и фактической практики.", output: "Приоритеты без лишней теории" },
+  { step: "03", title: "Исправляем вместе", text: "Помогаем доработать систему, распределить задачи и собрать недостающие доказательства.", output: "Работающие изменения, а не новый архив файлов" },
+  { step: "04", title: "Готовим к процедуре", text: "Проводим контрольную проверку, готовим команду и сопровождаем ключевые этапы.", output: "Управляемая подготовка до завершения работ" },
 ];
 ---
 
 <section id="formats" class="section section--dark process-section" aria-labelledby="process-title">
   <div class="section__inner page-container">
-    <div class="process-intro">
-      <p class="section__eyebrow">Как работаем</p>
-      <h2 id="process-title" class="section__title">Каждый этап заканчивается конкретным результатом</h2>
-      <p class="section__lead">Объём можно ограничить аудитом или расширить до сопровождения подготовки. Решение принимается после оценки рисков, а не заранее.</p>
-    </div>
+    <header class="process-intro">
+      <p class="section__eyebrow">Как строится работа</p>
+      <h2 id="process-title" class="section__title">Один ответственный контур от первой встречи до процедуры</h2>
+      <p class="section__lead">Не передаём вам список проблем и не исчезаем. Согласуем план, работаем с командой и держим критичные задачи под контролем.</p>
+    </header>
 
-    <ol class="process-timeline" aria-label="Этапы работы">
+    <ol class="process-timeline">
       {processSteps.map((item) => (
         <li class="process-step">
           <span class="process-step__number">{item.step}</span>
           <div class="process-step__copy"><h3>{item.title}</h3><p>{item.text}</p></div>
-          <div class="process-step__output"><span>Результат этапа</span><strong>{item.output}</strong></div>
+          <div class="process-step__output"><span>На этом этапе</span><strong>{item.output}</strong></div>
         </li>
       ))}
     </ol>
@@ -30,6 +30,6 @@ const processSteps = [
 <style>
   .process-section .section__inner,.process-intro,.process-timeline,.process-step__copy,.process-step__output{display:grid}.process-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}
   .process-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.process-intro .section__eyebrow{grid-column:1/-1}.process-intro .section__title,.process-intro .section__lead{margin:0}
-  .process-timeline{margin:0;padding:0;list-style:none;border-top:1px solid var(--lrqa-dark-border)}.process-step{display:grid;grid-template-columns:4rem minmax(12rem,.7fr) minmax(0,1.3fr);gap:clamp(1rem,3vw,3rem);padding:clamp(1.35rem,2.8vw,2.4rem) 0;border-bottom:1px solid var(--lrqa-dark-border)}.process-step__number{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-sm)}.process-step__copy,.process-step__output{gap:.55rem}.process-step h3,.process-step p,.process-step__output span,.process-step__output strong{margin:0}.process-step h3{color:var(--lrqa-white);font-size:clamp(1.1rem,.65vw + 1rem,1.55rem);line-height:1.25}.process-step p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}.process-step__output{padding-left:clamp(1rem,3vw,3rem);border-left:1px solid var(--lrqa-dark-border)}.process-step__output span{color:var(--lrqa-muted-2);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.process-step__output strong{color:var(--lrqa-white);line-height:1.4}
+  .process-timeline{margin:0;padding:0;list-style:none;border-top:1px solid var(--lrqa-dark-border)}.process-step{display:grid;grid-template-columns:4rem minmax(12rem,.72fr) minmax(0,1.28fr);gap:clamp(1rem,3vw,3rem);padding:clamp(1.35rem,2.8vw,2.4rem) 0;border-bottom:1px solid var(--lrqa-dark-border)}.process-step__number{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-sm)}.process-step__copy,.process-step__output{gap:.55rem}.process-step h3,.process-step p,.process-step__output span,.process-step__output strong{margin:0}.process-step h3{color:var(--lrqa-white);font-size:clamp(1.1rem,.65vw + 1rem,1.55rem);line-height:1.25}.process-step p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}.process-step__output{padding-left:clamp(1rem,3vw,3rem);border-left:1px solid var(--lrqa-dark-border)}.process-step__output span{color:var(--lrqa-muted-2);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.process-step__output strong{color:var(--lrqa-white);line-height:1.4}
   @media(max-width:64rem){.process-intro{grid-template-columns:1fr}}@media(max-width:48rem){.process-step{grid-template-columns:2.5rem minmax(0,1fr)}.process-step__output{grid-column:2;padding-top:1rem;padding-left:0;border-top:1px solid var(--lrqa-dark-border);border-left:0}}
 </style>

@@ -1,38 +1,61 @@
 ---
-const proofItems = [
-  { label: "Область аккредитации", meta: "границы и подтверждаемость" },
-  { label: "СМК", meta: "документы и практика" },
-  { label: "Анкета самообследования", meta: "сверка с фактами" },
-  { label: "Выборка дел", meta: "репрезентативность" },
-  { label: "ФГИС", meta: "сведения и связка" },
-  { label: "Корректирующие действия", meta: "план исправлений" },
-  { label: "Карта рисков", meta: "приоритеты подготовки" },
-  { label: "Доказательства компетентности", meta: "готовность к проверке" },
+const auditChain = [
+  { number: "01", title: "Требование", text: "Что должно быть подтверждено" },
+  { number: "02", title: "Процедура", text: "Как это закреплено в СМК" },
+  { number: "03", title: "Запись", text: "Где видна фактическая практика" },
+  { number: "04", title: "Доказательство", text: "Что можно предъявить при проверке" },
+];
+
+const deliverables = [
+  ["Карта рисков", "Перечень проблем с приоритетом: критично, важно, желательно улучшить."],
+  ["План корректирующих действий", "Что изменить, кто отвечает и какие доказательства должны появиться."],
+  ["Замечания к области и СМК", "Несогласованности между заявленными работами, документами и практикой."],
+  ["Контрольный перечень", "Что повторно проверить перед подачей заявления или ВКС."],
 ];
 ---
 
 <section id="approach" class="proof-strip section section--dark" aria-labelledby="proof-strip-title">
   <div class="proof-strip__inner page-container">
-    <div class="proof-strip__copy">
-      <p class="section__eyebrow">Наш подход</p>
-      <h2 id="proof-strip-title" class="section__title">
-        Что мы проверяем и как работаем
-      </h2>
-      <p class="section__lead">
-        Мы проверяем весь заявительный контур. 
-        <br>Сопровождаем вас от первичного аудита до подачи заявления и ВКС.
-      </p>
-    </div>
+    <header class="proof-strip__intro">
+      <p class="section__eyebrow">Результат работы</p>
+      <h2 id="proof-strip-title" class="section__title">Не комплект документов, а проверяемая связка</h2>
+      <p class="section__lead">Сопоставляем требования, внутренние процедуры, записи и фактическую практику. Так видно не только что исправить, но и чем подтвердить готовность.</p>
+    </header>
 
-    <div class="proof-strip__marquee" aria-label="Проверяемые объекты">
-      <div class="proof-strip__track">
-        {proofItems.map((item) => (
-          <article class="proof-strip__item framed-block card--dark">
-            <span class="proof-strip__label">{item.label}</span>
-            <span class="proof-strip__meta">{item.meta}</span>
-          </article>
-        ))}
+    <div class="proof-strip__layout">
+      <div class="audit-chain">
+        <div class="audit-chain__heading">
+          <span>Контур готовности</span>
+          <strong>Требование → процедура → запись → доказательство</strong>
+        </div>
+        <ol class="audit-chain__list">
+          {auditChain.map((item) => (
+            <li>
+              <span>{item.number}</span>
+              <div><h3>{item.title}</h3><p>{item.text}</p></div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="deliverable-panel">
+        <p class="deliverable-panel__label">Что будет у вас на руках</p>
+        <div class="deliverable-panel__list">
+          {deliverables.map(([title, text]) => <article><h3>{title}</h3><p>{text}</p></article>)}
+        </div>
+        <a href="#material"><span>Посмотреть пример результата</span><span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .proof-strip__inner,.proof-strip__intro,.audit-chain,.deliverable-panel{display:grid}.proof-strip__inner{gap:clamp(2.5rem,6vw,5.5rem)}
+  .proof-strip__intro{grid-template-columns:minmax(0,.75fr) minmax(20rem,1.25fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.proof-strip__intro .section__eyebrow{grid-column:1/-1}.proof-strip__intro .section__title,.proof-strip__intro .section__lead{margin:0}
+  .proof-strip__layout{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(20rem,.88fr);gap:1px;background:var(--lrqa-dark-border);border:1px solid var(--lrqa-dark-border)}
+  .audit-chain,.deliverable-panel{min-width:0;padding:clamp(1.5rem,3.5vw,3.5rem);background:var(--lrqa-navy-2)}.audit-chain{gap:2rem}.audit-chain__heading{display:grid;gap:.65rem}.audit-chain__heading span,.deliverable-panel__label{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.audit-chain__heading strong{max-width:32rem;color:var(--lrqa-white);font-size:clamp(1.25rem,2vw,2rem);line-height:1.2}
+  .audit-chain__list,.deliverable-panel__list{margin:0;padding:0;list-style:none}.audit-chain__list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--lrqa-dark-border);border:1px solid var(--lrqa-dark-border)}.audit-chain__list li{display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:.85rem;min-height:10rem;padding:1.35rem;background:var(--lrqa-dark-mass)}.audit-chain__list li>span{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-sm)}
+  .audit-chain h3,.audit-chain p,.deliverable-panel h3,.deliverable-panel p,.deliverable-panel__label{margin:0}.audit-chain h3,.deliverable-panel h3{color:var(--lrqa-white);font-size:clamp(1rem,.3vw + .95rem,1.18rem);line-height:1.25}.audit-chain p,.deliverable-panel p{margin-top:.55rem;color:var(--lrqa-border-soft);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}
+  .deliverable-panel{gap:1.5rem;background:var(--lrqa-white)}.deliverable-panel__label{color:var(--lrqa-muted-dark)}.deliverable-panel__list{display:grid}.deliverable-panel__list article{padding:1.25rem 0;border-top:1px solid var(--lrqa-border-soft)}.deliverable-panel__list article:last-child{border-bottom:1px solid var(--lrqa-border-soft)}.deliverable-panel h3{color:var(--lrqa-black)}.deliverable-panel p{color:var(--lrqa-muted)}.deliverable-panel>a{display:inline-flex;align-items:center;justify-content:space-between;gap:1rem;padding-top:.5rem;color:var(--lrqa-black);font-weight:var(--font-weight-semibold);text-decoration:none}.deliverable-panel>a span:last-child{color:var(--color-mint-action);font-size:1.4rem}
+  @media(max-width:64rem){.proof-strip__intro,.proof-strip__layout{grid-template-columns:1fr}}@media(max-width:40rem){.audit-chain__list{grid-template-columns:1fr}.audit-chain__list li{min-height:0}}
+</style>

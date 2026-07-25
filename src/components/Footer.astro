@@ -1,38 +1,31 @@
 <footer class="footer">
   <div class="footer__inner page-container">
     <div class="footer__col footer__col--brand">
-      <a class="footer__logo-link" href="/#contact" aria-label="Рокнорд, к форме связи">
-        <img
-          class="footer__logo"
-          src="/images/brand/roknord-logo-transparent.png"
-          width="2508"
-          height="627"
-          alt="Рокнорд"
-          decoding="async"
-        />
+      <a class="footer__logo-link" href="/" aria-label="Рокнорд, на главную страницу">
+        <img class="footer__logo" src="/images/brand/roknord-logo-transparent.png" width="2508" height="627" alt="Рокнорд" decoding="async" />
       </a>
-      <p class="footer__tagline">Экспертные услуги в области подтверждения соответствия и аккредитации.</p>
+      <p class="footer__tagline">Независимый аудит готовности к аккредитации и подтверждению компетентности.</p>
     </div>
 
     <div class="footer__divider" aria-hidden="true"></div>
 
     <div class="footer__col footer__col--nav">
-      <nav aria-label="Компания">
-        <a class="footer__nav-link" href="/#contact">О компании</a>
-        <a class="footer__nav-link" href="/#contact">Карьера</a>
-        <a class="footer__nav-link" href="/#contact">Партнёрам</a>
-        <a class="footer__nav-link" href="/#contact">Юридическая информация</a>
+      <nav aria-label="Основные разделы">
+        <a class="footer__nav-link" href="/#approach">Подход</a>
+        <a class="footer__nav-link" href="/#directions">Услуги</a>
+        <a class="footer__nav-link" href="/#deliverables">Кому помогаем</a>
+        <a class="footer__nav-link" href="/#pricing">Стоимость</a>
       </nav>
     </div>
 
     <div class="footer__divider" aria-hidden="true"></div>
 
     <div class="footer__col footer__col--nav">
-      <nav aria-label="Личный кабинет и документы">
-        <a class="footer__nav-link" href="/#contact">Личный кабинет</a>
-        <a class="footer__nav-link" href="/#contact">Политика конфиденциальности</a>
-        <a class="footer__nav-link" href="/#contact">Политика в области качества</a>
+      <nav aria-label="Документы и контакты">
+        <a class="footer__nav-link" href="/privacy-policy/">Политика конфиденциальности</a>
+        <a class="footer__nav-link" href="/personal-data-consent/">Согласие на обработку данных</a>
         <a class="footer__nav-link" href="/#contact">Контакты</a>
+        <a class="footer__nav-link" href="tel:+78123898178">8 812 38 98 178</a>
       </nav>
     </div>
   </div>
@@ -40,174 +33,14 @@
   <div class="footer__bottom page-container">
     <span>© 2026 Рокнорд</span>
     <span class="footer__dot" aria-hidden="true">●</span>
-    <span>Все права защищены</span>
-    <span class="footer__dot" aria-hidden="true">●</span>
-    <span>ISO/IEC 27001</span>
+    <span>Независимая экспертная подготовка</span>
     <span class="footer__dot" aria-hidden="true">●</span>
     <span>Санкт-Петербург, Россия</span>
-    <a class="footer__ask-btn cta-angled motion-control" href="#contact">
-      <span>Задать вопрос</span>
-      <span aria-hidden="true">→</span>
-    </a>
+    <a class="footer__ask-btn cta-angled motion-control" href="#contact"><span>Получить оценку</span><span aria-hidden="true">→</span></a>
   </div>
 </footer>
 
 <style>
-  .footer {
-    padding-block: clamp(var(--footer-padding-block), 5vw, var(--section-y-lg));
-    background: linear-gradient(
-      135deg,
-      var(--lrqa-navy)      0%,
-      var(--lrqa-nav)       30%,
-      var(--lrqa-muted-dark) 60%,
-      var(--lrqa-navy-2)    100%
-    );
-    border-top: 1px solid var(--color-border-strong);
-  }
-
-  .footer__inner {
-    display: grid;
-    grid-template-columns: 1fr 1px 1fr 1px 1fr;
-    gap: 0;
-    align-items: stretch;
-  }
-
-  .footer__divider {
-    width: 1px;
-    align-self: stretch;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      var(--lrqa-muted-dark) 18%,
-      var(--lrqa-muted-dark) 82%,
-      transparent 100%
-    );
-  }
-
-  .footer__col {
-    padding-inline: var(--space-8);
-  }
-
-  .footer__col--brand {
-    padding-left: 0;
-    display: grid;
-    gap: var(--space-4);
-    align-content: start;
-  }
-
-  .footer__col--nav {
-    align-self: start;
-  }
-
-  .footer__logo-link {
-    display: inline-block;
-  }
-
-  .footer__logo {
-    display: inline-block;
-    width: auto;
-    height: 2rem;
-    object-fit: contain;
-  }
-
-  .footer__tagline {
-    margin: 0;
-    color: var(--color-text-muted);
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-relaxed);
-  }
-
-  .footer__col--nav nav {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .footer__nav-link {
-    color: var(--color-text-muted);
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-relaxed);
-    transition: var(--transition-fast);
-  }
-
-  .footer__nav-link:hover,
-  .footer__nav-link:focus-visible {
-    color: var(--color-mint-action);
-  }
-
-  .footer__bottom {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    flex-wrap: wrap;
-    margin-top: var(--space-8);
-    padding-top: var(--space-5);
-    border-top: 1px solid var(--color-border-strong);
-    color: var(--color-text-muted);
-    font-size: var(--font-size-xs);
-  }
-
-  .footer__dot {
-    color: var(--lrqa-mint);
-    font-size: 0.4em;
-    line-height: 1;
-  }
-
-  .footer__ask-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    margin-left: auto;
-    padding: var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel) * 0.5);
-    background: var(--gradient-button-primary);
-    color: var(--lrqa-black);
-    font-size: var(--button-font-size);
-    font-weight: var(--button-font-weight);
-    white-space: nowrap;
-    transition: background 0.2s ease, transform 0.18s ease;
-  }
-
-  .footer__ask-btn:hover,
-  .footer__ask-btn:focus-visible {
-    background: var(--gradient-button-primary-hover);
-  }
-
-  @media (max-width: 48rem) {
-    .footer__inner {
-      grid-template-columns: 1fr;
-      gap: var(--space-6);
-    }
-
-    .footer__divider {
-      display: none;
-    }
-
-    .footer__col {
-      padding-inline: 0;
-    }
-
-    .footer__col--brand {
-      padding-bottom: var(--space-2);
-    }
-
-    .footer__col--nav nav {
-      gap: var(--space-4);
-    }
-
-    .footer__bottom {
-      gap: var(--space-2);
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .footer__ask-btn {
-      margin-left: 0;
-      margin-top: var(--space-3);
-    }
-
-    .footer__dot {
-      display: none;
-    }
-  }
+  .footer{padding-block:clamp(var(--footer-padding-block),5vw,var(--section-y-lg));background:linear-gradient(135deg,var(--lrqa-navy) 0%,var(--lrqa-nav) 45%,var(--lrqa-navy-2) 100%);border-top:1px solid var(--color-border-strong)}.footer__inner{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;align-items:stretch}.footer__divider{width:1px;background:var(--lrqa-muted-dark)}.footer__col{padding-inline:var(--space-8)}.footer__col--brand{padding-left:0;display:grid;gap:var(--space-4);align-content:start}.footer__logo-link{display:inline-block}.footer__logo{display:inline-block;width:auto;height:2rem;object-fit:contain}.footer__tagline{margin:0;color:var(--color-text-muted);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}.footer__col--nav nav{display:flex;flex-direction:column;gap:var(--space-3)}.footer__nav-link{color:var(--color-text-muted);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed);transition:var(--transition-fast)}.footer__nav-link:hover,.footer__nav-link:focus-visible{color:var(--color-mint-action)}.footer__bottom{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-8);padding-top:var(--space-5);border-top:1px solid var(--color-border-strong);color:var(--color-text-muted);font-size:var(--font-size-xs)}.footer__dot{color:var(--lrqa-mint);font-size:.4em}.footer__ask-btn{display:inline-flex;align-items:center;gap:var(--space-2);margin-left:auto;padding:var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel)*.5);background:var(--gradient-button-primary);color:var(--lrqa-black);font-size:var(--button-font-size);font-weight:var(--button-font-weight);white-space:nowrap}
+  @media(max-width:48rem){.footer__inner{grid-template-columns:1fr;gap:var(--space-6)}.footer__divider{display:none}.footer__col{padding-inline:0}.footer__bottom{gap:var(--space-2);flex-direction:column;align-items:center;text-align:center}.footer__ask-btn{margin-left:0;margin-top:var(--space-3)}.footer__dot{display:none}}
 </style>

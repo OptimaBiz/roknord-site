@@ -1,55 +1,54 @@
 ---
-const packages = [
+const formats = [
   {
-    name: "Первичный аудит готовности",
-    price: "150 000 ₽",
-    priceNote: "с НДС",
-    lead: "Подходит, когда нужно быстро понять реальное состояние подготовки и определить приоритеты.",
-    deliverables: ["Карта рисков по документам, области и практике", "Замечания к критичным несогласованностям", "План первоочередных корректирующих действий"],
+    name: "Точечная задача",
+    lead: "Когда нужно проверить отдельный блок, разобраться с замечаниями или актуализировать область.",
+    items: ["Чёткие границы работы", "Письменный результат", "Рекомендации по следующим шагам"],
+  },
+  {
+    name: "Полное сопровождение",
+    lead: "Когда нужна подготовка организации и команды к процедуре от диагностики до контрольной проверки.",
+    items: ["Независимый аудит", "План и внедрение изменений", "Подготовка команды", "Сопровождение ключевых этапов"],
     featured: true,
   },
   {
-    name: "Сопровождение подготовки",
-    price: "По запросу",
-    priceNote: "после оценки объёма",
-    lead: "Подходит, когда после аудита требуется помощь с внедрением изменений и контрольной проверкой.",
-    deliverables: ["Работа с выбранными блоками СМК и доказательной базы", "Методические рекомендации по корректирующим действиям", "Контроль готовности перед подачей или ВКС"],
-    featured: false,
+    name: "Постоянная поддержка",
+    lead: "Когда внутренней функции качества нужна регулярная экспертная опора между процедурами.",
+    items: ["Контроль изменений", "Поддержка СМК и записей", "Календарь рисков", "Подготовка к очередным процедурам"],
   },
 ];
 ---
 
-<section id="pricing" class="pricing-section section section--light" aria-labelledby="pricing-title">
+<section id="pricing" class="section section--light formats-section" aria-labelledby="formats-title">
   <div class="section__inner page-container">
-    <header class="pricing-intro">
-      <p class="section__eyebrow">Стоимость</p>
-      <h2 id="pricing-title" class="section__title">Начните с аудита и расширяйте работу только там, где это действительно нужно</h2>
-      <p class="section__lead">До оценки материалов не предлагаем лишний объём сопровождения. Сначала фиксируем риски и только затем определяем дальнейшие действия.</p>
+    <header class="formats-intro">
+      <p class="section__eyebrow">Форматы работы</p>
+      <h2 id="formats-title" class="section__title">Подключаемся ровно настолько, насколько нужно вашей команде</h2>
+      <p class="section__lead">Не продаём одинаковый пакет всем. Объём зависит от процедуры, состояния системы, сроков и того, что команда может сделать самостоятельно.</p>
     </header>
 
-    <div class="pricing-grid" aria-label="Форматы работы">
-      {packages.map((pkg) => (
-        <article class:list={["pricing-card", pkg.featured && "pricing-card--featured"]}>
-          <div class="pricing-card__header">
-            {pkg.featured && <span class="pricing-card__badge">Рекомендуемый старт</span>}
-            <h3>{pkg.name}</h3>
-            <div class="pricing-card__price"><strong>{pkg.price}</strong><span>{pkg.priceNote}</span></div>
-          </div>
-          <p class="pricing-card__lead">{pkg.lead}</p>
-          <div class="pricing-card__deliverables"><p>Что получите</p><ul>{pkg.deliverables.map((item) => <li>{item}</li>)}</ul></div>
-          <a class="pricing-card__cta motion-control" href="#contact"><span>Получить оценку</span><span aria-hidden="true">→</span></a>
+    <div class="formats-grid">
+      {formats.map((format) => (
+        <article class:list={["format-card", format.featured && "format-card--featured"]}>
+          {format.featured && <span class="format-card__badge">Основной формат</span>}
+          <h3>{format.name}</h3>
+          <p>{format.lead}</p>
+          <ul>{format.items.map((item) => <li>{item}</li>)}</ul>
+          <a href="#contact"><span>Обсудить формат</span><span aria-hidden="true">→</span></a>
         </article>
       ))}
     </div>
 
-    <div class="pricing-note"><strong>Что влияет на итоговую стоимость</strong><p>Тип аккредитованного лица, объём области, состояние СМК, количество проверяемых записей и срок до процедуры.</p></div>
+    <div class="formats-note">
+      <strong>Стоимость определяем после короткого разбора.</strong>
+      <p>На неё влияют тип аккредитованного лица, размер области, количество площадок, состояние документов и срок до процедуры. До начала работ фиксируем состав, результат и цену.</p>
+    </div>
   </div>
 </section>
 
 <style>
-  .pricing-section{border-top:1px solid var(--lrqa-border-soft)}.pricing-section .section__inner,.pricing-intro,.pricing-card,.pricing-card__header,.pricing-card__price,.pricing-card__deliverables,.pricing-note{display:grid}.pricing-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}
-  .pricing-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.pricing-intro .section__eyebrow{grid-column:1/-1}.pricing-intro .section__title,.pricing-intro .section__lead,.pricing-card h3,.pricing-card p,.pricing-note strong,.pricing-note p{margin:0}
-  .pricing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.pricing-card{grid-template-rows:auto auto 1fr auto;gap:1.5rem;min-width:0;padding:clamp(1.5rem,3.5vw,3.25rem);background:var(--lrqa-white);border:1px solid var(--lrqa-border-soft)}.pricing-card--featured{color:var(--lrqa-white);background:var(--lrqa-navy);border-color:var(--lrqa-navy);border-top:4px solid var(--color-mint-action)}.pricing-card__header,.pricing-card__price,.pricing-card__deliverables{gap:.75rem}.pricing-card__badge{width:fit-content;color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.pricing-card h3{max-width:20ch;font-size:clamp(1.35rem,1.5vw + 1rem,2.4rem);line-height:1.08;text-wrap:balance}.pricing-card__price strong{font-family:var(--font-family-mono);font-size:clamp(2rem,3vw,3.5rem);line-height:1}.pricing-card__price span,.pricing-card__lead{color:var(--lrqa-muted)}.pricing-card--featured .pricing-card__price span,.pricing-card--featured .pricing-card__lead{color:var(--lrqa-border-soft)}.pricing-card__lead{line-height:var(--line-height-relaxed)}
-  .pricing-card__deliverables{align-content:start;padding-top:1.25rem;border-top:1px solid var(--lrqa-border-soft)}.pricing-card--featured .pricing-card__deliverables{border-color:var(--lrqa-dark-border)}.pricing-card__deliverables>p{font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.pricing-card__deliverables ul{display:grid;gap:.75rem;margin:0;padding:0;list-style:none}.pricing-card__deliverables li{position:relative;padding-left:1.25rem;color:var(--lrqa-muted-dark);line-height:1.5}.pricing-card--featured .pricing-card__deliverables li{color:var(--lrqa-border-soft)}.pricing-card__deliverables li::before{content:"";position:absolute;top:.65em;left:0;width:.4rem;height:.4rem;background:var(--color-mint-action)}.pricing-card__cta{display:inline-flex;justify-content:space-between;gap:1rem;padding-top:1.25rem;color:var(--lrqa-black);border-top:1px solid var(--lrqa-border-soft);font-weight:var(--font-weight-semibold);text-decoration:none}.pricing-card--featured .pricing-card__cta{color:var(--lrqa-white);border-color:var(--lrqa-dark-border)}.pricing-card__cta span:last-child{color:var(--color-mint-action);font-size:1.4rem}
-  .pricing-note{grid-template-columns:minmax(13rem,.45fr) minmax(0,1.55fr);gap:1rem clamp(2rem,5vw,5rem);padding-top:1.5rem;border-top:1px solid var(--lrqa-border)}.pricing-note p{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}@media(max-width:64rem){.pricing-intro,.pricing-note{grid-template-columns:1fr}}@media(max-width:48rem){.pricing-grid{grid-template-columns:1fr}}
+  .formats-section .section__inner,.formats-intro,.format-card{display:grid}.formats-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}.formats-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.formats-intro .section__eyebrow{grid-column:1/-1}.formats-intro .section__title,.formats-intro .section__lead{margin:0}
+  .formats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.format-card{grid-template-rows:auto auto 1fr auto;gap:1.35rem;padding:clamp(1.5rem,3vw,2.8rem);background:var(--lrqa-white);border:1px solid var(--lrqa-border-soft)}.format-card--featured{color:var(--lrqa-white);background:var(--lrqa-navy);border-color:var(--lrqa-navy);border-top:4px solid var(--color-mint-action)}.format-card__badge{width:fit-content;color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.format-card h3,.format-card p,.formats-note strong,.formats-note p{margin:0}.format-card h3{font-size:clamp(1.4rem,1.3vw + 1rem,2.3rem);line-height:1.08}.format-card p{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}.format-card--featured p{color:var(--lrqa-border-soft)}.format-card ul{display:grid;align-content:start;gap:.75rem;margin:0;padding:1.25rem 0 0;list-style:none;border-top:1px solid var(--lrqa-border-soft)}.format-card--featured ul{border-color:var(--lrqa-dark-border)}.format-card li{position:relative;padding-left:1.2rem;color:var(--lrqa-muted-dark);line-height:1.45}.format-card--featured li{color:var(--lrqa-border-soft)}.format-card li::before{content:"";position:absolute;top:.6em;left:0;width:.38rem;height:.38rem;background:var(--color-mint-action)}.format-card a{display:inline-flex;justify-content:space-between;gap:1rem;padding-top:1.2rem;color:var(--lrqa-black);border-top:1px solid var(--lrqa-border-soft);font-weight:var(--font-weight-semibold);text-decoration:none}.format-card--featured a{color:var(--lrqa-white);border-color:var(--lrqa-dark-border)}.format-card a span:last-child{color:var(--color-mint-action)}
+  .formats-note{display:grid;grid-template-columns:minmax(16rem,.58fr) minmax(0,1.42fr);gap:1rem clamp(2rem,5vw,5rem);padding-top:1.5rem;border-top:1px solid var(--lrqa-border)}.formats-note p{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}
+  @media(max-width:64rem){.formats-intro,.formats-note{grid-template-columns:1fr}.formats-grid{grid-template-columns:1fr 1fr}.format-card--featured{grid-row:1/span 2}}@media(max-width:48rem){.formats-grid{grid-template-columns:1fr}.format-card--featured{grid-row:auto}}
 </style>

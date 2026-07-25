@@ -2,37 +2,35 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import Hero from "../components/Hero.astro";
-import ExpertMaterial from "../components/ExpertMaterial.astro";
 import ProofStrip from "../components/ProofStrip.astro";
-import RequestStrip from "../components/RequestStrip.astro";
+import ExpertMaterial from "../components/ExpertMaterial.astro";
+import Scenarios from "../components/Scenarios.astro";
+import AudienceSection from "../components/AudienceSection.astro";
+import ProcessSection from "../components/ProcessSection.astro";
+import PricingSection from "../components/PricingSection.astro";
 import ContactForm from "../components/ContactForm.astro";
 import FaqSection from "../components/FaqSection.astro";
-import PricingSection from "../components/PricingSection.astro";
-import AudienceSection from "../components/AudienceSection.astro";
-import Scenarios from "../components/Scenarios.astro";
-import ProcessSection from "../components/ProcessSection.astro";
-
-
 ---
 
 <BaseLayout
-  title="Рокнорд — аккредитация и подтверждение компетентности"
-  description="Рокнорд помогает выстроить документы, процессы, доказательства и риски в логике проверки — до аккредитации или подтверждения компетентности."
+  title="Рокнорд — аудит готовности к проверке ФСА"
+  description="Независимый аудит готовности: сопоставляем область аккредитации, СМК, записи и фактическую практику. На выходе — карта рисков и план корректирующих действий."
 >
   <main id="content">
     <Hero />
-    <RequestStrip />
-    <ExpertMaterial />
     <ProofStrip />
-
-    <AudienceSection />
-
+    <ExpertMaterial />
     <Scenarios />
-
+    <AudienceSection />
     <ProcessSection />
-
     <PricingSection />
-    <ContactForm />
+    <ContactForm
+      eyebrow="Оценка задачи"
+      title="Опишите процедуру и текущую ситуацию"
+      description="Ответим в течение рабочего дня и скажем, какие материалы нужны для первичной оценки."
+      submitLabel="Получить оценку"
+      statusText="Заявка не обязывает заказывать сопровождение"
+    />
     <FaqSection />
   </main>
 </BaseLayout>

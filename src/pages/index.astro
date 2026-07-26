@@ -2,32 +2,32 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import Hero from "../components/Hero.astro";
+import AudienceSection from "../components/AudienceSection.astro";
 import ProofStrip from "../components/ProofStrip.astro";
 import Scenarios from "../components/Scenarios.astro";
 import ProcessSection from "../components/ProcessSection.astro";
 import ExpertMaterial from "../components/ExpertMaterial.astro";
-import AudienceSection from "../components/AudienceSection.astro";
 import PricingSection from "../components/PricingSection.astro";
 import ContactForm from "../components/ContactForm.astro";
 import FaqSection from "../components/FaqSection.astro";
 ---
 
 <BaseLayout
-  title="Рокнорд — экспертное сопровождение аккредитации"
-  description="Независимая подготовка и сопровождение аккредитации, подтверждения компетентности, расширения области и корректирующих действий."
+  title="Рокнорд — аудит, подготовка и сопровождение аккредитации"
+  description="Независимый первичный аудит, устранение рисков, подготовка доказательной базы и команды, сопровождение аккредитации и подтверждения компетентности."
 >
   <main id="content">
     <Hero />
+    <AudienceSection />
     <ProofStrip />
     <Scenarios />
     <ProcessSection />
     <ExpertMaterial />
-    <AudienceSection />
     <PricingSection />
     <ContactForm
       eyebrow="Обсудить задачу"
       title="Расскажите, к какой процедуре вы готовитесь"
-      description="Коротко разберём ситуацию, сроки и объём работы. Без продажи лишних услуг и обещаний результата, который зависит от государственного органа."
+      description="Сначала уточним ситуацию и проведём первичный аудит. После него предложим понятный план устранения рисков и нужный объём сопровождения."
       submitLabel="Обсудить задачу"
       statusText="Ответим в течение рабочего дня"
     />

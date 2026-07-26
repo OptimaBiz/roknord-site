@@ -1,41 +1,40 @@
 ---
-const workAreas = [
-  { number: "01", title: "Разобраться", text: "Фиксируем задачу, сроки, слабые места и реальный объём подготовки." },
-  { number: "02", title: "Привести в порядок", text: "Согласуем область, документы, записи, ФГИС и фактическую работу." },
-  { number: "03", title: "Подготовить команду", text: "Помогаем сотрудникам понимать свои роли и уверенно показывать практику." },
-  { number: "04", title: "Сопроводить процедуру", text: "Остаёмся рядом при подаче, подготовке к ВКС и работе с замечаниями." },
+const auditChecks = [
+  { number: "01", title: "Где вы сейчас", text: "Проверяем документы, записи, область, ФГИС и фактическую практику." },
+  { number: "02", title: "Что действительно критично", text: "Отделяем риски для процедуры от косметических правок и лишней работы." },
+  { number: "03", title: "Как двигаться дальше", text: "Фиксируем приоритеты, ответственных, сроки и доказательства результата." },
 ];
 ---
 
-<section id="approach" class="section section--dark assurance-section" aria-labelledby="assurance-title">
+<section id="approach" class="section section--dark audit-start" aria-labelledby="audit-start-title">
   <div class="section__inner page-container">
-    <header class="assurance-intro">
-      <p class="section__eyebrow">Что мы берём на себя</p>
-      <h2 id="assurance-title" class="section__title">Сложную процедуру превращаем в понятный рабочий план</h2>
-      <p class="section__lead">Не оставляем вас один на один с отчётом. Находим проблемы, помогаем их исправить и проверяем, что изменения действительно работают.</p>
+    <header class="audit-start__intro">
+      <p class="section__eyebrow">Первый шаг</p>
+      <h2 id="audit-start-title" class="section__title">Сначала проводим первичный аудит — затем берёмся за исправления и сопровождение</h2>
+      <p class="section__lead">Без диагностики нельзя честно назвать объём, сроки и стоимость. Поэтому любой проект начинается с короткой независимой проверки текущего состояния.</p>
     </header>
 
-    <ol class="assurance-grid">
-      {workAreas.map((item) => (
+    <ol class="audit-start__grid">
+      {auditChecks.map((item) => (
         <li>
-          <span class="assurance-grid__number">{item.number}</span>
+          <span>{item.number}</span>
           <h3>{item.title}</h3>
           <p>{item.text}</p>
         </li>
       ))}
     </ol>
 
-    <div class="assurance-note">
-      <strong>Аудит — только начало.</strong>
-      <p>Он нужен, чтобы увидеть реальную картину. Основная работа начинается дальше: приоритеты, исправления, внедрение и сопровождение до процедуры.</p>
+    <div class="audit-start__note">
+      <strong>Аудит не заканчивается отчётом.</strong>
+      <p>Его задача — дать рабочую основу для следующего этапа: устранения рисков, подготовки доказательной базы, обучения команды и сопровождения процедуры.</p>
     </div>
   </div>
 </section>
 
 <style>
-  .assurance-section .section__inner,.assurance-intro{display:grid}.assurance-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}.assurance-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.assurance-intro .section__eyebrow{grid-column:1/-1}.assurance-intro .section__title,.assurance-intro .section__lead{margin:0}
-  .assurance-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--lrqa-dark-border);border-left:1px solid var(--lrqa-dark-border)}.assurance-grid li{display:grid;align-content:start;gap:1rem;min-height:19rem;padding:clamp(1.35rem,2.5vw,2.4rem);border-right:1px solid var(--lrqa-dark-border);border-bottom:1px solid var(--lrqa-dark-border)}.assurance-grid__number{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.assurance-grid h3,.assurance-grid p,.assurance-note strong,.assurance-note p{margin:0}.assurance-grid h3{color:var(--lrqa-white);font-size:clamp(1.35rem,1.4vw + 1rem,2.2rem);line-height:1.05}.assurance-grid p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
-  .assurance-note{display:grid;grid-template-columns:minmax(13rem,.45fr) minmax(0,1.55fr);gap:1rem clamp(2rem,5vw,5rem);padding-top:1.5rem;border-top:1px solid var(--lrqa-dark-border)}.assurance-note strong{color:var(--color-mint-action);font-size:clamp(1.15rem,.6vw + 1rem,1.55rem)}.assurance-note p{max-width:50rem;color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
-  @media(max-width:64rem){.assurance-intro,.assurance-note{grid-template-columns:1fr}.assurance-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media(max-width:42rem){.assurance-grid{grid-template-columns:1fr}.assurance-grid li{min-height:0}}
+  .audit-start .section__inner,.audit-start__intro{display:grid}.audit-start .section__inner{gap:clamp(2.5rem,6vw,5rem)}.audit-start__intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.audit-start__intro .section__eyebrow{grid-column:1/-1}.audit-start__intro .section__title,.audit-start__intro .section__lead{margin:0}
+  .audit-start__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--lrqa-dark-border);border-left:1px solid var(--lrqa-dark-border)}.audit-start__grid li{display:grid;align-content:start;gap:.9rem;min-height:17rem;padding:clamp(1.4rem,2.8vw,2.6rem);border-right:1px solid var(--lrqa-dark-border);border-bottom:1px solid var(--lrqa-dark-border)}.audit-start__grid li>span{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.audit-start__grid h3,.audit-start__grid p,.audit-start__note strong,.audit-start__note p{margin:0}.audit-start__grid h3{color:var(--lrqa-white);font-size:clamp(1.35rem,1.2vw + 1rem,2.1rem);line-height:1.08}.audit-start__grid p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
+  .audit-start__note{display:grid;grid-template-columns:minmax(15rem,.5fr) minmax(0,1.5fr);gap:1rem clamp(2rem,5vw,5rem);padding-top:1.5rem;border-top:1px solid var(--lrqa-dark-border)}.audit-start__note strong{color:var(--color-mint-action);font-size:clamp(1.1rem,.55vw + 1rem,1.5rem)}.audit-start__note p{max-width:52rem;color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
+  @media(max-width:64rem){.audit-start__intro,.audit-start__note{grid-template-columns:1fr}.audit-start__grid{grid-template-columns:1fr 1fr}.audit-start__grid li:last-child{grid-column:1/-1;min-height:0}}
+  @media(max-width:42rem){.audit-start__grid{grid-template-columns:1fr}.audit-start__grid li:last-child{grid-column:auto}.audit-start__grid li{min-height:0}}
 </style>

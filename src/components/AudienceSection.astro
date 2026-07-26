@@ -1,8 +1,16 @@
 ---
-const audiences = [
-  { id: "audience-testing", title: "Испытательные и калибровочные лаборатории", text: "ПК, РОА, первичная аккредитация, замечания и постоянная поддержка качества.", href: "/testing-labs/", image: "/images/materials/lab.webp", imageAlt: "Работа в лаборатории" },
-  { id: "audience-cert-ms", title: "Органы по сертификации", text: "СМК, компетентность, выборка дел, область и подготовка к оценке.", href: "/certification-bodies/", image: "/images/materials/смк.webp", imageAlt: "Рабочая встреча по системе менеджмента" },
-  { id: "audience-inspection", title: "Органы инспекции и специальные направления", text: "Процедуры, записи, наблюдения и доказательства для вашей области.", href: "#contact", image: "/images/materials/insp.webp", imageAlt: "Проверка документов и процессов" },
+const featuredAudiences = [
+  { id: "audience-testing", title: "Испытательные лаборатории", text: "ПК, РОА, первичная аккредитация, замечания, СМК и подготовка команды.", href: "/testing-labs/", image: "/images/materials/lab.webp", imageAlt: "Работа в испытательной лаборатории" },
+  { id: "audience-medical", title: "Медицинские лаборатории", text: "Процессы, записи, персонал и доказательства фактической лабораторной практики.", href: "/medical-labs/", image: "/images/materials/medlab.webp", imageAlt: "Работа в медицинской лаборатории" },
+  { id: "audience-cert-ms", title: "Органы по сертификации систем менеджмента", text: "СМК, выборка дел, компетентность, решения и подготовка к оценке.", href: "/certification-bodies/", image: "/images/materials/смк.webp", imageAlt: "Рабочая встреча по системе менеджмента" },
+  { id: "audience-cert-product", title: "Органы по сертификации продукции", text: "Область, протоколы, решения, записи и корректирующие действия.", href: "/certification-bodies/", image: "/images/materials/product.webp", imageAlt: "Проверка продукции и документов" },
+];
+
+const additionalAudiences = [
+  { id: "audience-inspection", title: "Органы инспекции", text: "Процедуры, записи выездов, наблюдения и доказательства компетентности." },
+  { id: "audience-calibration", title: "Калибровочные лаборатории", text: "Методики, эталоны, метрологическая прослеживаемость и записи." },
+  { id: "audience-msi", title: "Провайдеры МСИ", text: "Программы, статистика, доказательства участия и управляемость результатов." },
+  { id: "audience-halal", title: "Органы по сертификации халяль", text: "Область, процедуры, источники доказательств и подготовка к оценке." },
 ];
 ---
 
@@ -10,13 +18,13 @@ const audiences = [
   <div class="section__inner page-container">
     <header class="audience-intro">
       <p class="section__eyebrow">Кому помогаем</p>
-      <h2 id="audience-title" class="section__title">Работаем с теми, чья компетентность должна быть доказана</h2>
-      <p class="section__lead">У каждого типа аккредитованного лица свои требования и практика. Поэтому начинаем не с шаблона, а с вашей области, процессов и команды.</p>
+      <h2 id="audience-title" class="section__title">Работаем с организациями, которым нужно доказать компетентность не на словах, а на практике</h2>
+      <p class="section__lead">У каждого типа аккредитованного лица свой набор требований, рисков и доказательств. Поэтому мы не переносим один шаблон из проекта в проект.</p>
     </header>
 
-    <div class="audience-grid">
-      {audiences.map((item, index) => (
-        <article id={item.id} class="audience-card">
+    <div class="audience-featured" aria-label="Основные направления">
+      {featuredAudiences.map((item, index) => (
+        <article id={item.id} class:list={["audience-card", index === 0 && "audience-card--lead"]}>
           <img class="audience-card__media" src={item.image} alt={item.imageAlt} loading="lazy" decoding="async" />
           <div class="audience-card__content">
             <span aria-hidden="true">0{index + 1}</span>
@@ -28,17 +36,28 @@ const audiences = [
       ))}
     </div>
 
-    <div class="audience-note">
-      <strong>Не нашли свой тип организации?</strong>
-      <p>Работаем также с медицинскими лабораториями, провайдерами МСИ и нетиповыми областями. Сначала уточним задачу и честно скажем, можем ли быть полезны.</p>
-      <a href="#contact">Обсудить задачу <span aria-hidden="true">→</span></a>
+    <div class="audience-additional">
+      <div class="audience-additional__intro">
+        <p>Другие направления</p>
+        <span>Полный список типов клиентов сохранён и в меню сайта.</span>
+      </div>
+      <div class="audience-additional__list">
+        {additionalAudiences.map((item, index) => (
+          <article id={item.id}>
+            <span aria-hidden="true">0{index + 5}</span>
+            <div><h3>{item.title}</h3><p>{item.text}</p></div>
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .audience-section .section__inner,.audience-intro{display:grid}.audience-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}.audience-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.audience-intro .section__eyebrow{grid-column:1/-1}.audience-intro .section__title,.audience-intro .section__lead{margin:0}
-  .audience-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.audience-card{position:relative;min-height:28rem;overflow:hidden;isolation:isolate;scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.audience-card__media{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;filter:saturate(.35) contrast(.9) brightness(.88) grayscale(.15);transition:transform var(--duration-normal) var(--easing-standard)}.audience-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,color-mix(in srgb,var(--lrqa-navy) 12%,transparent),color-mix(in srgb,var(--lrqa-navy) 96%,transparent))}.audience-card__content{display:grid;align-content:end;gap:.85rem;min-height:100%;padding:clamp(1.4rem,2.6vw,2.6rem);color:var(--lrqa-white)}.audience-card__content>span,.audience-card h3,.audience-card p{margin:0}.audience-card__content>span{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.audience-card h3{font-size:clamp(1.35rem,1.4vw + 1rem,2.25rem);line-height:1.08;text-wrap:balance}.audience-card p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}.audience-card a{display:inline-flex;gap:.65rem;width:fit-content;color:var(--lrqa-white);font-weight:var(--font-weight-semibold);text-decoration:none}.audience-card a span:last-child{color:var(--color-mint-action)}
-  .audience-note{display:grid;grid-template-columns:minmax(14rem,.55fr) minmax(0,1.1fr) auto;gap:1rem clamp(2rem,5vw,5rem);align-items:start;padding-top:1.5rem;border-top:1px solid var(--lrqa-border)}.audience-note strong,.audience-note p{margin:0}.audience-note p{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}.audience-note a{display:inline-flex;gap:.55rem;color:var(--lrqa-black);font-weight:var(--font-weight-semibold);text-decoration:none;white-space:nowrap}.audience-note a span{color:var(--color-mint-action)}
-  @media(hover:hover){.audience-card:hover .audience-card__media,.audience-card:focus-within .audience-card__media{transform:scale(1.035)}}@media(max-width:64rem){.audience-intro,.audience-note{grid-template-columns:1fr}.audience-grid{grid-template-columns:1fr 1fr}.audience-card:first-child{grid-column:1/-1}.audience-card{min-height:23rem}}@media(max-width:42rem){.audience-grid{grid-template-columns:1fr}.audience-card:first-child{grid-column:auto}.audience-card{min-height:22rem}}
+  .audience-section .section__inner,.audience-intro,.audience-additional,.audience-additional__list{display:grid}.audience-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}.audience-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.audience-intro .section__eyebrow{grid-column:1/-1}.audience-intro .section__title,.audience-intro .section__lead{margin:0}
+  .audience-featured{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);grid-template-rows:repeat(3,minmax(11rem,auto));gap:1rem}.audience-card{position:relative;min-height:15rem;overflow:hidden;isolation:isolate;scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.audience-card--lead{grid-row:1/span 3}.audience-card__media{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;filter:saturate(.35) contrast(.9) brightness(.88) grayscale(.15);transition:transform var(--duration-normal) var(--easing-standard)}.audience-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,color-mix(in srgb,var(--lrqa-navy) 12%,transparent),color-mix(in srgb,var(--lrqa-navy) 96%,transparent))}.audience-card__content{display:grid;align-content:end;gap:.8rem;min-height:100%;padding:clamp(1.35rem,2.6vw,2.6rem);color:var(--lrqa-white)}.audience-card__content>span,.audience-card h3,.audience-card p,.audience-additional p,.audience-additional h3{margin:0}.audience-card__content>span{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.audience-card h3{max-width:25ch;font-size:clamp(1.15rem,1.15vw + 1rem,2.2rem);line-height:1.08;text-wrap:balance}.audience-card:not(.audience-card--lead) h3{font-size:clamp(1.05rem,.55vw + 1rem,1.45rem)}.audience-card p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}.audience-card a{display:inline-flex;gap:.65rem;width:fit-content;color:var(--lrqa-white);font-weight:var(--font-weight-semibold);text-decoration:none}.audience-card a span:last-child{color:var(--color-mint-action)}
+  .audience-additional{grid-template-columns:minmax(15rem,.52fr) minmax(0,1.48fr);gap:1.5rem clamp(2rem,5vw,5rem);padding-top:clamp(1.5rem,3vw,3rem);border-top:1px solid var(--lrqa-border)}.audience-additional__intro{display:grid;align-content:start;gap:.65rem}.audience-additional__intro p{font-size:clamp(1.2rem,1vw + 1rem,1.8rem);font-weight:var(--font-weight-semibold)}.audience-additional__intro span{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}.audience-additional__list{grid-template-columns:1fr 1fr;border-top:1px solid var(--lrqa-border-soft);border-left:1px solid var(--lrqa-border-soft)}.audience-additional__list article{display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:1rem;padding:1.25rem;border-right:1px solid var(--lrqa-border-soft);border-bottom:1px solid var(--lrqa-border-soft);scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.audience-additional__list article>span{color:var(--lrqa-muted-2);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.audience-additional__list h3{font-size:1rem;line-height:1.3}.audience-additional__list p{margin-top:.35rem;color:var(--lrqa-muted);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}
+  @media(hover:hover){.audience-card:hover .audience-card__media,.audience-card:focus-within .audience-card__media{transform:scale(1.035)}}
+  @media(max-width:64rem){.audience-intro,.audience-additional{grid-template-columns:1fr}.audience-featured{grid-template-columns:1fr 1fr;grid-template-rows:auto}.audience-card--lead{grid-column:1/-1;grid-row:auto;min-height:24rem}}
+  @media(max-width:42rem){.audience-featured,.audience-additional__list{grid-template-columns:1fr}.audience-card,.audience-card--lead{grid-column:auto;min-height:21rem}}
 </style>

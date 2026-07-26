@@ -2,9 +2,9 @@
 import HeroMedia from "./HeroMedia.astro";
 
 const principles = [
-  "Разбираемся в вашей ситуации",
-  "Готовим документы и практику",
-  "Сопровождаем до завершения процедуры",
+  "Находим риски и причины",
+  "Устраняем несоответствия",
+  "Готовим доказательства и команду",
 ];
 ---
 
@@ -21,20 +21,21 @@ const principles = [
 
   <div class="hero__inner hero-layout page-container">
     <div class="hero-copy">
-      <p class="hero-kicker">Независимая экспертная команда</p>
-      <h1 class="hero-title">Сопровождаем аккредитацию без хаоса и аврала</h1>
+      <p class="hero-kicker">Независимое экспертное сопровождение</p>
+      <h1 class="hero-title">Найдём и устраним риски, подготовим доказательную базу и команду к проверке ФСА</h1>
       <p class="hero-lead">
-        Берём на себя подготовку к аккредитации, подтверждению компетентности, расширению области и работе с замечаниями. Помогаем привести в порядок не только документы, но и то, как организация работает на практике.
+        Сопровождаем аккредитацию, подтверждение компетентности, расширение области и работу с замечаниями. Приводим в порядок документы и реальные процессы — и остаёмся рядом до завершения согласованных этапов.
       </p>
       <div class="hero-actions">
         <a class="hero-action hero-action--primary cta-angled motion-control" href="#contact"><span>Обсудить задачу</span><span aria-hidden="true">→</span></a>
-        <a class="hero-action hero-action--secondary motion-control" href="#approach">Как мы работаем</a>
+        <a class="hero-action hero-action--secondary motion-control" href="#approach">Как строится работа</a>
       </div>
     </div>
 
-    <aside class="hero-assurance" aria-label="Что входит в сопровождение">
-      <p class="hero-assurance__label">Не разовая проверка</p>
-      <h2>Работаем рядом с вашей командой</h2>
+    <aside class="hero-assurance" aria-label="Основа сопровождения">
+      <p class="hero-assurance__label">Сначала — реальная картина</p>
+      <h2>Каждый проект начинаем с первичного аудита</h2>
+      <p class="hero-assurance__text">Это не отдельная формальность, а короткий обязательный этап: без него нельзя честно определить объём работ и приоритеты.</p>
       <ul>
         {principles.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><strong>{item}</strong></li>)}
       </ul>
@@ -43,13 +44,13 @@ const principles = [
 </section>
 
 <style>
-  .hero-layout{grid-template-columns:minmax(0,1.2fr) minmax(18rem,.62fr);align-items:end;justify-items:stretch;gap:clamp(2rem,6vw,7rem)}
-  .hero-copy{display:grid;gap:clamp(1rem,2vw,1.6rem);max-width:62rem;text-align:left}.hero-kicker,.hero-title,.hero-lead,.hero-assurance p,.hero-assurance h2{margin:0}
+  .hero-layout{grid-template-columns:minmax(0,1.22fr) minmax(19rem,.6fr);align-items:end;justify-items:stretch;gap:clamp(2rem,6vw,7rem)}
+  .hero-copy{display:grid;gap:clamp(1rem,2vw,1.6rem);max-width:66rem;text-align:left}.hero-kicker,.hero-title,.hero-lead,.hero-assurance p,.hero-assurance h2{margin:0}
   .hero-kicker{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
-  .hero-title{max-width:14ch;font-size:clamp(2.7rem,6vw,6.4rem);font-weight:var(--font-weight-semibold);line-height:.94;text-align:left;text-wrap:balance}
-  .hero-lead{max-width:48rem;color:var(--lrqa-white);font-size:clamp(1rem,.5vw + .95rem,1.28rem);line-height:1.55;text-align:left}
+  .hero-title{max-width:17ch;font-size:clamp(2.45rem,5.35vw,5.8rem);font-weight:var(--font-weight-semibold);line-height:.96;text-align:left;text-wrap:balance}
+  .hero-lead{max-width:52rem;color:var(--lrqa-white);font-size:clamp(1rem,.5vw + .95rem,1.28rem);line-height:1.55;text-align:left}
   .hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.4rem}.hero-action{display:inline-flex;align-items:center;justify-content:center;gap:.75rem;min-height:3.25rem;font-weight:var(--font-weight-semibold);text-decoration:none}.hero-action--primary{padding:var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel)*.5);color:var(--lrqa-black);background:var(--gradient-button-primary)}.hero-action--secondary{color:var(--lrqa-white);border-bottom:1px solid color-mix(in srgb,var(--lrqa-white) 62%,transparent)}
-  .hero-assurance{display:grid;gap:1.15rem;padding:clamp(1.35rem,2.6vw,2.25rem);background:color-mix(in srgb,var(--lrqa-navy) 86%,transparent);border-top:3px solid var(--color-mint-action);backdrop-filter:blur(10px)}.hero-assurance__label{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.hero-assurance h2{max-width:16ch;color:var(--lrqa-white);font-size:clamp(1.45rem,2vw,2.4rem);line-height:1.08}.hero-assurance ul{display:grid;margin:0;padding:0;list-style:none}.hero-assurance li{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:.75rem;padding:1rem 0;border-top:1px solid color-mix(in srgb,var(--lrqa-white) 20%,transparent)}.hero-assurance li span{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.hero-assurance li strong{color:var(--lrqa-white);font-size:.98rem;line-height:1.35}
-  @media(max-width:64rem){.hero-layout{grid-template-columns:1fr;align-content:center}.hero-assurance{max-width:42rem}}
-  @media(max-width:47.99rem){.hero{min-height:auto;padding-top:7.5rem}.hero-title{font-size:clamp(2.45rem,11vw,4rem)}.hero-actions,.hero-action--primary{width:100%}.hero-action--secondary{width:fit-content}.hero-assurance{backdrop-filter:none}}
+  .hero-assurance{display:grid;gap:1.05rem;padding:clamp(1.35rem,2.6vw,2.25rem);background:color-mix(in srgb,var(--lrqa-navy) 88%,transparent);border-top:3px solid var(--color-mint-action);backdrop-filter:blur(10px)}.hero-assurance__label{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.hero-assurance h2{max-width:17ch;color:var(--lrqa-white);font-size:clamp(1.4rem,1.8vw,2.2rem);line-height:1.1}.hero-assurance__text{color:var(--lrqa-border-soft);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}.hero-assurance ul{display:grid;margin:0;padding:0;list-style:none}.hero-assurance li{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:.75rem;padding:.9rem 0;border-top:1px solid color-mix(in srgb,var(--lrqa-white) 20%,transparent)}.hero-assurance li span{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.hero-assurance li strong{color:var(--lrqa-white);font-size:.96rem;line-height:1.35}
+  @media(max-width:64rem){.hero-layout{grid-template-columns:1fr;align-content:center}.hero-assurance{max-width:44rem}}
+  @media(max-width:47.99rem){.hero{min-height:auto;padding-top:7.5rem}.hero-title{font-size:clamp(2.15rem,9.8vw,3.65rem)}.hero-actions,.hero-action--primary{width:100%}.hero-action--secondary{width:fit-content}.hero-assurance{backdrop-filter:none}}
 </style>

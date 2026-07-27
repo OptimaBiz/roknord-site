@@ -1,13 +1,13 @@
 ---
 const audiences = [
-  { id: "audience-testing", title: "Испытательные лаборатории", standard: "ГОСТ ISO/IEC 17025" },
-  { id: "audience-calibration", title: "Калибровочные лаборатории", standard: "ГОСТ ISO/IEC 17025" },
-  { id: "audience-medical", title: "Медицинские лаборатории", standard: "ГОСТ Р ИСО 15189" },
-  { id: "audience-cert-product", title: "Органы по сертификации продукции и услуг", standard: "ГОСТ Р ИСО/МЭК 17065" },
-  { id: "audience-cert-ms", title: "Органы по сертификации систем менеджмента", standard: "ГОСТ Р ИСО/МЭК 17021-1" },
-  { id: "audience-inspection", title: "Органы инспекции", standard: "ГОСТ Р ИСО/МЭК 17020" },
-  { id: "audience-msi", title: "Провайдеры межлабораторных сличительных испытаний (МСИ)", standard: "ГОСТ ISO/IEC 17043" },
-  { id: "audience-halal", title: "Органы по сертификации Халяль", standard: "Стандарты серии ГОСТ Р Халяль" },
+  { id: "audience-testing", title: "Испытательные лаборатории", standard: "ГОСТ ISO/IEC 17025", image: "/images/materials/lab.webp" },
+  { id: "audience-calibration", title: "Калибровочные лаборатории", standard: "ГОСТ ISO/IEC 17025", image: "/images/materials/calibro.webp" },
+  { id: "audience-medical", title: "Медицинские лаборатории", standard: "ГОСТ Р ИСО 15189", image: "/images/materials/medlab.webp" },
+  { id: "audience-cert-product", title: "Органы по сертификации продукции и услуг", standard: "ГОСТ Р ИСО/МЭК 17065", image: "/images/materials/product.webp" },
+  { id: "audience-cert-ms", title: "Органы по сертификации систем менеджмента", standard: "ГОСТ Р ИСО/МЭК 17021-1", image: "/images/materials/смк.webp" },
+  { id: "audience-inspection", title: "Органы инспекции", standard: "ГОСТ Р ИСО/МЭК 17020", image: "/images/materials/insp.webp" },
+  { id: "audience-msi", title: "Провайдеры межлабораторных сличительных испытаний (МСИ)", standard: "ГОСТ ISO/IEC 17043", image: "/images/materials/metodasi.webp" },
+  { id: "audience-halal", title: "Органы по сертификации Халяль", standard: "Стандарты серии ГОСТ Р Халяль", image: "/images/materials/halal.webp" },
 ];
 ---
 
@@ -21,10 +21,13 @@ const audiences = [
 
     <ol class="audience-grid">
       {audiences.map((item, index) => (
-        <li id={item.id}>
-          <span class="audience-grid__num" aria-hidden="true">0{index + 1}</span>
-          <h3>{item.title}</h3>
-          <p class="audience-grid__standard">{item.standard}</p>
+        <li id={item.id} class="audience-cell">
+          <img class="audience-cell__media" src={item.image} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+          <div class="audience-cell__content">
+            <span class="audience-cell__num" aria-hidden="true">0{index + 1}</span>
+            <h3>{item.title}</h3>
+            <p class="audience-cell__standard">{item.standard}</p>
+          </div>
         </li>
       ))}
     </ol>
@@ -34,12 +37,17 @@ const audiences = [
 <style>
   .audience-section .section__inner,.audience-intro{display:grid}.audience-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}
   .audience-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.audience-intro .section__eyebrow{grid-column:1/-1}.audience-intro .section__title,.audience-intro .section__lead{margin:0}
-  .audience-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--lrqa-border);border-left:1px solid var(--lrqa-border)}
-  .audience-grid li{display:grid;align-content:start;gap:.65rem;min-height:11rem;padding:clamp(1.15rem,2vw,1.75rem);border-right:1px solid var(--lrqa-border);border-bottom:1px solid var(--lrqa-border);scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}
-  .audience-grid h3,.audience-grid p{margin:0}
-  .audience-grid__num{color:var(--lrqa-muted-2);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
-  .audience-grid h3{font-size:clamp(1rem,.35vw + .95rem,1.2rem);line-height:1.25;text-wrap:balance}
-  .audience-grid__standard{margin-top:auto;padding-top:.75rem;color:var(--lrqa-muted);font-family:var(--font-family-mono);font-size:var(--font-size-2xs);line-height:1.4}
+  .audience-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin:0;padding:0;list-style:none;background:var(--lrqa-border)}
+  .audience-cell{position:relative;min-height:15rem;overflow:hidden;isolation:isolate;scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}
+  .audience-cell__media{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;filter:saturate(.35) contrast(.9) brightness(.88) grayscale(.15);transition:transform var(--duration-normal) var(--easing-standard)}
+  .audience-cell::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,color-mix(in srgb,var(--lrqa-navy) 18%,transparent),color-mix(in srgb,var(--lrqa-navy) 96%,transparent))}
+  .audience-cell__content{display:grid;align-content:end;gap:.5rem;min-height:100%;padding:clamp(1.15rem,2vw,1.75rem);color:var(--lrqa-white)}
+  .audience-cell h3,.audience-cell p{margin:0}
+  .audience-cell__num{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
+  .audience-cell h3{font-size:clamp(1rem,.35vw + .95rem,1.2rem);line-height:1.25;text-wrap:balance}
+  .audience-cell__standard{padding-top:.6rem;color:var(--lrqa-border-soft);font-family:var(--font-family-mono);font-size:var(--font-size-2xs);line-height:1.4;border-top:1px solid color-mix(in srgb,var(--lrqa-white) 22%,transparent)}
+  @media(hover:hover){.audience-cell:hover .audience-cell__media{transform:scale(1.035)}}
+  @media(prefers-reduced-motion:reduce){.audience-cell__media{transition:none}.audience-cell:hover .audience-cell__media{transform:none}}
   @media(max-width:64rem){.audience-intro{grid-template-columns:1fr}.audience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media(max-width:36rem){.audience-grid{grid-template-columns:1fr}.audience-grid li{min-height:0}}
+  @media(max-width:36rem){.audience-grid{grid-template-columns:1fr}.audience-cell{min-height:12rem}}
 </style>

@@ -156,6 +156,20 @@
   min-height: 2.25rem;
 }
 
+.service-phone {
+  flex: 0 0 auto;
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  transition: var(--transition-fast);
+}
+
+.service-phone:hover,
+.service-phone:focus-visible {
+  color: var(--color-mint-action);
+}
+
 .utility-nav {
   display: flex;
   align-items: center;

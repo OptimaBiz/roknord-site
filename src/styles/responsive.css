@@ -355,7 +355,8 @@
     padding-inline: var(--container-padding) 0;
   }
 
-  .utility-nav {
+  .utility-nav,
+  .service-phone {
     display: none;
   }
 

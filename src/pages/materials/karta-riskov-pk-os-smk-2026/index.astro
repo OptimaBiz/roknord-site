@@ -2,11 +2,11 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import ContactForm from "../../../components/ContactForm.astro";
 
-const pdfHref = "/pdf/roknord_karta_riskov_pk_os_smk_2026.pdf";
+const downloadHref = "/materials/karta-riskov-pk-os-smk-2026/download/";
 ---
 
 <BaseLayout
-  title="Карта рисков перед ПК ОС СМК — Рокнорд"
+  title="Карта рисков перед ПК ОС СМ — Рокнорд"
   description="Бесплатный экспертный материал Рокнорд: карта рисков перед подтверждением компетентности органов по сертификации систем менеджмента."
 >
   <main id="content">
@@ -14,14 +14,14 @@ const pdfHref = "/pdf/roknord_karta_riskov_pk_os_smk_2026.pdf";
       <div class="material-download__inner page-container">
         <div class="material-download__copy">
           <p class="section__eyebrow">Экспертный материал</p>
-          <h1 class="material-download__title">Карта рисков перед подтверждением компетентности ОС СМК</h1>
+          <h1 class="material-download__title">Карта рисков перед подтверждением компетентности ОС СМ</h1>
           <p class="material-download__lead">
             Материал помогает структурно проверить документы, записи, область аккредитации, СМК и доказательную базу до процедуры.
           </p>
           <div class="material-download__notice">
-            <strong>Расскажите нам о себе, чтобы бесплатно скачать материал.</strong>
+            <strong>Заполните короткую форму, чтобы получить PDF.</strong>
             <p>
-              После заполнения короткой формы откроется PDF. Данные нужны для корректной коммуникации по материалу и похожим экспертным разборам.
+              После успешной отправки формы откроется файл. Используем данные для предоставления материала и ответа на связанные с ним вопросы.
             </p>
           </div>
         </div>
@@ -34,8 +34,9 @@ const pdfHref = "/pdf/roknord_karta_riskov_pk_os_smk_2026.pdf";
           showMessage={false}
           submitLabel="Получить PDF"
           statusText="После отправки откроется PDF-файл."
-          successUrl={pdfHref}
-          subject="Запрос PDF: карта рисков перед ПК ОС СМК"
+          successUrl={downloadHref}
+          gateKey="roknord-material-pk-os-smk-2026"
+          subject="Запрос PDF: карта рисков перед ПК ОС СМ"
           formName="Получить PDF"
           embedded
         />

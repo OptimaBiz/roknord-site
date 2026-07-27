@@ -11,6 +11,7 @@ type Props = {
   subject?: string;
   formName?: string;
   embedded?: boolean;
+  gateKey?: string;
 };
 
 const {
@@ -20,11 +21,12 @@ const {
   description = "Укажите, что считаете уместным. Ответим в течение рабочего дня.",
   showMessage = true,
   submitLabel = "Отправить",
-  statusText = "Мы на связи 24/7",
+  statusText = "Ответим в рабочее время",
   successUrl = "/thank-you/",
   subject = "Заявка с сайта Рокнорд",
   formName = "Контактная форма",
   embedded = false,
+  gateKey = "",
 } = Astro.props as Props;
 
 const titleId = `${id}-form-title`;
@@ -50,6 +52,7 @@ const titleId = `${id}-form-title`;
         method="POST"
         data-contact-form
         data-success-url={successUrl}
+        data-gate-key={gateKey}
         novalidate
       >
         <input type="hidden" name="_subject" value={subject} />
@@ -85,19 +88,19 @@ const titleId = `${id}-form-title`;
         </div>
 
         <label class="contact-field">
-          <span>Почта</span>
+          <span>Электронная почта</span>
           <input name="email" type="email" autocomplete="email" placeholder="name@company.ru" required />
         </label>
 
         {showMessage && (
           <label class="contact-field">
-            <span>Текст сообщения</span>
+            <span>Опишите задачу</span>
             <textarea
               name="message"
               rows="5"
               minlength="10"
               maxlength="1200"
-              placeholder="Ваш текст"
+              placeholder="Укажите тип организации, процедуру, предполагаемые сроки и основной вопрос"
               required
             ></textarea>
           </label>
@@ -221,19 +224,22 @@ const titleId = `${id}-form-title`;
           });
 
           if (!response.ok) {
-            const errorData = await response.json().catch(() => null);
-            const formspreeCaptchaError = typeof errorData?.error === "string" && errorData.error.includes("reCAPTCHA");
-            const errorMessage = formspreeCaptchaError
-              ? "Отправка заблокирована настройкой Formspree CAPTCHA. Отключите CAPTCHA для AJAX-отправки в настройках формы."
-              : "Formspree не принял обращение. Проверьте настройки формы.";
-            throw new Error(errorMessage);
+            throw new Error("Не удалось отправить обращение. Попробуйте ещё раз или напишите на hello@roknord.ru.");
           }
 
           const successUrl = contactForm.dataset.successUrl || "/thank-you/";
+          const gateKey = contactForm.dataset.gateKey;
+          if (gateKey) {
+            try {
+              window.sessionStorage.setItem(gateKey, "granted");
+            } catch {}
+          }
           window.location.assign(successUrl);
-        } catch (error) {
-          const message = error instanceof Error ? error.message : "Не удалось отправить форму.";
-          setContactStatus(message, "error");
+        } catch {
+          setContactStatus(
+            "Не удалось отправить обращение. Попробуйте ещё раз или напишите на hello@roknord.ru.",
+            "error",
+          );
         } finally {
           if (contactSubmit instanceof HTMLButtonElement) contactSubmit.disabled = false;
           if (contactSubmitText && contactSubmit instanceof HTMLButtonElement) {

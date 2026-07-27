@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+
+const materialHref = "/materials/karta-riskov-pk-os-smk-2026/";
+const pdfHref = "/pdf/roknord_karta_riskov_pk_os_smk_2026.pdf";
+---
+
+<BaseLayout
+  title="Подготовка PDF — Рокнорд"
+  description="Открываем запрошенный экспертный материал Рокнорд."
+>
+  <main id="content">
+    <section class="section section--light">
+      <div class="section__inner page-container">
+        <div class="section-stack">
+          <p class="section__eyebrow">Экспертный материал</p>
+          <h1 class="section__title">Подготавливаем PDF</h1>
+          <p class="section__lead">Файл откроется автоматически после проверки отправки формы.</p>
+          <p><a href={materialHref}>Вернуться к форме</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script define:vars={{ materialHref, pdfHref }} is:inline>
+    (() => {
+      const gateKey = "roknord-material-pk-os-smk-2026";
+      let granted = false;
+
+      try {
+        granted = window.sessionStorage.getItem(gateKey) === "granted";
+        if (granted) window.sessionStorage.removeItem(gateKey);
+      } catch {}
+
+      window.location.replace(granted ? pdfHref : materialHref);
+    })();
+  </script>
+</BaseLayout>

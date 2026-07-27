@@ -2,26 +2,26 @@
 import MobileMenu from "./MobileMenu.astro";
 
 const serviceLinks = [
-  { label: "Приближается ПК (подтверждение компетентности)", href: "/#scenario-confirmation" },
-  { label: "Приостановление, сокращение области или замечания", href: "/#scenario-corrective-actions" },
-  { label: "Расширение области или переезд", href: "/#scenario-scope-audit" },
-  { label: "Запуск лаборатории или органа с нуля", href: "/#scenario-primary-accreditation" },
-  { label: "Слабая внутренняя функция качества", href: "/#scenario-special-directions" },
+  { label: "Подготовка к подтверждению компетентности", href: "/#scenario-confirmation" },
+  { label: "Аудит и актуализация области аккредитации", href: "/#scenario-scope-audit" },
+  { label: "Корректирующие действия после выявления несоответствий", href: "/#scenario-corrective-actions" },
+  { label: "Подготовка к первичной аккредитации", href: "/#scenario-primary-accreditation" },
+  { label: "Специальные направления", href: "/#scenario-special-directions" },
 ];
 const audienceLinks = [
-  { label: "Органам по сертификации систем менеджмента", href: "/#audience-cert-ms" },
-  { label: "Органам по сертификации продукции", href: "/#audience-cert-product" },
   { label: "Испытательным лабораториям", href: "/#audience-testing" },
   { label: "Медицинским лабораториям", href: "/#audience-medical" },
-  { label: "Органам по сертификации Халяль", href: "/#audience-halal" },
+  { label: "Органам по сертификации систем менеджмента", href: "/#audience-cert-ms" },
+  { label: "Органам по сертификации продукции", href: "/#audience-cert-product" },
+  { label: "Органам инспекции", href: "/#audience-inspection" },
   { label: "Калибровочным лабораториям", href: "/#audience-calibration" },
   { label: "Провайдерам МСИ", href: "/#audience-msi" },
-  { label: "Органам инспекции", href: "/#audience-inspection" },
+  { label: "Органам по сертификации халяль", href: "/#audience-halal" },
 ];
 const utilityLinks = [
-  { label: "Подход", href: "/#approach" },
+  { label: "О компании", href: "/#approach" },
   { label: "Личный кабинет", href: "#", isLogin: true },
-  { label: "Материалы", href: "/#material" },
+  { label: "Карьера", href: "/#contact" },
   { label: "Сотрудничество", href: "/#contact" },
   { label: "Контакты", href: "/#contact" },
 ];
@@ -37,8 +37,8 @@ const utilityLinks = [
       <a class="service-account service-account--mobile" href="#" data-login-trigger>
         <img class="service-account__icon" src="/icons/account_icon_1.svg" alt="" aria-hidden="true" decoding="async" /><span>Личный кабинет</span>
       </a>
-      <a class="service-cta cta-angled motion-control" href="/#contact">Обсудить задачу</a>
-      <a class="service-cta service-cta--mobile motion-control" href="/#contact">Связаться</a>
+      <a class="service-cta cta-angled motion-control" href="/#contact">Разобрать задачу</a>
+      <a class="service-cta service-cta--mobile motion-control" href="/#contact">Разобрать задачу</a>
     </div>
   </div>
 
@@ -49,8 +49,8 @@ const utilityLinks = [
       </a>
       <nav class="site-nav" aria-label="Основная навигация">
         <details class="nav-dropdown">
-          <summary aria-controls="services-panel" aria-expanded="false">Чем помогаем</summary>
-          <div class="nav-dropdown-panel" id="services-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Чем помогаем</p><div class="nav-dropdown-list">{serviceLinks.map((item) => <a href={item.href}>{item.label}</a>)}</div></div></div>
+          <summary aria-controls="services-panel" aria-expanded="false">Услуги</summary>
+          <div class="nav-dropdown-panel" id="services-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Услуги</p><div class="nav-dropdown-list">{serviceLinks.map((item) => <a href={item.href}>{item.label}</a>)}</div></div></div>
         </details>
         <details class="nav-dropdown">
           <summary aria-controls="audience-panel" aria-expanded="false">Кому помогаем</summary>

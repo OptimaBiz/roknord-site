@@ -3,7 +3,7 @@ import HeroMedia from "./HeroMedia.astro";
 
 const deliverables = [
   "Карта рисков с приоритетами",
-  "План корректирующих действий",
+  "Рекомендации по корректирующим действиям",
   "Перечень недостающих доказательств",
 ];
 ---
@@ -21,20 +21,20 @@ const deliverables = [
 
   <div class="hero__inner hero-layout page-container">
     <div class="hero-copy">
-      <p class="hero-kicker">Комплексный аудит и подготовка к процедурам Росаккредитации</p>
-      <h1 class="hero-title">Находим риски раньше, чем их найдёт экспертная группа</h1>
+      <p class="hero-kicker">Независимый аудит готовности</p>
+      <h1 class="hero-title">Выявляем риски до оценки соответствия</h1>
       <p class="hero-lead">
-        Готовим лаборатории и органы по сертификации к аккредитации, ПК и расширению области.
+        Проверяем область аккредитации, СМК, записи, доказательства и фактическую практику. Готовим аккредитованные лица и заявителей к аккредитации, подтверждению компетентности и изменению области аккредитации.
       </p>
       <div class="hero-actions">
-        <a class="hero-action hero-action--primary cta-angled motion-control" href="#contact"><span>Обсудить условия аудита</span><span aria-hidden="true">→</span></a>
-        <a class="hero-action hero-action--secondary motion-control" href="#material">Карта рисков — скачать</a>
+        <a class="hero-action hero-action--primary cta-angled motion-control" href="#contact"><span>Разобрать задачу</span><span aria-hidden="true">→</span></a>
+        <a class="hero-action hero-action--secondary motion-control" href="#material">Получить карту рисков для ОС СМ</a>
       </div>
     </div>
 
     <aside class="hero-assurance" aria-label="Результат первого этапа">
       <p class="hero-assurance__label">Первый шаг — первичный аудит</p>
-      <h2>С чем вы выходите после первого этапа</h2>
+      <h2>Что получает заказчик по итогам аудита</h2>
       <ul>
         {deliverables.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><strong>{item}</strong></li>)}
       </ul>

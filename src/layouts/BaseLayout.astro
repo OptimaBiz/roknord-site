@@ -56,6 +56,20 @@ const {
         trackLinks: true,
       });
 
+      // Цели: клик по телефону и по почте. Слушатель на document переживает переходы ClientRouter,
+      // поэтому вешаем его один раз и защищаемся флагом от повторной регистрации.
+      if (!window.__roknordGoalsBound) {
+        window.__roknordGoalsBound = true;
+
+        document.addEventListener("click", function (event) {
+          if (!(event.target instanceof Element)) return;
+          var link = event.target.closest('a[href^="tel:"], a[href^="mailto:"]');
+          if (!link || typeof ym !== "function") return;
+          var goal = link.getAttribute("href").indexOf("tel:") === 0 ? "phone_click" : "email_click";
+          ym(111070145, "reachGoal", goal);
+        });
+      }
+
       // ClientRouter меняет страницу без перезагрузки — Metrika сама такие переходы не видит.
       document.addEventListener("astro:after-swap", function () {
         if (typeof ym === "function") {

@@ -11,7 +11,6 @@ type Props = {
   subject?: string;
   formName?: string;
   embedded?: boolean;
-  showContacts?: boolean;
 };
 
 const {
@@ -26,7 +25,6 @@ const {
   subject = "Заявка с сайта Рокнорд",
   formName = "Контактная форма",
   embedded = false,
-  showContacts = false,
 } = Astro.props as Props;
 
 const titleId = `${id}-form-title`;
@@ -39,19 +37,11 @@ const titleId = `${id}-form-title`;
         <p class="section__eyebrow">{eyebrow}</p>
         <h2 id={titleId}>{title}</h2>
         {description && <p>{description}</p>}
-        {showContacts ? (
-          <div class="contact-direct">
-            <p class="contact-direct__label">Прямые контакты</p>
-            <a class="contact-direct__link" href="tel:+78123898178">+7 (812) 389-81-78</a>
-            <a class="contact-direct__link" href="mailto:hello@roknord.ru">hello@roknord.ru</a>
-          </div>
-        ) : (
-          <div class="contact-form-copy__signal" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        )}
+        <div class="contact-form-copy__signal" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
 
       <form
@@ -69,7 +59,6 @@ const titleId = `${id}-form-title`;
         <div class="contact-form__grid">
           <label class="contact-field">
             <span>Имя</span>
-            <span class="contact-field__hint">Как к вам обращаться</span>
             <input
               name="name"
               type="text"
@@ -83,7 +72,6 @@ const titleId = `${id}-form-title`;
 
           <label class="contact-field">
             <span>Телефон</span>
-            <span class="contact-field__hint">Для оперативной связи</span>
             <input
               name="phone"
               type="tel"
@@ -97,15 +85,13 @@ const titleId = `${id}-form-title`;
         </div>
 
         <label class="contact-field">
-          <span>Email</span>
-          <span class="contact-field__hint">Сюда направим КП и проект договора</span>
+          <span>Почта</span>
           <input name="email" type="email" autocomplete="email" placeholder="name@company.ru" required />
         </label>
 
         {showMessage && (
           <label class="contact-field">
-            <span>Комментарий или вопрос</span>
-            <span class="contact-field__hint">Опишите ситуацию, номер приказа или текущие проблемы</span>
+            <span>Текст сообщения</span>
             <textarea
               name="message"
               rows="5"
@@ -509,46 +495,6 @@ const titleId = `${id}-form-title`;
     font-weight: var(--font-weight-semibold);
     letter-spacing: var(--letter-spacing-wide);
     text-transform: uppercase;
-  }
-
-  .contact-direct {
-    display: grid;
-    gap: var(--space-2);
-    margin-top: auto;
-    padding-top: var(--space-5);
-    border-top: 1px solid var(--lrqa-dark-border);
-  }
-
-  .contact-direct__label {
-    margin: 0;
-    color: var(--color-mint-action);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-  }
-
-  .contact-direct__link {
-    color: var(--lrqa-white);
-    font-size: clamp(1.15rem, 1vw + 0.9rem, 1.6rem);
-    font-weight: var(--font-weight-semibold);
-    text-decoration: none;
-    transition: var(--transition-fast);
-  }
-
-  .contact-direct__link:hover,
-  .contact-direct__link:focus-visible {
-    color: var(--color-mint-action);
-  }
-
-  .contact-form .contact-field span.contact-field__hint,
-  .contact-form-section--embedded .contact-form .contact-field span.contact-field__hint {
-    margin-top: calc(var(--space-2) * -1);
-    color: color-mix(in srgb, var(--lrqa-border-soft) 62%, transparent);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-regular);
-    letter-spacing: normal;
-    text-transform: none;
   }
 
   .contact-field input,

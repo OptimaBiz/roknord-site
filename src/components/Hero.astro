@@ -1,10 +1,10 @@
 ---
 import HeroMedia from "./HeroMedia.astro";
 
-const principles = [
-  "Находим риски и причины",
-  "Устраняем несоответствия",
-  "Готовим доказательства и команду",
+const deliverables = [
+  "Карта рисков с приоритетами",
+  "План корректирующих действий",
+  "Перечень недостающих доказательств",
 ];
 ---
 
@@ -21,23 +21,22 @@ const principles = [
 
   <div class="hero__inner hero-layout page-container">
     <div class="hero-copy">
-      <p class="hero-kicker">Независимое экспертное сопровождение</p>
-      <h1 class="hero-title">Найдём и устраним риски, подготовим доказательную базу и команду к проверке ФСА</h1>
+      <p class="hero-kicker">Комплексный аудит и подготовка к процедурам Росаккредитации</p>
+      <h1 class="hero-title">Находим риски раньше, чем их найдёт экспертная группа</h1>
       <p class="hero-lead">
-        Сопровождаем аккредитацию, подтверждение компетентности, расширение области и работу с замечаниями. Приводим в порядок документы и реальные процессы — и остаёмся рядом до завершения согласованных этапов.
+        Готовим лаборатории и органы по сертификации к аккредитации, ПК и расширению области.
       </p>
       <div class="hero-actions">
-        <a class="hero-action hero-action--primary cta-angled motion-control" href="#contact"><span>Обсудить задачу</span><span aria-hidden="true">→</span></a>
-        <a class="hero-action hero-action--secondary motion-control" href="#approach">Как строится работа</a>
+        <a class="hero-action hero-action--primary cta-angled motion-control" href="#contact"><span>Обсудить условия аудита</span><span aria-hidden="true">→</span></a>
+        <a class="hero-action hero-action--secondary motion-control" href="#material">Карта рисков — скачать</a>
       </div>
     </div>
 
-    <aside class="hero-assurance" aria-label="Основа сопровождения">
-      <p class="hero-assurance__label">Сначала — реальная картина</p>
-      <h2>Каждый проект начинаем с первичного аудита</h2>
-      <p class="hero-assurance__text">Это не отдельная формальность, а короткий обязательный этап: без него нельзя честно определить объём работ и приоритеты.</p>
+    <aside class="hero-assurance" aria-label="Результат первого этапа">
+      <p class="hero-assurance__label">Первый шаг — предпроверочный аудит</p>
+      <h2>С чем вы выходите после первого этапа</h2>
       <ul>
-        {principles.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><strong>{item}</strong></li>)}
+        {deliverables.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><strong>{item}</strong></li>)}
       </ul>
     </aside>
   </div>

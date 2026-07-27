@@ -414,11 +414,17 @@
   }
 
   .brand {
-    height: 1.5rem;
+    gap: 0.22rem;
+    height: auto;
   }
 
   .brand-logo {
-    height: 1.7rem;
+    height: 1.55rem;
+  }
+
+  .brand-slogan {
+    font-size: 0.52rem;
+    letter-spacing: 0;
   }
 
   .site-nav {

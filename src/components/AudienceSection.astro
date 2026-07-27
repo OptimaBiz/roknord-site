@@ -11,6 +11,10 @@ const audiences = [
   { id: "audience-msi", title: "Провайдеры межлабораторных сличительных испытаний (МСИ)", standard: "ГОСТ ISO/IEC 17043", image: "/images/materials/metodasi.webp" },
   { id: "audience-inspection", title: "Органы инспекции", standard: "ГОСТ Р ИСО/МЭК 17020", image: "/images/materials/insp.webp" },
 ];
+
+const LEAD_COUNT = 3;
+const lead = audiences.slice(0, LEAD_COUNT);
+const rest = audiences.slice(LEAD_COUNT);
 ---
 
 <section id="deliverables" class="section section--light audience-section" aria-labelledby="audience-title">
@@ -21,35 +25,70 @@ const audiences = [
       <p class="section__lead">Мы не работаем по шаблонным чек-листам. У каждого направления — свой порядок подтверждения компетентности, специфические критерии ФСА и особые требования к доказательной базе.</p>
     </header>
 
-    <ol class="audience-grid">
-      {audiences.map((item, index) => (
-        <li id={item.id} class="audience-cell">
-          <img class="audience-cell__media" src={item.image} alt="" aria-hidden="true" loading="lazy" decoding="async" />
-          <div class="audience-cell__content">
-            <span class="audience-cell__num" aria-hidden="true">0{index + 1}</span>
-            <h3>{item.title}</h3>
-            <p class="audience-cell__standard">{item.standard}</p>
-          </div>
-        </li>
-      ))}
-    </ol>
+    <div class="audience-stack">
+      <ol class="audience-grid audience-grid--lead">
+        {lead.map((item, index) => (
+          <li id={item.id} class="audience-cell audience-cell--lead">
+            <img class="audience-cell__media" src={item.image} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+            <div class="audience-cell__content">
+              <span class="audience-cell__num" aria-hidden="true">0{index + 1}</span>
+              <h3>{item.title}</h3>
+              <p class="audience-cell__standard">{item.standard}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <ol class="audience-grid audience-grid--rest" start={LEAD_COUNT + 1}>
+        {rest.map((item, index) => (
+          <li id={item.id} class="audience-cell">
+            <img class="audience-cell__media" src={item.image} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+            <div class="audience-cell__content">
+              <span class="audience-cell__num" aria-hidden="true">0{index + LEAD_COUNT + 1}</span>
+              <h3>{item.title}</h3>
+              <p class="audience-cell__standard">{item.standard}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
   </div>
 </section>
 
 <style>
   .audience-section .section__inner,.audience-intro{display:grid}.audience-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}
   .audience-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.audience-intro .section__eyebrow{grid-column:1/-1}.audience-intro .section__title,.audience-intro .section__lead{margin:0}
-  .audience-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin:0;padding:0;list-style:none;background:var(--lrqa-border)}
-  .audience-cell{position:relative;min-height:15rem;overflow:hidden;isolation:isolate;scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}
+  .audience-stack{display:grid;gap:1px;background:var(--lrqa-border)}
+  .audience-grid{display:grid;gap:1px;margin:0;padding:0;list-style:none;background:var(--lrqa-border)}
+  .audience-grid--lead{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .audience-grid--rest{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .audience-cell{position:relative;min-height:11rem;overflow:hidden;isolation:isolate;scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}
+  .audience-cell--lead{min-height:19rem}
   .audience-cell__media{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;filter:saturate(.35) contrast(.9) brightness(.88) grayscale(.15);transition:transform var(--duration-normal) var(--easing-standard)}
   .audience-cell::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,color-mix(in srgb,var(--lrqa-navy) 18%,transparent),color-mix(in srgb,var(--lrqa-navy) 96%,transparent))}
-  .audience-cell__content{display:grid;align-content:end;gap:.5rem;min-height:100%;padding:clamp(1.15rem,2vw,1.75rem);color:var(--lrqa-white)}
+  .audience-cell--lead::after{background:linear-gradient(180deg,color-mix(in srgb,var(--lrqa-navy) 10%,transparent),color-mix(in srgb,var(--lrqa-navy) 94%,transparent))}
+  .audience-cell__content{display:grid;align-content:end;gap:.5rem;min-height:100%;padding:clamp(1.05rem,1.8vw,1.5rem);color:var(--lrqa-white)}
+  .audience-cell--lead .audience-cell__content{gap:.65rem;padding:clamp(1.35rem,2.4vw,2.25rem)}
   .audience-cell h3,.audience-cell p{margin:0}
   .audience-cell__num{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
-  .audience-cell h3{font-size:clamp(1rem,.35vw + .95rem,1.2rem);line-height:1.25;text-wrap:balance}
+  .audience-cell h3{font-size:var(--font-size-md);line-height:1.25;text-wrap:balance}
+  .audience-cell--lead h3{font-size:clamp(1.25rem,1vw + .95rem,1.75rem);line-height:1.12}
   .audience-cell__standard{padding-top:.6rem;color:var(--lrqa-border-soft);font-family:var(--font-family-mono);font-size:var(--font-size-2xs);line-height:1.4;border-top:1px solid color-mix(in srgb,var(--lrqa-white) 22%,transparent)}
+  .audience-cell--lead .audience-cell__standard{padding-top:.75rem;font-size:var(--font-size-xs)}
   @media(hover:hover){.audience-cell:hover .audience-cell__media{transform:scale(1.035)}}
   @media(prefers-reduced-motion:reduce){.audience-cell__media{transition:none}.audience-cell:hover .audience-cell__media{transform:none}}
-  @media(max-width:64rem){.audience-intro{grid-template-columns:1fr}.audience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media(max-width:36rem){.audience-grid{grid-template-columns:1fr}.audience-cell{min-height:12rem}}
+  @media(max-width:64rem){
+    .audience-intro{grid-template-columns:1fr}
+    .audience-grid--rest{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .audience-cell--lead{min-height:16rem}
+  }
+  @media(max-width:48rem){
+    .audience-grid--lead{grid-template-columns:1fr}
+    .audience-grid--rest{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .audience-cell--lead{min-height:13rem}
+  }
+  @media(max-width:36rem){
+    .audience-grid--rest{grid-template-columns:1fr}
+    .audience-cell{min-height:10rem}
+  }
 </style>

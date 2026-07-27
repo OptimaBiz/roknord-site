@@ -34,6 +34,12 @@
   overflow: hidden;
 }
 
+.hero-media__poster-frame {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
 .hero-media__poster,
 .hero-media__video {
   display: block;
@@ -44,6 +50,17 @@
   transform: scale(1.02);
   transform-origin: center;
   filter: brightness(0.86) saturate(0.86) contrast(0.98);
+}
+
+.hero-media__video {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 120ms linear;
+}
+
+.hero-media__video[data-hero-playing] {
+  opacity: 1;
 }
 
 .hero__overlay {

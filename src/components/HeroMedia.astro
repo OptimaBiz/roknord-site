@@ -1,6 +1,7 @@
 ---
 type Props = {
   posterSrc: string;
+  mobilePosterSrc?: string;
   posterAlt?: string;
   videoWebmSrc?: string;
   mobileVideoMp4Src?: string;
@@ -10,6 +11,7 @@ type Props = {
 
 const {
   posterSrc,
+  mobilePosterSrc = "",
   posterAlt = "",
   videoWebmSrc = "",
   mobileVideoMp4Src = "",
@@ -19,25 +21,13 @@ const {
 
 const desktopSrc = videoMp4Src || videoWebmSrc || mobileVideoMp4Src;
 const mobileSrc = mobileVideoMp4Src || desktopSrc;
+const mobilePoster = mobilePosterSrc || posterSrc;
 const hasVideo = Boolean(desktopSrc);
 ---
 
 <div class={`hero-media ${className}`.trim()} aria-hidden="true">
-  {hasVideo ? (
-    <video
-      class="hero-media__video"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="auto"
-      poster={posterSrc}
-      disablepictureinpicture
-      data-hero-video
-      data-mobile-video-src={mobileSrc}
-      data-desktop-video-src={desktopSrc}
-    ></video>
-  ) : (
+  <picture class="hero-media__poster-frame">
+    <source media="(max-width: 47.99rem)" srcset={mobilePoster} />
     <img
       class="hero-media__poster"
       src={posterSrc}
@@ -46,6 +36,21 @@ const hasVideo = Boolean(desktopSrc);
       decoding="async"
       fetchpriority="high"
     />
+  </picture>
+
+  {hasVideo && (
+    <video
+      class="hero-media__video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      disablepictureinpicture
+      data-hero-video
+      data-mobile-video-src={mobileSrc}
+      data-desktop-video-src={desktopSrc}
+    ></video>
   )}
 </div>
 
@@ -69,8 +74,19 @@ const hasVideo = Boolean(desktopSrc);
       video.muted = true;
       video.playsInline = true;
 
+      function showVideo() {
+        video.setAttribute("data-hero-playing", "");
+      }
+
+      function showPoster() {
+        video.removeAttribute("data-hero-playing");
+      }
+
       function startVideo() {
-        if (!video.paused) return;
+        if (!video.paused) {
+          showVideo();
+          return;
+        }
         var played = video.play();
         if (played && typeof played.catch === "function") played.catch(function () {});
       }
@@ -78,6 +94,7 @@ const hasVideo = Boolean(desktopSrc);
       function syncVideoSource() {
         var preferred = desktopQuery.matches ? desktopSrc : mobileSrc;
         if (!preferred || video.getAttribute("src") === preferred) return;
+        showPoster();
         video.setAttribute("src", preferred);
         video.load();
       }
@@ -98,6 +115,8 @@ const hasVideo = Boolean(desktopSrc);
 
       video.addEventListener("loadeddata", startVideo);
       video.addEventListener("canplay", startVideo);
+      video.addEventListener("playing", showVideo);
+      video.addEventListener("error", showPoster);
       // Safari возвращает страницу из bfcache с остановленным видео.
       window.addEventListener("pageshow", startVideo);
       document.addEventListener("visibilitychange", function () {

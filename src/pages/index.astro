@@ -2,35 +2,36 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import Hero from "../components/Hero.astro";
-import AudienceSection from "../components/AudienceSection.astro";
-import ProofStrip from "../components/ProofStrip.astro";
+import InspectionLogic from "../components/InspectionLogic.astro";
 import Scenarios from "../components/Scenarios.astro";
 import ProcessSection from "../components/ProcessSection.astro";
 import ExpertMaterial from "../components/ExpertMaterial.astro";
+import AudienceSection from "../components/AudienceSection.astro";
 import PricingSection from "../components/PricingSection.astro";
-import ContactForm from "../components/ContactForm.astro";
 import FaqSection from "../components/FaqSection.astro";
+import ContactForm from "../components/ContactForm.astro";
 ---
 
 <BaseLayout
-  title="Рокнорд — аудит, подготовка и сопровождение аккредитации"
-  description="Независимый первичный аудит, устранение рисков, подготовка доказательной базы и команды, сопровождение аккредитации и подтверждения компетентности."
+  title="Рокнорд — подготовка к аккредитации и подтверждению компетентности"
+  description="Подготовка к аккредитации и подтверждению компетентности: аудит области и системы менеджмента, корректирующие действия, сопровождение процедур Росаккредитации."
 >
   <main id="content">
     <Hero />
-    <AudienceSection />
-    <ProofStrip />
+    <InspectionLogic />
     <Scenarios />
     <ProcessSection />
     <ExpertMaterial />
+    <AudienceSection />
     <PricingSection />
-    <ContactForm
-      eyebrow="Обсудить задачу"
-      title="Расскажите, к какой процедуре вы готовитесь"
-      description="Сначала уточним ситуацию и проведём первичный аудит. После него предложим понятный план устранения рисков и нужный объём сопровождения."
-      submitLabel="Обсудить задачу"
-      statusText="Ответим в течение рабочего дня"
-    />
     <FaqSection />
+    <ContactForm
+      eyebrow="Первый шаг"
+      title="Обсудить вашу задачу с экспертом"
+      description="Расскажите, к какой процедуре и в какие сроки вы готовитесь. Мы изучим контекст, ответим на вопросы и предложим формат предпроверочного аудита."
+      submitLabel="Отправить запрос"
+      statusText="Ответим в течение рабочего дня. Данные защищены и используются только для подготовки предложений."
+      showContacts
+    />
   </main>
 </BaseLayout>

@@ -1,20 +1,26 @@
 ---
 const formats = [
   {
-    name: "Полное сопровождение",
-    lead: "Основной формат: от первичного аудита и плана устранения до подготовки команды и сопровождения ключевых этапов процедуры.",
-    items: ["Первичный аудит", "План устранения рисков", "Исправления и внедрение", "Подготовка доказательной базы", "Подготовка команды"],
+    name: "Полный комплекс",
+    lead: "Ведём лабораторию или орган по сертификации от корректирующих действий и сборки доказательной базы до тренировки сотрудников и сопровождения во время процедуры ФСА.",
+    priceLabel: "Стоимость",
+    price: "Рассчитывается по итогам аудита",
+    priceNote: "Цена и объём фиксируются в договоре до старта работ.",
     featured: true,
   },
   {
-    name: "Сопровождение отдельного блока",
-    lead: "Когда после первичной проверки нужно глубоко проработать конкретную часть: область, СМК, замечания, ФГИС или доказательства.",
-    items: ["Чёткие границы задачи", "Работа с выбранным блоком", "Письменный результат", "Контроль внедрения"],
+    name: "Точечный блок",
+    lead: "Глубокая проработка конкретной проблемы: расширение или актуализация ОА, переработка СМК, подготовка отчёта по предписанию, отладка работы с ФГИС.",
+    priceLabel: "Стоимость",
+    price: "По объёму задач",
+    priceNote: "Границы задачи и результат согласуем до начала работ.",
   },
   {
-    name: "Постоянная экспертная поддержка",
-    lead: "Когда внутренней функции качества нужна регулярная внешняя опора между процедурами и изменениями.",
-    items: ["Контроль изменений", "Поддержка СМК и записей", "Календарь рисков", "Подготовка к очередным процедурам"],
+    name: "Внешний контроль качества",
+    lead: "Периодический независимый аудит вашей системы между процедурами Росаккредитации. Удерживаем СМК в рабочем состоянии, проверяем новые записи и предупреждаем риски до следующего ПК.",
+    priceLabel: "Условие",
+    price: "Доступно по результатам первичного аудита",
+    priceNote: "Годовой график и формат согласовываются индивидуально.",
   },
 ];
 ---
@@ -23,32 +29,81 @@ const formats = [
   <div class="section__inner page-container">
     <header class="formats-intro">
       <p class="section__eyebrow">Форматы работы</p>
-      <h2 id="formats-title" class="section__title">После первичного аудита выбираем ровно тот объём сопровождения, который нужен</h2>
-      <p class="section__lead">Первичная диагностика входит в старт любого проекта. Она помогает не продавать лишнее и заранее зафиксировать состав, результат, сроки и стоимость.</p>
+      <h2 id="formats-title" class="section__title">Начинаем с аудита. Итоговый объём сопровождения определяем только после диагностики</h2>
+      <p class="section__lead">Мы не продаём «пакетное сопровождение» вслепую. Сначала — аудит за фиксированную стоимость, по итогам которого вы получаете точную карту рисков и смету дальнейших работ.</p>
     </header>
 
-    <div class="formats-grid">
-      {formats.map((format) => (
-        <article class:list={["format-card", format.featured && "format-card--featured"]}>
-          {format.featured && <span class="format-card__badge">Основной формат</span>}
-          <h3>{format.name}</h3>
-          <p>{format.lead}</p>
-          <ul>{format.items.map((item) => <li>{item}</li>)}</ul>
-          <a href="#contact"><span>Обсудить задачу</span><span aria-hidden="true">→</span></a>
-        </article>
-      ))}
-    </div>
+    <article class="pricing-start" aria-labelledby="pricing-start-title">
+      <div class="pricing-start__head">
+        <span class="pricing-start__badge">Стартовый шаг</span>
+        <h3 id="pricing-start-title">Предпроверочный аудит</h3>
+      </div>
+      <dl class="pricing-start__facts">
+        <div>
+          <dt>Стоимость</dt>
+          <dd><strong>150 000 ₽</strong><span>включая НДС</span></dd>
+        </div>
+        <div>
+          <dt>Срок</dt>
+          <dd><strong>5–10</strong><span>рабочих дней</span></dd>
+        </div>
+      </dl>
+      <div class="pricing-start__scope">
+        <span>Что входит</span>
+        <p>Аудит СМК, первичных записей, данных во ФГИС и практики на выборке. На выходе — детальный реестр несоответствий и карта рисков с пошаговым планом исправления.</p>
+        <a class="pricing-start__cta cta-angled motion-control" href="#contact"><span>Обсудить условия аудита</span><span aria-hidden="true">→</span></a>
+      </div>
+    </article>
 
-    <div class="formats-note">
-      <strong>Стоимость определяем после первичного аудита.</strong>
-      <p>На неё влияют тип аккредитованного лица, размер области, количество площадок, состояние документов и срок до процедуры. До начала основной работы фиксируем состав, результат и цену.</p>
+    <div class="formats-block">
+      <p class="formats-block__label">Форматы сопровождения — после аудита</p>
+      <div class="formats-grid">
+        {formats.map((format, index) => (
+          <article class:list={["format-card", format.featured && "format-card--featured"]}>
+            <span class="format-card__num" aria-hidden="true">0{index + 1}</span>
+            <h3>{format.name}</h3>
+            <p>{format.lead}</p>
+            <div class="format-card__price">
+              <span>{format.priceLabel}</span>
+              <strong>{format.price}</strong>
+              <em>{format.priceNote}</em>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
   .formats-section .section__inner,.formats-intro,.format-card{display:grid}.formats-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}.formats-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.formats-intro .section__eyebrow{grid-column:1/-1}.formats-intro .section__title,.formats-intro .section__lead{margin:0}
-  .formats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.format-card{grid-template-rows:auto auto 1fr auto;gap:1.35rem;padding:clamp(1.5rem,3vw,2.8rem);background:var(--lrqa-white);border:1px solid var(--lrqa-border-soft)}.format-card--featured{color:var(--lrqa-white);background:var(--lrqa-navy);border-color:var(--lrqa-navy);border-top:4px solid var(--color-mint-action)}.format-card__badge{width:fit-content;color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.format-card h3,.format-card p,.formats-note strong,.formats-note p{margin:0}.format-card h3{font-size:clamp(1.4rem,1.3vw + 1rem,2.3rem);line-height:1.08}.format-card p{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}.format-card--featured p{color:var(--lrqa-border-soft)}.format-card ul{display:grid;align-content:start;gap:.75rem;margin:0;padding:1.25rem 0 0;list-style:none;border-top:1px solid var(--lrqa-border-soft)}.format-card--featured ul{border-color:var(--lrqa-dark-border)}.format-card li{position:relative;padding-left:1.2rem;color:var(--lrqa-muted-dark);line-height:1.45}.format-card--featured li{color:var(--lrqa-border-soft)}.format-card li::before{content:"";position:absolute;top:.6em;left:0;width:.38rem;height:.38rem;background:var(--color-mint-action)}.format-card a{display:inline-flex;justify-content:space-between;gap:1rem;padding-top:1.2rem;color:var(--lrqa-black);border-top:1px solid var(--lrqa-border-soft);font-weight:var(--font-weight-semibold);text-decoration:none}.format-card--featured a{color:var(--lrqa-white);border-color:var(--lrqa-dark-border)}.format-card a span:last-child{color:var(--color-mint-action)}
-  .formats-note{display:grid;grid-template-columns:minmax(16rem,.58fr) minmax(0,1.42fr);gap:1rem clamp(2rem,5vw,5rem);padding-top:1.5rem;border-top:1px solid var(--lrqa-border)}.formats-note p{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}
-  @media(max-width:64rem){.formats-intro,.formats-note{grid-template-columns:1fr}.formats-grid{grid-template-columns:1fr 1fr}.format-card--featured{grid-row:1/span 2}}@media(max-width:48rem){.formats-grid{grid-template-columns:1fr}.format-card--featured{grid-row:auto}}
+  .pricing-start{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1.15fr);gap:clamp(1.5rem,3vw,3rem);align-items:start;padding:clamp(1.5rem,3vw,2.8rem);color:var(--lrqa-white);background:var(--lrqa-navy);border-top:4px solid var(--color-mint-action)}
+  .pricing-start__head{display:grid;align-content:start;gap:.75rem}
+  .pricing-start__badge{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
+  .pricing-start h3,.pricing-start p,.pricing-start dt,.pricing-start dd{margin:0}
+  .pricing-start h3{font-size:clamp(1.6rem,1.6vw + 1rem,2.6rem);line-height:1.06}
+  .pricing-start__facts{display:grid;gap:1.1rem;margin:0;padding-right:clamp(1.5rem,3vw,3rem);border-right:1px solid var(--lrqa-dark-border)}
+  .pricing-start__facts dt{color:var(--lrqa-muted-2);font-size:var(--font-size-xs);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
+  .pricing-start__facts dd{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem;margin-top:.3rem}
+  .pricing-start__facts dd strong{font-size:clamp(1.5rem,1.2vw + 1rem,2.1rem);line-height:1.1;white-space:nowrap}
+  .pricing-start__facts dd span{color:var(--lrqa-border-soft);font-size:var(--font-size-sm)}
+  .pricing-start__scope{display:grid;align-content:start;gap:.7rem}
+  .pricing-start__scope>span{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
+  .pricing-start__scope p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
+  .pricing-start__cta{display:inline-flex;align-items:center;gap:.75rem;width:fit-content;margin-top:.5rem;padding:var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel)*.5);color:var(--lrqa-black);background:var(--gradient-button-primary);font-weight:var(--button-font-weight);text-decoration:none}
+  .formats-block{display:grid;gap:1.25rem}
+  .formats-block__label{margin:0;color:var(--lrqa-muted);font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
+  .formats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+  .format-card{grid-template-rows:auto auto 1fr auto;gap:.9rem;padding:clamp(1.5rem,3vw,2.5rem);background:var(--lrqa-white);border:1px solid var(--lrqa-border-soft)}
+  .format-card--featured{border-color:var(--lrqa-navy);border-top:4px solid var(--color-mint-action)}
+  .format-card__num{color:var(--lrqa-muted-2);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
+  .format-card h3,.format-card p{margin:0}
+  .format-card h3{font-size:clamp(1.3rem,1vw + 1rem,1.85rem);line-height:1.1}
+  .format-card p{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}
+  .format-card__price{display:grid;gap:.3rem;padding-top:1.2rem;border-top:1px solid var(--lrqa-border-soft)}
+  .format-card__price>span{color:var(--lrqa-muted-2);font-size:var(--font-size-xs);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
+  .format-card__price strong{font-size:var(--font-size-lg);line-height:1.25}
+  .format-card__price em{color:var(--lrqa-muted);font-size:var(--font-size-sm);font-style:normal;line-height:var(--line-height-relaxed)}
+  @media(max-width:64rem){.formats-intro{grid-template-columns:1fr}.pricing-start{grid-template-columns:1fr}.pricing-start__facts{grid-template-columns:1fr 1fr;padding-right:0;padding-bottom:1.25rem;border-right:0;border-bottom:1px solid var(--lrqa-dark-border)}.formats-grid{grid-template-columns:1fr}}
+  @media(max-width:36rem){.pricing-start__facts{grid-template-columns:1fr}.pricing-start__cta{width:100%;justify-content:center}}
 </style>

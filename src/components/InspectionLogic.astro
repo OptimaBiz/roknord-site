@@ -1,0 +1,93 @@
+---
+const checks = [
+  {
+    number: "01",
+    title: "Область аккредитации",
+    chain: ["Заявленная ОА", "Порядок актуализации", "Реестр методик, оборудования и кадров"],
+    reality:
+      "Способна ли лаборатория выполнить каждую позицию ОА прямо сегодня, а не гипотетически. Есть ли действующая методика, проверенный прибор и аттестованный специалист под конкретный пункт.",
+  },
+  {
+    number: "02",
+    title: "Прослеживаемость измерений",
+    chain: ["Непрерывная цепь калибровок", "График и интервалы", "Свидетельства, паспорта, журналы условий"],
+    reality:
+      "Соблюдены ли межповерочные интервалы и сохранён ли непрерывный архив первичных записей за весь период между проверками, а не только перед приездом комиссии.",
+  },
+  {
+    number: "03",
+    title: "Компетентность персонала",
+    chain: ["Критерии допуска", "Процедура стажировки и оценки", "Листы допуска, протоколы ВЛК"],
+    reality:
+      "Кто реально проводил испытания и подписывал протоколы. Если у сотрудника в выборке нет оформленного допуска к конкретной методике — это прямое несоответствие критериям.",
+  },
+  {
+    number: "04",
+    title: "Достоверность и ФГИС Росаккредитации",
+    chain: ["Сроки внесения данных", "Регламент работы с ФГИС", "Выгруженные протоколы и логи"],
+    reality:
+      "Сходятся ли сведения во ФГИС с рабочими журналами по датам и содержанию. Просрочка передачи сведений и расхождение дат — типовое замечание с риском для процедуры.",
+  },
+];
+---
+
+<section id="approach" class="section section--dark ilogic" aria-labelledby="ilogic-title">
+  <div class="section__inner page-container">
+    <header class="ilogic__intro">
+      <p class="section__eyebrow">Как работает экспертная группа</p>
+      <h2 id="ilogic-title" class="section__title">
+        Проверяют не папку с документами, а цепочку: <span class="ilogic__formula">Требование → Процедура → Запись → Доказательство</span>
+      </h2>
+      <p class="section__lead">
+        Значительная часть замечаний возникает не из-за отсутствия бумаг, а из-за разрыва между регламентом и реальностью. Вот как эксперты ФСА ищут эти разрывы:
+      </p>
+    </header>
+
+    <ol class="ilogic__grid">
+      {checks.map((item) => (
+        <li>
+          <span class="ilogic__num">{item.number}</span>
+          <h3>{item.title}</h3>
+          <p class="ilogic__chain">
+            {item.chain.map((step, index) => (
+              <>
+                {index > 0 && <span class="ilogic__arrow" aria-hidden="true">→</span>}
+                <span class="ilogic__step">{step}</span>
+              </>
+            ))}
+          </p>
+          <div class="ilogic__reality">
+            <strong>Что смотрят на самом деле</strong>
+            <p>{item.reality}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <div class="ilogic__note">
+      <strong>Аудит выявляет разрывы в этих цепочках до подачи заявления.</strong>
+      <p>Один разрыв — это предписание, даже если сама СМК написана идеально.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ilogic .section__inner,.ilogic__intro{display:grid}.ilogic .section__inner{gap:clamp(2.5rem,6vw,5rem)}.ilogic__intro{grid-template-columns:minmax(0,1fr) minmax(20rem,1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.ilogic__intro .section__eyebrow{grid-column:1/-1}.ilogic__intro .section__title,.ilogic__intro .section__lead{margin:0}
+  .ilogic__formula{display:block;margin-top:.5em;color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:.6em;font-weight:var(--font-weight-semibold);letter-spacing:var(--letter-spacing-wide);line-height:1.4}
+  .ilogic__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--lrqa-dark-border);border-left:1px solid var(--lrqa-dark-border)}
+  .ilogic__grid li{display:grid;align-content:start;gap:1rem;padding:clamp(1.4rem,2.8vw,2.6rem);border-right:1px solid var(--lrqa-dark-border);border-bottom:1px solid var(--lrqa-dark-border)}
+  .ilogic__num{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
+  .ilogic__grid h3,.ilogic__chain,.ilogic__reality p,.ilogic__note strong,.ilogic__note p{margin:0}
+  .ilogic__grid h3{color:var(--lrqa-white);font-size:clamp(1.35rem,1.2vw + 1rem,2.1rem);line-height:1.08}
+  .ilogic__chain{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem .55rem;padding-bottom:1rem;border-bottom:1px solid var(--lrqa-dark-border)}
+  .ilogic__step{color:var(--lrqa-border-soft);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}
+  .ilogic__arrow{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
+  .ilogic__reality{display:grid;gap:.5rem}
+  .ilogic__reality strong{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
+  .ilogic__reality p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
+  .ilogic__note{display:grid;grid-template-columns:minmax(15rem,1fr) minmax(0,1fr);gap:1rem clamp(2rem,5vw,5rem);padding-top:1.5rem;border-top:1px solid var(--lrqa-dark-border)}
+  .ilogic__note strong{color:var(--color-mint-action);font-size:clamp(1.1rem,.55vw + 1rem,1.5rem);line-height:1.2}
+  .ilogic__note p{max-width:52rem;color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
+  @media(max-width:64rem){.ilogic__intro,.ilogic__note{grid-template-columns:1fr}}
+  @media(max-width:42rem){.ilogic__grid{grid-template-columns:1fr}}
+</style>

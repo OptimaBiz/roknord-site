@@ -2,7 +2,9 @@
 
 .cookie-panel {
   position: fixed;
-  left: var(--container-padding);
+  /* Справа, а не слева: слева панель накрывала главную кнопку в первом экране
+     на окнах высотой около 900px. Кнопка «наверх» на это время скрыта. */
+  right: var(--container-padding);
   bottom: var(--space-5);
   z-index: var(--z-index-floating);
   display: grid;
@@ -38,6 +40,35 @@ body:has(.cookie-panel:not([hidden])) .scroll-up-control {
 }
 
 @media (max-width: 47.99rem) {
+  /* Панель больше не висит поверх контента: на узком экране она становится
+     обычным блоком в конце страницы, чтобы не закрывать кнопку в первом экране. */
+  .cookie-panel {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: none;
+    border-inline: 0;
+    border-bottom: 0;
+  }
+
+  .cookie-panel__actions {
+    justify-content: flex-start;
+  }
+
+  /* «Подробнее» отдельной строкой, обе кнопки выбора — рядом. */
+  .cookie-panel__link {
+    flex-basis: 100%;
+  }
+
+  .cookie-panel__decline,
+  .cookie-panel__button {
+    flex: 1 1 0;
+    justify-content: center;
+    text-align: center;
+  }
+
+
   .cookie-panel__text {
     font-size: var(--font-size-xs);
     line-height: var(--line-height-base);
@@ -67,6 +98,23 @@ body:has(.cookie-panel:not([hidden])) .scroll-up-control {
   color: var(--color-text-inverse);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
+}
+
+.cookie-panel__decline {
+  min-height: 2.75rem;
+  padding: var(--space-3) var(--space-5);
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-strong);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  transition: var(--transition-fast);
+}
+
+.cookie-panel__decline:hover,
+.cookie-panel__decline:focus-visible {
+  color: var(--color-text-primary);
+  border-color: var(--color-text-muted);
 }
 
 .scroll-up-control {

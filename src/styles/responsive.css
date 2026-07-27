@@ -330,7 +330,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     min-height: inherit;
-    padding-top: clamp(var(--space-12), 12svh, var(--space-16));
+    padding-top: clamp(var(--space-4), 3svh, var(--space-6));
     padding-bottom: var(--hero-mobile-text-gap);
     gap: var(--hero-content-gap);
   }

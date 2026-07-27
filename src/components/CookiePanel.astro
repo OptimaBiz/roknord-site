@@ -1,9 +1,10 @@
 <aside class="cookie-panel" data-cookie-panel hidden aria-label="Уведомление о cookies">
   <p class="cookie-panel__text">
-    Используем cookies. Продолжая пользоваться сайтом, вы соглашаетесь с обработкой данных.
+    Используем cookies, чтобы сайт работал корректно и мы понимали, какие материалы полезны. Аналитика подключается только с вашего согласия.
   </p>
   <div class="cookie-panel__actions">
     <a class="cookie-panel__link" href="/privacy-policy/">Подробнее</a>
+    <button class="cookie-panel__decline motion-control" type="button" data-cookie-decline>Отклонить</button>
     <button class="cookie-panel__button cta-angled motion-control" type="button" data-cookie-accept>Принять</button>
   </div>
 </aside>
@@ -13,19 +14,28 @@
     const key = "roknord-cookie-consent";
     const panel = document.querySelector("[data-cookie-panel]");
     const accept = document.querySelector("[data-cookie-accept]");
-    if (!panel || !accept) return;
+    const decline = document.querySelector("[data-cookie-decline]");
+    if (!panel || !accept || !decline) return;
 
+    let stored = null;
     try {
-      if (window.localStorage.getItem(key) === "accepted") return;
+      stored = window.localStorage.getItem(key);
     } catch {}
+    if (stored === "accepted" || stored === "declined") return;
 
     panel.hidden = false;
 
-    accept.addEventListener("click", () => {
+    const close = (value) => {
       try {
-        window.localStorage.setItem(key, "accepted");
+        window.localStorage.setItem(key, value);
       } catch {}
       panel.hidden = true;
-    });
+      if (value === "accepted" && typeof window.__roknordEnableAnalytics === "function") {
+        window.__roknordEnableAnalytics();
+      }
+    };
+
+    accept.addEventListener("click", () => close("accepted"));
+    decline.addEventListener("click", () => close("declined"));
   })();
 </script>

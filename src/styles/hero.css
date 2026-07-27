@@ -55,12 +55,6 @@
 .hero-media__video {
   position: absolute;
   inset: 0;
-  opacity: 0;
-  transition: opacity 120ms linear;
-}
-
-.hero-media__video[data-hero-playing] {
-  opacity: 1;
 }
 
 .hero__overlay {

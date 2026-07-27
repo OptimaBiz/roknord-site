@@ -74,19 +74,8 @@ const hasVideo = Boolean(desktopSrc);
       video.muted = true;
       video.playsInline = true;
 
-      function showVideo() {
-        video.setAttribute("data-hero-playing", "");
-      }
-
-      function showPoster() {
-        video.removeAttribute("data-hero-playing");
-      }
-
       function startVideo() {
-        if (!video.paused) {
-          showVideo();
-          return;
-        }
+        if (!video.paused) return;
         var played = video.play();
         if (played && typeof played.catch === "function") played.catch(function () {});
       }
@@ -94,7 +83,6 @@ const hasVideo = Boolean(desktopSrc);
       function syncVideoSource() {
         var preferred = desktopQuery.matches ? desktopSrc : mobileSrc;
         if (!preferred || video.getAttribute("src") === preferred) return;
-        showPoster();
         video.setAttribute("src", preferred);
         video.load();
       }
@@ -115,8 +103,6 @@ const hasVideo = Boolean(desktopSrc);
 
       video.addEventListener("loadeddata", startVideo);
       video.addEventListener("canplay", startVideo);
-      video.addEventListener("playing", showVideo);
-      video.addEventListener("error", showPoster);
       // Safari возвращает страницу из bfcache с остановленным видео.
       window.addEventListener("pageshow", startVideo);
       document.addEventListener("visibilitychange", function () {

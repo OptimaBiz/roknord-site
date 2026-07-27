@@ -541,9 +541,10 @@ const titleId = `${id}-form-title`;
     color: var(--color-mint-action);
   }
 
-  .contact-field__hint {
+  .contact-form .contact-field span.contact-field__hint,
+  .contact-form-section--embedded .contact-form .contact-field span.contact-field__hint {
     margin-top: calc(var(--space-2) * -1);
-    color: var(--lrqa-muted-2);
+    color: color-mix(in srgb, var(--lrqa-border-soft) 62%, transparent);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-regular);
     letter-spacing: normal;

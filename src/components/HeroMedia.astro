@@ -17,8 +17,9 @@ const {
   class: className = "",
 } = Astro.props as Props;
 
-const hasVideo = Boolean(mobileVideoMp4Src || videoWebmSrc || videoMp4Src);
-const defaultVideoSrc = videoMp4Src || videoWebmSrc || mobileVideoMp4Src;
+const desktopSrc = videoMp4Src || videoWebmSrc || mobileVideoMp4Src;
+const mobileSrc = mobileVideoMp4Src || desktopSrc;
+const hasVideo = Boolean(desktopSrc);
 ---
 
 <div class={`hero-media ${className}`.trim()} aria-hidden="true">
@@ -30,19 +31,12 @@ const defaultVideoSrc = videoMp4Src || videoWebmSrc || mobileVideoMp4Src;
       loop
       playsinline
       preload="auto"
-      src={defaultVideoSrc}
       poster={posterSrc}
       disablepictureinpicture
       data-hero-video
-      data-mobile-video-src={mobileVideoMp4Src}
-      data-desktop-video-src={videoMp4Src || videoWebmSrc}
-    >
-      {videoMp4Src && <source src={videoMp4Src} type="video/mp4" media="(min-width: 48rem)" />}
-      {videoWebmSrc && <source src={videoWebmSrc} type="video/webm" media="(min-width: 48rem)" />}
-      {mobileVideoMp4Src && <source src={mobileVideoMp4Src} type="video/mp4" media="(max-width: 47.99rem)" />}
-      {!videoMp4Src && videoWebmSrc && <source src={videoWebmSrc} type="video/webm" />}
-      {!videoMp4Src && mobileVideoMp4Src && <source src={mobileVideoMp4Src} type="video/mp4" />}
-    </video>
+      data-mobile-video-src={mobileSrc}
+      data-desktop-video-src={desktopSrc}
+    ></video>
   ) : (
     <img
       class="hero-media__poster"
@@ -56,53 +50,59 @@ const defaultVideoSrc = videoMp4Src || videoWebmSrc || mobileVideoMp4Src;
 </div>
 
 {hasVideo && (
-  <script>
-    const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+  <script is:inline>
+    // Намеренно inline и без type="module": скрипт должен выполниться синхронно,
+    // сразу за <video>. У элемента нет атрибута src — источник ставится здесь,
+    // до того как браузер начнёт что-либо качать. Отложенный module-скрипт этого
+    // не успевает, и телефон сначала тянет десктопный ролик, а потом обрывает его.
+    (function () {
+      var video = document.querySelector("[data-hero-video]:not([data-hero-ready])");
+      if (!video) return;
+      video.setAttribute("data-hero-ready", "");
 
-    if (video) {
+      var desktopSrc = video.getAttribute("data-desktop-video-src") || "";
+      var mobileSrc = video.getAttribute("data-mobile-video-src") || desktopSrc;
+      var desktopQuery = window.matchMedia("(min-width: 48rem)");
+
+      // Safari снимает autoplay, если muted выставлен только атрибутом.
       video.defaultMuted = true;
       video.muted = true;
       video.playsInline = true;
-      video.autoplay = true;
 
-      const desktopQuery = window.matchMedia('(min-width: 48rem)');
-      const desktopSrc = video.dataset.desktopVideoSrc || video.currentSrc || video.src;
-      const mobileSrc = video.dataset.mobileVideoSrc || desktopSrc;
-
-      const getPreferredSrc = () => (desktopQuery.matches ? desktopSrc : mobileSrc);
-
-      const startVideo = () => {
+      function startVideo() {
         if (!video.paused) return;
-        video.play().catch(() => {});
-      };
+        var played = video.play();
+        if (played && typeof played.catch === "function") played.catch(function () {});
+      }
 
-      const syncVideoSource = () => {
-        const preferredSrc = getPreferredSrc();
-        if (!preferredSrc || video.getAttribute('src') === preferredSrc) return;
-
-        video.setAttribute('src', preferredSrc);
+      function syncVideoSource() {
+        var preferred = desktopQuery.matches ? desktopSrc : mobileSrc;
+        if (!preferred || video.getAttribute("src") === preferred) return;
+        video.setAttribute("src", preferred);
         video.load();
-      };
+      }
 
       syncVideoSource();
       startVideo();
-      const handleViewportChange = () => {
+
+      function handleViewportChange() {
         syncVideoSource();
         startVideo();
-      };
+      }
 
-      if (typeof desktopQuery.addEventListener === 'function') {
-        desktopQuery.addEventListener('change', handleViewportChange);
-      } else {
+      if (typeof desktopQuery.addEventListener === "function") {
+        desktopQuery.addEventListener("change", handleViewportChange);
+      } else if (typeof desktopQuery.addListener === "function") {
         desktopQuery.addListener(handleViewportChange);
       }
 
-      video.addEventListener('loadeddata', startVideo, { once: true });
-      video.addEventListener('canplay', startVideo, { once: true });
-      window.addEventListener('pageshow', startVideo);
-      document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') startVideo();
+      video.addEventListener("loadeddata", startVideo);
+      video.addEventListener("canplay", startVideo);
+      // Safari возвращает страницу из bfcache с остановленным видео.
+      window.addEventListener("pageshow", startVideo);
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") startVideo();
       });
-    }
+    })();
   </script>
 )}

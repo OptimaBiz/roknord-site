@@ -56,8 +56,8 @@ const {
         trackLinks: true,
       });
 
-      // Цели: клик по телефону и по почте. Слушатель на document переживает переходы ClientRouter,
-      // поэтому вешаем его один раз и защищаемся флагом от повторной регистрации.
+      // Цели phone_click / email_click. Делегируем на document, чтобы не зависеть
+      // от того, в какой секции лежит ссылка. Цель form_submit живёт на /thank-you/.
       if (!window.__roknordGoalsBound) {
         window.__roknordGoalsBound = true;
 
@@ -69,13 +69,6 @@ const {
           ym(111070145, "reachGoal", goal);
         });
       }
-
-      // ClientRouter меняет страницу без перезагрузки — Metrika сама такие переходы не видит.
-      document.addEventListener("astro:after-swap", function () {
-        if (typeof ym === "function") {
-          ym(111070145, "hit", location.href, { title: document.title, referer: document.referrer });
-        }
-      });
     </script>
   </head>
   <body>

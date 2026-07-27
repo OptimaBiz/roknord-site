@@ -40,7 +40,7 @@ const situations = [
   .situation-row a:hover::after,.situation-row a:focus-visible::after{transform:scaleX(1)}
   .situation-row a:hover span,.situation-row a:focus-visible span{transform:translateX(.3rem)}
   .situation-row{transition:background-color var(--duration-fast) var(--easing-standard)}
-  @media(hover:hover){.situation-row:hover{background:color-mix(in srgb,var(--color-mint-action) 7%,transparent)}}
+  @media(hover:hover){.situation-row:hover{background:rgba(23,224,138,.07);background:color-mix(in srgb,var(--color-mint-action) 7%,transparent)}}
   @media(prefers-reduced-motion:reduce){.situation-row a::after,.situation-row a span,.situation-row{transition:none}.situation-row a:hover span{transform:none}}
   @media(max-width:42rem){.situation-row{grid-template-columns:2.25rem minmax(0,1fr)}.situation-row p,.situation-row a{grid-column:2}.situation-row a{width:fit-content}}
 </style>

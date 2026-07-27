@@ -36,7 +36,7 @@ const formats = [
     <article class="pricing-start" aria-labelledby="pricing-start-title">
       <div class="pricing-start__head">
         <span class="pricing-start__badge">Стартовый шаг</span>
-        <h3 id="pricing-start-title">Предпроверочный аудит</h3>
+        <h3 id="pricing-start-title">Первичный аудит</h3>
       </div>
       <dl class="pricing-start__facts">
         <div>
@@ -53,6 +53,9 @@ const formats = [
         <p>Аудит СМК, первичных записей, данных во ФГИС и практики на выборке. На выходе — детальный реестр несоответствий и карта рисков с пошаговым планом исправления.</p>
         <a class="pricing-start__cta cta-angled motion-control" href="#contact"><span>Обсудить условия аудита</span><span aria-hidden="true">→</span></a>
       </div>
+      <p class="pricing-start__credit">
+        Аудит можно взять отдельной работой. Если после него продолжаем сопровождение — его стоимость засчитывается в счёт дальнейших работ.
+      </p>
     </article>
 
     <div class="formats-block">
@@ -93,6 +96,7 @@ const formats = [
   .pricing-start__scope>span{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
   .pricing-start__scope p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
   .pricing-start__cta{display:inline-flex;align-items:center;gap:.75rem;width:fit-content;margin-top:.5rem;padding:var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel)*.5);color:var(--lrqa-black);background:var(--gradient-button-primary);font-weight:var(--button-font-weight);text-decoration:none}
+  .pricing-start__credit{grid-column:1/-1;margin:0;padding:.85rem 0 0 1rem;color:var(--lrqa-white);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed);border-top:1px solid var(--lrqa-dark-border);border-left:3px solid var(--color-mint-action);padding-left:1rem;margin-top:.35rem}
   .formats-block{display:grid;gap:1.25rem}
   .formats-block__label{margin:0;color:var(--lrqa-muted);font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
   .formats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}

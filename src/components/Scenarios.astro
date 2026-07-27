@@ -33,5 +33,14 @@ const situations = [
   .situations-section .section__inner,.situations-intro{display:grid}.situations-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}.situations-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.situations-intro .section__eyebrow{grid-column:1/-1}.situations-intro .section__title,.situations-intro .section__lead{margin:0}
   .situations-list{border-top:1px solid var(--lrqa-border)}.situation-row{display:grid;grid-template-columns:3rem minmax(14rem,.8fr) minmax(0,1.2fr) auto;gap:1rem clamp(1.5rem,4vw,4rem);align-items:start;padding:clamp(1.35rem,2.7vw,2.35rem) 0;border-bottom:1px solid var(--lrqa-border-soft);scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.situation-row>span{color:var(--lrqa-muted-2);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.situation-row h3,.situation-row p{margin:0}.situation-row h3{font-size:clamp(1.15rem,.8vw + 1rem,1.75rem);line-height:1.2}.situation-row p{max-width:42rem;color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}.situation-row a{display:inline-flex;gap:.55rem;color:var(--lrqa-black);font-weight:var(--font-weight-semibold);text-decoration:none;white-space:nowrap}.situation-row a span{color:var(--color-mint-action)}
   @media(max-width:64rem){.situations-intro{grid-template-columns:1fr}.situation-row{grid-template-columns:2.5rem minmax(0,1fr) auto}.situation-row p{grid-column:2/4}}
+  .situation-row a{position:relative;transition:var(--transition-fast)}
+  .situation-row a::after{content:"";position:absolute;right:0;bottom:-.25rem;left:0;height:1px;background:var(--color-mint-action);transform:scaleX(0);transform-origin:left center;transition:transform var(--duration-normal) var(--easing-standard)}
+  .situation-row a span{transition:transform var(--duration-normal) var(--easing-standard)}
+  .situation-row a:hover,.situation-row a:focus-visible{color:var(--lrqa-navy)}
+  .situation-row a:hover::after,.situation-row a:focus-visible::after{transform:scaleX(1)}
+  .situation-row a:hover span,.situation-row a:focus-visible span{transform:translateX(.3rem)}
+  .situation-row{transition:background-color var(--duration-fast) var(--easing-standard)}
+  @media(hover:hover){.situation-row:hover{background:color-mix(in srgb,var(--color-mint-action) 7%,transparent)}}
+  @media(prefers-reduced-motion:reduce){.situation-row a::after,.situation-row a span,.situation-row{transition:none}.situation-row a:hover span{transform:none}}
   @media(max-width:42rem){.situation-row{grid-template-columns:2.25rem minmax(0,1fr)}.situation-row p,.situation-row a{grid-column:2}.situation-row a{width:fit-content}}
 </style>

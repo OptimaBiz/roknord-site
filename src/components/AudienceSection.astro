@@ -1,63 +1,45 @@
 ---
-const featuredAudiences = [
-  { id: "audience-testing", title: "Испытательные лаборатории", text: "ПК, РОА, первичная аккредитация, замечания, СМК и подготовка команды.", href: "/testing-labs/", image: "/images/materials/lab.webp", imageAlt: "Работа в испытательной лаборатории" },
-  { id: "audience-medical", title: "Медицинские лаборатории", text: "Процессы, записи, персонал и доказательства фактической лабораторной практики.", href: "/medical-labs/", image: "/images/materials/medlab.webp", imageAlt: "Работа в медицинской лаборатории" },
-  { id: "audience-cert-ms", title: "Органы по сертификации систем менеджмента", text: "СМК, выборка дел, компетентность, решения и подготовка к оценке.", href: "/certification-bodies/", image: "/images/materials/смк.webp", imageAlt: "Рабочая встреча по системе менеджмента" },
-  { id: "audience-cert-product", title: "Органы по сертификации продукции", text: "Область, протоколы, решения, записи и корректирующие действия.", href: "/certification-bodies/", image: "/images/materials/product.webp", imageAlt: "Проверка продукции и документов" },
-];
-
-const additionalAudiences = [
-  { id: "audience-inspection", title: "Органы инспекции", text: "Процедуры, записи выездов, наблюдения и доказательства компетентности." },
-  { id: "audience-calibration", title: "Калибровочные лаборатории", text: "Методики, эталоны, метрологическая прослеживаемость и записи." },
-  { id: "audience-msi", title: "Провайдеры МСИ", text: "Программы, статистика, доказательства участия и управляемость результатов." },
-  { id: "audience-halal", title: "Органы по сертификации халяль", text: "Область, процедуры, источники доказательств и подготовка к оценке." },
+const audiences = [
+  { id: "audience-testing", title: "Испытательные лаборатории", standard: "ГОСТ ISO/IEC 17025" },
+  { id: "audience-calibration", title: "Калибровочные лаборатории", standard: "ГОСТ ISO/IEC 17025" },
+  { id: "audience-medical", title: "Медицинские лаборатории", standard: "ГОСТ Р ИСО 15189" },
+  { id: "audience-cert-product", title: "Органы по сертификации продукции и услуг", standard: "ГОСТ Р ИСО/МЭК 17065" },
+  { id: "audience-cert-ms", title: "Органы по сертификации систем менеджмента", standard: "ГОСТ Р ИСО/МЭК 17021-1" },
+  { id: "audience-inspection", title: "Органы инспекции", standard: "ГОСТ Р ИСО/МЭК 17020" },
+  { id: "audience-msi", title: "Провайдеры межлабораторных сличительных испытаний (МСИ)", standard: "ГОСТ ISO/IEC 17043" },
+  { id: "audience-halal", title: "Органы по сертификации Халяль", standard: "Стандарты серии ГОСТ Р Халяль" },
 ];
 ---
 
 <section id="deliverables" class="section section--light audience-section" aria-labelledby="audience-title">
   <div class="section__inner page-container">
     <header class="audience-intro">
-      <p class="section__eyebrow">Кому помогаем</p>
-      <h2 id="audience-title" class="section__title">Работаем с организациями, которым нужно доказать компетентность не на словах, а на практике</h2>
-      <p class="section__lead">У каждого типа аккредитованного лица свой набор требований, рисков и доказательств. Поэтому мы не переносим один шаблон из проекта в проект.</p>
+      <p class="section__eyebrow">Направления</p>
+      <h2 id="audience-title" class="section__title">Специфика каждого типа аккредитованного лица — учтена</h2>
+      <p class="section__lead">Мы не работаем по шаблонным чек-листам. У каждого направления — свой порядок подтверждения компетентности, специфические критерии ФСА и особые требования к доказательной базе.</p>
     </header>
 
-    <div class="audience-featured" aria-label="Основные направления">
-      {featuredAudiences.map((item, index) => (
-        <article id={item.id} class:list={["audience-card", index === 0 && "audience-card--lead"]}>
-          <img class="audience-card__media" src={item.image} alt={item.imageAlt} loading="lazy" decoding="async" />
-          <div class="audience-card__content">
-            <span aria-hidden="true">0{index + 1}</span>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-            <a href={item.href}><span>Подробнее</span><span aria-hidden="true">→</span></a>
-          </div>
-        </article>
+    <ol class="audience-grid">
+      {audiences.map((item, index) => (
+        <li id={item.id}>
+          <span class="audience-grid__num" aria-hidden="true">0{index + 1}</span>
+          <h3>{item.title}</h3>
+          <p class="audience-grid__standard">{item.standard}</p>
+        </li>
       ))}
-    </div>
-
-    <div class="audience-additional">
-      <div class="audience-additional__intro">
-        <p>Другие направления</p>
-        <span>Полный список типов клиентов сохранён и в меню сайта.</span>
-      </div>
-      <div class="audience-additional__list">
-        {additionalAudiences.map((item, index) => (
-          <article id={item.id}>
-            <span aria-hidden="true">0{index + 5}</span>
-            <div><h3>{item.title}</h3><p>{item.text}</p></div>
-          </article>
-        ))}
-      </div>
-    </div>
+    </ol>
   </div>
 </section>
 
 <style>
-  .audience-section .section__inner,.audience-intro,.audience-additional,.audience-additional__list{display:grid}.audience-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}.audience-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.audience-intro .section__eyebrow{grid-column:1/-1}.audience-intro .section__title,.audience-intro .section__lead{margin:0}
-  .audience-featured{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);grid-template-rows:repeat(3,minmax(11rem,auto));gap:1rem}.audience-card{position:relative;min-height:15rem;overflow:hidden;isolation:isolate;scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.audience-card--lead{grid-row:1/span 3}.audience-card__media{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;filter:saturate(.35) contrast(.9) brightness(.88) grayscale(.15);transition:transform var(--duration-normal) var(--easing-standard)}.audience-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,color-mix(in srgb,var(--lrqa-navy) 12%,transparent),color-mix(in srgb,var(--lrqa-navy) 96%,transparent))}.audience-card__content{display:grid;align-content:end;gap:.8rem;min-height:100%;padding:clamp(1.35rem,2.6vw,2.6rem);color:var(--lrqa-white)}.audience-card__content>span,.audience-card h3,.audience-card p,.audience-additional p,.audience-additional h3{margin:0}.audience-card__content>span{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.audience-card h3{max-width:25ch;font-size:clamp(1.15rem,1.15vw + 1rem,2.2rem);line-height:1.08;text-wrap:balance}.audience-card:not(.audience-card--lead) h3{font-size:clamp(1.05rem,.55vw + 1rem,1.45rem)}.audience-card p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}.audience-card a{display:inline-flex;gap:.65rem;width:fit-content;color:var(--lrqa-white);font-weight:var(--font-weight-semibold);text-decoration:none}.audience-card a span:last-child{color:var(--color-mint-action)}
-  .audience-additional{grid-template-columns:minmax(15rem,.52fr) minmax(0,1.48fr);gap:1.5rem clamp(2rem,5vw,5rem);padding-top:clamp(1.5rem,3vw,3rem);border-top:1px solid var(--lrqa-border)}.audience-additional__intro{display:grid;align-content:start;gap:.65rem}.audience-additional__intro p{font-size:clamp(1.2rem,1vw + 1rem,1.8rem);font-weight:var(--font-weight-semibold)}.audience-additional__intro span{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}.audience-additional__list{grid-template-columns:1fr 1fr;border-top:1px solid var(--lrqa-border-soft);border-left:1px solid var(--lrqa-border-soft)}.audience-additional__list article{display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:1rem;padding:1.25rem;border-right:1px solid var(--lrqa-border-soft);border-bottom:1px solid var(--lrqa-border-soft);scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.audience-additional__list article>span{color:var(--lrqa-muted-2);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.audience-additional__list h3{font-size:1rem;line-height:1.3}.audience-additional__list p{margin-top:.35rem;color:var(--lrqa-muted);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}
-  @media(hover:hover){.audience-card:hover .audience-card__media,.audience-card:focus-within .audience-card__media{transform:scale(1.035)}}
-  @media(max-width:64rem){.audience-intro,.audience-additional{grid-template-columns:1fr}.audience-featured{grid-template-columns:1fr 1fr;grid-template-rows:auto}.audience-card--lead{grid-column:1/-1;grid-row:auto;min-height:24rem}}
-  @media(max-width:42rem){.audience-featured,.audience-additional__list{grid-template-columns:1fr}.audience-card,.audience-card--lead{grid-column:auto;min-height:21rem}}
+  .audience-section .section__inner,.audience-intro{display:grid}.audience-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}
+  .audience-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.audience-intro .section__eyebrow{grid-column:1/-1}.audience-intro .section__title,.audience-intro .section__lead{margin:0}
+  .audience-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--lrqa-border);border-left:1px solid var(--lrqa-border)}
+  .audience-grid li{display:grid;align-content:start;gap:.65rem;min-height:11rem;padding:clamp(1.15rem,2vw,1.75rem);border-right:1px solid var(--lrqa-border);border-bottom:1px solid var(--lrqa-border);scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}
+  .audience-grid h3,.audience-grid p{margin:0}
+  .audience-grid__num{color:var(--lrqa-muted-2);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
+  .audience-grid h3{font-size:clamp(1rem,.35vw + .95rem,1.2rem);line-height:1.25;text-wrap:balance}
+  .audience-grid__standard{margin-top:auto;padding-top:.75rem;color:var(--lrqa-muted);font-family:var(--font-family-mono);font-size:var(--font-size-2xs);line-height:1.4}
+  @media(max-width:64rem){.audience-intro{grid-template-columns:1fr}.audience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:36rem){.audience-grid{grid-template-columns:1fr}.audience-grid li{min-height:0}}
 </style>

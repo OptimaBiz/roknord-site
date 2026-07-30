@@ -1,26 +1,47 @@
 ---
 const formats = [
   {
+    kicker: "Когда нужен единый контур подготовки",
     name: "Полный комплекс",
-    lead: "Сопровождаем согласованные этапы подготовки: корректирующие действия, сбор доказательной базы, подготовку сотрудников к ВКС и работу с вопросами, возникающими в ходе процедуры.",
-    priceLabel: "Стоимость",
-    price: "Рассчитывается по итогам аудита",
-    priceNote: "Цена и объём фиксируются в договоре до старта работ.",
+    lead: "Для процедур с несколькими взаимосвязанными зонами риска: от корректирующих действий и доказательной базы до подготовки сотрудников к ВКС.",
+    result: "Согласованный контур подготовки с приоритетами и зонами ответственности.",
+    termsLabel: "Объём и стоимость",
+    terms: "Определяются по итогам аудита",
+    note: "Фиксируются в договоре до старта работ.",
     featured: true,
   },
   {
+    kicker: "Когда задача уже локализована",
     name: "Точечный блок",
-    lead: "Проработка конкретной задачи: расширение или актуализация области аккредитации, актуализация СМК, подготовка отчёта о корректирующих действиях или проверка порядка ведения сведений во ФГИС.",
-    priceLabel: "Стоимость",
-    price: "По объёму задач",
-    priceNote: "Границы задачи и результат согласуем до начала работ.",
+    lead: "Для конкретной задачи по области аккредитации, СМК, корректирующим действиям или порядку ведения сведений во ФГИС.",
+    result: "Проработанный блок с заранее согласованными границами и результатом.",
+    termsLabel: "Объём и стоимость",
+    terms: "По составу задачи",
+    note: "Согласуются до начала работ.",
   },
   {
+    kicker: "Когда готовность важно поддерживать",
     name: "Внешний контроль качества",
-    lead: "Периодический независимый аудит между процедурами Росаккредитации. Проверяем СМК, новые записи и изменения, чтобы организация могла своевременно оценивать риски до следующего подтверждения компетентности.",
-    priceLabel: "Условие",
-    price: "Доступно по результатам первичного аудита",
-    priceNote: "Годовой график и формат согласовываются индивидуально.",
+    lead: "Для периодической независимой проверки СМК, новых записей и изменений между процедурами Росаккредитации.",
+    result: "Регулярная оценка рисков до следующего подтверждения компетентности.",
+    termsLabel: "Условие",
+    terms: "После первичного аудита",
+    note: "График и формат согласуются индивидуально.",
+  },
+];
+
+const auditResults = [
+  {
+    title: "Карта рисков",
+    text: "с приоритетами по влиянию на готовность",
+  },
+  {
+    title: "Реестр разрывов",
+    text: "между требованиями, записями и практикой",
+  },
+  {
+    title: "План действий",
+    text: "с рекомендациями по дальнейшей подготовке",
   },
 ];
 ---
@@ -29,49 +50,101 @@ const formats = [
   <div class="section__inner page-container">
     <header class="formats-intro">
       <p class="section__eyebrow">Форматы работы</p>
-      <h2 id="formats-title" class="section__title">Объём сопровождения определяем после первичного аудита</h2>
-      <p class="section__lead">Сначала оцениваем текущее состояние и согласованную выборку. По итогам заказчик получает карту рисков, реестр выявленных разрывов и предложение по дальнейшим работам.</p>
+      <h2 id="formats-title" class="section__title">Начинаем с аудита. Дальше — только необходимый объём сопровождения</h2>
+      <p class="section__lead">Первичный аудит показывает фактические разрывы и помогает определить, какие работы действительно нужны. Решение о дальнейшем сопровождении заказчик принимает после получения результатов.</p>
     </header>
 
     <article class="pricing-start" aria-labelledby="pricing-start-title">
-      <div class="pricing-start__head">
-        <span class="pricing-start__badge">Стартовый шаг</span>
-        <h3 id="pricing-start-title">Первичный аудит</h3>
+      <div class="pricing-start__main">
+        <header class="pricing-start__head">
+          <span class="pricing-start__badge">Первый этап</span>
+          <h3 id="pricing-start-title">Первичный аудит</h3>
+          <p>Проверяем СМК, область аккредитации, документы, записи, сведения во ФГИС и фактическую практику в пределах согласованной выборки.</p>
+        </header>
+
+        <ul class="pricing-start__results" aria-label="Результаты первичного аудита">
+          {auditResults.map((result, index) => (
+            <li>
+              <span aria-hidden="true">0{index + 1}</span>
+              <strong>{result.title}</strong>
+              <p>{result.text}</p>
+            </li>
+          ))}
+        </ul>
       </div>
-      <dl class="pricing-start__facts">
-        <div>
-          <dt>Стоимость</dt>
-          <dd><span class="pricing-start__from">от</span><strong>150 000 ₽</strong><span>с НДС</span></dd>
-        </div>
-        <div>
-          <dt>Срок</dt>
-          <dd><strong>5–10</strong><span>рабочих дней после получения согласованных материалов</span></dd>
-        </div>
-      </dl>
-      <div class="pricing-start__scope">
-        <span>Что входит</span>
-        <p>Проверка СМК, области аккредитации, документов, записей, сведений во ФГИС и фактической практики в пределах согласованной выборки. Результат — реестр выявленных разрывов и рисков с рекомендациями по дальнейшим действиям.</p>
+
+      <aside class="pricing-start__offer" aria-label="Стоимость и срок первичного аудита">
+        <dl class="pricing-start__facts">
+          <div>
+            <dt>Стоимость</dt>
+            <dd><span class="pricing-start__from">от</span><strong>150 000 ₽</strong><span>с НДС</span></dd>
+          </div>
+          <div>
+            <dt>Срок</dt>
+            <dd><strong>5–10</strong><span>рабочих дней после получения согласованных материалов</span></dd>
+          </div>
+        </dl>
         <a class="pricing-start__cta cta-angled motion-control" href="#contact"><span>Обсудить объём аудита</span><span aria-hidden="true">→</span></a>
-      </div>
+      </aside>
+
       <p class="pricing-start__credit">
-        Аудит можно заказать как отдельную работу. Возможность зачёта его стоимости при продолжении сопровождения фиксируется в коммерческом предложении.
+        Аудит можно заказать отдельно. Возможность зачёта его стоимости при продолжении сопровождения фиксируется в коммерческом предложении.
       </p>
     </article>
 
     <div class="formats-block">
-      <p class="formats-block__label">Форматы сопровождения — после аудита</p>
+      <header class="formats-block__head">
+        <p class="formats-block__label">После аудита</p>
+        <h3>Три сценария дальнейшей работы</h3>
+        <p>Формат выбираем по выявленным рискам, срокам и объёму изменений — без заранее навязанного пакета.</p>
+      </header>
+
       <div class="formats-grid">
         {formats.map((format, index) => (
           <article class:list={["format-card", format.featured && "format-card--featured"]}>
-            <span class="format-card__num" aria-hidden="true">0{index + 1}</span>
-            <h3>{format.name}</h3>
-            <p>{format.lead}</p>
-            <div class="format-card__price">
-              <span>{format.priceLabel}</span>
-              <strong>{format.price}</strong>
-              <em>{format.priceNote}</em>
+            <div class="format-card__head">
+              <span class="format-card__num" aria-hidden="true">0{index + 1}</span>
+              <p>{format.kicker}</p>
+            </div>
+            <h4>{format.name}</h4>
+            <p class="format-card__lead">{format.lead}</p>
+            <div class="format-card__result">
+              <span>Результат</span>
+              <strong>{format.result}</strong>
+            </div>
+            <div class="format-card__terms">
+              <span>{format.termsLabel}</span>
+              <strong>{format.terms}</strong>
+              <em>{format.note}</em>
             </div>
           </article>
+        ))}
+      </div>
+
+      <div class="formats-mobile" aria-label="Сценарии дальнейшей работы">
+        {formats.map((format, index) => (
+          <details class:list={["format-disclosure", format.featured && "format-disclosure--featured"]}>
+            <summary>
+              <span class="format-disclosure__num" aria-hidden="true">0{index + 1}</span>
+              <span class="format-disclosure__title">
+                <small>{format.kicker}</small>
+                <strong>{format.name}</strong>
+              </span>
+              <span class="format-disclosure__toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="format-disclosure__body">
+              <p>{format.lead}</p>
+              <div>
+                <span>Результат</span>
+                <strong>{format.result}</strong>
+              </div>
+              <div>
+                <span>{format.termsLabel}</span>
+                <strong>{format.terms}</strong>
+                <em>{format.note}</em>
+              </div>
+            </div>
+          </details>
         ))}
       </div>
     </div>
@@ -79,37 +152,614 @@ const formats = [
 </section>
 
 <style>
-  .formats-section .section__inner,.formats-intro,.format-card{display:grid}.formats-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}.formats-intro{grid-template-columns:minmax(0,1.25fr) minmax(16rem,.75fr);gap:1rem clamp(1.5rem,4vw,4.5rem);align-items:end}.formats-intro .section__eyebrow{grid-column:1/-1}.formats-intro .section__title,.formats-intro .section__lead{margin:0}
-  .formats-intro .section__title{font-size:clamp(1.55rem,1.7vw + .85rem,2.35rem);line-height:1.18;text-wrap:balance;overflow-wrap:break-word}
-  .pricing-start{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1.15fr);gap:clamp(1.5rem,3vw,3rem);align-items:start;padding:clamp(1.5rem,3vw,2.8rem);color:var(--lrqa-white);background:var(--lrqa-navy);border-top:4px solid var(--color-mint-action)}
-  .pricing-start__head{display:grid;align-content:start;gap:.75rem}
-  .pricing-start__badge{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
-  .pricing-start h3,.pricing-start p,.pricing-start dt,.pricing-start dd{margin:0}
-  .pricing-start h3{font-size:clamp(1.6rem,1.6vw + 1rem,2.6rem);line-height:1.06}
-  .pricing-start__facts{display:grid;gap:1.1rem;margin:0;padding-right:clamp(1.5rem,3vw,3rem);border-right:1px solid var(--lrqa-dark-border)}
-  .pricing-start__facts dt{color:var(--lrqa-muted-2);font-size:var(--font-size-xs);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
-  .pricing-start__facts dd{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem;margin-top:.3rem}
-  .pricing-start__facts dd strong{font-size:clamp(1.5rem,1.2vw + 1rem,2.1rem);line-height:1.1;white-space:nowrap}
-  .pricing-start__from{color:var(--lrqa-border-soft);font-size:var(--font-size-lg);font-weight:var(--font-weight-semibold)}
-  .pricing-start__facts dd span{color:var(--lrqa-border-soft);font-size:var(--font-size-sm)}
-  .pricing-start__scope{display:grid;align-content:start;gap:.7rem}
-  .pricing-start__scope>span{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
-  .pricing-start__scope p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
-  .pricing-start__cta{display:inline-flex;align-items:center;gap:.75rem;width:fit-content;margin-top:.5rem;padding:var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel)*.5);color:var(--lrqa-black);background:var(--gradient-button-primary);font-weight:var(--button-font-weight);text-decoration:none}
-  .pricing-start__credit{grid-column:1/-1;margin:0;padding:.85rem 0 0 1rem;color:var(--lrqa-white);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed);border-top:1px solid var(--lrqa-dark-border);border-left:3px solid var(--color-mint-action);padding-left:1rem;margin-top:.35rem}
-  .formats-block{display:grid;gap:1.25rem}
-  .formats-block__label{margin:0;color:var(--lrqa-muted);font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
-  .formats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
-  .format-card{grid-template-rows:auto auto 1fr auto;gap:.9rem;padding:clamp(1.5rem,3vw,2.5rem);background:var(--lrqa-white);border:1px solid var(--lrqa-border-soft)}
-  .format-card--featured{border-color:var(--lrqa-navy);border-top:4px solid var(--color-mint-action)}
-  .format-card__num{color:var(--lrqa-muted-2);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
-  .format-card h3,.format-card p{margin:0}
-  .format-card h3{font-size:clamp(1.3rem,1vw + 1rem,1.85rem);line-height:1.1}
-  .format-card p{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}
-  .format-card__price{display:grid;gap:.3rem;padding-top:1.2rem;border-top:1px solid var(--lrqa-border-soft)}
-  .format-card__price>span{color:var(--lrqa-muted-2);font-size:var(--font-size-xs);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
-  .format-card__price strong{font-size:var(--font-size-lg);line-height:1.25}
-  .format-card__price em{color:var(--lrqa-muted);font-size:var(--font-size-sm);font-style:normal;line-height:var(--line-height-relaxed)}
-  @media(max-width:64rem){.formats-intro{grid-template-columns:1fr}.pricing-start{grid-template-columns:1fr}.pricing-start__facts{grid-template-columns:1fr 1fr;padding-right:0;padding-bottom:1.25rem;border-right:0;border-bottom:1px solid var(--lrqa-dark-border)}.formats-grid{grid-template-columns:1fr}}
-  @media(max-width:36rem){.pricing-start__facts{grid-template-columns:1fr}.pricing-start__cta{width:100%;justify-content:center}}
+  .formats-section .section__inner,
+  .formats-intro,
+  .pricing-start,
+  .pricing-start__main,
+  .pricing-start__head,
+  .pricing-start__offer,
+  .formats-block,
+  .formats-block__head,
+  .format-card,
+  .format-card__head,
+  .format-card__result,
+  .format-card__terms {
+    display: grid;
+  }
+
+  .formats-section .section__inner {
+    gap: clamp(3rem, 6vw, 5rem);
+  }
+
+  .formats-intro {
+    grid-template-columns: minmax(0, 1.28fr) minmax(18rem, 0.72fr);
+    gap: 1rem clamp(2rem, 6vw, 6.5rem);
+    align-items: end;
+  }
+
+  .formats-intro .section__eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .formats-intro .section__title,
+  .formats-intro .section__lead {
+    margin: 0;
+  }
+
+  .formats-intro .section__title {
+    max-width: 47rem;
+    font-size: clamp(1.8rem, 2vw + 0.9rem, 2.75rem);
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  .formats-intro .section__lead {
+    max-width: 32rem;
+  }
+
+  .pricing-start {
+    grid-template-columns: minmax(0, 1.55fr) minmax(19rem, 0.7fr);
+    color: var(--lrqa-white);
+    background: var(--lrqa-navy);
+    border-top: 4px solid var(--color-mint-action);
+  }
+
+  .pricing-start__main {
+    gap: clamp(2rem, 4vw, 3.5rem);
+    padding: clamp(2rem, 4vw, 3.5rem);
+    border-right: 1px solid var(--lrqa-dark-border);
+  }
+
+  .pricing-start__head {
+    gap: 0.85rem;
+    max-width: 42rem;
+  }
+
+  .pricing-start__badge,
+  .pricing-start__results > li > span,
+  .pricing-start__facts dt,
+  .format-card__head p,
+  .format-card__result > span,
+  .format-card__terms > span {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+  }
+
+  .pricing-start__badge,
+  .pricing-start__results > li > span {
+    color: var(--color-mint-action);
+  }
+
+  .pricing-start h3,
+  .pricing-start p,
+  .pricing-start dt,
+  .pricing-start dd,
+  .pricing-start ul,
+  .formats-block h3,
+  .formats-block p,
+  .format-card h4 {
+    margin: 0;
+  }
+
+  .pricing-start h3 {
+    font-size: clamp(2rem, 2.4vw + 1rem, 3.5rem);
+    line-height: 1;
+  }
+
+  .pricing-start__head p {
+    max-width: 39rem;
+    color: var(--lrqa-border);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .pricing-start__results {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    padding: 0;
+    list-style: none;
+    background: var(--lrqa-dark-border);
+    border: 1px solid var(--lrqa-dark-border);
+  }
+
+  .pricing-start__results li {
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+    padding: clamp(1.1rem, 2vw, 1.5rem);
+    background: var(--lrqa-navy);
+  }
+
+  .pricing-start__results strong {
+    font-size: var(--font-size-lg);
+    line-height: 1.2;
+  }
+
+  .pricing-start__results p {
+    color: var(--lrqa-border);
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+  }
+
+  .pricing-start__offer {
+    align-content: space-between;
+    gap: 2rem;
+    padding: clamp(2rem, 3vw, 3rem);
+    background: var(--lrqa-navy-2);
+  }
+
+  .pricing-start__facts {
+    display: grid;
+    gap: 1.75rem;
+    margin: 0;
+  }
+
+  .pricing-start__facts > div + div {
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--lrqa-dark-border);
+  }
+
+  .pricing-start__facts dt {
+    color: var(--lrqa-muted-2);
+  }
+
+  .pricing-start__facts dd {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.45rem;
+    margin-top: 0.45rem;
+  }
+
+  .pricing-start__facts dd strong {
+    font-size: clamp(1.7rem, 1.5vw + 1rem, 2.4rem);
+    line-height: 1.06;
+    white-space: nowrap;
+  }
+
+  .pricing-start__from {
+    color: var(--lrqa-border-soft);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .pricing-start__facts dd span {
+    color: var(--lrqa-border);
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+  }
+
+  .pricing-start__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding: var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel) * 0.5);
+    color: var(--lrqa-black);
+    background: var(--gradient-button-primary);
+    font-weight: var(--button-font-weight);
+    text-decoration: none;
+  }
+
+  .pricing-start__credit {
+    grid-column: 1 / -1;
+    padding: 1rem clamp(2rem, 4vw, 3.5rem);
+    color: var(--lrqa-border);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    border-top: 1px solid var(--lrqa-dark-border);
+  }
+
+  .formats-block {
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  .formats-block__head {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.25fr) minmax(18rem, 0.9fr);
+    gap: 1rem clamp(1.5rem, 4vw, 4rem);
+    align-items: end;
+  }
+
+  .formats-block__label {
+    align-self: start;
+    color: var(--lrqa-muted);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+  }
+
+  .formats-block__head h3 {
+    font-size: clamp(1.6rem, 1.4vw + 1rem, 2.35rem);
+    line-height: 1.1;
+  }
+
+  .formats-block__head > p:last-child {
+    color: var(--lrqa-muted);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .formats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--lrqa-border-soft);
+    border: 1px solid var(--lrqa-border-soft);
+  }
+
+  .formats-mobile {
+    display: none;
+  }
+
+  .format-card {
+    grid-template-rows: auto auto auto 1fr auto;
+    gap: 1.25rem;
+    min-width: 0;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    background: var(--lrqa-card-light);
+    box-shadow: inset 0 0 0 0 transparent;
+  }
+
+  .format-card--featured {
+    box-shadow: inset 0 4px 0 var(--color-mint-action);
+  }
+
+  .format-card__head {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .format-card__num {
+    color: var(--lrqa-muted-2);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+  }
+
+  .format-card__head p {
+    color: var(--lrqa-muted-dark);
+    line-height: 1.45;
+  }
+
+  .format-card h4 {
+    font-size: clamp(1.45rem, 1vw + 1rem, 2rem);
+    line-height: 1.08;
+  }
+
+  .format-card__lead {
+    color: var(--lrqa-muted);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .format-card__result {
+    align-content: start;
+    gap: 0.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--lrqa-border-soft);
+  }
+
+  .format-card__result > span,
+  .format-card__terms > span {
+    color: var(--lrqa-muted-2);
+  }
+
+  .format-card__result strong {
+    font-size: var(--font-size-md);
+    line-height: 1.5;
+  }
+
+  .format-card__terms {
+    gap: 0.35rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--lrqa-border-soft);
+  }
+
+  .format-card__terms strong {
+    font-size: var(--font-size-lg);
+    line-height: 1.3;
+  }
+
+  .format-card__terms em {
+    color: var(--lrqa-muted);
+    font-size: var(--font-size-sm);
+    font-style: normal;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 70rem) {
+    .formats-intro {
+      grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+    }
+
+    .pricing-start {
+      grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+    }
+
+    .pricing-start__results {
+      grid-template-columns: 1fr;
+    }
+
+    .pricing-start__results li {
+      grid-template-columns: auto minmax(0, 0.7fr) minmax(0, 1fr);
+      align-items: baseline;
+    }
+
+    .formats-block__head {
+      grid-template-columns: 0.6fr 1.4fr;
+    }
+
+    .formats-block__head > p:last-child {
+      grid-column: 2;
+    }
+
+    .formats-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .format-card:last-child {
+      grid-column: 1 / -1;
+      grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
+      grid-template-rows: auto auto auto;
+    }
+
+    .format-card:last-child .format-card__head,
+    .format-card:last-child h4,
+    .format-card:last-child .format-card__lead {
+      grid-column: 1;
+    }
+
+    .format-card:last-child .format-card__result,
+    .format-card:last-child .format-card__terms {
+      grid-column: 2;
+    }
+
+    .format-card:last-child .format-card__result {
+      grid-row: 1 / 3;
+    }
+
+    .format-card:last-child .format-card__terms {
+      grid-row: 3 / 4;
+    }
+  }
+
+  @media (max-width: 52rem) {
+    .formats-intro,
+    .pricing-start,
+    .formats-block__head {
+      grid-template-columns: 1fr;
+    }
+
+    .formats-intro .section__eyebrow,
+    .formats-block__head > p:last-child {
+      grid-column: 1;
+    }
+
+    .formats-intro .section__lead {
+      max-width: 42rem;
+    }
+
+    .pricing-start__main {
+      border-right: 0;
+      border-bottom: 1px solid var(--lrqa-dark-border);
+    }
+
+    .pricing-start__results {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .pricing-start__results li {
+      grid-template-columns: 1fr;
+    }
+
+    .pricing-start__offer {
+      grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.8fr);
+      align-items: end;
+    }
+
+    .pricing-start__facts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .pricing-start__facts > div + div {
+      padding-top: 0;
+      padding-left: 1.5rem;
+      border-top: 0;
+      border-left: 1px solid var(--lrqa-dark-border);
+    }
+  }
+
+  @media (max-width: 44rem) {
+    .formats-section .section__inner {
+      gap: 3rem;
+    }
+
+    .formats-intro {
+      gap: 1rem;
+    }
+
+    .formats-intro .section__title {
+      font-size: clamp(1.65rem, 7vw, 2.1rem);
+    }
+
+    .formats-intro .section__lead {
+      font-size: var(--font-size-md);
+      line-height: 1.65;
+    }
+
+    .pricing-start__main,
+    .pricing-start__offer {
+      padding: 1.5rem;
+    }
+
+    .pricing-start__results {
+      grid-template-columns: 1fr;
+    }
+
+    .pricing-start__results li {
+      grid-template-columns: auto minmax(0, 0.8fr) minmax(0, 1fr);
+      padding: 1rem;
+    }
+
+    .pricing-start__offer,
+    .pricing-start__facts {
+      grid-template-columns: 1fr;
+    }
+
+    .pricing-start__facts > div + div {
+      padding-top: 1.25rem;
+      padding-left: 0;
+      border-top: 1px solid var(--lrqa-dark-border);
+      border-left: 0;
+    }
+
+    .pricing-start__credit {
+      padding: 1rem 1.5rem;
+    }
+
+    .formats-block__head {
+      gap: 0.75rem;
+    }
+
+    .formats-block__head > p:last-child {
+      margin-top: 0.25rem;
+    }
+
+    .formats-grid {
+      display: none;
+    }
+
+    .formats-mobile {
+      display: grid;
+      gap: 1px;
+      background: var(--lrqa-border-soft);
+      border: 1px solid var(--lrqa-border-soft);
+    }
+
+    .format-disclosure {
+      background: var(--lrqa-card-light);
+    }
+
+    .format-disclosure--featured {
+      box-shadow: inset 0 4px 0 var(--color-mint-action);
+    }
+
+    .format-disclosure summary {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.5rem;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .format-disclosure summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .format-disclosure__num {
+      align-self: start;
+      color: var(--lrqa-muted-2);
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-xs);
+      line-height: 1.5;
+    }
+
+    .format-disclosure__title {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .format-disclosure__title small {
+      color: var(--lrqa-muted-dark);
+      font-size: var(--font-size-2xs);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: var(--letter-spacing-wide);
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .format-disclosure__title strong {
+      font-size: clamp(1.25rem, 6vw, 1.55rem);
+      line-height: 1.12;
+    }
+
+    .format-disclosure__toggle {
+      display: grid;
+      place-items: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      color: var(--lrqa-black);
+      font-size: 1.5rem;
+      line-height: 1;
+      border: 1px solid var(--lrqa-border);
+      transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+    }
+
+    .format-disclosure[open] .format-disclosure__toggle {
+      color: var(--lrqa-black);
+      background: var(--color-mint-action);
+      border-color: var(--color-mint-action);
+      transform: rotate(45deg);
+    }
+
+    .format-disclosure__body {
+      display: grid;
+      gap: 1.25rem;
+      padding: 0 1.5rem 1.5rem 3.75rem;
+    }
+
+    .format-disclosure__body > p {
+      color: var(--lrqa-muted);
+      line-height: 1.65;
+    }
+
+    .format-disclosure__body > div {
+      display: grid;
+      gap: 0.35rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--lrqa-border-soft);
+    }
+
+    .format-disclosure__body > div > span {
+      color: var(--lrqa-muted-2);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: var(--letter-spacing-wide);
+      text-transform: uppercase;
+    }
+
+    .format-disclosure__body > div > strong {
+      line-height: 1.45;
+    }
+
+    .format-disclosure__body em {
+      color: var(--lrqa-muted);
+      font-size: var(--font-size-sm);
+      font-style: normal;
+      line-height: 1.5;
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .pricing-start h3 {
+      font-size: clamp(2rem, 10vw, 2.7rem);
+    }
+
+    .pricing-start__results li {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .pricing-start__results li p {
+      grid-column: 2;
+    }
+
+    .pricing-start__cta {
+      justify-content: center;
+    }
+  }
 </style>

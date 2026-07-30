@@ -866,6 +866,6 @@
   }
 
   .scroll-up-control:not([hidden]) {
-    display: grid;
+    display: none;
   }
 }

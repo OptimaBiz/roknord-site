@@ -157,3 +157,19 @@ body:has(.cookie-panel:not([hidden])) .scroll-up-control {
   pointer-events: auto;
   transform: translateY(0);
 }
+
+@media (max-width: 70rem) {
+  .scroll-up-control {
+    right: 0;
+  }
+}
+
+@media (max-width: 44rem) {
+  .scroll-up-control {
+    display: none;
+  }
+
+  .scroll-up-control[data-visible="true"] {
+    pointer-events: none;
+  }
+}

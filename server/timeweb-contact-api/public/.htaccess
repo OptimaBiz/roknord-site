@@ -1,0 +1,8 @@
+Options -Indexes
+
+<FilesMatch "^(config\.php|config\.example\.php|composer\.(json|lock)|Exception\.php|PHPMailer\.php|SMTP\.php)$">
+    Require all denied
+</FilesMatch>
+
+RewriteEngine On
+RewriteRule ^vendor(?:/|$) - [F,L]

@@ -1,11 +1,78 @@
 ---
-import PlaceholderPage from "../../components/PlaceholderPage.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
-<PlaceholderPage
-  eyebrow="Юридическая информация"
-  title="Политика конфиденциальности"
-  description="Страница-заглушка для будущего текста политики конфиденциальности."
-  points={["Персональные данные", "Обработка обращений", "Согласия", "Хранение информации"]}
-  note="Здесь позже будет размещён полный текст политики конфиденциальности."
-/>
+<BaseLayout
+  title="Политика конфиденциальности — Рокнорд"
+  description="Политика конфиденциальности и обработки персональных данных ООО «РОКНОРД»."
+>
+  <main id="content" class="legal-page">
+    <div class="page-container legal-page__inner">
+      <p class="eyebrow">Юридическая информация</p>
+      <h1>Политика конфиденциальности</h1>
+      <p class="legal-page__lead">Настоящая политика описывает, как ООО «РОКНОРД» обрабатывает персональные данные посетителей сайта roknord.ru и лиц, направляющих обращения через сайт.</p>
+
+      <section class="legal-page__section">
+        <h2>1. Оператор персональных данных</h2>
+        <p>Оператор: <strong>Общество с ограниченной ответственностью «РОКНОРД»</strong> (ООО «РОКНОРД»).</p>
+        <dl class="legal-page__details">
+          <div><dt>Адрес</dt><dd>198320, Санкт-Петербург, г. Красное Село, ул. Свободы, д. 57Д, пом. 7-Н, офис 615</dd></div>
+          <div><dt>ИНН / КПП</dt><dd>7807406530 / 780701001</dd></div>
+          <div><dt>Генеральный директор</dt><dd>Карапетян Антон Гагикович</dd></div>
+          <div><dt>Контакты</dt><dd><a href="mailto:hello@roknord.ru">hello@roknord.ru</a>, <a href="tel:+78123898178">+7 (812) 389-81-78</a></dd></div>
+        </dl>
+      </section>
+
+      <section class="legal-page__section">
+        <h2>2. Какие данные обрабатываются</h2>
+        <p>В зависимости от обращения могут обрабатываться имя, номер телефона, адрес электронной почты, сведения об организации, содержание обращения и иные данные, которые пользователь добровольно указывает в форме.</p>
+        <p>При посещении сайта автоматически могут обрабатываться технические сведения: IP-адрес, сведения о браузере и устройстве, дата и время посещения, адрес запрашиваемой страницы, источник перехода и файлы cookie.</p>
+      </section>
+
+      <section class="legal-page__section">
+        <h2>3. Цели и правовые основания обработки</h2>
+        <p>Данные используются для обработки обращений, подготовки ответа, связи с пользователем по его запросу, улучшения работы сайта и обеспечения его безопасности. Правовым основанием обработки данных из формы является согласие пользователя, выраженное отдельно до отправки обращения. Технические данные обрабатываются для работы сайта и при наличии отдельного согласия — для аналитики посещаемости.</p>
+      </section>
+
+      <section class="legal-page__section">
+        <h2>4. Цели, состав данных и сроки</h2>
+        <div class="legal-page__table-wrap">
+          <table class="legal-page__table">
+            <thead><tr><th>Цель</th><th>Данные</th><th>Действия</th><th>Срок</th></tr></thead>
+            <tbody>
+              <tr><td>Рассмотрение обращения и ответ</td><td>Имя, телефон, e-mail, организация, текст обращения</td><td>Сбор, запись, систематизация, хранение, уточнение, использование, передача по поручению оператора, удаление</td><td>До ответа и завершения коммуникации, затем не дольше необходимого для этой цели</td></tr>
+              <tr><td>Работа и безопасность сайта</td><td>IP-адрес, сведения о браузере, устройстве, странице, времени и источнике перехода</td><td>Сбор, запись, систематизация, хранение, использование, обезличивание, удаление</td><td>Не дольше срока, необходимого для работы и безопасности сайта</td></tr>
+              <tr><td>Аналитика посещаемости</td><td>Технические сведения и cookie после согласия</td><td>Сбор, запись, систематизация, хранение, использование, обезличивание, удаление</td><td>До отзыва согласия либо прекращения соответствующей цели</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="legal-page__section">
+        <h2>5. Порядок обработки и хранения</h2>
+        <p>Оператор обрабатывает данные законно, добросовестно и только в объёме, необходимом для заявленных целей. Доступ к данным предоставляется только лицам, которым он необходим для обработки обращения. Данные хранятся не дольше, чем требуется для цели обработки, если иной срок не установлен законом или действующим согласием.</p>
+        <p>Обращения передаются серверному обработчику сайта и направляются оператору по защищённому соединению через почтовую инфраструктуру домена. Оператор принимает меры к обеспечению конфиденциальности и безопасности персональных данных. Аналитика подключается только после отдельного согласия пользователя на использование соответствующих cookie. Данные не продаются и не передаются для рассылок без предусмотренного законом основания.</p>
+        <p>При сборе персональных данных граждан Российской Федерации оператор обеспечивает запись, систематизацию, накопление, хранение, уточнение и извлечение данных с использованием баз данных, находящихся на территории Российской Федерации, в случаях и порядке, установленных законодательством.</p>
+      </section>
+
+      <section class="legal-page__section">
+        <h2>6. Права пользователя</h2>
+        <p>Пользователь вправе запросить сведения об обработке своих персональных данных, потребовать их уточнения, блокирования или удаления, отозвать согласие, а также обратиться с жалобой в уполномоченный орган по защите прав субъектов персональных данных. Запрос можно направить на <a href="mailto:hello@roknord.ru">hello@roknord.ru</a>.</p>
+        <p>После получения отзыва согласия оператор прекращает обработку, если отсутствуют иные законные основания для её продолжения, и уничтожает данные, если их сохранение больше не требуется для целей обработки.</p>
+      </section>
+
+      <section class="legal-page__section">
+        <h2>7. Реквизиты</h2>
+        <p>Расчётный счёт: 40702810890810021171<br />Банк: ФИЛИАЛ «ЦЕНТРАЛЬНЫЙ» БАНКА ВТБ (ПАО)<br />Корреспондентский счёт: 30101810145250000411<br />БИК: 044525411</p>
+      </section>
+
+      <p class="legal-page__note">Дата публикации: 3 августа 2026 года. Оператор вправе обновлять политику; актуальная редакция размещается на этой странице.</p>
+      <a class="button button-secondary motion-control" href="/">На главную</a>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .legal-page{background:var(--lrqa-card-light);color:var(--color-text-primary)}.legal-page__inner{max-width:58rem;padding-block:clamp(4rem,8vw,8rem)}.legal-page h1{max-width:48rem;margin:var(--space-3) 0 var(--space-5);font-size:clamp(2.4rem,6vw,5.5rem);line-height:.98}.legal-page__lead{max-width:48rem;color:var(--color-text-muted);font-size:var(--font-size-lg);line-height:var(--line-height-relaxed)}.legal-page__section{max-width:52rem;margin-top:var(--space-10);padding-top:var(--space-6);border-top:1px solid var(--color-border)}.legal-page h2{margin:0 0 var(--space-4);font-size:clamp(1.35rem,2.4vw,2rem)}.legal-page p{color:var(--color-text-muted);line-height:var(--line-height-relaxed)}.legal-page a{color:var(--color-link)}.legal-page__details{display:grid;gap:var(--space-3);margin:var(--space-5) 0 0}.legal-page__details div{display:grid;grid-template-columns:minmax(10rem,.35fr) 1fr;gap:var(--space-4);padding-bottom:var(--space-3);border-bottom:1px solid var(--color-border-soft)}.legal-page__details dt{font-weight:var(--font-weight-semibold)}.legal-page__details dd{margin:0;color:var(--color-text-muted)}.legal-page__table-wrap{overflow-x:auto}.legal-page__table{width:100%;min-width:48rem;border-collapse:collapse;color:var(--color-text-muted);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}.legal-page__table th,.legal-page__table td{padding:var(--space-3);border:1px solid var(--color-border-soft);text-align:left;vertical-align:top}.legal-page__table th{color:var(--color-text-primary);background:var(--lrqa-white);font-weight:var(--font-weight-semibold)}.legal-page__note{margin-block:var(--space-10) var(--space-5);font-size:var(--font-size-sm)}
+  @media(max-width:48rem){.legal-page__details div{grid-template-columns:1fr;gap:var(--space-1)}}
+</style>

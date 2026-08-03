@@ -17,6 +17,10 @@ pnpm-debug.log*
 .env
 .env.production
 
+# Timeweb contact API secrets and dependencies
+server/timeweb-contact-api/config.php
+server/timeweb-contact-api/vendor/
+
 # macOS-specific files
 .DS_Store
 

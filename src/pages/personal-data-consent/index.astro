@@ -1,11 +1,56 @@
 ---
-import PlaceholderPage from "../../components/PlaceholderPage.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
-<PlaceholderPage
-  eyebrow="Юридическая информация"
-  title="Согласие на обработку персональных данных"
-  description="Страница-заглушка для будущего текста согласия на обработку персональных данных."
-  points={["Обратная связь", "Заявки", "Коммуникация", "Сроки хранения"]}
-  note="Здесь позже будет размещён полный текст согласия на обработку персональных данных."
-/>
+<BaseLayout
+  title="Согласие на обработку персональных данных — Рокнорд"
+  description="Согласие на обработку персональных данных ООО «РОКНОРД»."
+>
+  <main id="content" class="legal-page">
+    <div class="page-container legal-page__inner">
+      <p class="eyebrow">Юридическая информация</p>
+      <h1>Согласие на обработку персональных данных</h1>
+      <p class="legal-page__lead">Заполняя форму на сайте roknord.ru и устанавливая отметку в поле согласия, пользователь свободно, своей волей и в своём интересе выражает согласие на обработку персональных данных.</p>
+
+      <section class="legal-page__section">
+        <h2>1. Оператор</h2>
+        <p>Оператор — <strong>Общество с ограниченной ответственностью «РОКНОРД»</strong> (ООО «РОКНОРД»), адрес: 198320, Санкт-Петербург, г. Красное Село, ул. Свободы, д. 57Д, пом. 7-Н, офис 615.</p>
+        <p>ИНН 7807406530, КПП 780701001. Контакты: <a href="mailto:hello@roknord.ru">hello@roknord.ru</a>, <a href="tel:+78123898178">+7 (812) 389-81-78</a>.</p>
+      </section>
+
+      <section class="legal-page__section">
+        <h2>2. Перечень данных</h2>
+        <p>Согласие распространяется на имя, номер телефона, адрес электронной почты, сведения об организации, содержание обращения и другие персональные данные, которые пользователь указывает в форме по собственной инициативе.</p>
+      </section>
+
+      <section class="legal-page__section">
+        <h2>3. Цели обработки</h2>
+        <p>Обработка необходима для регистрации и рассмотрения обращения, подготовки ответа, связи с пользователем, уточнения деталей задачи и подготовки предложения по согласованному формату работы.</p>
+      </section>
+
+      <section class="legal-page__section">
+        <h2>4. Действия с данными и срок согласия</h2>
+        <p>Оператор вправе осуществлять сбор, запись, систематизацию, накопление, хранение, уточнение, извлечение, использование, передачу в предусмотренных законом случаях, обезличивание, блокирование и удаление персональных данных.</p>
+        <p>Согласие действует до достижения целей обработки либо до его отзыва пользователем, если иной срок не установлен законодательством. Отзыв можно направить на <a href="mailto:hello@roknord.ru">hello@roknord.ru</a>. После отзыва оператор прекращает обработку при отсутствии иных законных оснований и уничтожает данные, если их сохранение больше не требуется. Отзыв не влияет на законность обработки, проведённой до его получения.</p>
+        <p>Непредоставление согласия означает невозможность отправить обращение через форму сайта и получить ответ по указанным в ней контактным данным.</p>
+      </section>
+
+      <section class="legal-page__section">
+        <h2>5. Сервисы сайта</h2>
+        <p>Обращение передаётся серверному обработчику сайта и направляется оператору через почтовую инфраструктуру домена. Информация о cookie и аналитике приведена в <a href="/privacy-policy/">Политике конфиденциальности</a>.</p>
+      </section>
+
+      <section class="legal-page__section">
+        <h2>6. Подтверждение</h2>
+        <p>Согласие оформляется отдельно: пользователь устанавливает отметку в самостоятельном поле согласия и после этого отправляет форму. Текст согласия доступен до его выражения на этой странице. Политика конфиденциальности размещена отдельно и описывает обработку данных на сайте.</p>
+      </section>
+
+      <p class="legal-page__note">Дата публикации: 3 августа 2026 года.</p>
+      <a class="button button-secondary motion-control" href="/">На главную</a>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .legal-page{background:var(--lrqa-card-light);color:var(--color-text-primary)}.legal-page__inner{max-width:58rem;padding-block:clamp(4rem,8vw,8rem)}.legal-page h1{max-width:48rem;margin:var(--space-3) 0 var(--space-5);font-size:clamp(2.4rem,6vw,5.5rem);line-height:.98}.legal-page__lead{max-width:48rem;color:var(--color-text-muted);font-size:var(--font-size-lg);line-height:var(--line-height-relaxed)}.legal-page__section{max-width:52rem;margin-top:var(--space-10);padding-top:var(--space-6);border-top:1px solid var(--color-border)}.legal-page h2{margin:0 0 var(--space-4);font-size:clamp(1.35rem,2.4vw,2rem)}.legal-page p{color:var(--color-text-muted);line-height:var(--line-height-relaxed)}.legal-page a{color:var(--color-link)}.legal-page__note{margin-block:var(--space-10) var(--space-5);font-size:var(--font-size-sm)}
+</style>

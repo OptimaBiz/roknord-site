@@ -117,28 +117,27 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
 
         <label class="contact-consent">
           <input name="personal_data_consent" type="checkbox" value="accepted" required />
-          <span>
-            Я выражаю согласие на обработку моих персональных данных.
+          <span class="contact-consent__content">
+            <span>Я выражаю согласие на обработку персональных данных.</span>
+            <span class="contact-consent__documents">
+              <button class="contact-consent__link" type="button" data-legal-open="consent">Текст согласия</button>
+              <button class="contact-consent__link" type="button" data-legal-open="privacy">Политика конфиденциальности</button>
+            </span>
           </span>
         </label>
-
-        <p class="contact-consent__documents">
-          <button class="contact-consent__link" type="button" data-consent-open>Открыть текст согласия</button><br />
-          <a href="/privacy-policy/">Политика конфиденциальности</a>
-        </p>
 
         <p class="contact-form__status" data-contact-status role="status" aria-live="polite">
           {statusText}
         </p>
       </form>
 
-      <dialog class="consent-dialog" data-consent-dialog aria-labelledby="consent-dialog-title">
-        <div class="consent-dialog__inner">
-          <div class="consent-dialog__header">
+      <dialog class="legal-dialog" data-legal-dialog="consent" aria-labelledby="consent-dialog-title">
+        <div class="legal-dialog__inner">
+          <div class="legal-dialog__header">
             <h2 id="consent-dialog-title">Согласие на обработку персональных данных</h2>
-            <button class="consent-dialog__close" type="button" data-consent-close aria-label="Закрыть текст согласия">×</button>
+            <button class="legal-dialog__close" type="button" data-legal-close aria-label="Закрыть текст согласия">×</button>
           </div>
-          <div class="consent-dialog__body">
+          <div class="legal-dialog__body">
             <p>Я, субъект персональных данных, свободно, своей волей и в своём интересе выражаю согласие на обработку моих персональных данных оператором — Обществом с ограниченной ответственностью «РОКНОРД» (ООО «РОКНОРД»), адрес: 198320, Санкт-Петербург, г. Красное Село, ул. Свободы, д. 57Д, пом. 7-Н, офис 615.</p>
             <p><strong>Цель обработки:</strong> рассмотрение обращения, подготовка ответа, связь со мной, уточнение деталей задачи и подготовка предложения по согласованному формату работы.</p>
             <p><strong>Перечень данных:</strong> имя, номер телефона, адрес электронной почты, сведения об организации, содержание обращения и иные данные, которые я добровольно укажу в форме.</p>
@@ -146,6 +145,23 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
             <p><strong>Срок:</strong> до достижения цели обработки либо до отзыва согласия, если иной срок не установлен законом. Отзыв направляется на <a href="mailto:hello@roknord.ru">hello@roknord.ru</a>.</p>
             <p>Согласие оформляется отдельно от иных подтверждаемых документов. Непредоставление согласия означает невозможность отправить обращение через форму сайта.</p>
             <p><a href="/personal-data-consent/">Открыть отдельную страницу согласия</a></p>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog class="legal-dialog" data-legal-dialog="privacy" aria-labelledby="privacy-dialog-title">
+        <div class="legal-dialog__inner">
+          <div class="legal-dialog__header">
+            <h2 id="privacy-dialog-title">Политика конфиденциальности</h2>
+            <button class="legal-dialog__close" type="button" data-legal-close aria-label="Закрыть политику конфиденциальности">×</button>
+          </div>
+          <div class="legal-dialog__body">
+            <p><strong>Оператор:</strong> Общество с ограниченной ответственностью «РОКНОРД» (ООО «РОКНОРД»), адрес: 198320, Санкт-Петербург, г. Красное Село, ул. Свободы, д. 57Д, пом. 7-Н, офис 615. ИНН 7807406530, КПП 780701001.</p>
+            <p><strong>Какие данные обрабатываются:</strong> имя, телефон, электронная почта, сведения об организации, содержание обращения, а также необходимые для работы и безопасности сайта технические сведения.</p>
+            <p><strong>Цели:</strong> регистрация и рассмотрение обращения, подготовка ответа, связь с пользователем, обеспечение работы и безопасности сайта. Данные формы обрабатываются на основании отдельно выраженного согласия.</p>
+            <p><strong>Порядок и срок:</strong> данные обрабатываются только в необходимом объёме и хранятся до достижения заявленной цели либо до отзыва согласия, если иной срок не установлен законом.</p>
+            <p><strong>Права пользователя:</strong> можно запросить сведения об обработке, уточнение, блокирование или удаление данных и отозвать согласие, направив обращение на <a href="mailto:hello@roknord.ru">hello@roknord.ru</a>.</p>
+            <p><a href="/privacy-policy/">Открыть полную Политику конфиденциальности</a></p>
           </div>
         </div>
       </dialog>
@@ -159,17 +175,23 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
       const contactStatus = contactRoot?.querySelector("[data-contact-status]");
       const contactSubmit = contactRoot?.querySelector("[data-contact-submit]");
       const contactSubmitText = contactRoot?.querySelector("[data-contact-submit-text]");
-      const consentDialog = contactRoot?.querySelector("[data-consent-dialog]");
-      const consentOpen = contactRoot?.querySelector("[data-consent-open]");
-      const consentClose = contactRoot?.querySelector("[data-consent-close]");
+      const legalDialogs = contactRoot?.querySelectorAll("[data-legal-dialog]") || [];
 
-      if (consentDialog instanceof HTMLDialogElement) {
-        consentOpen?.addEventListener("click", () => consentDialog.showModal());
-        consentClose?.addEventListener("click", () => consentDialog.close());
-        consentDialog.addEventListener("click", (event) => {
-          if (event.target === consentDialog) consentDialog.close();
+      legalDialogs.forEach((dialog) => {
+        if (!(dialog instanceof HTMLDialogElement)) return;
+        dialog.querySelector("[data-legal-close]")?.addEventListener("click", () => dialog.close());
+        dialog.addEventListener("click", (event) => {
+          if (event.target === dialog) dialog.close();
         });
-      }
+      });
+
+      contactRoot?.querySelectorAll("[data-legal-open]").forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          const documentName = trigger.getAttribute("data-legal-open");
+          const dialog = contactRoot.querySelector(`[data-legal-dialog="${documentName}"]`);
+          if (dialog instanceof HTMLDialogElement) dialog.showModal();
+        });
+      });
 
       if (contactRoot?.id === "contact" && !document.documentElement.hasAttribute("data-contact-anchor-ready")) {
         document.documentElement.setAttribute("data-contact-anchor-ready", "");
@@ -597,36 +619,31 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
 
   .contact-consent {
     display: grid;
-    grid-template-columns: 1.05rem minmax(0, 1fr);
+    grid-template-columns: 1.15rem minmax(0, 1fr);
     gap: var(--space-3);
     align-items: start;
     color: var(--lrqa-border-soft);
-    font-size: var(--font-size-xs);
-    line-height: var(--line-height-relaxed);
+    font-size: var(--font-size-sm);
+    line-height: 1.45;
   }
 
   .contact-consent input {
-    width: 1.05rem;
-    height: 1.05rem;
-    margin: 0.18rem 0 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin: 0.12rem 0 0;
     accent-color: var(--lrqa-mint);
   }
 
-  .contact-consent a {
-    color: var(--lrqa-white);
-    border-bottom: 1px solid var(--lrqa-mint);
-  }
-
-  .contact-consent a:hover,
-  .contact-consent a:focus-visible {
-    color: var(--lrqa-mint);
+  .contact-consent__content {
+    display: grid;
+    gap: var(--space-2);
   }
 
   .contact-consent__documents {
-    margin: calc(var(--space-3) * -1) 0 0 calc(1.05rem + var(--space-3));
-    color: var(--lrqa-border-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
     font-size: var(--font-size-xs);
-    line-height: var(--line-height-relaxed);
   }
 
   .contact-consent__link {
@@ -644,7 +661,7 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
     color: var(--lrqa-mint);
   }
 
-  .consent-dialog {
+  .legal-dialog {
     width: min(42rem, calc(100% - 2rem));
     max-height: min(42rem, calc(100dvh - 2rem));
     padding: 0;
@@ -654,17 +671,17 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
     box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 32%);
   }
 
-  .consent-dialog::backdrop {
+  .legal-dialog::backdrop {
     background: rgb(14 11 58 / 72%);
   }
 
-  .consent-dialog__inner {
+  .legal-dialog__inner {
     display: grid;
     max-height: min(42rem, calc(100dvh - 2rem));
     grid-template-rows: auto 1fr;
   }
 
-  .consent-dialog__header {
+  .legal-dialog__header {
     display: flex;
     align-items: start;
     justify-content: space-between;
@@ -674,14 +691,14 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
     background: var(--lrqa-card-light);
   }
 
-  .consent-dialog h2 {
+  .legal-dialog h2 {
     margin: 0;
     color: var(--lrqa-navy);
     font-size: clamp(1.25rem, 3vw, 1.75rem);
     line-height: var(--line-height-snug);
   }
 
-  .consent-dialog__close {
+  .legal-dialog__close {
     flex: 0 0 auto;
     width: 2rem;
     height: 2rem;
@@ -693,14 +710,14 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
     cursor: pointer;
   }
 
-  .consent-dialog__close:hover,
-  .consent-dialog__close:focus-visible {
+  .legal-dialog__close:hover,
+  .legal-dialog__close:focus-visible {
     border-color: var(--lrqa-navy);
     background: var(--lrqa-navy);
     color: var(--lrqa-white);
   }
 
-  .consent-dialog__body {
+  .legal-dialog__body {
     overflow-y: auto;
     padding: var(--space-6);
     color: var(--lrqa-muted);
@@ -708,15 +725,15 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
     line-height: var(--line-height-relaxed);
   }
 
-  .consent-dialog__body p {
+  .legal-dialog__body p {
     margin: 0 0 var(--space-4);
   }
 
-  .consent-dialog__body p:last-child {
+  .legal-dialog__body p:last-child {
     margin-bottom: 0;
   }
 
-  .consent-dialog__body a {
+  .legal-dialog__body a {
     color: var(--lrqa-navy);
     font-weight: var(--font-weight-semibold);
     text-decoration: underline;
@@ -725,12 +742,8 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
   }
 
   @media (max-width: 48rem) {
-    .contact-consent__documents {
-      margin-left: 0;
-    }
-
-    .consent-dialog__header,
-    .consent-dialog__body {
+    .legal-dialog__header,
+    .legal-dialog__body {
       padding: var(--space-4);
     }
   }

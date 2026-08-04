@@ -38,18 +38,25 @@ const {
     </script>
 
     <script is:inline>
-      // Метрика подключается только после согласия — иначе кнопка «Отклонить»
-      // в куки-панели была бы декоративной. Панель зовёт эту функцию по «Принять».
+      // Библиотека Метрики присутствует на странице сразу, чтобы Яндекс мог
+      // обнаружить установку. Сам счётчик и сбор статистики запускаются только
+      // после согласия пользователя в cookie-панели.
+      (function (m, e, t, r, i, k, a) {
+        m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) return;
+        }
+        k = e.createElement(t);
+        a = e.getElementsByTagName(t)[0];
+        k.async = 1;
+        k.src = r;
+        a.parentNode.insertBefore(k, a);
+      })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=111293528", "ym");
+
       window.__roknordEnableAnalytics = function () {
         if (window.__roknordAnalyticsOn) return;
         window.__roknordAnalyticsOn = true;
-
-        (function (m, e, t, r, i, k, a) {
-          m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
-          m[i].l = 1 * new Date();
-          for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
-          k = e.createElement(t); a = e.getElementsByTagName(t)[0]; k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
-        })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=111293528", "ym");
 
         ym(111293528, "init", {
           ssr: true,

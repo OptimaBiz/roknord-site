@@ -9,19 +9,25 @@ const { serviceLinks, audienceLinks, utilityLinks } = Astro.props;
     <span class="mobile-menu__icon" aria-hidden="true"><span></span><span></span><span></span></span>
     <span class="mobile-menu__label">Меню</span>
   </summary>
-  <div class="mobile-menu-panel" id="mobile-drawer" aria-label="Мобильное меню">
-    <div class="mobile-menu-group mobile-menu-group--primary">
-      <p>Услуги</p>
-      {serviceLinks.map((item) => <a href={item.href}>{item.label}</a>)}
-    </div>
-    <div class="mobile-menu-group mobile-menu-group--primary">
-      <p>Кому помогаем</p>
-      {audienceLinks.map((item) => <a href={item.href}>{item.label}</a>)}
-    </div>
-    <div class="mobile-menu-group mobile-menu-group--company">
-      <p>Компания</p>
-      {utilityLinks.map((item) => item.isLogin ? <a href={item.href} data-login-trigger>{item.label}</a> : <a href={item.href}>{item.label}</a>)}
-    </div>
+  <nav class="mobile-menu-panel" id="mobile-drawer" aria-label="Мобильное меню">
+    <details class="mobile-menu-group mobile-menu-group--primary">
+      <summary>Услуги</summary>
+      <div class="mobile-menu-group__links">
+        {serviceLinks.map((item) => <a href={item.href}>{item.label}</a>)}
+      </div>
+    </details>
+    <details class="mobile-menu-group mobile-menu-group--primary">
+      <summary>Кому помогаем</summary>
+      <div class="mobile-menu-group__links">
+        {audienceLinks.map((item) => <a href={item.href}>{item.label}</a>)}
+      </div>
+    </details>
+    <details class="mobile-menu-group mobile-menu-group--company">
+      <summary>Компания</summary>
+      <div class="mobile-menu-group__links">
+        {utilityLinks.map((item) => item.isLogin ? <a href={item.href} data-login-trigger>{item.label}</a> : <a href={item.href}>{item.label}</a>)}
+      </div>
+    </details>
     <a class="service-cta cta-angled mobile-menu-cta motion-control" href="/#contact">Разобрать задачу</a>
-  </div>
+  </nav>
 </details>

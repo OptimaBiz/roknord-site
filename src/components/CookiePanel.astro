@@ -21,12 +21,13 @@
     const status = document.querySelector("[data-cookie-status]");
     const settingsButtons = document.querySelectorAll("[data-cookie-settings]");
     if (!panel || !accept || !decline) return;
+    let returnFocus = null;
 
     let stored = null;
     try {
       stored = window.localStorage.getItem(key);
     } catch {}
-    const showPanel = (showCurrentChoice = false) => {
+    const showPanel = (showCurrentChoice = false, moveFocus = false) => {
       if (status instanceof HTMLElement) {
         status.hidden = !showCurrentChoice || (stored !== "accepted" && stored !== "declined");
         status.textContent = stored === "accepted"
@@ -34,7 +35,7 @@
           : "Текущий выбор: аналитика отключена.";
       }
       panel.hidden = false;
-      accept.focus();
+      if (moveFocus) accept.focus();
     };
 
     if (stored !== "accepted" && stored !== "declined") showPanel(false);
@@ -50,6 +51,8 @@
       } catch {}
       stored = value;
       panel.hidden = true;
+      if (returnFocus instanceof HTMLElement) returnFocus.focus();
+      returnFocus = null;
       if (value === "accepted" && typeof window.__roknordEnableAnalytics === "function") {
         window.__roknordEnableAnalytics();
       } else if (value === "declined" && typeof window.__roknordDisableAnalytics === "function") {
@@ -59,6 +62,9 @@
 
     accept.addEventListener("click", () => close("accepted"));
     decline.addEventListener("click", () => close("declined"));
-    settingsButtons.forEach((button) => button.addEventListener("click", () => showPanel(true)));
+    settingsButtons.forEach((button) => button.addEventListener("click", () => {
+      returnFocus = button instanceof HTMLElement ? button : null;
+      showPanel(true, true);
+    }));
   })();
 </script>

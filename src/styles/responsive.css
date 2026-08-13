@@ -403,7 +403,21 @@
   }
 
   .header {
+    position: sticky;
+    top: 0;
     padding-top: 0;
+  }
+
+  .header:has(.mobile-menu[open]) {
+    z-index: calc(var(--z-index-floating) + 1);
+  }
+
+  body.mobile-menu-open {
+    position: fixed;
+    right: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
   }
 
   .header-primary {
@@ -436,11 +450,12 @@
     position: relative;
   }
 
-  .mobile-menu summary {
+  .mobile-menu > summary {
     flex-direction: column;
     justify-content: center;
     gap: 0.36rem;
-    min-height: 2.4rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
     padding: 0;
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-semibold);
@@ -460,15 +475,19 @@
     left: 0;
     width: 100vw;
     height: calc(100svh - var(--header-total-height));
+    height: calc(100dvh - var(--header-total-height));
     z-index: calc(var(--z-index-header) + 2);
     overflow: auto;
-    padding: var(--space-5) var(--container-padding) var(--space-8);
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--space-3) var(--container-padding) max(var(--space-8), env(safe-area-inset-bottom));
     border-top: 1px solid var(--color-border-strong);
     box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.22);
+    scrollbar-gutter: stable;
   }
 
-  .mobile-menu-group p,
-  .mobile-menu-group a {
+  .mobile-menu-group > summary,
+  .mobile-menu-group__links a {
     text-align: left;
   }
 
@@ -685,13 +704,15 @@
     letter-spacing: clamp(0.04em, 0.5vw, 0.08em);
   }
 
-  .mobile-menu-group a,
+  .mobile-menu-group__links a,
   .mobile-menu-stack a {
     line-height: 1.35;
   }
 
   .mobile-menu-cta {
-    margin-top: var(--space-2);
+    display: inline-flex;
+    min-height: 3rem;
+    margin-top: var(--space-4);
   }
 
   .cta-strip {
@@ -852,11 +873,11 @@
   }
 
   .cookie-panel {
-    right: var(--container-padding);
-    bottom: var(--space-3);
-    left: var(--container-padding);
+    right: var(--space-3);
+    bottom: max(var(--space-3), env(safe-area-inset-bottom));
+    left: var(--space-3);
     width: auto;
-    gap: var(--space-3);
+    gap: var(--space-2);
     padding: var(--space-3) var(--space-4);
   }
 

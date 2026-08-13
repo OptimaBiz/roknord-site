@@ -1,0 +1,164 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Реквизиты и адрес — Рокнорд"
+  description="Реквизиты и адрес ООО «РОКНОРД»."
+>
+  <main id="content" class="requisites-page">
+    <div class="page-container requisites-page__inner">
+      <p class="eyebrow">Юридическая информация</p>
+      <h1>Реквизиты и адрес</h1>
+      <p class="requisites-page__lead">ООО «РОКНОРД»</p>
+
+      <div class="requisites-page__grid">
+        <section class="requisites-page__section" aria-labelledby="company-details-title">
+          <h2 id="company-details-title">Реквизиты</h2>
+          <dl class="requisites-page__details">
+            <div><dt>Полное наименование</dt><dd>Общество с ограниченной ответственностью «РОКНОРД»</dd></div>
+            <div><dt>Сокращённое наименование</dt><dd>ООО «РОКНОРД»</dd></div>
+            <div><dt>ИНН</dt><dd>7807406530</dd></div>
+            <div><dt>КПП</dt><dd>780701001</dd></div>
+            <div><dt>Расчётный счёт</dt><dd>40702810890810021171</dd></div>
+            <div><dt>Банк</dt><dd>ФИЛИАЛ «ЦЕНТРАЛЬНЫЙ» БАНКА ВТБ (ПАО)</dd></div>
+            <div><dt>Корреспондентский счёт</dt><dd>30101810145250000411</dd></div>
+            <div><dt>БИК</dt><dd>044525411</dd></div>
+          </dl>
+        </section>
+
+        <section class="requisites-page__section" aria-labelledby="address-title">
+          <h2 id="address-title">Адрес</h2>
+          <address class="requisites-page__address">
+            198320, г. Санкт-Петербург, г. Красное Село,<br />
+            ул. Свободы, д. 57Д, пом. 7-Н, офис 615
+          </address>
+          <p><a href="tel:+78123898178">+7 (812) 389-81-78</a></p>
+          <p><a href="mailto:hello@roknord.ru">hello@roknord.ru</a></p>
+        </section>
+      </div>
+
+      <section class="requisites-page__map-section" aria-labelledby="map-title">
+        <h2 id="map-title">Как нас найти</h2>
+        <div class="requisites-page__map">
+          <iframe
+            src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=101442465176"
+            width="560"
+            height="400"
+            frameborder="0"
+            title="Карта расположения офиса Рокнорд"
+            loading="lazy"
+          ></iframe>
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .requisites-page {
+    background: var(--lrqa-card-light);
+    color: var(--lrqa-black);
+  }
+
+  .requisites-page__inner {
+    padding-block: clamp(4rem, 8vw, 8rem);
+  }
+
+  .requisites-page .eyebrow {
+    color: var(--lrqa-muted-dark);
+  }
+
+  .requisites-page h1 {
+    margin: var(--space-3) 0 var(--space-4);
+    color: var(--lrqa-black);
+    font-size: clamp(2.4rem, 6vw, 5.5rem);
+    line-height: 0.98;
+  }
+
+  .requisites-page__lead {
+    margin: 0;
+    color: var(--lrqa-muted-dark);
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .requisites-page__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr);
+    gap: var(--space-8);
+    margin-top: var(--space-10);
+  }
+
+  .requisites-page__section,
+  .requisites-page__map-section {
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--lrqa-border);
+  }
+
+  .requisites-page h2 {
+    margin: 0 0 var(--space-5);
+    color: var(--lrqa-black);
+    font-size: clamp(1.35rem, 2.4vw, 2rem);
+  }
+
+  .requisites-page__details {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+  }
+
+  .requisites-page__details div {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .requisites-page__details dt {
+    color: var(--lrqa-muted);
+    font-size: var(--font-size-xs);
+  }
+
+  .requisites-page__details dd,
+  .requisites-page__address,
+  .requisites-page p {
+    margin: 0;
+    color: var(--lrqa-muted-dark);
+    font-size: var(--font-size-body);
+    font-style: normal;
+    line-height: var(--line-height-relaxed);
+  }
+
+  .requisites-page__section p + p {
+    margin-top: var(--space-2);
+  }
+
+  .requisites-page a {
+    color: var(--lrqa-black);
+    text-decoration: underline;
+    text-decoration-color: var(--lrqa-mint);
+    text-underline-offset: 0.18em;
+  }
+
+  .requisites-page__map-section {
+    margin-top: var(--space-10);
+  }
+
+  .requisites-page__map {
+    overflow: hidden;
+    border: 1px solid var(--lrqa-border);
+  }
+
+  .requisites-page__map iframe {
+    display: block;
+    width: 100%;
+    height: clamp(22rem, 45vw, 32rem);
+    border: 0;
+  }
+
+  @media (max-width: 48rem) {
+    .requisites-page__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-7);
+    }
+  }
+</style>

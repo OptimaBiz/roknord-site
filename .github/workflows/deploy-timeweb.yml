@@ -49,8 +49,8 @@ jobs:
           set ftp:ssl-force true
           set ftp:ssl-protect-data true
           set ssl:verify-certificate no
-          set net:timeout 20
-          set net:max-retries 2
+          set net:timeout 60
+          set net:max-retries 10
           mirror --reverse --delete --verbose ./dist/ ./public_html/
           bye
           LFTP

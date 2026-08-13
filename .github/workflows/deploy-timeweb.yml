@@ -44,11 +44,26 @@ jobs:
           TIMEWEB_FTP_USER: ${{ secrets.TIMEWEB_FTP_USER }}
           TIMEWEB_FTP_PASSWORD: ${{ secrets.TIMEWEB_FTP_PASSWORD_V2 }}
         run: |
-          set -euo pipefail
-          lftp -u "$TIMEWEB_FTP_USER","$TIMEWEB_FTP_PASSWORD" vh348.timeweb.ru <<'LFTP'
+          set -uo pipefail
+          for attempt in 1 2 3; do
+            if lftp -u "$TIMEWEB_FTP_USER","$TIMEWEB_FTP_PASSWORD" vh348.timeweb.ru <<'LFTP'
           set ftp:ssl-allow false
-          set net:timeout 20
-          set net:max-retries 3
+          set net:timeout 30
+          set net:max-retries 5
+          set net:reconnect-interval-base 5
+          set net:reconnect-interval-multiplier 1
           mirror --reverse --parallel=1 --exclude-glob '*.mp4' --exclude-glob '*.webm' --verbose ./dist/ ./public_html/
           bye
           LFTP
+            then
+              exit 0
+            fi
+
+            if [ "$attempt" -lt 3 ]; then
+              echo "FTP deployment attempt $attempt failed; retrying in 15 seconds."
+              sleep 15
+            fi
+          done
+
+          echo "FTP deployment failed after three sessions."
+          exit 1

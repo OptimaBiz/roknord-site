@@ -49,7 +49,7 @@ jobs:
           test -n "$TIMEWEB_SSH_USER"
           test -n "$TIMEWEB_SSH_PASSWORD"
           export SSHPASS="$TIMEWEB_SSH_PASSWORD"
-          sshpass -e rsync -az --delete --timeout=30 --contimeout=15 \
+          sshpass -e rsync -az --delete --timeout=30 \
             --exclude='*.mp4' \
             --exclude='*.webm' \
             -e 'ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15' \

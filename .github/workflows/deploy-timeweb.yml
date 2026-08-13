@@ -47,8 +47,8 @@ jobs:
           set -euo pipefail
           lftp -u "$TIMEWEB_FTP_USER","$TIMEWEB_FTP_PASSWORD" vh348.timeweb.ru <<'LFTP'
           set ftp:ssl-allow false
-          set net:timeout 60
-          set net:max-retries 10
-          mirror --reverse --delete --parallel=4 --exclude-glob '*.mp4' --exclude-glob '*.webm' --verbose ./dist/ ./public_html/
+          set net:timeout 20
+          set net:max-retries 3
+          mirror --reverse --delete --parallel=1 --exclude-glob '*.mp4' --exclude-glob '*.webm' --verbose ./dist/ ./public_html/
           bye
           LFTP

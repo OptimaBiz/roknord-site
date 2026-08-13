@@ -51,6 +51,6 @@ jobs:
           set ssl:verify-certificate no
           set net:timeout 60
           set net:max-retries 10
-          mirror --reverse --delete --verbose ./dist/ ./public_html/
+          mirror --reverse --delete --parallel=4 --verbose ./dist/ ./public_html/
           bye
           LFTP

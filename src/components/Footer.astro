@@ -1,7 +1,11 @@
 <footer class="footer">
   <div class="footer__columns page-container">
     <section class="footer__col footer__col--brand" aria-labelledby="footer-brand-title">
-      <h2 class="footer__heading" id="footer-brand-title">РОКНОРД</h2>
+      <h2 class="footer__heading footer__heading--brand" id="footer-brand-title">
+        <a class="footer__logo-link" href="/" aria-label="Рокнорд, на главную страницу">
+          <img class="footer__logo" src="/images/brand/roknord-logo-transparent.png" width="2115" height="316" alt="Рокнорд" decoding="async" />
+        </a>
+      </h2>
       <p class="footer__brand-slogan">Сложные процедуры. Твёрдая подготовка.</p>
       <p class="footer__tagline">Независимый аудит и экспертная подготовка к аккредитации и подтверждению компетентности.</p>
       <address class="footer__requisites">
@@ -66,6 +70,20 @@
     line-height: var(--line-height-snug);
     letter-spacing: 0.04em;
     text-transform: uppercase;
+  }
+
+  .footer__heading--brand {
+    line-height: 1;
+  }
+
+  .footer__logo-link {
+    display: inline-block;
+  }
+
+  .footer__logo {
+    width: auto;
+    height: 2rem;
+    object-fit: contain;
   }
 
   .footer__brand-slogan,

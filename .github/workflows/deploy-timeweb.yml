@@ -41,7 +41,7 @@ jobs:
         with:
           server: vh348.timeweb.ru
           username: ${{ secrets.TIMEWEB_FTP_USER }}
-          password: ${{ secrets.TIMEWEB_FTP_PASSWORD }}
+          password: ${{ secrets.TIMEWEB_FTP_PASSWORD_V2 }}
           protocol: ftps
           port: 21
           local-dir: ./dist/

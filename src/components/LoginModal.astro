@@ -26,6 +26,7 @@
           name="email"
           autocomplete="email"
           placeholder="you@company.ru"
+          disabled
         />
       </div>
 
@@ -38,11 +39,12 @@
           name="password"
           autocomplete="current-password"
           placeholder="••••••••"
+          disabled
         />
-        <a class="login-modal__forgot" href="#contact" data-login-close>Забыли пароль?</a>
+        <span class="login-modal__forgot" aria-disabled="true">Забыли пароль?</span>
       </div>
 
-      <button class="login-modal__submit motion-control" type="submit">
+      <button class="login-modal__submit motion-control" type="submit" disabled>
         <span>Войти</span>
         <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
           <line x1="0" y1="6" x2="12" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -52,7 +54,7 @@
     </form>
 
     <p class="login-modal__notice">
-      Данные для входа предоставляются после заключения договора.
+      Личный кабинет находится в разработке. Поля входа временно недоступны.
     </p>
   </div>
 </div>
@@ -197,19 +199,20 @@
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--lrqa-mint) 15%, transparent);
   }
 
+  .login-modal__input:disabled {
+    cursor: not-allowed;
+    opacity: 0.58;
+  }
+
   .login-modal__forgot {
     justify-self: end;
     font-size: var(--type-label);
     color: var(--lrqa-muted);
     text-decoration: none;
     border-bottom: 1px solid var(--lrqa-border-soft);
-    transition: color 0.15s, border-color 0.15s;
+    cursor: not-allowed;
+    opacity: 0.58;
     margin-top: 0.15rem;
-  }
-
-  .login-modal__forgot:hover {
-    color: var(--lrqa-muted-dark);
-    border-bottom-color: var(--lrqa-muted);
   }
 
   .login-modal__submit {
@@ -233,6 +236,13 @@
 
   .login-modal__submit:hover {
     background: var(--lrqa-mint-2);
+  }
+
+  .login-modal__submit:disabled,
+  .login-modal__submit:disabled:hover {
+    background: var(--lrqa-border-soft);
+    color: var(--lrqa-muted);
+    cursor: not-allowed;
   }
 
   .login-modal__notice {

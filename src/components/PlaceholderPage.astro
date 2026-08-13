@@ -10,9 +10,10 @@ type Props = {
 };
 
 const { eyebrow, title, description, points, note } = Astro.props as Props;
+const contactHref = `/?context=${encodeURIComponent(title)}#contact`;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={`${title} — Рокнорд`} description={description}>
   <main id="content">
     <section class="hero">
       <div class="page-container">
@@ -24,7 +25,8 @@ const { eyebrow, title, description, points, note } = Astro.props as Props;
             {points.map((point) => <li class="pill">{point}</li>)}
           </ul>
           <p class="meta">{note}</p>
-          <div>
+          <div class="placeholder-actions">
+            <a class="button button-primary motion-control" href={contactHref}>Обсудить подготовку</a>
             <a class="button button-secondary motion-control" href="/">На главную</a>
           </div>
         </div>
@@ -32,3 +34,7 @@ const { eyebrow, title, description, points, note } = Astro.props as Props;
     </section>
   </main>
 </BaseLayout>
+
+<style>
+  .placeholder-actions{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+</style>

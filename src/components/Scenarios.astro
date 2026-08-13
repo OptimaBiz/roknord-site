@@ -1,10 +1,12 @@
 ---
 const situations = [
-  { id: "scenario-confirmation", title: "Приближается подтверждение компетентности", text: "Заранее определяем приоритетные риски и проверяем готовность документов, записей и фактической практики к оценке соответствия." },
-  { id: "scenario-corrective-actions", title: "Выявлены несоответствия, действие аккредитации приостановлено или область сокращена", text: "Анализируем основания, помогаем определить первопричины и подготовить корректирующие действия и подтверждающие записи для представления в установленном порядке." },
-  { id: "scenario-scope-audit", title: "Планируется расширение области или изменение места осуществления деятельности", text: "Проверяем согласованность области аккредитации, ресурсов, персонала, документов и фактической готовности." },
-  { id: "scenario-primary-accreditation", title: "Организация готовится к первичной аккредитации", text: "Сопоставляем проектируемые процессы, документы, ресурсы и записи с применимыми требованиями до подачи заявления." },
-  { id: "scenario-special-directions", title: "Требуется внешний контроль СМК", text: "Проводим периодические независимые проверки и помогаем поддерживать внутренний контроль рисков. Ответственность за СМК и выполнение процессов остаётся у организации." },
+  { id: "scenario-confirmation", title: "Приближается подтверждение компетентности", text: "До подачи заявления определяем приоритетные риски и проверяем готовность документов, записей и фактической практики к оценке соответствия критериям аккредитации.", cta: "Обсудить подготовку к ПК" },
+  { id: "scenario-corrective-actions", title: "По результатам оценки выявлены несоответствия", text: "Анализируем применимые требования и первопричины, помогаем подготовить план корректирующих действий и комплект подтверждающих материалов.", cta: "Разобрать несоответствия" },
+  { id: "scenario-suspension", title: "Действие аккредитации приостановлено или область сокращена", text: "Сопоставляем основания принятого решения, применимую процедуру и фактическое состояние. Формируем приоритеты дальнейших действий в рамках применимой процедуры.", cta: "Обсудить дальнейшие действия" },
+  { id: "scenario-scope-audit", title: "Планируется расширение области аккредитации", text: "Проверяем согласованность заявляемой области, ресурсов, компетентности персонала, документов и фактической готовности.", cta: "Проверить готовность к расширению" },
+  { id: "scenario-site-change", title: "Изменяется место осуществления деятельности", text: "Проверяем готовность нового места, ресурсов и подтверждающих документов с учётом применимых требований к внесению изменений в реестр.", cta: "Обсудить изменение места" },
+  { id: "scenario-primary-accreditation", title: "Организация готовится к первичной аккредитации", text: "Сопоставляем проектируемые процессы, документы, ресурсы и записи с применимыми требованиями до подачи заявления.", cta: "Обсудить первичную аккредитацию" },
+  { id: "scenario-special-directions", title: "Нужна периодическая независимая проверка СМК", text: "Проверяем СМК, новые записи и изменения между процедурами. Ответственность за систему менеджмента и выполнение процессов остаётся у организации.", cta: "Настроить периодическую проверку" },
 ];
 ---
 
@@ -12,8 +14,8 @@ const situations = [
   <div class="section__inner page-container">
     <header class="situations-intro">
       <p class="section__eyebrow">Сценарии работы</p>
-      <h2 id="situations-title" class="section__title">Когда цена ошибки выше стоимости аудита</h2>
-      <p class="section__lead">Недостаточная готовность может привести к дополнительным затратам, переносу сроков, выявлению несоответствий и другим неблагоприятным последствиям. Мы подключаемся, когда необходимы независимая оценка текущего состояния и понятный план действий.</p>
+      <h2 id="situations-title" class="section__title">Ситуации, в которых нужен независимый аудит готовности</h2>
+      <p class="section__lead">Подключаемся, когда необходимо проверить текущее состояние, определить приоритетные риски и сформировать понятный план дальнейшей подготовки.</p>
     </header>
 
     <div class="situations-list">
@@ -22,7 +24,7 @@ const situations = [
           <span aria-hidden="true">0{index + 1}</span>
           <h3>{item.title}</h3>
           <p>{item.text}</p>
-          <a href="#contact" aria-label={`Обсудить ситуацию: ${item.title}`}>Обсудить <span aria-hidden="true">→</span></a>
+          <a href="#contact" data-contact-context={item.title} aria-label={`${item.cta}: ${item.title}`}>{item.cta} <span aria-hidden="true">→</span></a>
         </article>
       ))}
     </div>
@@ -42,5 +44,5 @@ const situations = [
   .situation-row{transition:background-color var(--duration-fast) var(--easing-standard)}
   @media(hover:hover){.situation-row:hover{background:rgba(23,224,138,.07);background:color-mix(in srgb,var(--color-mint-action) 7%,transparent)}}
   @media(prefers-reduced-motion:reduce){.situation-row a::after,.situation-row a span,.situation-row{transition:none}.situation-row a:hover span{transform:none}}
-  @media(max-width:42rem){.situation-row{grid-template-columns:2.25rem minmax(0,1fr)}.situation-row p,.situation-row a{grid-column:2}.situation-row a{width:fit-content}}
+  @media(max-width:42rem){.situation-row{grid-template-columns:2.25rem minmax(0,1fr)}.situation-row p,.situation-row a{grid-column:2}.situation-row a{width:fit-content;white-space:normal}}
 </style>

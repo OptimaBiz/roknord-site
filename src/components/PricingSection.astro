@@ -3,7 +3,7 @@ const formats = [
   {
     kicker: "Когда нужен единый контур подготовки",
     name: "Полный комплекс",
-    lead: "Для процедур с несколькими взаимосвязанными зонами риска: от корректирующих действий и доказательной базы до подготовки сотрудников к ВКС.",
+    lead: "Для процедур с несколькими взаимосвязанными зонами риска: от корректирующих действий и проверки доказательств до подготовки сотрудников к выездной или удалённой оценке.",
     result: "Согласованный контур подготовки с приоритетами и зонами ответственности.",
     termsLabel: "Объём и стоимость",
     terms: "Определяются по итогам аудита",
@@ -21,11 +21,11 @@ const formats = [
   },
   {
     kicker: "Когда готовность важно поддерживать",
-    name: "Внешний контроль качества",
+    name: "Периодический независимый аудит",
     lead: "Для периодической независимой проверки СМК, новых записей и изменений между процедурами Росаккредитации.",
     result: "Регулярная оценка рисков до следующего подтверждения компетентности.",
     termsLabel: "Условие",
-    terms: "После первичного аудита",
+    terms: "После аудита готовности",
     note: "График и формат согласуются индивидуально.",
   },
 ];
@@ -36,8 +36,8 @@ const auditResults = [
     text: "с приоритетами по влиянию на готовность",
   },
   {
-    title: "Реестр разрывов",
-    text: "между требованиями, записями и практикой",
+    title: "Реестр расхождений",
+    text: "между требованиями, документами, записями и практикой",
   },
   {
     title: "План действий",
@@ -51,18 +51,18 @@ const auditResults = [
     <header class="formats-intro">
       <p class="section__eyebrow">Форматы работы</p>
       <h2 id="formats-title" class="section__title">Начинаем с аудита. Дальше — только необходимый объём сопровождения</h2>
-      <p class="section__lead">Первичный аудит показывает фактические разрывы и помогает определить, какие работы действительно нужны. Решение о дальнейшем сопровождении заказчик принимает после получения результатов.</p>
+      <p class="section__lead">Независимый аудит готовности выявляет риски и расхождения и помогает определить, какие работы действительно нужны. Решение о дальнейшем сопровождении заказчик принимает после получения результатов.</p>
     </header>
 
     <article class="pricing-start" aria-labelledby="pricing-start-title">
       <div class="pricing-start__main">
         <header class="pricing-start__head">
           <span class="pricing-start__badge">Первый этап</span>
-          <h3 id="pricing-start-title">Первичный аудит</h3>
+          <h3 id="pricing-start-title">Независимый аудит готовности</h3>
           <p>Проверяем СМК, область аккредитации, документы, записи, сведения во ФГИС и фактическую практику в пределах согласованной выборки.</p>
         </header>
 
-        <ul class="pricing-start__results" aria-label="Результаты первичного аудита">
+        <ul class="pricing-start__results" aria-label="Результаты независимого аудита готовности">
           {auditResults.map((result, index) => (
             <li>
               <span aria-hidden="true">0{index + 1}</span>
@@ -73,7 +73,7 @@ const auditResults = [
         </ul>
       </div>
 
-      <aside class="pricing-start__offer" aria-label="Стоимость и срок первичного аудита">
+      <aside class="pricing-start__offer" aria-label="Стоимость и срок независимого аудита готовности">
         <dl class="pricing-start__facts">
           <div>
             <dt>Стоимость</dt>
@@ -84,7 +84,7 @@ const auditResults = [
             <dd><strong>5–10</strong><span>рабочих дней после получения согласованных материалов</span></dd>
           </div>
         </dl>
-        <a class="pricing-start__cta cta-angled motion-control" href="#contact"><span>Обсудить объём аудита</span><span aria-hidden="true">→</span></a>
+        <a class="pricing-start__cta cta-angled motion-control" href="#contact" data-contact-context="Независимый аудит готовности: объём и стоимость"><span>Обсудить объём аудита</span><span aria-hidden="true">→</span></a>
       </aside>
 
       <p class="pricing-start__credit">

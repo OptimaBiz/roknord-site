@@ -64,7 +64,10 @@ const consentVersion = "1.1-2026-08-13";
         <input type="hidden" name="consent_version" value={consentVersion} />
         <input type="hidden" name="consent_timestamp" value="" />
         <input type="hidden" name="consent_page" value="" />
+        <input type="hidden" name="request_context" value="" data-contact-context-input />
         <input type="text" name="_gotcha" class="contact-form__trap" tabindex="-1" autocomplete="off" />
+
+        <p class="contact-form__context" data-contact-context-display hidden></p>
 
         <div class="contact-form__grid">
           <label class="contact-field">
@@ -180,7 +183,18 @@ const consentVersion = "1.1-2026-08-13";
       const contactStatus = contactRoot?.querySelector("[data-contact-status]");
       const contactSubmit = contactRoot?.querySelector("[data-contact-submit]");
       const contactSubmitText = contactRoot?.querySelector("[data-contact-submit-text]");
+      const contactContextInput = contactRoot?.querySelector("[data-contact-context-input]");
+      const contactContextDisplay = contactRoot?.querySelector("[data-contact-context-display]");
       const legalDialogs = contactRoot?.querySelectorAll("[data-legal-dialog]") || [];
+
+      const applyContactContext = (value) => {
+        const context = typeof value === "string" ? value.trim() : "";
+        if (contactContextInput instanceof HTMLInputElement) contactContextInput.value = context;
+        if (contactContextDisplay instanceof HTMLElement) {
+          contactContextDisplay.hidden = !context;
+          contactContextDisplay.textContent = context ? `Вы выбрали: ${context}` : "";
+        }
+      };
 
       legalDialogs.forEach((dialog) => {
         if (!(dialog instanceof HTMLDialogElement)) return;
@@ -200,6 +214,7 @@ const consentVersion = "1.1-2026-08-13";
 
       if (contactRoot?.id === "contact" && !document.documentElement.hasAttribute("data-contact-anchor-ready")) {
         document.documentElement.setAttribute("data-contact-anchor-ready", "");
+        applyContactContext(new URL(window.location.href).searchParams.get("context"));
 
         const getContactScrollTop = () => {
           const requestStrip = document.querySelector(".request-strip");
@@ -242,6 +257,7 @@ const consentVersion = "1.1-2026-08-13";
           if (targetUrl.pathname !== window.location.pathname || targetUrl.hash !== "#contact") return;
 
           event.preventDefault();
+          applyContactContext(anchor.dataset.contactContext || targetUrl.searchParams.get("context"));
           window.history.pushState(null, "", "#contact");
           scrollToContact();
         });
@@ -549,6 +565,16 @@ const consentVersion = "1.1-2026-08-13";
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035)),
       var(--lrqa-navy-2);
+  }
+
+  .contact-form__context {
+    margin: 0;
+    padding: var(--space-3) var(--space-4);
+    border-left: 3px solid var(--lrqa-mint);
+    background: color-mix(in srgb, var(--lrqa-mint) 9%, transparent);
+    color: var(--lrqa-white);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
   }
 
   .contact-form::before {

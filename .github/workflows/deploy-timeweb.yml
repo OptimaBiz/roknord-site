@@ -18,6 +18,7 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     environment: production
 
     steps:
@@ -45,11 +46,12 @@ jobs:
           TIMEWEB_FTP_PASSWORD: ${{ secrets.TIMEWEB_FTP_PASSWORD_V2 }}
         run: |
           set -uo pipefail
-          for attempt in 1 2 3; do
-            if lftp -u "$TIMEWEB_FTP_USER","$TIMEWEB_FTP_PASSWORD" vh348.timeweb.ru <<'LFTP'
+          for attempt in 1 2; do
+            if timeout --signal=TERM --kill-after=10s 120s lftp -u "$TIMEWEB_FTP_USER","$TIMEWEB_FTP_PASSWORD" vh348.timeweb.ru <<'LFTP'
           set ftp:ssl-allow false
+          set ftp:passive-mode true
           set net:timeout 30
-          set net:max-retries 5
+          set net:max-retries 2
           set net:reconnect-interval-base 5
           set net:reconnect-interval-multiplier 1
           mirror --reverse --parallel=1 --exclude-glob '*.mp4' --exclude-glob '*.webm' --verbose ./dist/ ./public_html/
@@ -59,11 +61,11 @@ jobs:
               exit 0
             fi
 
-            if [ "$attempt" -lt 3 ]; then
-              echo "FTP deployment attempt $attempt failed; retrying in 15 seconds."
-              sleep 15
+            if [ "$attempt" -lt 2 ]; then
+              echo "FTP deployment attempt $attempt failed; retrying in 10 seconds."
+              sleep 10
             fi
           done
 
-          echo "FTP deployment failed after three sessions."
+          echo "FTP deployment failed after two sessions."
           exit 1

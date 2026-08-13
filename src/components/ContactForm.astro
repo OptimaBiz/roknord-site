@@ -122,12 +122,10 @@ const consentVersion = "1.1-2026-08-13";
         <label class="contact-consent">
           <input name="personal_data_consent" type="checkbox" value="accepted" required />
           <span class="contact-consent__content">
-            <span>
-              Я выражаю согласие на обработку персональных данных в соответствии с
-              <span class="contact-consent__documents">
-                <button class="contact-consent__link" type="button" data-legal-open="consent">Текстом согласия</button>
-                <span aria-hidden="true"> и </span>
-                <button class="contact-consent__link" type="button" data-legal-open="privacy">Политикой в отношении обработки персональных данных</button>.</span>
+            <span class="contact-consent__statement">Я выражаю согласие на обработку персональных данных.</span>
+            <span class="contact-consent__documents" aria-label="Документы">
+              <button class="contact-consent__link" type="button" data-legal-open="consent">Текст согласия</button>
+              <button class="contact-consent__link" type="button" data-legal-open="privacy" aria-label="Политика в отношении обработки персональных данных">Политика обработки персональных данных</button>
             </span>
           </span>
         </label>
@@ -691,15 +689,23 @@ const consentVersion = "1.1-2026-08-13";
   }
 
   .contact-consent__content {
+    display: grid;
+    gap: 0.3rem;
     min-width: 0;
   }
 
   .contact-consent__documents {
-    display: inline;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.15rem 0.5rem;
+    color: var(--lrqa-white);
+    font-size: var(--font-size-xs);
+    line-height: 1.35;
   }
 
   .contact-consent__link {
-    display: inline;
+    display: inline-block;
     padding: 0;
     border: 0;
     border-bottom: 1px solid var(--lrqa-mint);
@@ -709,6 +715,12 @@ const consentVersion = "1.1-2026-08-13";
     line-height: inherit;
     text-align: inherit;
     cursor: pointer;
+  }
+
+  .contact-consent__link + .contact-consent__link::before {
+    content: "·";
+    margin-right: 0.5rem;
+    color: var(--color-mint-action);
   }
 
   .contact-consent__link:hover,

@@ -90,7 +90,7 @@ jobs:
         run: |
           set -euo pipefail
           rsync -az --delete-delay --exclude=config.php \
-            -e "ssh -i ~/.ssh/timeweb_deploy -p ${TIMEWEB_SSH_PORT}" \
+            -e "ssh -4 -i ~/.ssh/timeweb_deploy -p ${TIMEWEB_SSH_PORT}" \
             api-dist/ "${TIMEWEB_SSH_USER}@${TIMEWEB_SSH_HOST}:${TIMEWEB_API_PATH%/}/"
 
       - name: Deploy frontend
@@ -102,7 +102,7 @@ jobs:
         run: |
           set -euo pipefail
           rsync -az --delete-delay \
-            -e "ssh -i ~/.ssh/timeweb_deploy -p ${TIMEWEB_SSH_PORT}" \
+            -e "ssh -4 -i ~/.ssh/timeweb_deploy -p ${TIMEWEB_SSH_PORT}" \
             dist/ "${TIMEWEB_SSH_USER}@${TIMEWEB_SSH_HOST}:${TIMEWEB_SITE_PATH%/}/"
 
       - name: Verify deployed files
@@ -113,6 +113,6 @@ jobs:
           TIMEWEB_SITE_PATH: ${{ secrets.TIMEWEB_SITE_PATH }}
           TIMEWEB_API_PATH: ${{ secrets.TIMEWEB_API_PATH }}
         run: |
-          ssh -i ~/.ssh/timeweb_deploy -p "${TIMEWEB_SSH_PORT}" \
+          ssh -4 -i ~/.ssh/timeweb_deploy -p "${TIMEWEB_SSH_PORT}" \
             "${TIMEWEB_SSH_USER}@${TIMEWEB_SSH_HOST}" \
             "test -s '${TIMEWEB_SITE_PATH%/}/index.html' && test -s '${TIMEWEB_SITE_PATH%/}/privacy-policy/index.html' && test -s '${TIMEWEB_API_PATH%/}/contact.php'"

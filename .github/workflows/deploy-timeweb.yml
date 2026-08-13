@@ -37,35 +37,20 @@ jobs:
       - name: Build frontend
         run: npm run build
 
-      - name: Install FTP client
-        run: sudo apt-get update && sudo apt-get install -y lftp
+      - name: Install SSH deployment client
+        run: sudo apt-get update && sudo apt-get install -y sshpass
 
-      - name: Deploy frontend over FTP
+      - name: Deploy frontend over SSH
         env:
-          TIMEWEB_FTP_USER: ${{ secrets.TIMEWEB_FTP_USER }}
-          TIMEWEB_FTP_PASSWORD: ${{ secrets.TIMEWEB_FTP_PASSWORD_V2 }}
+          TIMEWEB_SSH_USER: ${{ secrets.TIMEWEB_SSH_USER }}
+          TIMEWEB_SSH_PASSWORD: ${{ secrets.TIMEWEB_SSH_PASSWORD }}
         run: |
-          set -uo pipefail
-          for attempt in 1 2; do
-            if timeout --signal=TERM --kill-after=10s 120s lftp -u "$TIMEWEB_FTP_USER","$TIMEWEB_FTP_PASSWORD" vh348.timeweb.ru <<'LFTP'
-          set ftp:ssl-allow false
-          set ftp:passive-mode true
-          set net:timeout 30
-          set net:max-retries 2
-          set net:reconnect-interval-base 5
-          set net:reconnect-interval-multiplier 1
-          mirror --reverse --parallel=1 --exclude-glob '*.mp4' --exclude-glob '*.webm' --verbose ./dist/ ./public_html/
-          bye
-          LFTP
-            then
-              exit 0
-            fi
-
-            if [ "$attempt" -lt 2 ]; then
-              echo "FTP deployment attempt $attempt failed; retrying in 10 seconds."
-              sleep 10
-            fi
-          done
-
-          echo "FTP deployment failed after two sessions."
-          exit 1
+          set -euo pipefail
+          test -n "$TIMEWEB_SSH_USER"
+          test -n "$TIMEWEB_SSH_PASSWORD"
+          export SSHPASS="$TIMEWEB_SSH_PASSWORD"
+          sshpass -e rsync -az --delete --timeout=30 --contimeout=15 \
+            --exclude='*.mp4' \
+            --exclude='*.webm' \
+            -e 'ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15' \
+            ./dist/ "$TIMEWEB_SSH_USER@vh348.timeweb.ru:roknord/public_html/"

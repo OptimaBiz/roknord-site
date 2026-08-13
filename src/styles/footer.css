@@ -27,6 +27,17 @@
   line-height: var(--line-height-relaxed);
 }
 
+.cookie-panel__status {
+  margin: calc(var(--space-2) * -1) 0 0;
+  color: var(--color-mint-action);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-base);
+}
+
+.cookie-panel__status[hidden] {
+  display: none;
+}
+
 .cookie-panel__actions {
   display: flex;
   flex-wrap: wrap;

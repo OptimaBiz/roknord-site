@@ -5,6 +5,8 @@ declare(strict_types=1);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
+const CONSENT_VERSION = '1.1-2026-08-13';
+
 $baseDir = is_file(__DIR__ . '/config.php') ? __DIR__ : dirname(__DIR__);
 $composerAutoload = $baseDir . '/vendor/autoload.php';
 if (is_file($composerAutoload)) {
@@ -76,6 +78,25 @@ if (($_POST['personal_data_consent'] ?? '') !== 'accepted') {
     respond(422, ['ok' => false, 'message' => 'Необходимо выразить согласие на обработку персональных данных.']);
 }
 
+$consentVersion = cleanText($_POST['consent_version'] ?? '', 40);
+if ($consentVersion !== CONSENT_VERSION) {
+    respond(422, ['ok' => false, 'message' => 'Обновите страницу и подтвердите актуальную редакцию согласия.']);
+}
+
+$consentTimestamp = cleanText($_POST['consent_timestamp'] ?? '', 40);
+$consentPage = trim((string) ($_POST['consent_page'] ?? ''));
+$consentPageParts = filter_var($consentPage, FILTER_VALIDATE_URL) !== false ? parse_url($consentPage) : false;
+$consentPageHost = is_array($consentPageParts) ? strtolower((string) ($consentPageParts['host'] ?? '')) : '';
+if (!in_array($consentPageHost, ['roknord.ru', 'www.roknord.ru'], true)) {
+    respond(422, ['ok' => false, 'message' => 'Не удалось подтвердить страницу отправки формы.']);
+}
+$consentPage = mb_substr($consentPage, 0, 2048);
+
+$receivedAt = gmdate(DATE_ATOM);
+$clientAddress = cleanText($_SERVER['REMOTE_ADDR'] ?? 'unknown', 64);
+$userAgent = cleanText($_SERVER['HTTP_USER_AGENT'] ?? 'unknown', 500);
+$requestId = bin2hex(random_bytes(8));
+
 $name = cleanText($_POST['name'] ?? '', 80);
 $email = trim((string) ($_POST['email'] ?? ''));
 $phone = cleanText($_POST['phone'] ?? '', 24);
@@ -121,8 +142,34 @@ try {
     $mail->addReplyTo($email, $name);
     $mail->Subject = $subjects[$formName];
     $mail->isHTML(true);
-    $mail->Body = buildHtmlBody($formName, $name, $email, $phone, $message);
-    $mail->AltBody = buildTextBody($formName, $name, $email, $phone, $message);
+    $mail->Body = buildHtmlBody(
+        $formName,
+        $name,
+        $email,
+        $phone,
+        $message,
+        $consentVersion,
+        $consentTimestamp,
+        $consentPage,
+        $receivedAt,
+        $clientAddress,
+        $userAgent,
+        $requestId,
+    );
+    $mail->AltBody = buildTextBody(
+        $formName,
+        $name,
+        $email,
+        $phone,
+        $message,
+        $consentVersion,
+        $consentTimestamp,
+        $consentPage,
+        $receivedAt,
+        $clientAddress,
+        $userAgent,
+        $requestId,
+    );
     $mail->send();
 } catch (Throwable $exception) {
     error_log('Roknord contact mail delivery failed');
@@ -158,7 +205,20 @@ function escape(string $value): string
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
-function buildHtmlBody(string $formName, string $name, string $email, string $phone, string $message): string
+function buildHtmlBody(
+    string $formName,
+    string $name,
+    string $email,
+    string $phone,
+    string $message,
+    string $consentVersion,
+    string $consentTimestamp,
+    string $consentPage,
+    string $receivedAt,
+    string $clientAddress,
+    string $userAgent,
+    string $requestId,
+): string
 {
     $rows = [
         'Форма' => $formName,
@@ -167,21 +227,49 @@ function buildHtmlBody(string $formName, string $name, string $email, string $ph
     ];
     if ($phone !== '') $rows['Телефон'] = $phone;
     if ($message !== '') $rows['Сообщение'] = nl2br(escape($message));
+    $rows['Согласие'] = 'выражено';
+    $rows['Версия согласия'] = $consentVersion;
+    $rows['Время на устройстве пользователя'] = $consentTimestamp !== '' ? $consentTimestamp : 'не передано';
+    $rows['Время получения сервером'] = $receivedAt;
+    $rows['Страница отправки'] = $consentPage;
+    $rows['IP-адрес'] = $clientAddress;
+    $rows['User-Agent'] = $userAgent;
+    $rows['Идентификатор обращения'] = $requestId;
 
     $html = '<h2>Новое обращение с сайта roknord.ru</h2><table cellpadding="8" cellspacing="0" border="1" style="border-collapse:collapse">';
     foreach ($rows as $label => $value) {
         $safeValue = $label === 'Сообщение' ? $value : escape($value);
         $html .= '<tr><th align="left">' . escape($label) . '</th><td>' . $safeValue . '</td></tr>';
     }
-    return $html . '</table><p>Согласие на обработку персональных данных: выражено.</p>';
+    return $html . '</table>';
 }
 
-function buildTextBody(string $formName, string $name, string $email, string $phone, string $message): string
+function buildTextBody(
+    string $formName,
+    string $name,
+    string $email,
+    string $phone,
+    string $message,
+    string $consentVersion,
+    string $consentTimestamp,
+    string $consentPage,
+    string $receivedAt,
+    string $clientAddress,
+    string $userAgent,
+    string $requestId,
+): string
 {
     $lines = ["Новое обращение с сайта roknord.ru", "Форма: $formName", "Имя: $name", "E-mail: $email"];
     if ($phone !== '') $lines[] = "Телефон: $phone";
     if ($message !== '') $lines[] = "Сообщение:\n$message";
     $lines[] = 'Согласие на обработку персональных данных: выражено.';
+    $lines[] = "Версия согласия: $consentVersion";
+    $lines[] = 'Время на устройстве пользователя: ' . ($consentTimestamp !== '' ? $consentTimestamp : 'не передано');
+    $lines[] = "Время получения сервером: $receivedAt";
+    $lines[] = "Страница отправки: $consentPage";
+    $lines[] = "IP-адрес: $clientAddress";
+    $lines[] = "User-Agent: $userAgent";
+    $lines[] = "Идентификатор обращения: $requestId";
     return implode("\n\n", $lines);
 }
 

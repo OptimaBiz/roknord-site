@@ -38,35 +38,81 @@ const {
     </script>
 
     <script is:inline>
-      // Библиотека Метрики присутствует на странице сразу, чтобы Яндекс мог
-      // обнаружить установку. Сам счётчик и сбор статистики запускаются только
-      // после согласия пользователя в cookie-панели.
-      (function (m, e, t, r, i, k, a) {
-        m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
-        m[i].l = 1 * new Date();
-        for (var j = 0; j < document.scripts.length; j++) {
-          if (document.scripts[j].src === r) return;
-        }
-        k = e.createElement(t);
-        a = e.getElementsByTagName(t)[0];
-        k.async = 1;
-        k.src = r;
-        a.parentNode.insertBefore(k, a);
-      })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=111293528", "ym");
+      const roknordMetrikaId = 111293528;
+      const roknordMetrikaSrc = `https://mc.yandex.ru/metrika/tag.js?id=${roknordMetrikaId}`;
 
       window.__roknordEnableAnalytics = function () {
-        if (window.__roknordAnalyticsOn) return;
-        window.__roknordAnalyticsOn = true;
+        if (window.__roknordAnalyticsOn || window.__roknordAnalyticsLoading) return;
+        window.__roknordAnalyticsLoading = true;
 
-        ym(111293528, "init", {
-          ssr: true,
-          webvisor: true,
-          clickmap: true,
-          ecommerce: "dataLayer",
-          referrer: document.referrer,
-          url: location.href,
-          accurateTrackBounce: true,
-          trackLinks: true,
+        window.ym = window.ym || function () {
+          (window.ym.a = window.ym.a || []).push(arguments);
+        };
+        window.ym.l = Number(new Date());
+
+        const initialize = function () {
+          try {
+            if (window.localStorage.getItem("roknord-cookie-consent") !== "accepted") {
+              window.__roknordAnalyticsLoading = false;
+              return;
+            }
+          } catch {
+            window.__roknordAnalyticsLoading = false;
+            return;
+          }
+
+          if (window.__roknordAnalyticsOn) return;
+          window.__roknordAnalyticsOn = true;
+          window.__roknordAnalyticsLoading = false;
+          window.ym(roknordMetrikaId, "init", {
+            ssr: true,
+            webvisor: true,
+            clickmap: true,
+            ecommerce: "dataLayer",
+            referrer: document.referrer,
+            url: location.href,
+            accurateTrackBounce: true,
+            trackLinks: true,
+          });
+        };
+
+        const existingScript = document.querySelector('script[data-roknord-metrika]');
+        if (existingScript) {
+          if (existingScript.dataset.loaded === "true") initialize();
+          else existingScript.addEventListener("load", initialize, { once: true });
+          return;
+        }
+
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = roknordMetrikaSrc;
+        script.dataset.roknordMetrika = "";
+        script.addEventListener("load", function () {
+          script.dataset.loaded = "true";
+          initialize();
+        }, { once: true });
+        script.addEventListener("error", function () {
+          window.__roknordAnalyticsLoading = false;
+        }, { once: true });
+        document.head.appendChild(script);
+      };
+
+      window.__roknordDisableAnalytics = function () {
+        if (window.__roknordAnalyticsOn && typeof window.ym === "function") {
+          try { window.ym(roknordMetrikaId, "destruct"); } catch {}
+        }
+        window.__roknordAnalyticsOn = false;
+        window.__roknordAnalyticsLoading = false;
+
+        const cookieNames = document.cookie
+          .split(";")
+          .map((part) => part.split("=")[0]?.trim())
+          .filter((name) => name && (name.startsWith("_ym") || name.startsWith("yabs")));
+        const domains = ["", location.hostname, ".roknord.ru"];
+        cookieNames.forEach((name) => {
+          domains.forEach((domain) => {
+            document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax${domain ? `; Domain=${domain}` : ""}`;
+          });
         });
       };
 
@@ -84,9 +130,9 @@ const {
         document.addEventListener("click", function (event) {
           if (!(event.target instanceof Element)) return;
           var link = event.target.closest('a[href^="tel:"], a[href^="mailto:"]');
-          if (!link || typeof ym !== "function") return;
+          if (!link || !window.__roknordAnalyticsOn || typeof window.ym !== "function") return;
           var goal = link.getAttribute("href").indexOf("tel:") === 0 ? "phone_click" : "email_click";
-          ym(111293528, "reachGoal", goal);
+          window.ym(roknordMetrikaId, "reachGoal", goal);
         });
       }
     </script>

@@ -40,7 +40,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     // Сюда форма уводит только после успешной отправки — значит это и есть конверсия.
     (function () {
       var fire = function () {
-        if (typeof ym === "function") ym(111293528, "reachGoal", "form_submit");
+        if (window.__roknordAnalyticsOn && typeof window.ym === "function") {
+          window.ym(111293528, "reachGoal", "form_submit");
+        }
       };
       if (typeof ym === "function") fire();
       else window.addEventListener("load", fire, { once: true });

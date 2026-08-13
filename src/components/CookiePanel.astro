@@ -1,9 +1,10 @@
-<aside class="cookie-panel" data-cookie-panel hidden aria-label="Уведомление о cookies">
+<aside class="cookie-panel" data-cookie-panel hidden aria-label="Настройки файлов cookie" aria-live="polite">
   <p class="cookie-panel__text">
-    Используем cookies, чтобы сайт работал корректно и мы понимали, какие материалы полезны. Аналитика подключается только с вашего согласия.
+    Необходимые cookie обеспечивают работу сайта. Яндекс Метрика и аналитические cookie включаются только после вашего согласия.
   </p>
+  <p class="cookie-panel__status" data-cookie-status hidden></p>
   <div class="cookie-panel__actions">
-    <a class="cookie-panel__link" href="/privacy-policy/">Подробнее</a>
+    <a class="cookie-panel__link" href="/privacy-policy/#cookies">Подробнее</a>
     <button class="cookie-panel__decline motion-control" type="button" data-cookie-decline>Отклонить</button>
     <button class="cookie-panel__button cta-angled motion-control" type="button" data-cookie-accept>Принять</button>
   </div>
@@ -12,30 +13,52 @@
 <script is:inline>
   (() => {
     const key = "roknord-cookie-consent";
+    const metaKey = "roknord-cookie-consent-meta";
+    const consentVersion = "1.0-2026-08-13";
     const panel = document.querySelector("[data-cookie-panel]");
     const accept = document.querySelector("[data-cookie-accept]");
     const decline = document.querySelector("[data-cookie-decline]");
+    const status = document.querySelector("[data-cookie-status]");
+    const settingsButtons = document.querySelectorAll("[data-cookie-settings]");
     if (!panel || !accept || !decline) return;
 
     let stored = null;
     try {
       stored = window.localStorage.getItem(key);
     } catch {}
-    if (stored === "accepted" || stored === "declined") return;
+    const showPanel = (showCurrentChoice = false) => {
+      if (status instanceof HTMLElement) {
+        status.hidden = !showCurrentChoice || (stored !== "accepted" && stored !== "declined");
+        status.textContent = stored === "accepted"
+          ? "Текущий выбор: аналитика разрешена."
+          : "Текущий выбор: аналитика отключена.";
+      }
+      panel.hidden = false;
+      accept.focus();
+    };
 
-    panel.hidden = false;
+    if (stored !== "accepted" && stored !== "declined") showPanel(false);
 
     const close = (value) => {
       try {
         window.localStorage.setItem(key, value);
+        window.localStorage.setItem(metaKey, JSON.stringify({
+          status: value,
+          version: consentVersion,
+          updatedAt: new Date().toISOString(),
+        }));
       } catch {}
+      stored = value;
       panel.hidden = true;
       if (value === "accepted" && typeof window.__roknordEnableAnalytics === "function") {
         window.__roknordEnableAnalytics();
+      } else if (value === "declined" && typeof window.__roknordDisableAnalytics === "function") {
+        window.__roknordDisableAnalytics();
       }
     };
 
     accept.addEventListener("click", () => close("accepted"));
     decline.addEventListener("click", () => close("declined"));
+    settingsButtons.forEach((button) => button.addEventListener("click", () => showPanel(true)));
   })();
 </script>

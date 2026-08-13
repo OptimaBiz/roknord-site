@@ -33,6 +33,7 @@ const {
 
 const titleId = `${id}-form-title`;
 const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.roknord.ru/contact.php";
+const consentVersion = "1.1-2026-08-13";
 ---
 
 <section id={id} class:list={["contact-form-section", embedded && "contact-form-section--embedded"]} aria-labelledby={titleId}>
@@ -60,6 +61,9 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
       >
         <input type="hidden" name="_subject" value={subject} />
         <input type="hidden" name="form_name" value={formName} />
+        <input type="hidden" name="consent_version" value={consentVersion} />
+        <input type="hidden" name="consent_timestamp" value="" />
+        <input type="hidden" name="consent_page" value="" />
         <input type="text" name="_gotcha" class="contact-form__trap" tabindex="-1" autocomplete="off" />
 
         <div class="contact-form__grid">
@@ -111,20 +115,20 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
           </label>
         )}
 
-        <button class="contact-form__submit cta-angled motion-control" type="submit" data-contact-submit data-default-text={submitLabel}>
-          <span data-contact-submit-text>{submitLabel}</span>
-        </button>
-
         <label class="contact-consent">
           <input name="personal_data_consent" type="checkbox" value="accepted" required />
           <span class="contact-consent__content">
             <span>Я выражаю согласие на обработку персональных данных.</span>
             <span class="contact-consent__documents">
               <button class="contact-consent__link" type="button" data-legal-open="consent">Текст согласия</button>
-              <button class="contact-consent__link" type="button" data-legal-open="privacy">Политика конфиденциальности</button>
+              <button class="contact-consent__link" type="button" data-legal-open="privacy">Политика в отношении обработки персональных данных</button>
             </span>
           </span>
         </label>
+
+        <button class="contact-form__submit cta-angled motion-control" type="submit" data-contact-submit data-default-text={submitLabel}>
+          <span data-contact-submit-text>{submitLabel}</span>
+        </button>
 
         <p class="contact-form__status" data-contact-status role="status" aria-live="polite">
           {statusText}
@@ -144,6 +148,7 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
             <p><strong>Действия:</strong> сбор, запись, систематизация, накопление, хранение, уточнение, извлечение, использование, передача в предусмотренных законом случаях, обезличивание, блокирование и удаление.</p>
             <p><strong>Срок:</strong> до достижения цели обработки либо до отзыва согласия, если иной срок не установлен законом. Отзыв направляется на <a href="mailto:hello@roknord.ru">hello@roknord.ru</a>.</p>
             <p>Согласие оформляется отдельно от иных подтверждаемых документов. Непредоставление согласия означает невозможность отправить обращение через форму сайта.</p>
+            <p><strong>Редакция согласия:</strong> 1.1 от 13 августа 2026 года.</p>
             <p><a href="/personal-data-consent/">Открыть отдельную страницу согласия</a></p>
           </div>
         </div>
@@ -152,8 +157,8 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
       <dialog class="legal-dialog" data-legal-dialog="privacy" aria-labelledby="privacy-dialog-title">
         <div class="legal-dialog__inner">
           <div class="legal-dialog__header">
-            <h2 id="privacy-dialog-title">Политика конфиденциальности</h2>
-            <button class="legal-dialog__close" type="button" data-legal-close aria-label="Закрыть политику конфиденциальности">×</button>
+            <h2 id="privacy-dialog-title">Политика в отношении обработки персональных данных</h2>
+            <button class="legal-dialog__close" type="button" data-legal-close aria-label="Закрыть политику в отношении обработки персональных данных">×</button>
           </div>
           <div class="legal-dialog__body">
             <p><strong>Оператор:</strong> Общество с ограниченной ответственностью «РОКНОРД» (ООО «РОКНОРД»), адрес: 198320, Санкт-Петербург, г. Красное Село, ул. Свободы, д. 57Д, пом. 7-Н, офис 615. ИНН 7807406530, КПП 780701001.</p>
@@ -161,7 +166,7 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
             <p><strong>Цели:</strong> регистрация и рассмотрение обращения, подготовка ответа, связь с пользователем, обеспечение работы и безопасности сайта. Данные формы обрабатываются на основании отдельно выраженного согласия.</p>
             <p><strong>Порядок и срок:</strong> данные обрабатываются только в необходимом объёме и хранятся до достижения заявленной цели либо до отзыва согласия, если иной срок не установлен законом.</p>
             <p><strong>Права пользователя:</strong> можно запросить сведения об обработке, уточнение, блокирование или удаление данных и отозвать согласие, направив обращение на <a href="mailto:hello@roknord.ru">hello@roknord.ru</a>.</p>
-            <p><a href="/privacy-policy/">Открыть полную Политику конфиденциальности</a></p>
+            <p><a href="/privacy-policy/">Открыть полную Политику в отношении обработки персональных данных</a></p>
           </div>
         </div>
       </dialog>
@@ -275,6 +280,11 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.
         setContactStatus("Передаём обращение.", "pending");
 
         try {
+          const timestampInput = contactForm.elements.namedItem("consent_timestamp");
+          const pageInput = contactForm.elements.namedItem("consent_page");
+          if (timestampInput instanceof HTMLInputElement) timestampInput.value = new Date().toISOString();
+          if (pageInput instanceof HTMLInputElement) pageInput.value = window.location.href;
+
           const response = await fetch(contactForm.action, {
             method: contactForm.method,
             body: new FormData(contactForm),

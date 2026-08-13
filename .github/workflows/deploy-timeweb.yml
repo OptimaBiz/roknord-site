@@ -1,0 +1,118 @@
+name: Deploy production to Timeweb
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  ASTRO_TELEMETRY_DISABLED: "1"
+
+concurrency:
+  group: timeweb-production
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Build contact API package
+        run: |
+          composer install \
+            --working-dir=server/timeweb-contact-api \
+            --no-dev \
+            --prefer-dist \
+            --no-interaction \
+            --no-progress \
+            --optimize-autoloader
+          mkdir -p api-dist
+          cp server/timeweb-contact-api/public/contact.php api-dist/contact.php
+          cp server/timeweb-contact-api/public/.htaccess api-dist/.htaccess
+          cp server/timeweb-contact-api/composer.json api-dist/composer.json
+          cp -R server/timeweb-contact-api/vendor api-dist/vendor
+
+      - name: Configure SSH
+        env:
+          TIMEWEB_SSH_HOST: ${{ secrets.TIMEWEB_SSH_HOST }}
+          TIMEWEB_SSH_USER: ${{ secrets.TIMEWEB_SSH_USER }}
+          TIMEWEB_SSH_PRIVATE_KEY: ${{ secrets.TIMEWEB_SSH_PRIVATE_KEY }}
+          TIMEWEB_SSH_KNOWN_HOSTS: ${{ secrets.TIMEWEB_SSH_KNOWN_HOSTS }}
+          TIMEWEB_SITE_PATH: ${{ secrets.TIMEWEB_SITE_PATH }}
+          TIMEWEB_API_PATH: ${{ secrets.TIMEWEB_API_PATH }}
+        run: |
+          set -euo pipefail
+          for variable in \
+            TIMEWEB_SSH_HOST \
+            TIMEWEB_SSH_USER \
+            TIMEWEB_SSH_PRIVATE_KEY \
+            TIMEWEB_SSH_KNOWN_HOSTS \
+            TIMEWEB_SITE_PATH \
+            TIMEWEB_API_PATH
+          do
+            if [[ -z "${!variable}" ]]; then
+              echo "Required GitHub secret is missing: ${variable}" >&2
+              exit 1
+            fi
+          done
+
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$TIMEWEB_SSH_PRIVATE_KEY" > ~/.ssh/timeweb_deploy
+          chmod 600 ~/.ssh/timeweb_deploy
+          printf '%s\n' "$TIMEWEB_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Deploy contact API
+        env:
+          TIMEWEB_SSH_HOST: ${{ secrets.TIMEWEB_SSH_HOST }}
+          TIMEWEB_SSH_USER: ${{ secrets.TIMEWEB_SSH_USER }}
+          TIMEWEB_SSH_PORT: ${{ vars.TIMEWEB_SSH_PORT || '22' }}
+          TIMEWEB_API_PATH: ${{ secrets.TIMEWEB_API_PATH }}
+        run: |
+          set -euo pipefail
+          rsync -az --delete-delay --exclude=config.php \
+            -e "ssh -i ~/.ssh/timeweb_deploy -p ${TIMEWEB_SSH_PORT}" \
+            api-dist/ "${TIMEWEB_SSH_USER}@${TIMEWEB_SSH_HOST}:${TIMEWEB_API_PATH%/}/"
+
+      - name: Deploy frontend
+        env:
+          TIMEWEB_SSH_HOST: ${{ secrets.TIMEWEB_SSH_HOST }}
+          TIMEWEB_SSH_USER: ${{ secrets.TIMEWEB_SSH_USER }}
+          TIMEWEB_SSH_PORT: ${{ vars.TIMEWEB_SSH_PORT || '22' }}
+          TIMEWEB_SITE_PATH: ${{ secrets.TIMEWEB_SITE_PATH }}
+        run: |
+          set -euo pipefail
+          rsync -az --delete-delay \
+            -e "ssh -i ~/.ssh/timeweb_deploy -p ${TIMEWEB_SSH_PORT}" \
+            dist/ "${TIMEWEB_SSH_USER}@${TIMEWEB_SSH_HOST}:${TIMEWEB_SITE_PATH%/}/"
+
+      - name: Verify deployed files
+        env:
+          TIMEWEB_SSH_HOST: ${{ secrets.TIMEWEB_SSH_HOST }}
+          TIMEWEB_SSH_USER: ${{ secrets.TIMEWEB_SSH_USER }}
+          TIMEWEB_SSH_PORT: ${{ vars.TIMEWEB_SSH_PORT || '22' }}
+          TIMEWEB_SITE_PATH: ${{ secrets.TIMEWEB_SITE_PATH }}
+          TIMEWEB_API_PATH: ${{ secrets.TIMEWEB_API_PATH }}
+        run: |
+          ssh -i ~/.ssh/timeweb_deploy -p "${TIMEWEB_SSH_PORT}" \
+            "${TIMEWEB_SSH_USER}@${TIMEWEB_SSH_HOST}" \
+            "test -s '${TIMEWEB_SITE_PATH%/}/index.html' && test -s '${TIMEWEB_SITE_PATH%/}/privacy-policy/index.html' && test -s '${TIMEWEB_API_PATH%/}/contact.php'"

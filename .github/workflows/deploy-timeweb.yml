@@ -37,20 +37,43 @@ jobs:
       - name: Build frontend
         run: npm run build
 
-      - name: Install SSH deployment client
-        run: sudo apt-get update && sudo apt-get install -y sshpass
+      - name: Install deployment clients
+        run: sudo apt-get update && sudo apt-get install -y sshpass lftp
 
-      - name: Deploy frontend over SSH
+      - name: Deploy frontend to Timeweb
         env:
           TIMEWEB_SSH_USER: ${{ secrets.TIMEWEB_SSH_USER }}
           TIMEWEB_SSH_PASSWORD: ${{ secrets.TIMEWEB_SSH_PASSWORD }}
+          TIMEWEB_FTP_USER: ${{ secrets.TIMEWEB_FTP_USER }}
+          TIMEWEB_FTP_PASSWORD: ${{ secrets.TIMEWEB_FTP_PASSWORD_V2 }}
         run: |
           set -euo pipefail
           test -n "$TIMEWEB_SSH_USER"
           test -n "$TIMEWEB_SSH_PASSWORD"
           export SSHPASS="$TIMEWEB_SSH_PASSWORD"
-          sshpass -e rsync -az --delete --timeout=30 \
-            --exclude='*.mp4' \
-            --exclude='*.webm' \
-            -e 'ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15' \
-            ./dist/ "$TIMEWEB_SSH_USER@vh348.timeweb.ru:roknord/public_html/"
+
+          for attempt in 1 2 3; do
+            if sshpass -e rsync -az --delete --timeout=30 --delay-updates \
+              --exclude='*.mp4' \
+              --exclude='*.webm' \
+              -e 'ssh -4 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15' \
+              ./dist/ "$TIMEWEB_SSH_USER@vh348.timeweb.ru:roknord/public_html/"; then
+              exit 0
+            fi
+
+            if [ "$attempt" -lt 3 ]; then
+              echo "SSH deploy attempt $attempt failed; retrying..."
+              sleep $((attempt * 10))
+            fi
+          done
+
+          echo "SSH is unavailable; falling back to Timeweb FTP."
+          test -n "$TIMEWEB_FTP_USER"
+          test -n "$TIMEWEB_FTP_PASSWORD"
+          lftp -u "$TIMEWEB_FTP_USER","$TIMEWEB_FTP_PASSWORD" vh348.timeweb.ru <<'LFTP'
+          set ftp:ssl-allow false
+          set net:timeout 20
+          set net:max-retries 3
+          mirror --reverse --delete --parallel=1 --exclude-glob '*.mp4' --exclude-glob '*.webm' ./dist/ ./public_html/
+          bye
+          LFTP

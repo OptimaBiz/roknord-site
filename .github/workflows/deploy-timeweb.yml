@@ -36,14 +36,21 @@ jobs:
       - name: Build frontend
         run: npm run build
 
-      - name: Deploy frontend over FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
-        with:
-          server: vh348.timeweb.ru
-          username: ${{ secrets.TIMEWEB_FTP_USER }}
-          password: ${{ secrets.TIMEWEB_FTP_PASSWORD_V2 }}
-          protocol: ftps
-          port: 21
-          local-dir: ./dist/
-          server-dir: ./public_html/
-          dangerous-clean-slate: false
+      - name: Install FTP client
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Deploy frontend over explicit FTPS
+        env:
+          TIMEWEB_FTP_USER: ${{ secrets.TIMEWEB_FTP_USER }}
+          TIMEWEB_FTP_PASSWORD: ${{ secrets.TIMEWEB_FTP_PASSWORD_V2 }}
+        run: |
+          set -euo pipefail
+          lftp -u "$TIMEWEB_FTP_USER","$TIMEWEB_FTP_PASSWORD" vh348.timeweb.ru <<'LFTP'
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ssl:verify-certificate no
+          set net:timeout 20
+          set net:max-retries 2
+          mirror --reverse --delete --verbose ./dist/ ./public_html/
+          bye
+          LFTP

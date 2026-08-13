@@ -109,6 +109,7 @@ const consentVersion = "1.1-2026-08-13";
             <span>Опишите задачу</span>
             <textarea
               name="message"
+              data-contact-message
               rows="5"
               minlength="10"
               maxlength="1200"
@@ -185,6 +186,7 @@ const consentVersion = "1.1-2026-08-13";
       const contactSubmitText = contactRoot?.querySelector("[data-contact-submit-text]");
       const contactContextInput = contactRoot?.querySelector("[data-contact-context-input]");
       const contactContextDisplay = contactRoot?.querySelector("[data-contact-context-display]");
+      const contactMessage = contactRoot?.querySelector("[data-contact-message]");
       const legalDialogs = contactRoot?.querySelectorAll("[data-legal-dialog]") || [];
 
       const applyContactContext = (value) => {
@@ -193,6 +195,22 @@ const consentVersion = "1.1-2026-08-13";
         if (contactContextDisplay instanceof HTMLElement) {
           contactContextDisplay.hidden = !context;
           contactContextDisplay.textContent = context ? `Вы выбрали: ${context}` : "";
+        }
+
+        if (context && contactMessage instanceof HTMLTextAreaElement) {
+          const previousContext = contactMessage.dataset.contactContext || "";
+          const currentValue = contactMessage.value;
+
+          if (!currentValue.trim()) {
+            contactMessage.value = context;
+          } else if (previousContext && currentValue.startsWith(previousContext)) {
+            contactMessage.value = `${context}${currentValue.slice(previousContext.length)}`;
+          } else if (!currentValue.includes(context)) {
+            contactMessage.value = `${context}\n\n${currentValue}`;
+          }
+
+          contactMessage.dataset.contactContext = context;
+          contactMessage.dispatchEvent(new Event("input", { bubbles: true }));
         }
       };
 

@@ -39,16 +39,14 @@ jobs:
       - name: Install FTP client
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      - name: Deploy frontend over explicit FTPS
+      - name: Deploy frontend over FTP
         env:
           TIMEWEB_FTP_USER: ${{ secrets.TIMEWEB_FTP_USER }}
           TIMEWEB_FTP_PASSWORD: ${{ secrets.TIMEWEB_FTP_PASSWORD_V2 }}
         run: |
           set -euo pipefail
           lftp -u "$TIMEWEB_FTP_USER","$TIMEWEB_FTP_PASSWORD" vh348.timeweb.ru <<'LFTP'
-          set ftp:ssl-force true
-          set ftp:ssl-protect-data true
-          set ssl:verify-certificate no
+          set ftp:ssl-allow false
           set net:timeout 60
           set net:max-retries 10
           mirror --reverse --delete --parallel=4 --exclude-glob '*.mp4' --exclude-glob '*.webm' --verbose ./dist/ ./public_html/

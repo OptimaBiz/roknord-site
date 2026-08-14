@@ -56,10 +56,19 @@ const checks = [
               </>
             ))}
           </p>
-          <div class="ilogic__reality">
-            <strong>Что проверяется при оценке</strong>
-            <p>{item.reality}</p>
-          </div>
+          <details class="ilogic__reality">
+            <summary>
+              <strong>Что проверяют при оценке</strong>
+              <span class="ilogic__reality-action" aria-hidden="true">
+                <span class="ilogic__reality-hint ilogic__reality-hint--open">Раскрыть</span>
+                <span class="ilogic__reality-hint ilogic__reality-hint--close">Свернуть</span>
+                <span class="ilogic__reality-toggle">+</span>
+              </span>
+            </summary>
+            <div class="ilogic__reality-body">
+              <p>{item.reality}</p>
+            </div>
+          </details>
         </li>
       ))}
     </ol>
@@ -82,12 +91,24 @@ const checks = [
   .ilogic__chain{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem .55rem;padding-bottom:1rem;border-bottom:1px solid var(--lrqa-dark-border)}
   .ilogic__step{color:var(--lrqa-border-soft);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}
   .ilogic__arrow{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
-  .ilogic__reality{display:grid;gap:.5rem}
+  .ilogic__reality{border:1px solid var(--lrqa-dark-border);background:rgba(255,255,255,.02)}
+  .ilogic__reality summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1rem;cursor:pointer;list-style:none;transition:background-color 180ms ease}
+  .ilogic__reality summary::-webkit-details-marker{display:none}
+  .ilogic__reality summary:hover,.ilogic__reality summary:focus-visible{background:rgba(255,255,255,.05)}
+  .ilogic__reality summary:focus-visible{outline:2px solid var(--color-mint-action);outline-offset:2px}
   .ilogic__reality strong{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
-  .ilogic__reality p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
+  .ilogic__reality-action{display:flex;align-items:center;gap:.65rem;flex:0 0 auto;color:var(--lrqa-border-soft)}
+  .ilogic__reality-hint{font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold)}
+  .ilogic__reality-hint--close{display:none}
+  .ilogic__reality-toggle{display:grid;place-items:center;width:1.8rem;height:1.8rem;color:var(--lrqa-black);background:var(--color-mint-action);font-size:1.25rem;line-height:1;transition:transform 180ms ease}
+  .ilogic__reality[open] .ilogic__reality-hint--open{display:none}
+  .ilogic__reality[open] .ilogic__reality-hint--close{display:inline}
+  .ilogic__reality[open] .ilogic__reality-toggle{transform:rotate(45deg)}
+  .ilogic__reality-body{padding:0 1rem 1rem;border-top:1px solid var(--lrqa-dark-border)}
+  .ilogic__reality p{padding-top:1rem;color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
   .ilogic__note{display:grid;grid-template-columns:minmax(15rem,1fr) minmax(0,1fr);gap:1rem clamp(2rem,5vw,5rem);padding-top:1.5rem;border-top:1px solid var(--lrqa-dark-border)}
   .ilogic__note strong{color:var(--color-mint-action);font-size:clamp(1.1rem,.55vw + 1rem,1.5rem);line-height:1.2}
   .ilogic__note p{max-width:52rem;color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
   @media(max-width:64rem){.ilogic__intro,.ilogic__note{grid-template-columns:1fr}}
-  @media(max-width:42rem){.ilogic__grid{grid-template-columns:1fr}}
+  @media(max-width:42rem){.ilogic__grid{grid-template-columns:1fr}.ilogic__reality summary{padding:.85rem}.ilogic__reality-body{padding:0 .85rem .85rem}.ilogic__reality-hint{font-size:var(--font-size-2xs)}}
 </style>

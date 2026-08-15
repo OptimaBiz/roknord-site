@@ -8,33 +8,52 @@ const situations = [
   { id: "scenario-primary-accreditation", title: "Организация готовится к первичной аккредитации", text: "Сопоставляем проектируемые процессы, документы, ресурсы и записи с применимыми требованиями до подачи заявления.", cta: "Обсудить первичную аккредитацию" },
   { id: "scenario-special-directions", title: "Нужна периодическая независимая проверка СМК", text: "Проверяем СМК, новые записи и изменения между процедурами. Ответственность за систему менеджмента и выполнение процессов остаётся у организации.", cta: "Настроить периодическую проверку" },
 ];
+
+const primarySituations = [situations[0], situations[1], situations[3], situations[5]];
+const additionalSituations = [situations[2], situations[4], situations[6]];
 ---
 
 <section id="directions" class="section section--light situations-section" aria-labelledby="situations-title">
   <div class="section__inner page-container">
-    <header class="situations-intro">
+    <header class="situations-intro" data-reveal>
       <p class="section__eyebrow">Сценарии работы</p>
       <h2 id="situations-title" class="section__title">Ситуации, в которых нужен независимый аудит готовности</h2>
       <p class="section__lead">Подключаемся, когда необходимо проверить текущее состояние, определить приоритетные риски и сформировать понятный план дальнейшей подготовки.</p>
     </header>
 
     <div class="situations-list">
-      {situations.map((item, index) => (
-        <article id={item.id} class="situation-row">
-          <span aria-hidden="true">0{index + 1}</span>
+      {primarySituations.map((item) => (
+        <article id={item.id} class="situation-row" data-reveal>
           <h3>{item.title}</h3>
           <p>{item.text}</p>
           <a href="#contact" data-contact-context={item.title} aria-label={`${item.cta}: ${item.title}`}>{item.cta} <span aria-hidden="true">→</span></a>
         </article>
       ))}
     </div>
+
+    <details class="situations-more" data-reveal>
+      <summary>
+        <span class="situations-more__label">Ещё три ситуации</span>
+        <span class="situations-more__action" aria-hidden="true"><span>Показать все</span><i>+</i></span>
+      </summary>
+      <div class="situations-list situations-list--additional">
+        {additionalSituations.map((item) => (
+          <article id={item.id} class="situation-row">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <a href="#contact" data-contact-context={item.title} aria-label={`${item.cta}: ${item.title}`}>{item.cta} <span aria-hidden="true">→</span></a>
+          </article>
+        ))}
+      </div>
+    </details>
   </div>
 </section>
 
 <style>
-  .situations-section .section__inner,.situations-intro{display:grid}.situations-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}.situations-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.situations-intro .section__eyebrow{grid-column:1/-1}.situations-intro .section__title,.situations-intro .section__lead{margin:0}
-  .situations-list{border-top:1px solid var(--lrqa-border)}.situation-row{display:grid;grid-template-columns:3rem minmax(14rem,.8fr) minmax(0,1.2fr) auto;gap:1rem clamp(1.5rem,4vw,4rem);align-items:start;padding:clamp(1.35rem,2.7vw,2.35rem) 0;border-bottom:1px solid var(--lrqa-border-soft);scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.situation-row>span{color:var(--lrqa-muted-2);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.situation-row h3,.situation-row p{margin:0}.situation-row h3{font-size:clamp(1.15rem,.8vw + 1rem,1.75rem);line-height:1.2}.situation-row p{max-width:42rem;color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}.situation-row a{display:inline-flex;gap:.55rem;color:var(--lrqa-black);font-weight:var(--font-weight-semibold);text-decoration:none;white-space:nowrap}.situation-row a span{color:var(--color-mint-action)}
-  @media(max-width:64rem){.situations-intro{grid-template-columns:1fr}.situation-row{grid-template-columns:2.5rem minmax(0,1fr) auto}.situation-row p{grid-column:2/4}}
+  .situations-section .section__inner,.situations-intro{display:grid}.situations-section .section__inner{gap:clamp(2rem,4.5vw,4rem)}.situations-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.situations-intro .section__eyebrow{grid-column:1/-1}.situations-intro .section__title,.situations-intro .section__lead{margin:0}
+  .situations-list{border-top:1px solid var(--lrqa-border)}.situation-row{position:relative;display:grid;grid-template-columns:minmax(15rem,.8fr) minmax(0,1.2fr) auto;gap:1rem clamp(1.5rem,4vw,4rem);align-items:start;padding:clamp(1.35rem,2.4vw,2rem) 0;border-bottom:1px solid var(--lrqa-border-soft);scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.situation-row::before{content:"";position:absolute;top:-1px;bottom:-1px;left:calc(var(--container-padding)*-1);width:.22rem;background:var(--color-mint-action);transform:scaleY(0);transform-origin:top;transition:transform var(--duration-slow) var(--easing-emphasis)}.situation-row h3,.situation-row p{margin:0}.situation-row h3{font-size:clamp(1.15rem,.8vw + 1rem,1.75rem);line-height:1.2}.situation-row p{max-width:42rem;color:var(--lrqa-muted);line-height:1.58}.situation-row a{display:inline-flex;gap:.55rem;color:var(--lrqa-black);font-weight:var(--font-weight-semibold);text-decoration:none;white-space:nowrap}.situation-row a span{color:var(--color-mint-action)}
+  .situations-more{border-bottom:1px solid var(--lrqa-border)}.situations-more>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.15rem 0;cursor:pointer;list-style:none}.situations-more>summary::-webkit-details-marker{display:none}.situations-more>summary:focus-visible{outline:2px solid var(--color-mint-action);outline-offset:.35rem}.situations-more__label{font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.situations-more__action{display:flex;align-items:center;gap:.75rem;color:var(--lrqa-muted);font-size:var(--font-size-sm);font-style:normal}.situations-more__action i{display:grid;place-items:center;width:2rem;height:2rem;color:var(--lrqa-black);background:var(--color-mint-action);font-size:1.35rem;font-style:normal;transition:transform var(--duration-normal) var(--easing-emphasis)}.situations-more[open] .situations-more__action i{transform:rotate(45deg)}.situations-list--additional{border-color:var(--lrqa-border-soft)}
+  @media(max-width:64rem){.situations-intro{grid-template-columns:1fr}.situation-row{grid-template-columns:minmax(0,1fr) auto}.situation-row p{grid-column:1/3}}
   .situation-row a{position:relative;transition:var(--transition-fast)}
   .situation-row a::after{content:"";position:absolute;right:0;bottom:-.25rem;left:0;height:1px;background:var(--color-mint-action);transform:scaleX(0);transform-origin:left center;transition:transform var(--duration-normal) var(--easing-standard)}
   .situation-row a span{transition:transform var(--duration-normal) var(--easing-standard)}
@@ -42,7 +61,7 @@ const situations = [
   .situation-row a:hover::after,.situation-row a:focus-visible::after{transform:scaleX(1)}
   .situation-row a:hover span,.situation-row a:focus-visible span{transform:translateX(.3rem)}
   .situation-row{transition:background-color var(--duration-fast) var(--easing-standard)}
-  @media(hover:hover){.situation-row:hover{background:rgba(23,224,138,.07);background:color-mix(in srgb,var(--color-mint-action) 7%,transparent)}}
+  @media(hover:hover){.situation-row:hover{background:color-mix(in srgb,var(--color-mint-action) 6%,transparent)}.situation-row:hover::before{transform:scaleY(1)}}
   @media(prefers-reduced-motion:reduce){.situation-row a::after,.situation-row a span,.situation-row{transition:none}.situation-row a:hover span{transform:none}}
-  @media(max-width:42rem){.situation-row{grid-template-columns:2.25rem minmax(0,1fr)}.situation-row p,.situation-row a{grid-column:2}.situation-row a{width:fit-content;white-space:normal}}
+  @media(max-width:42rem){.situation-row{grid-template-columns:1fr}.situation-row p,.situation-row a{grid-column:1}.situation-row a{width:fit-content;white-space:normal}.situations-more__action>span{display:none}}
 </style>

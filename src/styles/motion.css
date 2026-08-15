@@ -1,0 +1,64 @@
+/* Purposeful, low-amplitude motion. Content remains readable without JavaScript. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .motion-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(clamp(.85rem, 1.8vw, 1.5rem));
+    transition:
+      opacity .72s var(--easing-emphasis),
+      transform .72s var(--easing-emphasis);
+    will-change: opacity, transform;
+  }
+
+  .motion-ready [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  .motion-ready [data-reveal] > .section__eyebrow::before,
+  .motion-ready .section__eyebrow[data-reveal]::before {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .7s .18s var(--easing-emphasis);
+  }
+
+  .motion-ready [data-reveal].is-revealed > .section__eyebrow::before,
+  .motion-ready .section__eyebrow[data-reveal].is-revealed::before {
+    transform: scaleX(1);
+  }
+
+  .motion-ready .audience-grid[data-reveal] .audience-cell {
+    opacity: 0;
+    transform: translateY(1rem);
+    transition:
+      opacity .62s var(--easing-emphasis),
+      transform .62s var(--easing-emphasis);
+  }
+
+  .motion-ready .audience-grid[data-reveal].is-revealed .audience-cell {
+    opacity: 1;
+    transform: none;
+  }
+
+  .motion-ready .audience-grid[data-reveal].is-revealed .audience-cell:nth-child(2) { transition-delay: .08s; }
+  .motion-ready .audience-grid[data-reveal].is-revealed .audience-cell:nth-child(3) { transition-delay: .16s; }
+  .motion-ready .audience-grid[data-reveal].is-revealed .audience-cell:nth-child(4) { transition-delay: .24s; }
+  .motion-ready .audience-grid[data-reveal].is-revealed .audience-cell:nth-child(5) { transition-delay: .32s; }
+
+  details[open] > .ilogic__reality-body,
+  details[open] > .format-disclosure__body,
+  details[open] > .situations-list--additional,
+  details[open] > .faq-answer-wrap {
+    animation: disclosureEnter .36s var(--easing-emphasis) both;
+  }
+
+  @keyframes disclosureEnter {
+    from { opacity: 0; transform: translateY(-.45rem); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+}

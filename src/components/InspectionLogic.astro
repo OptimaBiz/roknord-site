@@ -33,7 +33,7 @@ const checks = [
 
 <section id="approach" class="section section--dark ilogic" aria-labelledby="ilogic-title">
   <div class="section__inner page-container">
-    <header class="ilogic__intro">
+    <header class="ilogic__intro" data-reveal>
       <p class="section__eyebrow">Логика оценки соответствия</p>
       <h2 id="ilogic-title" class="section__title">
         При оценке сопоставляют документы, записи и фактическую практику: <span class="ilogic__formula">Требование → Процедура → Запись → Доказательство</span>
@@ -43,60 +43,82 @@ const checks = [
       </p>
     </header>
 
-    <ol class="ilogic__grid">
-      {checks.map((item) => (
-        <li>
-          <span class="ilogic__num">{item.number}</span>
-          <h3>{item.title}</h3>
-          <p class="ilogic__chain">
-            {item.chain.map((step, index) => (
-              <>
-                {index > 0 && <span class="ilogic__arrow" aria-hidden="true">→</span>}
-                <span class="ilogic__step">{step}</span>
-              </>
-            ))}
-          </p>
-          <details class="ilogic__reality">
-            <summary>
-              <strong>Что проверяют при оценке</strong>
-              <span class="ilogic__reality-action" aria-hidden="true">
-                <span class="ilogic__reality-hint ilogic__reality-hint--open">Раскрыть</span>
-                <span class="ilogic__reality-hint ilogic__reality-hint--close">Свернуть</span>
-                <span class="ilogic__reality-toggle">+</span>
-              </span>
-            </summary>
-            <div class="ilogic__reality-body">
-              <p>{item.reality}</p>
-            </div>
-          </details>
-        </li>
-      ))}
-    </ol>
+    <div class="ilogic__workbench" data-reveal>
+      <div class="ilogic__rail" aria-hidden="true">
+        <span>Требование</span><i></i><span>Процедура</span><i></i><span>Запись</span><i></i><span>Доказательство</span>
+      </div>
+      <ol class="ilogic__grid">
+        {checks.map((item, index) => (
+          <li>
+            <details class="ilogic__reality" open={index === 0}>
+              <summary>
+                <span class="ilogic__num">{item.number}</span>
+                <span class="ilogic__summary-copy">
+                  <strong>{item.title}</strong>
+                  <span class="ilogic__chain">
+                    {item.chain.map((step, chainIndex) => (
+                      <>
+                        {chainIndex > 0 && <span class="ilogic__arrow" aria-hidden="true">→</span>}
+                        <span class="ilogic__step">{step}</span>
+                      </>
+                    ))}
+                  </span>
+                </span>
+                <span class="ilogic__reality-action" aria-hidden="true">
+                  <span class="ilogic__reality-hint ilogic__reality-hint--open">Раскрыть</span>
+                  <span class="ilogic__reality-hint ilogic__reality-hint--close">Свернуть</span>
+                  <span class="ilogic__reality-toggle">+</span>
+                </span>
+              </summary>
+              <div class="ilogic__reality-body">
+                <span>Что проверяют при оценке</span>
+                <p>{item.reality}</p>
+              </div>
+            </details>
+          </li>
+        ))}
+      </ol>
+    </div>
 
-    <div class="ilogic__note">
+    <div class="ilogic__note" data-reveal>
       <strong>Аудит помогает выявить расхождения и риски несоответствия до начала процедуры.</strong>
       <p>Каждое выявленное расхождение соотносим с применимым требованием и оцениваем его влияние на доказательство соответствия.</p>
     </div>
   </div>
+
+  <script is:inline>
+    (() => {
+      const groups = document.querySelectorAll('.ilogic__grid');
+      groups.forEach((group) => {
+        const items = Array.from(group.querySelectorAll('.ilogic__reality'));
+        if (window.matchMedia('(max-width: 42rem)').matches) {
+          items.forEach((item) => { item.open = false; });
+        }
+        items.forEach((item) => item.addEventListener('toggle', () => {
+          if (!item.open) return;
+          items.forEach((other) => { if (other !== item) other.open = false; });
+        }));
+      });
+    })();
+  </script>
 </section>
 
 <style>
-  .ilogic .section__inner,.ilogic__intro{display:grid}.ilogic .section__inner{gap:clamp(2.5rem,6vw,5rem)}.ilogic__intro{grid-template-columns:minmax(0,1fr) minmax(20rem,1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.ilogic__intro .section__eyebrow{grid-column:1/-1}.ilogic__intro .section__title,.ilogic__intro .section__lead{margin:0}
+  .ilogic .section__inner,.ilogic__intro{display:grid}.ilogic .section__inner{gap:clamp(2.5rem,5vw,4.5rem)}.ilogic__intro{grid-template-columns:minmax(0,1fr) minmax(20rem,1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.ilogic__intro .section__eyebrow{grid-column:1/-1}.ilogic__intro .section__title,.ilogic__intro .section__lead{margin:0}
   .ilogic__formula{display:block;margin-top:.5em;color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:.6em;font-weight:var(--font-weight-semibold);letter-spacing:var(--letter-spacing-wide);line-height:1.4}
-  .ilogic__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--lrqa-dark-border);border-left:1px solid var(--lrqa-dark-border)}
-  .ilogic__grid li{display:grid;align-content:start;gap:1rem;padding:clamp(1.4rem,2.8vw,2.6rem);border-right:1px solid var(--lrqa-dark-border);border-bottom:1px solid var(--lrqa-dark-border)}
+  .ilogic__workbench{display:grid;grid-template-columns:minmax(12rem,.32fr) minmax(0,1fr);border:1px solid var(--lrqa-dark-border);background:color-mix(in srgb,var(--lrqa-white) 2%,transparent)}
+  .ilogic__rail{display:grid;align-content:space-between;gap:1rem;padding:clamp(1.5rem,3vw,2.5rem);border-right:1px solid var(--lrqa-dark-border)}.ilogic__rail span{color:var(--lrqa-white);font-family:var(--font-family-mono);font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.ilogic__rail i{display:block;width:1px;height:2rem;margin-left:.35rem;background:linear-gradient(var(--color-mint-action),transparent);transform-origin:top;animation:railPulse 2.8s var(--easing-emphasis) infinite}
+  .ilogic__grid{display:grid;margin:0;padding:0;list-style:none}.ilogic__grid li+li{border-top:1px solid var(--lrqa-dark-border)}
   .ilogic__num{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
-  .ilogic__grid h3,.ilogic__chain,.ilogic__reality p,.ilogic__note strong,.ilogic__note p{margin:0}
-  .ilogic__grid h3{color:var(--lrqa-white);font-size:clamp(1.35rem,1.2vw + 1rem,2.1rem);line-height:1.08}
-  .ilogic__chain{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem .55rem;padding-bottom:1rem;border-bottom:1px solid var(--lrqa-dark-border)}
+  .ilogic__chain,.ilogic__reality p,.ilogic__note strong,.ilogic__note p{margin:0}.ilogic__summary-copy{display:grid;gap:.65rem}.ilogic__summary-copy>strong{color:var(--lrqa-white);font-size:clamp(1.25rem,1vw + 1rem,1.85rem);line-height:1.1}
+  .ilogic__chain{display:flex;flex-wrap:wrap;align-items:baseline;gap:.35rem .5rem}
   .ilogic__step{color:var(--lrqa-border-soft);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}
   .ilogic__arrow{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
-  .ilogic__reality{border:1px solid var(--lrqa-dark-border);background:rgba(255,255,255,.02)}
-  .ilogic__reality summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1rem;cursor:pointer;list-style:none;transition:background-color 180ms ease}
+  .ilogic__reality{background:transparent}
+  .ilogic__reality summary{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;align-items:center;gap:1rem;padding:clamp(1.25rem,2.4vw,2rem);cursor:pointer;list-style:none;transition:background-color var(--duration-normal) var(--easing-standard)}
   .ilogic__reality summary::-webkit-details-marker{display:none}
   .ilogic__reality summary:hover,.ilogic__reality summary:focus-visible{background:rgba(255,255,255,.05)}
   .ilogic__reality summary:focus-visible{outline:2px solid var(--color-mint-action);outline-offset:2px}
-  .ilogic__reality strong{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}
   .ilogic__reality-action{display:flex;align-items:center;gap:.65rem;flex:0 0 auto;color:var(--lrqa-border-soft)}
   .ilogic__reality-hint{font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold)}
   .ilogic__reality-hint--close{display:none}
@@ -104,11 +126,12 @@ const checks = [
   .ilogic__reality[open] .ilogic__reality-hint--open{display:none}
   .ilogic__reality[open] .ilogic__reality-hint--close{display:inline}
   .ilogic__reality[open] .ilogic__reality-toggle{transform:rotate(45deg)}
-  .ilogic__reality-body{padding:0 1rem 1rem;border-top:1px solid var(--lrqa-dark-border)}
-  .ilogic__reality p{padding-top:1rem;color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
+  .ilogic__reality-body{display:grid;grid-template-columns:minmax(9rem,.35fr) minmax(0,1fr);gap:1rem 2rem;margin:0 clamp(1.25rem,2.4vw,2rem) clamp(1.25rem,2.4vw,2rem) calc(clamp(1.25rem,2.4vw,2rem) + 3.5rem);padding-top:1.25rem;border-top:1px solid var(--lrqa-dark-border)}.ilogic__reality-body>span{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.ilogic__reality p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
   .ilogic__note{display:grid;grid-template-columns:minmax(15rem,1fr) minmax(0,1fr);gap:1rem clamp(2rem,5vw,5rem);padding-top:1.5rem;border-top:1px solid var(--lrqa-dark-border)}
   .ilogic__note strong{color:var(--color-mint-action);font-size:clamp(1.1rem,.55vw + 1rem,1.5rem);line-height:1.2}
   .ilogic__note p{max-width:52rem;color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
-  @media(max-width:64rem){.ilogic__intro,.ilogic__note{grid-template-columns:1fr}}
-  @media(max-width:42rem){.ilogic__grid{grid-template-columns:1fr}.ilogic__reality summary{padding:.85rem}.ilogic__reality-body{padding:0 .85rem .85rem}.ilogic__reality-hint{font-size:var(--font-size-2xs)}}
+  @keyframes railPulse{0%,100%{opacity:.28;transform:scaleY(.35)}50%{opacity:1;transform:scaleY(1)}}
+  @media(max-width:64rem){.ilogic__intro,.ilogic__note{grid-template-columns:1fr}.ilogic__workbench{grid-template-columns:1fr}.ilogic__rail{grid-template-columns:auto 1fr auto 1fr auto 1fr auto;align-items:center;padding:1rem;border-right:0;border-bottom:1px solid var(--lrqa-dark-border)}.ilogic__rail i{width:auto;height:1px;margin:0;background:linear-gradient(90deg,var(--color-mint-action),transparent);animation:none}}
+  @media(max-width:42rem){.ilogic__rail{display:none}.ilogic__reality summary{grid-template-columns:2rem minmax(0,1fr) auto;padding:1rem}.ilogic__reality-hint{display:none!important}.ilogic__reality-body{grid-template-columns:1fr;margin:0 1rem 1rem 3rem;padding-top:1rem}}
+  @media(prefers-reduced-motion:reduce){.ilogic__rail i{animation:none}}
 </style>

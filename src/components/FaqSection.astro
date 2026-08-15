@@ -34,12 +34,12 @@ const faq = [
 <section id="faq" class="section section--light">
   <div class="section__inner page-container">
     <div class="faq-shell">
-      <div class="section-stack faq-intro">
+      <div class="section-stack faq-intro" data-reveal>
         <p class="section__eyebrow">Частые вопросы</p>
         <h2 class="section__title">Прямые ответы — без общих формулировок</h2>
       </div>
 
-      <div class="faq-list" aria-label="Вопросы и ответы">
+      <div class="faq-list" aria-label="Вопросы и ответы" data-reveal>
         {faq.map((item) => (
           <details class="faq-item">
             <summary class="faq-question">{item.question}</summary>

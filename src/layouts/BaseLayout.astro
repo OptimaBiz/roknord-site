@@ -147,5 +147,26 @@ const {
       <ScrollUpControl />
       <LoginModal />
     </div>
+    <script is:inline>
+      (() => {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const revealItems = Array.from(document.querySelectorAll('[data-reveal]'));
+        if (reduceMotion || !('IntersectionObserver' in window)) {
+          revealItems.forEach((item) => item.classList.add('is-revealed'));
+          return;
+        }
+
+        document.documentElement.classList.add('motion-ready');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+        revealItems.forEach((item) => observer.observe(item));
+      })();
+    </script>
   </body>
 </html>

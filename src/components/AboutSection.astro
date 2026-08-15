@@ -1,6 +1,6 @@
 <section id="about" class="section section--light about-section" aria-labelledby="about-title">
   <div class="section__inner page-container">
-    <header class="about-intro">
+    <header class="about-intro" data-reveal>
       <p class="section__eyebrow">О компании</p>
       <h2 id="about-title" class="section__title">Проверяем готовность до начала процедуры</h2>
       <p class="section__lead">
@@ -9,27 +9,31 @@
     </header>
 
     <div class="about-facts">
-      <article>
-        <span>01</span>
+      <article data-reveal>
         <h3>Предмет аудита</h3>
         <p>Область аккредитации, СМК, компетентность персонала, ресурсы, записи и сведения во ФГИС — в согласованном объёме.</p>
       </article>
-      <article>
-        <span>02</span>
+      <article data-reveal>
         <h3>Результат</h3>
         <p>Перечень расхождений, карта рисков, недостающие подтверждения и план дальнейших действий.</p>
       </article>
-      <article>
-        <span>03</span>
+      <article data-reveal>
         <h3>Роль в процедуре</h3>
         <p>ООО «Рокнорд» предоставляет сервис по независимой проверке и подготовке к прохождению процедур ФСА.</p>
       </article>
     </div>
+
+    <a class="about-mission-link" href="/company/mission/" data-reveal>
+      <span>Миссия, видение и ценности компании</span>
+      <span aria-hidden="true">↗</span>
+    </a>
   </div>
 </section>
 
 <style>
-  .about-section .section__inner,.about-intro{display:grid}.about-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}.about-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.about-intro .section__eyebrow{grid-column:1/-1}.about-intro .section__title,.about-intro .section__lead{margin:0}
-  .about-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--lrqa-border);border-left:1px solid var(--lrqa-border)}.about-facts article{display:grid;align-content:start;gap:1rem;padding:clamp(1.4rem,2.8vw,2.6rem);border-right:1px solid var(--lrqa-border);border-bottom:1px solid var(--lrqa-border)}.about-facts span{color:var(--lrqa-muted-2);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.about-facts h3,.about-facts p{margin:0}.about-facts h3{font-size:clamp(1.2rem,.8vw + 1rem,1.7rem);line-height:1.2}.about-facts p{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}
+  .about-section .section__inner,.about-intro{display:grid}.about-section .section__inner{gap:clamp(2rem,4.5vw,4rem)}.about-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.about-intro .section__eyebrow{grid-column:1/-1}.about-intro .section__title,.about-intro .section__lead{margin:0}
+  .about-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--lrqa-border);border-left:1px solid var(--lrqa-border)}.about-facts article{display:grid;align-content:start;gap:1rem;min-height:13.5rem;padding:clamp(1.4rem,2.8vw,2.6rem);border-right:1px solid var(--lrqa-border);border-bottom:1px solid var(--lrqa-border)}.about-facts h3,.about-facts p{margin:0}.about-facts h3{font-size:clamp(1.2rem,.8vw + 1rem,1.7rem);line-height:1.2}.about-facts h3::before{content:"";display:block;width:2.25rem;height:.2rem;margin-bottom:1rem;background:var(--color-mint-action);transform-origin:left}.about-facts p{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}
+  .about-mission-link{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;padding:1rem 0;color:var(--lrqa-black);font-weight:var(--font-weight-semibold);text-decoration:none;border-top:1px solid var(--lrqa-border);border-bottom:1px solid var(--lrqa-border);transition:color var(--duration-normal) var(--easing-standard)}.about-mission-link span:last-child{color:var(--color-mint-action);font-size:1.3rem;transition:transform var(--duration-normal) var(--easing-emphasis)}.about-mission-link:hover,.about-mission-link:focus-visible{color:var(--lrqa-muted-dark)}.about-mission-link:hover span:last-child,.about-mission-link:focus-visible span:last-child{transform:translate(.25rem,-.25rem)}
   @media(max-width:64rem){.about-intro{grid-template-columns:1fr}.about-facts{grid-template-columns:1fr}}
+  @media(max-width:64rem){.about-facts article{min-height:auto}}
 </style>

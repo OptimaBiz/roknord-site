@@ -19,14 +19,14 @@ const rest = audiences.slice(LEAD_COUNT);
 
 <section id="deliverables" class="section section--light audience-section" aria-labelledby="audience-title">
   <div class="section__inner page-container">
-    <header class="audience-intro">
+    <header class="audience-intro" data-reveal>
       <p class="section__eyebrow">Направления</p>
       <h2 id="audience-title" class="section__title">Учитываем требования, применимые к разным типам заявителей и аккредитованных лиц</h2>
       <p class="section__lead">Состав проверки определяем с учётом типа организации, области аккредитации, истории предыдущих процедур, критериев аккредитации, профильного стандарта и иных применимых требований.</p>
     </header>
 
     <div class="audience-stack">
-      <ol class="audience-grid audience-grid--lead">
+      <ol class="audience-grid audience-grid--lead" data-reveal>
         {lead.map((item, index) => (
           <li id={item.id} class="audience-cell audience-cell--lead">
             <img class="audience-cell__media" src={item.image} alt="" aria-hidden="true" loading="lazy" decoding="async" />
@@ -39,7 +39,7 @@ const rest = audiences.slice(LEAD_COUNT);
         ))}
       </ol>
 
-      <ol class="audience-grid audience-grid--rest" start={LEAD_COUNT + 1}>
+      <ol class="audience-grid audience-grid--rest" start={LEAD_COUNT + 1} data-reveal>
         {rest.map((item, index) => (
           <li id={item.id} class="audience-cell">
             <img class="audience-cell__media" src={item.image} alt="" aria-hidden="true" loading="lazy" decoding="async" />
@@ -90,5 +90,10 @@ const rest = audiences.slice(LEAD_COUNT);
   @media(max-width:36rem){
     .audience-grid--rest{grid-template-columns:1fr}
     .audience-cell{min-height:10rem}
+  }
+  @media(max-width:48rem){
+    .audience-stack{gap:1rem;background:transparent}
+    .audience-grid--lead,.audience-grid--rest{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(16rem,82vw);overflow-x:auto;overscroll-behavior-inline:contain;scroll-padding-inline:1px;scroll-snap-type:x mandatory;scrollbar-color:var(--color-mint-action) var(--lrqa-border-soft);background:transparent}
+    .audience-cell,.audience-cell--lead{min-height:15rem;scroll-snap-align:start}
   }
 </style>

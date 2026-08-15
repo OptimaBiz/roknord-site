@@ -21,13 +21,13 @@ const values = [
 
 <section id="mission" class="section section--dark values-section" aria-labelledby="values-title">
   <div class="section__inner page-container">
-    <header class="values-intro">
+    <header class="values-intro" data-reveal>
       <p class="section__eyebrow">Основания работы</p>
       <h2 id="values-title" class="section__title">Миссия, видение и ценности</h2>
       <p class="section__lead">Зачем мы работаем и какие правила соблюдаем в каждом проекте.</p>
     </header>
 
-    <div class="values-statements">
+    <div class="values-statements" data-reveal>
       <article class="values-statement values-statement--mission">
         <span>Миссия</span>
         <p>Сделать подготовку понятной: показать текущее состояние, основные риски и необходимые действия.</p>
@@ -38,7 +38,7 @@ const values = [
       </article>
     </div>
 
-    <ul class="values-list">
+    <ul class="values-list" data-reveal>
       {values.map((value) => (
         <li>
           <h3>{value.title}</h3>

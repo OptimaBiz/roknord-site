@@ -1,0 +1,115 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ValuesSection from "../../../components/ValuesSection.astro";
+import ContactForm from "../../../components/ContactForm.astro";
+---
+
+<BaseLayout
+  title="Миссия, видение и ценности Рокнорд"
+  description="Миссия, видение и рабочие принципы Рокнорд при независимой проверке и подготовке к процедурам Росаккредитации."
+>
+  <main id="content">
+    <section class="mission-hero" aria-labelledby="mission-page-title">
+      <div class="mission-hero__inner page-container">
+        <p class="section__eyebrow" data-reveal>Компания</p>
+        <h1 id="mission-page-title" data-reveal><span>Миссия, видение</span>{" "}<span>и ценности</span></h1>
+        <p data-reveal>Зачем мы работаем и какие правила соблюдаем в каждом проекте.</p>
+        <a class="mission-hero__link" href="#mission" data-reveal>Наши основания работы <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="mission-hero__mark" aria-hidden="true">R</div>
+    </section>
+    <ValuesSection standalone />
+    <ContactForm
+      eyebrow="Обсудить задачу"
+      title="Начать с независимой проверки готовности"
+      description="Укажите тип организации, предстоящую процедуру, сроки и основной вопрос. Мы изучим контекст и предложим подходящий формат работы."
+      submitLabel="Отправить запрос"
+      statusText="Ответим в течение рабочего дня. Используем данные для ответа на обращение в соответствии с Политикой в отношении обработки персональных данных."
+    />
+  </main>
+</BaseLayout>
+
+<style>
+  .mission-hero {
+    position: relative;
+    min-height: min(46rem, calc(100svh - var(--header-total-height)));
+    overflow: hidden;
+    background:
+      linear-gradient(115deg, color-mix(in srgb, var(--lrqa-navy) 96%, transparent) 0 55%, color-mix(in srgb, var(--lrqa-navy-2) 84%, transparent) 55% 100%),
+      var(--lrqa-navy);
+    border-bottom: 1px solid var(--lrqa-dark-border);
+  }
+
+  .mission-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(120deg, transparent 0 64%, color-mix(in srgb, var(--color-mint-action) 16%, transparent) 64% 64.3%, transparent 64.3%);
+  }
+
+  .mission-hero__inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    align-content: center;
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    min-height: inherit;
+    padding-block: clamp(5rem, 10vw, 8rem);
+  }
+
+  .mission-hero h1,
+  .mission-hero p {
+    margin: 0;
+  }
+
+  .mission-hero h1 {
+    max-width: 12ch;
+    color: var(--lrqa-white);
+    font-size: clamp(3rem, 7.2vw, 7.5rem);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: -.045em;
+    line-height: .9;
+  }
+
+  .mission-hero h1 span { display: block; }
+
+  .mission-hero__inner > p:not(.section__eyebrow) {
+    max-width: 38rem;
+    color: var(--lrqa-border-soft);
+    font-size: clamp(1.05rem, 1vw + .8rem, 1.45rem);
+    line-height: 1.55;
+  }
+
+  .mission-hero__link {
+    display: inline-flex;
+    align-items: center;
+    gap: .75rem;
+    width: fit-content;
+    color: var(--color-mint-action);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+  }
+
+  .mission-hero__link span { transition: transform var(--duration-normal) var(--easing-emphasis); }
+  .mission-hero__link:hover span,
+  .mission-hero__link:focus-visible span { transform: translateY(.3rem); }
+
+  .mission-hero__mark {
+    position: absolute;
+    right: -2vw;
+    bottom: -12vw;
+    color: color-mix(in srgb, var(--color-mint-action) 9%, transparent);
+    font-size: clamp(24rem, 52vw, 48rem);
+    font-weight: 700;
+    line-height: .72;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @media (max-width: 47.99rem) {
+    .mission-hero { min-height: 38rem; }
+    .mission-hero h1 { font-size: clamp(2.7rem, 14vw, 4.5rem); }
+    .mission-hero__mark { right: -18vw; bottom: -6vw; }
+  }
+</style>

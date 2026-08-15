@@ -48,13 +48,13 @@ const auditResults = [
 
 <section id="pricing" class="section section--light formats-section" aria-labelledby="formats-title">
   <div class="section__inner page-container">
-    <header class="formats-intro">
+    <header class="formats-intro" data-reveal>
       <p class="section__eyebrow">Форматы работы</p>
       <h2 id="formats-title" class="section__title">Начинаем с аудита. Дальше — только необходимый объём сопровождения</h2>
       <p class="section__lead">Независимый аудит готовности выявляет риски и расхождения и помогает определить, какие работы действительно нужны. Решение о дальнейшем сопровождении заказчик принимает после получения результатов.</p>
     </header>
 
-    <article class="pricing-start" aria-labelledby="pricing-start-title">
+    <article class="pricing-start" aria-labelledby="pricing-start-title" data-reveal>
       <div class="pricing-start__main">
         <header class="pricing-start__head">
           <span class="pricing-start__badge">Первый этап</span>
@@ -92,38 +92,16 @@ const auditResults = [
       </p>
     </article>
 
-    <div class="formats-block">
+    <div class="formats-block" data-reveal>
       <header class="formats-block__head">
         <p class="formats-block__label">После аудита</p>
         <h3>Три сценария дальнейшей работы</h3>
         <p>Формат выбираем по выявленным рискам, срокам и объёму изменений — без заранее навязанного пакета.</p>
       </header>
 
-      <div class="formats-grid">
-        {formats.map((format, index) => (
-          <article class:list={["format-card", format.featured && "format-card--featured"]}>
-            <div class="format-card__head">
-              <span class="format-card__num" aria-hidden="true">0{index + 1}</span>
-              <p>{format.kicker}</p>
-            </div>
-            <h4>{format.name}</h4>
-            <p class="format-card__lead">{format.lead}</p>
-            <div class="format-card__result">
-              <span>Результат</span>
-              <strong>{format.result}</strong>
-            </div>
-            <div class="format-card__terms">
-              <span>{format.termsLabel}</span>
-              <strong>{format.terms}</strong>
-              <em>{format.note}</em>
-            </div>
-          </article>
-        ))}
-      </div>
-
       <div class="formats-mobile" aria-label="Сценарии дальнейшей работы">
         {formats.map((format, index) => (
-          <details class:list={["format-disclosure", format.featured && "format-disclosure--featured"]}>
+          <details class:list={["format-disclosure", format.featured && "format-disclosure--featured"]} open={index === 0}>
             <summary>
               <span class="format-disclosure__num" aria-hidden="true">0{index + 1}</span>
               <span class="format-disclosure__title">
@@ -149,6 +127,21 @@ const auditResults = [
       </div>
     </div>
   </div>
+
+  <script is:inline>
+    (() => {
+      document.querySelectorAll('.formats-mobile').forEach((group) => {
+        const items = Array.from(group.querySelectorAll('.format-disclosure'));
+        if (window.matchMedia('(max-width: 44rem)').matches) {
+          items.forEach((item) => { item.open = false; });
+        }
+        items.forEach((item) => item.addEventListener('toggle', () => {
+          if (!item.open) return;
+          items.forEach((other) => { if (other !== item) other.open = false; });
+        }));
+      });
+    })();
+  </script>
 </section>
 
 <style>
@@ -159,11 +152,7 @@ const auditResults = [
   .pricing-start__head,
   .pricing-start__offer,
   .formats-block,
-  .formats-block__head,
-  .format-card,
-  .format-card__head,
-  .format-card__result,
-  .format-card__terms {
+  .formats-block__head {
     display: grid;
   }
 
@@ -217,10 +206,7 @@ const auditResults = [
 
   .pricing-start__badge,
   .pricing-start__results > li > span,
-  .pricing-start__facts dt,
-  .format-card__head p,
-  .format-card__result > span,
-  .format-card__terms > span {
+  .pricing-start__facts dt {
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-semibold);
     letter-spacing: var(--letter-spacing-wide);
@@ -238,8 +224,7 @@ const auditResults = [
   .pricing-start dd,
   .pricing-start ul,
   .formats-block h3,
-  .formats-block p,
-  .format-card h4 {
+  .formats-block p {
     margin: 0;
   }
 
@@ -382,93 +367,6 @@ const auditResults = [
     line-height: var(--line-height-relaxed);
   }
 
-  .formats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1px;
-    background: var(--lrqa-border-soft);
-    border: 1px solid var(--lrqa-border-soft);
-  }
-
-  .formats-mobile {
-    display: none;
-  }
-
-  .format-card {
-    grid-template-rows: auto auto auto 1fr auto;
-    gap: 1.25rem;
-    min-width: 0;
-    padding: clamp(1.5rem, 3vw, 2.5rem);
-    background: var(--lrqa-card-light);
-    box-shadow: inset 0 0 0 0 transparent;
-  }
-
-  .format-card--featured {
-    box-shadow: inset 0 4px 0 var(--color-mint-action);
-  }
-
-  .format-card__head {
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 1rem;
-    align-items: start;
-  }
-
-  .format-card__num {
-    color: var(--lrqa-muted-2);
-    font-family: var(--font-family-mono);
-    font-size: var(--font-size-xs);
-  }
-
-  .format-card__head p {
-    color: var(--lrqa-muted-dark);
-    line-height: 1.45;
-  }
-
-  .format-card h4 {
-    font-size: clamp(1.45rem, 1vw + 1rem, 2rem);
-    line-height: 1.08;
-  }
-
-  .format-card__lead {
-    color: var(--lrqa-muted);
-    line-height: var(--line-height-relaxed);
-  }
-
-  .format-card__result {
-    align-content: start;
-    gap: 0.5rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--lrqa-border-soft);
-  }
-
-  .format-card__result > span,
-  .format-card__terms > span {
-    color: var(--lrqa-muted-2);
-  }
-
-  .format-card__result strong {
-    font-size: var(--font-size-md);
-    line-height: 1.5;
-  }
-
-  .format-card__terms {
-    gap: 0.35rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--lrqa-border-soft);
-  }
-
-  .format-card__terms strong {
-    font-size: var(--font-size-lg);
-    line-height: 1.3;
-  }
-
-  .format-card__terms em {
-    color: var(--lrqa-muted);
-    font-size: var(--font-size-sm);
-    font-style: normal;
-    line-height: 1.5;
-  }
-
   @media (max-width: 70rem) {
     .formats-intro {
       grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
@@ -495,34 +393,6 @@ const auditResults = [
       grid-column: 2;
     }
 
-    .formats-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .format-card:last-child {
-      grid-column: 1 / -1;
-      grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
-      grid-template-rows: auto auto auto;
-    }
-
-    .format-card:last-child .format-card__head,
-    .format-card:last-child h4,
-    .format-card:last-child .format-card__lead {
-      grid-column: 1;
-    }
-
-    .format-card:last-child .format-card__result,
-    .format-card:last-child .format-card__terms {
-      grid-column: 2;
-    }
-
-    .format-card:last-child .format-card__result {
-      grid-row: 1 / 3;
-    }
-
-    .format-card:last-child .format-card__terms {
-      grid-row: 3 / 4;
-    }
   }
 
   @media (max-width: 52rem) {
@@ -628,121 +498,6 @@ const auditResults = [
       margin-top: 0.25rem;
     }
 
-    .formats-grid {
-      display: none;
-    }
-
-    .formats-mobile {
-      display: grid;
-      gap: 1px;
-      background: var(--lrqa-border-soft);
-      border: 1px solid var(--lrqa-border-soft);
-    }
-
-    .format-disclosure {
-      background: var(--lrqa-card-light);
-    }
-
-    .format-disclosure--featured {
-      box-shadow: inset 0 4px 0 var(--color-mint-action);
-    }
-
-    .format-disclosure summary {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      gap: 1rem;
-      align-items: center;
-      padding: 1.5rem;
-      cursor: pointer;
-      list-style: none;
-    }
-
-    .format-disclosure summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .format-disclosure__num {
-      align-self: start;
-      color: var(--lrqa-muted-2);
-      font-family: var(--font-family-mono);
-      font-size: var(--font-size-xs);
-      line-height: 1.5;
-    }
-
-    .format-disclosure__title {
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .format-disclosure__title small {
-      color: var(--lrqa-muted-dark);
-      font-size: var(--font-size-2xs);
-      font-weight: var(--font-weight-semibold);
-      letter-spacing: var(--letter-spacing-wide);
-      line-height: 1.4;
-      text-transform: uppercase;
-    }
-
-    .format-disclosure__title strong {
-      font-size: clamp(1.25rem, 6vw, 1.55rem);
-      line-height: 1.12;
-    }
-
-    .format-disclosure__toggle {
-      display: grid;
-      place-items: center;
-      width: 2.25rem;
-      height: 2.25rem;
-      color: var(--lrqa-black);
-      font-size: 1.5rem;
-      line-height: 1;
-      border: 1px solid var(--lrqa-border);
-      transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
-    }
-
-    .format-disclosure[open] .format-disclosure__toggle {
-      color: var(--lrqa-black);
-      background: var(--color-mint-action);
-      border-color: var(--color-mint-action);
-      transform: rotate(45deg);
-    }
-
-    .format-disclosure__body {
-      display: grid;
-      gap: 1.25rem;
-      padding: 0 1.5rem 1.5rem 3.75rem;
-    }
-
-    .format-disclosure__body > p {
-      color: var(--lrqa-muted);
-      line-height: 1.65;
-    }
-
-    .format-disclosure__body > div {
-      display: grid;
-      gap: 0.35rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--lrqa-border-soft);
-    }
-
-    .format-disclosure__body > div > span {
-      color: var(--lrqa-muted-2);
-      font-size: var(--font-size-xs);
-      font-weight: var(--font-weight-semibold);
-      letter-spacing: var(--letter-spacing-wide);
-      text-transform: uppercase;
-    }
-
-    .format-disclosure__body > div > strong {
-      line-height: 1.45;
-    }
-
-    .format-disclosure__body em {
-      color: var(--lrqa-muted);
-      font-size: var(--font-size-sm);
-      font-style: normal;
-      line-height: 1.5;
-    }
   }
 
   @media (max-width: 30rem) {
@@ -762,4 +517,38 @@ const auditResults = [
       justify-content: center;
     }
   }
+
+  .formats-mobile {
+    display: grid;
+    gap: 1px;
+    background: var(--lrqa-border-soft);
+    border: 1px solid var(--lrqa-border-soft);
+  }
+  .format-disclosure { background: var(--lrqa-card-light); }
+  .format-disclosure--featured { box-shadow: inset 4px 0 0 var(--color-mint-action); }
+  .format-disclosure summary {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+    gap: clamp(1rem, 2vw, 2rem);
+    align-items: center;
+    padding: clamp(1.25rem, 2.3vw, 2rem);
+    cursor: pointer;
+    list-style: none;
+  }
+  .format-disclosure summary::-webkit-details-marker { display: none; }
+  .format-disclosure summary:focus-visible { outline: 2px solid var(--color-mint-action); outline-offset: -3px; }
+  .format-disclosure__num { color: var(--lrqa-muted-2); font-family: var(--font-family-mono); font-size: var(--font-size-xs); }
+  .format-disclosure__title { display: grid; gap: .35rem; }
+  .format-disclosure__title small { color: var(--lrqa-muted-dark); font-size: var(--font-size-2xs); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-wide); line-height: 1.4; text-transform: uppercase; }
+  .format-disclosure__title strong { font-size: clamp(1.25rem, 1vw + 1rem, 1.85rem); line-height: 1.12; }
+  .format-disclosure__toggle { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; color: var(--lrqa-black); font-size: 1.5rem; line-height: 1; border: 1px solid var(--lrqa-border); transition: color var(--duration-normal) var(--easing-standard), background-color var(--duration-normal) var(--easing-standard), transform var(--duration-normal) var(--easing-emphasis); }
+  .format-disclosure[open] .format-disclosure__toggle { background: var(--color-mint-action); border-color: var(--color-mint-action); transform: rotate(45deg); }
+  .format-disclosure__body { display: grid; grid-template-columns:minmax(0,1.2fr) minmax(12rem,.8fr) minmax(12rem,.8fr); gap: clamp(1rem,3vw,3rem); padding: 0 clamp(1.25rem,2.3vw,2rem) clamp(1.25rem,2.3vw,2rem) calc(clamp(1.25rem,2.3vw,2rem) + 4.5rem); }
+  .format-disclosure__body > p { color: var(--lrqa-muted); line-height: 1.6; }
+  .format-disclosure__body > div { display: grid; align-content:start; gap: .4rem; padding-top: .9rem; border-top: 1px solid var(--lrqa-border-soft); }
+  .format-disclosure__body > div > span { color: var(--lrqa-muted-2); font-size: var(--font-size-2xs); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-wide); text-transform: uppercase; }
+  .format-disclosure__body > div > strong { line-height: 1.45; }
+  .format-disclosure__body em { color: var(--lrqa-muted); font-size: var(--font-size-sm); font-style: normal; line-height: 1.5; }
+  @media(max-width:52rem){.format-disclosure__body{grid-template-columns:1fr 1fr}.format-disclosure__body>p{grid-column:1/-1}}
+  @media(max-width:44rem){.format-disclosure--featured{box-shadow:inset 0 4px 0 var(--color-mint-action)}.format-disclosure__body{grid-template-columns:1fr;padding:0 1.5rem 1.5rem 3.75rem}.format-disclosure__body>p{grid-column:1}.format-disclosure summary{grid-template-columns:auto minmax(0,1fr) auto;padding:1.5rem}}
 </style>

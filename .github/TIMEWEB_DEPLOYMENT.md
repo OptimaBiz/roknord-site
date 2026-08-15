@@ -1,19 +1,39 @@
-# Автодеплой на Timeweb
+# Деплой на Timeweb с локального Mac
 
-Workflow `.github/workflows/deploy-timeweb.yml` собирает Astro-сайт и PHP-обработчик формы,
-затем по SSH синхронизирует их с Timeweb при каждом push в `main`.
+GitHub используется только как хранилище коммитов. Push в `main` не запускает
+публикацию. Production-сборка создаётся на локальном Mac и напрямую передаётся
+на Timeweb командой:
 
-В GitHub Environment `production` должны быть заданы secrets:
+```bash
+npm run deploy:timeweb
+```
 
-- `TIMEWEB_SSH_HOST` — SSH-хост или IP Timeweb;
-- `TIMEWEB_SSH_USER` — отдельный пользователь деплоя;
-- `TIMEWEB_SSH_PRIVATE_KEY` — приватный SSH-ключ без passphrase;
-- `TIMEWEB_SSH_KNOWN_HOSTS` — проверенная строка `known_hosts` сервера;
-- `TIMEWEB_SITE_PATH` — абсолютный путь к корню сайта `roknord.ru`;
-- `TIMEWEB_API_PATH` — абсолютный путь к корню сайта `api.roknord.ru`.
+## SSH — рекомендуемый способ
 
-Если SSH использует не порт 22, в Environment variable `TIMEWEB_SSH_PORT` нужно указать порт.
-Публичная часть ключа должна быть добавлена пользователю на Timeweb с правом записи только в эти два каталога.
+Добавь публичный SSH-ключ этого Mac в панели Timeweb, затем перед запуском задай
+пользователя:
 
-Файл `config.php` обработчика формы workflow не передаёт и не удаляет: SMTP-пароль остаётся только на Timeweb.
-До переключения DNS сначала следует выполнить ручной запуск workflow и проверить сайт по техническому адресу.
+```bash
+export TIMEWEB_SSH_USER="имя_пользователя"
+npm run deploy:timeweb
+```
+
+Значения по умолчанию:
+
+- хост: `vh348.timeweb.ru`;
+- порт: `22`;
+- каталог сайта: `roknord/public_html`.
+
+Их можно переопределить переменными `TIMEWEB_SSH_HOST`, `TIMEWEB_SSH_PORT` и
+`TIMEWEB_SITE_PATH`. Для отдельного ключа укажи абсолютный путь в
+`TIMEWEB_SSH_KEY`.
+
+## FTP — резервный способ
+
+Установи `lftp` (`brew install lftp`) и задай `TIMEWEB_FTP_USER` и
+`TIMEWEB_FTP_PASSWORD`. При необходимости доступны `TIMEWEB_FTP_HOST` и
+`TIMEWEB_FTP_PATH`.
+
+Скрипт выполняет `npm run build`, затем синхронизирует только `dist/`. Видео
+`.mp4` и `.webm` не удаляются и не передаются. Секреты не должны храниться в
+репозитории или попадать в коммиты.

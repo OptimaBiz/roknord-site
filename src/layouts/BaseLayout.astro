@@ -168,5 +168,63 @@ const {
         revealItems.forEach((item) => observer.observe(item));
       })();
     </script>
+    <script is:inline>
+      (() => {
+        const mobileQuery = window.matchMedia('(max-width: 47.99rem)');
+        const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const stories = Array.from(document.querySelectorAll('[data-scroll-story]'));
+        let frameId = 0;
+
+        const reset = () => {
+          stories.forEach((story) => {
+            story.classList.remove('is-scroll-story');
+            story.style.removeProperty('--scroll-story-distance');
+            const track = story.querySelector('[data-scroll-track]');
+            if (track instanceof HTMLElement) track.style.removeProperty('transform');
+          });
+        };
+
+        const update = () => {
+          frameId = 0;
+          stories.forEach((story) => {
+            if (!(story instanceof HTMLElement) || !story.classList.contains('is-scroll-story')) return;
+            const stage = story.querySelector('[data-scroll-stage]');
+            const track = story.querySelector('[data-scroll-track]');
+            if (!(stage instanceof HTMLElement) || !(track instanceof HTMLElement)) return;
+            const distance = Math.max(0, track.scrollWidth - stage.clientWidth);
+            const availableScroll = Math.max(1, story.offsetHeight - stage.offsetHeight);
+            const travelled = Math.min(Math.max(-story.getBoundingClientRect().top, 0), availableScroll);
+            track.style.transform = `translate3d(${-distance * (travelled / availableScroll)}px, 0, 0)`;
+          });
+        };
+
+        const requestUpdate = () => {
+          if (!frameId) frameId = window.requestAnimationFrame(update);
+        };
+
+        const setup = () => {
+          reset();
+          if (!mobileQuery.matches || reducedMotionQuery.matches) return;
+          stories.forEach((story) => {
+            if (!(story instanceof HTMLElement)) return;
+            const stage = story.querySelector('[data-scroll-stage]');
+            const track = story.querySelector('[data-scroll-track]');
+            if (!(stage instanceof HTMLElement) || !(track instanceof HTMLElement)) return;
+            const distance = Math.max(0, track.scrollWidth - stage.clientWidth);
+            if (distance < 2) return;
+            story.style.setProperty('--scroll-story-distance', `${Math.ceil(distance)}px`);
+            story.classList.add('is-scroll-story');
+          });
+          requestUpdate();
+        };
+
+        window.addEventListener('scroll', requestUpdate, { passive: true });
+        window.addEventListener('resize', setup, { passive: true });
+        mobileQuery.addEventListener?.('change', setup);
+        reducedMotionQuery.addEventListener?.('change', setup);
+        window.addEventListener('load', setup, { once: true });
+        setup();
+      })();
+    </script>
   </body>
 </html>

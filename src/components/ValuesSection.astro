@@ -1,22 +1,18 @@
 ---
 const values = [
   {
-    number: "01",
     title: "Доказательность",
     text: "Каждый вывод связываем с применимым требованием, процедурой, записью и подтверждающим материалом.",
   },
   {
-    number: "02",
     title: "Независимость",
     text: "Даём самостоятельную оценку готовности и не подменяем функции государственных органов или участников процедуры.",
   },
   {
-    number: "03",
     title: "Практичность",
     text: "Переводим выявленные риски в последовательность действий, зоны ответственности и перечень необходимых подтверждений.",
   },
   {
-    number: "04",
     title: "Ответственность за границы работы",
     text: "Согласовываем объём проверки, используем предоставленные сведения и сохраняем ответственность организации за её решения и процессы.",
   },
@@ -28,7 +24,7 @@ const values = [
     <header class="values-intro">
       <p class="section__eyebrow">Основания работы</p>
       <h2 id="values-title" class="section__title">Миссия, видение и ценности</h2>
-      <p class="section__lead">Они задают подход к независимой подготовке: от первого аудита готовности до проверки применения изменений на практике.</p>
+      <p class="section__lead">Так мы работаем и принимаем решения в каждом проекте.</p>
     </header>
 
     <div class="values-statements">
@@ -42,15 +38,14 @@ const values = [
       </article>
     </div>
 
-    <ol class="values-list">
+    <ul class="values-list">
       {values.map((value) => (
         <li>
-          <span class="values-list__number">{value.number}</span>
           <h3>{value.title}</h3>
           <p>{value.text}</p>
         </li>
       ))}
-    </ol>
+    </ul>
   </div>
 </section>
 
@@ -60,6 +55,6 @@ const values = [
   .values-statements{grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--lrqa-dark-border);border-left:1px solid var(--lrqa-dark-border)}
   .values-statement{align-content:start;gap:var(--space-5);min-height:16rem;padding:clamp(1.5rem,3vw,3rem);border-right:1px solid var(--lrqa-dark-border);border-bottom:1px solid var(--lrqa-dark-border)}
   .values-statement>span{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.values-statement p{max-width:34rem;margin:0;color:var(--lrqa-white);font-size:clamp(1.3rem,1.25vw + 1rem,2rem);font-weight:var(--font-weight-medium);line-height:1.22;text-wrap:balance}.values-statement--mission{background:var(--color-mint-action)}.values-statement--mission>span,.values-statement--mission p{color:var(--lrqa-black)}
-  .values-list{grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--lrqa-dark-border);border-left:1px solid var(--lrqa-dark-border)}.values-list li{align-content:start;gap:var(--space-4);min-height:15rem;padding:clamp(1.35rem,2.2vw,2.2rem);border-right:1px solid var(--lrqa-dark-border);border-bottom:1px solid var(--lrqa-dark-border)}.values-list__number{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.values-list h3,.values-list p{margin:0}.values-list h3{color:var(--lrqa-white);font-size:clamp(1.1rem,.7vw + 1rem,1.5rem);line-height:1.2}.values-list p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
+  .values-list{grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--lrqa-dark-border);border-left:1px solid var(--lrqa-dark-border)}.values-list li{align-content:start;gap:var(--space-4);min-height:15rem;padding:clamp(1.35rem,2.2vw,2.2rem);border-right:1px solid var(--lrqa-dark-border);border-bottom:1px solid var(--lrqa-dark-border)}.values-list h3,.values-list p{margin:0}.values-list h3{color:var(--lrqa-white);font-size:clamp(1.1rem,.7vw + 1rem,1.5rem);line-height:1.2}.values-list p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
   @media(max-width:64rem){.values-intro{grid-template-columns:1fr}.values-list{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:42rem){.values-statements,.values-list{grid-template-columns:1fr}.values-statement,.values-list li{min-height:auto}.values-statement p{font-size:clamp(1.25rem,5.5vw,1.7rem)}}
 </style>

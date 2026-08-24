@@ -12,45 +12,30 @@ const audiences = [
   { id: "audience-inspection", title: "Органы инспекции", standard: "ГОСТ Р ИСО/МЭК 17020", image: "/images/materials/insp.webp" },
 ];
 
-const LEAD_COUNT = 3;
-const lead = audiences.slice(0, LEAD_COUNT);
-const rest = audiences.slice(LEAD_COUNT);
 ---
 
 <section id="deliverables" class="section section--light audience-section" aria-labelledby="audience-title">
   <div class="section__inner page-container">
     <header class="audience-intro" data-reveal>
       <p class="section__eyebrow">Направления</p>
-      <h2 id="audience-title" class="section__title">Учитываем требования, применимые к разным типам заявителей и аккредитованных лиц</h2>
-      <p class="section__lead">Состав проверки определяем с учётом типа организации, области аккредитации, истории предыдущих процедур, критериев аккредитации, профильного стандарта и иных применимых требований.</p>
+      <h2 id="audience-title" class="section__title">Для каких организаций</h2>
+      <p class="section__lead">Состав проверки учитывает тип организации, область аккредитации и профильный стандарт.</p>
     </header>
 
     <div class="audience-stack">
-      <div class="audience-scroll-story" data-scroll-story>
-        <div class="audience-scroll-stage" data-scroll-stage>
-          <ol class="audience-grid audience-grid--lead" data-scroll-track data-reveal>
-            {lead.map((item, index) => (
-              <li id={item.id} class="audience-cell audience-cell--lead">
+      <div class="audience-scroll-story">
+        <div class="audience-scroll-stage">
+          <div class="scroll-story-ui" aria-hidden="true">
+            <span>8 направлений</span>
+            <span class="scroll-story-progress"><i></i></span>
+            <span>Смахивайте</span>
+          </div>
+          <ol class="audience-grid">
+            {audiences.map((item, index) => (
+              <li id={item.id} class:list={["audience-cell", index < 3 && "audience-cell--lead"]}>
                 <img class="audience-cell__media" src={item.image} alt="" aria-hidden="true" loading="lazy" decoding="async" />
                 <div class="audience-cell__content">
                   <span class="audience-cell__num" aria-hidden="true">0{index + 1}</span>
-                  <h3>{item.title}</h3>
-                  <p class="audience-cell__standard">{item.standard}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </div>
-
-      <div class="audience-scroll-story" data-scroll-story>
-        <div class="audience-scroll-stage" data-scroll-stage>
-          <ol class="audience-grid audience-grid--rest" start={LEAD_COUNT + 1} data-scroll-track data-reveal>
-            {rest.map((item, index) => (
-              <li id={item.id} class="audience-cell">
-                <img class="audience-cell__media" src={item.image} alt="" aria-hidden="true" loading="lazy" decoding="async" />
-                <div class="audience-cell__content">
-                  <span class="audience-cell__num" aria-hidden="true">0{index + LEAD_COUNT + 1}</span>
                   <h3>{item.title}</h3>
                   <p class="audience-cell__standard">{item.standard}</p>
                 </div>
@@ -64,45 +49,63 @@ const rest = audiences.slice(LEAD_COUNT);
 </section>
 
 <style>
-  .audience-section .section__inner,.audience-intro{display:grid}.audience-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}
-  .audience-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.audience-intro .section__eyebrow{grid-column:1/-1}.audience-intro .section__title,.audience-intro .section__lead{margin:0}
-  .audience-stack{display:grid;gap:1px;background:var(--lrqa-border)}.audience-scroll-story,.audience-scroll-stage{width:100%;min-width:0}
-  .audience-grid{display:grid;gap:1px;margin:0;padding:0;list-style:none;background:var(--lrqa-border)}
-  .audience-grid--lead{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .audience-grid--rest{grid-template-columns:repeat(5,minmax(0,1fr))}
-  .audience-cell{position:relative;min-height:11rem;overflow:hidden;isolation:isolate;scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}
-  .audience-cell--lead{min-height:19rem}
-  .audience-cell__media{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;filter:saturate(.35) contrast(.9) brightness(.88) grayscale(.15);transition:transform var(--duration-normal) var(--easing-standard)}
-  .audience-cell::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(18,19,22,.18),rgba(18,19,22,.96));background:linear-gradient(180deg,color-mix(in srgb,var(--lrqa-navy) 18%,transparent),color-mix(in srgb,var(--lrqa-navy) 96%,transparent))}
-  .audience-cell--lead::after{background:linear-gradient(180deg,rgba(18,19,22,.1),rgba(18,19,22,.94));background:linear-gradient(180deg,color-mix(in srgb,var(--lrqa-navy) 10%,transparent),color-mix(in srgb,var(--lrqa-navy) 94%,transparent))}
-  .audience-cell__content{display:grid;align-content:end;gap:.5rem;min-height:100%;padding:clamp(1.05rem,1.8vw,1.5rem);color:var(--lrqa-white)}
-  .audience-cell--lead .audience-cell__content{gap:.65rem;padding:clamp(1.35rem,2.4vw,2.25rem)}
-  .audience-cell h3,.audience-cell p{margin:0}
-  .audience-cell__num{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
-  .audience-cell h3{font-size:var(--font-size-md);line-height:1.25;text-wrap:balance}
-  .audience-cell--lead h3{font-size:clamp(1.25rem,1vw + .95rem,1.75rem);line-height:1.12}
-  .audience-cell__standard{padding-top:.6rem;color:var(--lrqa-border-soft);font-family:var(--font-family-mono);font-size:var(--font-size-2xs);line-height:1.4;border-top:1px solid rgba(245,244,240,.22);border-top:1px solid color-mix(in srgb,var(--lrqa-white) 22%,transparent)}
-  .audience-cell--lead .audience-cell__standard{padding-top:.75rem;font-size:var(--font-size-xs)}
-  @media(hover:hover){.audience-cell:hover .audience-cell__media{transform:scale(1.035)}}
-  @media(prefers-reduced-motion:reduce){.audience-cell__media{transition:none}.audience-cell:hover .audience-cell__media{transform:none}}
-  @media(max-width:64rem){
-    .audience-intro{grid-template-columns:1fr}
-    .audience-grid--rest{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .audience-cell--lead{min-height:16rem}
+  .audience-section .section__inner,
+  .audience-intro { display: grid; }
+  .audience-section .section__inner { gap: clamp(2rem, 4vw, 3.5rem); }
+  .audience-intro { grid-template-columns: minmax(0, .9fr) minmax(20rem, 1.1fr); gap: 1rem clamp(2rem, 6vw, 7rem); align-items: end; }
+  .audience-intro .section__eyebrow { grid-column: 1 / -1; }
+  .audience-intro .section__title,
+  .audience-intro .section__lead { margin: 0; }
+
+  .audience-stack { display: grid; background: var(--lrqa-border); }
+  .audience-scroll-story,
+  .audience-scroll-stage { width: 100%; min-width: 0; }
+  .scroll-story-ui { display: none; }
+  .audience-grid { display: grid; grid-template-columns: repeat(15, minmax(0, 1fr)); gap: 1px; margin: 0; padding: 0; list-style: none; background: var(--lrqa-border); }
+  .audience-cell { position: relative; grid-column: span 3; min-height: 11rem; overflow: hidden; isolation: isolate; scroll-margin-top: calc(var(--header-total-height) + var(--space-4)); }
+  .audience-cell--lead { grid-column: span 5; min-height: 19rem; }
+  .audience-cell__media { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; filter: saturate(.35) contrast(.9) brightness(.88) grayscale(.15); transition: transform var(--duration-normal) var(--easing-standard); }
+  .audience-cell::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, color-mix(in srgb, var(--lrqa-navy) 18%, transparent), color-mix(in srgb, var(--lrqa-navy) 96%, transparent)); }
+  .audience-cell--lead::after { background: linear-gradient(180deg, color-mix(in srgb, var(--lrqa-navy) 10%, transparent), color-mix(in srgb, var(--lrqa-navy) 94%, transparent)); }
+  .audience-cell__content { display: grid; align-content: end; gap: .5rem; min-height: 100%; padding: clamp(1.05rem, 1.8vw, 1.5rem); color: var(--lrqa-white); }
+  .audience-cell--lead .audience-cell__content { gap: .65rem; padding: clamp(1.35rem, 2.4vw, 2.25rem); }
+  .audience-cell h3,
+  .audience-cell p { margin: 0; }
+  .audience-cell__num { color: var(--color-mint-action); font-family: var(--font-family-mono); font-size: var(--font-size-xs); }
+  .audience-cell h3 { font-size: var(--font-size-md); line-height: 1.25; text-wrap: balance; }
+  .audience-cell--lead h3 { font-size: clamp(1.25rem, 1vw + .95rem, 1.75rem); line-height: 1.12; }
+  .audience-cell__standard { padding-top: .6rem; color: var(--lrqa-border-soft); font-family: var(--font-family-mono); font-size: var(--font-size-2xs); line-height: 1.4; border-top: 1px solid color-mix(in srgb, var(--lrqa-white) 22%, transparent); }
+  .audience-cell--lead .audience-cell__standard { padding-top: .75rem; font-size: var(--font-size-xs); }
+
+  @media(hover:hover) { .audience-cell:hover .audience-cell__media { transform: scale(1.035); } }
+  @media(prefers-reduced-motion:reduce) { .audience-cell__media { transition: none; } .audience-cell:hover .audience-cell__media { transform: none; } }
+
+  @media(max-width:64rem) {
+    .audience-intro { grid-template-columns: 1fr; }
+    .audience-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .audience-cell,
+    .audience-cell--lead { grid-column: auto; min-height: 16rem; }
   }
-  @media(max-width:48rem){
-    .audience-grid--lead{grid-template-columns:1fr}
-    .audience-grid--rest{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .audience-cell--lead{min-height:13rem}
+
+  @media(max-width:48rem) {
+    .audience-stack { background: transparent; }
+    .audience-scroll-stage { height: 30rem; }
+    .scroll-story-ui { display: grid; grid-template-columns: auto minmax(3rem, 1fr) auto; align-items: center; gap: .7rem; height: 3.25rem; color: var(--lrqa-muted); font-family: var(--font-family-mono); font-size: .62rem; letter-spacing: .035em; text-transform: uppercase; }
+    .scroll-story-progress { position: relative; height: 2px; overflow: hidden; background: var(--lrqa-border-soft); }
+    .scroll-story-progress i { position: absolute; inset: 0 auto 0 0; width: 18%; background: var(--color-mint-action); }
+    .audience-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 100%; gap: .75rem; height: calc(100% - 3.25rem); overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x mandatory; scrollbar-width: none; background: transparent; }
+    .audience-grid::-webkit-scrollbar { display: none; }
+    .audience-cell,
+    .audience-cell--lead { grid-column: auto; min-height: 100%; height: 100%; border: 1px solid var(--lrqa-border-soft); scroll-snap-align: start; }
+    .audience-cell__content,
+    .audience-cell--lead .audience-cell__content { padding: 1.5rem; }
+    .audience-cell h3,
+    .audience-cell--lead h3 { font-size: clamp(1.35rem, 6.5vw, 1.8rem); line-height: 1.1; }
+    .audience-cell__standard,
+    .audience-cell--lead .audience-cell__standard { padding-top: .85rem; font-size: var(--font-size-xs); }
   }
-  @media(max-width:36rem){
-    .audience-grid--rest{grid-template-columns:1fr}
-    .audience-cell{min-height:10rem}
-  }
-  @media(max-width:48rem){
-    .audience-stack{gap:1rem;background:transparent}
-    .audience-scroll-stage{min-width:0}.audience-grid--lead,.audience-grid--rest{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(16rem,82vw);overflow-x:auto;overscroll-behavior-inline:contain;scroll-padding-inline:1px;scroll-snap-type:x mandatory;scrollbar-color:var(--color-mint-action) var(--lrqa-border-soft);background:transparent}
-    .audience-cell,.audience-cell--lead{min-height:15rem;scroll-snap-align:start}
-    .audience-scroll-story.is-scroll-story{height:calc(15rem + var(--scroll-story-distance, 0px))}.audience-scroll-story.is-scroll-story .audience-scroll-stage{position:sticky;top:calc(var(--header-total-height) + .5rem);height:15rem;overflow:hidden}.audience-scroll-story.is-scroll-story .audience-grid{overflow:visible;scroll-snap-type:none;will-change:transform}
+
+  @media(max-width:48rem) and (prefers-reduced-motion:reduce) {
+    .audience-cell__media { transition: none; }
   }
 </style>

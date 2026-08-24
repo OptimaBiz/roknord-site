@@ -1,10 +1,10 @@
 ---
 import HeroMedia from "./HeroMedia.astro";
 
-const deliverables = [
-  "Карта рисков с приоритетами",
-  "Перечень недостающих доказательств",
-  "Рекомендации по дальнейшей подготовке",
+const auditFacts = [
+  { label: "Стоимость", value: "от 150 000 ₽ с НДС" },
+  { label: "Срок", value: "5–10 рабочих дней" },
+  { label: "Базовый формат", value: "Одна площадка, один день выездной проверки" },
 ];
 ---
 
@@ -23,21 +23,21 @@ const deliverables = [
   <div class="hero__inner hero-layout page-container">
     <div class="hero-copy" data-hero-intro>
       <p class="hero-kicker">Независимый аудит готовности</p>
-      <h1 class="hero-title">Выявляем риски до процедур Росаккредитации</h1>
+      <h1 class="hero-title">Проверьте готовность до подачи заявления или ПК</h1>
       <p class="hero-lead">
-        Проверяем область аккредитации, СМК, записи, доказательства и фактическую практику. Помогаем заявителям и аккредитованным лицам подготовиться к аккредитации, подтверждению компетентности и изменению области аккредитации.
+        Проверим область аккредитации, СМК, записи и работу на площадке. По итогам подготовим карту рисков, реестр расхождений и план действий.
       </p>
       <div class="hero-actions">
-        <a class="hero-action hero-action--primary cta-angled motion-control" href="#contact"><span>Разобрать задачу</span><span aria-hidden="true">→</span></a>
+        <a class="hero-action hero-action--primary cta-angled motion-control" href="#contact"><span>Обсудить аудит</span><span aria-hidden="true">→</span></a>
       </div>
     </div>
 
-    <aside class="hero-assurance" aria-label="Результат первого этапа" data-hero-intro>
+    <aside class="hero-assurance" aria-label="Условия первого этапа" data-hero-intro>
       <span class="hero-assurance__scan" aria-hidden="true"></span>
-      <p class="hero-assurance__label">Первый шаг — независимый аудит готовности</p>
-      <h2>Что вы получаете по итогам аудита</h2>
+      <p class="hero-assurance__label">Условия первого этапа</p>
+      <h2>Независимый аудит готовности</h2>
       <ul>
-        {deliverables.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><strong>{item}</strong></li>)}
+        {auditFacts.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><div><small>{item.label}</small><strong>{item.value}</strong></div></li>)}
       </ul>
     </aside>
   </div>
@@ -50,7 +50,7 @@ const deliverables = [
   .hero-title{max-width:17ch;font-size:clamp(2.45rem,5.35vw,5.8rem);font-weight:var(--font-weight-semibold);line-height:.96;text-align:left;text-wrap:balance}
   .hero-lead{max-width:52rem;color:var(--lrqa-white);font-size:clamp(1rem,.5vw + .95rem,1.28rem);line-height:1.55;text-align:left}
   .hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.4rem}.hero-action{display:inline-flex;align-items:center;justify-content:center;gap:.75rem;min-height:3.25rem;font-weight:var(--font-weight-semibold);text-decoration:none}.hero-action--primary{padding:var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel)*.5);color:var(--lrqa-black);background:var(--gradient-button-primary)}.hero-action--secondary{gap:.4rem;color:var(--lrqa-white);border-bottom:1px solid color-mix(in srgb,var(--lrqa-white) 62%,transparent)}.hero-action__context{color:var(--lrqa-border-soft);font-weight:var(--font-weight-normal)}
-  .hero-assurance{position:relative;display:grid;gap:1.05rem;width:100%;min-width:0;overflow:hidden;padding:clamp(1.35rem,2.6vw,2.25rem);background:rgba(18,19,22,.88);background:color-mix(in srgb,var(--lrqa-navy) 88%,transparent);border-top:3px solid var(--color-mint-action);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);animation:heroIntro .9s .16s var(--easing-emphasis) both}.hero-assurance__scan{position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,var(--color-mint-action),transparent);box-shadow:0 0 1.2rem color-mix(in srgb,var(--color-mint-action) 60%,transparent);animation:assuranceScan 5s 1.2s var(--easing-emphasis) infinite}.hero-assurance__label{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.hero-assurance h2{max-width:17ch;color:var(--lrqa-white);font-size:clamp(1.4rem,1.8vw,2.2rem);line-height:1.1}.hero-assurance__text{color:var(--lrqa-border-soft);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}.hero-assurance ul{display:grid;width:100%;min-width:0;margin:0;padding:0;list-style:none}.hero-assurance li{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:.75rem;min-width:0;padding:.9rem 0;border-top:1px solid rgba(245,244,240,.2);border-top:1px solid color-mix(in srgb,var(--lrqa-white) 20%,transparent);animation:assuranceItem .6s var(--easing-emphasis) both}.hero-assurance li:nth-child(1){animation-delay:.45s}.hero-assurance li:nth-child(2){animation-delay:.62s}.hero-assurance li:nth-child(3){animation-delay:.79s}.hero-assurance li span{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.hero-assurance li strong{min-width:0;color:var(--lrqa-white);font-size:.96rem;line-height:1.35;overflow-wrap:break-word}
+  .hero-assurance{position:relative;display:grid;gap:1.05rem;width:100%;min-width:0;overflow:hidden;padding:clamp(1.35rem,2.6vw,2.25rem);background:rgba(18,19,22,.88);background:color-mix(in srgb,var(--lrqa-navy) 88%,transparent);border-top:3px solid var(--color-mint-action);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);animation:heroIntro .9s .16s var(--easing-emphasis) both}.hero-assurance__scan{position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,var(--color-mint-action),transparent);box-shadow:0 0 1.2rem color-mix(in srgb,var(--color-mint-action) 60%,transparent);animation:assuranceScan 5s 1.2s var(--easing-emphasis) infinite}.hero-assurance__label{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.hero-assurance h2{max-width:17ch;color:var(--lrqa-white);font-size:clamp(1.4rem,1.8vw,2.2rem);line-height:1.1}.hero-assurance__text{color:var(--lrqa-border-soft);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}.hero-assurance ul{display:grid;width:100%;min-width:0;margin:0;padding:0;list-style:none}.hero-assurance li{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:.75rem;min-width:0;padding:.9rem 0;border-top:1px solid rgba(245,244,240,.2);border-top:1px solid color-mix(in srgb,var(--lrqa-white) 20%,transparent);animation:assuranceItem .6s var(--easing-emphasis) both}.hero-assurance li:nth-child(1){animation-delay:.45s}.hero-assurance li:nth-child(2){animation-delay:.62s}.hero-assurance li:nth-child(3){animation-delay:.79s}.hero-assurance li>span{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.hero-assurance li div{display:grid;gap:.25rem}.hero-assurance li small{color:var(--lrqa-border);font-size:var(--font-size-2xs);font-weight:var(--font-weight-semibold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.hero-assurance li strong{min-width:0;color:var(--lrqa-white);font-size:.96rem;line-height:1.35;overflow-wrap:break-word}
   @keyframes heroIntro{from{opacity:0;transform:translateY(1.5rem)}to{opacity:1;transform:none}}@keyframes assuranceItem{from{opacity:0;transform:translateX(1rem)}to{opacity:1;transform:none}}@keyframes assuranceScan{0%,18%{transform:translateY(0);opacity:0}30%{opacity:1}70%{opacity:1}82%,100%{transform:translateY(20rem);opacity:0}}
   @media(max-width:64rem){.hero-layout{grid-template-columns:1fr;align-content:center}.hero-assurance{max-width:44rem}}
   @media(max-width:47.99rem){.hero{min-height:auto;padding-top:2rem}.hero-title{font-size:clamp(2.05rem,9.15vw,3.4rem)}.hero-actions,.hero-action--primary{width:100%}.hero-action--secondary{width:fit-content}.hero-assurance{-webkit-backdrop-filter:none;backdrop-filter:none}}

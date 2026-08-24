@@ -1,32 +1,20 @@
 ---
 const checks = [
   {
-    number: "01",
-    title: "Область аккредитации",
-    chain: ["Заявленная область", "Ресурсы и компетентность", "Документы, записи и фактическая практика"],
-    reality:
-      "Соответствует ли заявленная область фактически выполняемым работам, доступным ресурсам и подтверждённой компетентности персонала.",
+    title: "Область и ресурсы",
+    text: "Сопоставляем заявленную область с оборудованием, помещениями и компетентностью персонала.",
   },
   {
-    number: "02",
-    title: "Ресурсы и прослеживаемость",
-    chain: ["Требования к ресурсам", "Учёт и контроль", "Подтверждающие документы и записи"],
-    reality:
-      "Подтверждают ли документы фактическую доступность и пригодность ресурсов. Для лабораторий отдельно проверяются метрологическая прослеживаемость и соблюдение требований к поверке или калибровке — по применимости.",
+    title: "СМК и записи",
+    text: "Проверяем, подтверждают ли записи выполнение установленных процедур.",
   },
   {
-    number: "03",
-    title: "Компетентность персонала",
-    chain: ["Требования к компетентности", "Оценка и полномочия", "Допуски и подтверждающие записи"],
-    reality:
-      "Кто фактически выполняет работы и принимает решения. Отсутствие оформленных полномочий или подтверждений компетентности создаёт риск несоответствия, который необходимо оценить по применимым требованиям.",
+    title: "Персонал и практика",
+    text: "Сверяем полномочия и подтверждения компетентности с фактически выполняемыми работами.",
   },
   {
-    number: "04",
-    title: "Сведения во ФГИС Росаккредитации",
-    chain: ["Применимые сроки", "Внутренний порядок работы", "Сведения, документы и контрольные записи"],
-    reality:
-      "Согласованы ли сведения во ФГИС с внутренними документами и записями. Расхождения и нарушение применимых сроков представления сведений требуют отдельной проверки.",
+    title: "Сведения во ФГИС",
+    text: "Проверяем согласованность сведений во ФГИС с внутренними документами и записями.",
   },
 ];
 ---
@@ -34,104 +22,184 @@ const checks = [
 <section id="approach" class="section section--dark ilogic" aria-labelledby="ilogic-title">
   <div class="section__inner page-container">
     <header class="ilogic__intro" data-reveal>
-      <p class="section__eyebrow">Логика оценки соответствия</p>
-      <h2 id="ilogic-title" class="section__title">
-        При оценке сопоставляют документы, записи и фактическую практику: <span class="ilogic__formula">Требование → Процедура → Запись → Доказательство</span>
-      </h2>
-      <p class="section__lead">
-        Наличие документов само по себе не подтверждает выполнение требований. При оценке соответствия заявителя или аккредитованного лица критериям аккредитации сопоставляются процедуры, записи, полномочия работников и фактическая практика.
-      </p>
+      <p class="section__eyebrow">Предмет проверки</p>
+      <h2 id="ilogic-title" class="section__title">Что именно проверяем</h2>
+      <p class="section__lead">Документа недостаточно: важно, чтобы требования, процедуры, записи и работа организации подтверждали друг друга.</p>
     </header>
 
-    <div class="ilogic__workbench" data-reveal>
-      <div class="ilogic__rail" aria-hidden="true">
-        <span>Требование</span><i></i><span>Процедура</span><i></i><span>Запись</span><i></i><span>Доказательство</span>
-      </div>
-      <ol class="ilogic__grid">
-        {checks.map((item, index) => (
-          <li>
-            <details class="ilogic__reality" open={index === 0}>
-              <summary>
-                <span class="ilogic__num">{item.number}</span>
-                <span class="ilogic__summary-copy">
-                  <strong>{item.title}</strong>
-                  <span class="ilogic__chain">
-                    {item.chain.map((step, chainIndex) => (
-                      <>
-                        {chainIndex > 0 && <span class="ilogic__arrow" aria-hidden="true">→</span>}
-                        <span class="ilogic__step">{step}</span>
-                      </>
-                    ))}
-                  </span>
-                </span>
-                <span class="ilogic__reality-action" aria-hidden="true">
-                  <span class="ilogic__reality-hint ilogic__reality-hint--open">Раскрыть</span>
-                  <span class="ilogic__reality-hint ilogic__reality-hint--close">Свернуть</span>
-                  <span class="ilogic__reality-toggle">+</span>
-                </span>
-              </summary>
-              <div class="ilogic__reality-body">
-                <span>Что проверяют при оценке</span>
-                <p>{item.reality}</p>
-              </div>
-            </details>
-          </li>
-        ))}
-      </ol>
+    <div class="ilogic__formula" aria-label="Логика проверки" data-reveal>
+      <span>Требование</span><i aria-hidden="true">→</i><span>Процедура</span><i aria-hidden="true">→</i><span>Запись</span><i aria-hidden="true">→</i><span>Доказательство</span>
     </div>
 
-    <div class="ilogic__note" data-reveal>
-      <strong>Аудит помогает выявить расхождения и риски несоответствия до начала процедуры.</strong>
-      <p>Каждое выявленное расхождение соотносим с применимым требованием и оцениваем его влияние на доказательство соответствия.</p>
-    </div>
+    <ol class="ilogic__checks" data-reveal>
+      {checks.map((item, index) => (
+        <li>
+          <span aria-hidden="true">0{index + 1}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </li>
+      ))}
+    </ol>
+
+    <aside class="ilogic__example" aria-label="Пример результата проверки" data-reveal>
+      <span>Пример результата</span>
+      <p><strong>Расхождение:</strong> фактически выполняемая работа не подтверждена действующей записью.</p>
+      <p><strong>В отчёте:</strong> применимое требование, оценка риска и рекомендуемое действие.</p>
+    </aside>
   </div>
-
-  <script is:inline>
-    (() => {
-      const groups = document.querySelectorAll('.ilogic__grid');
-      groups.forEach((group) => {
-        const items = Array.from(group.querySelectorAll('.ilogic__reality'));
-        if (window.matchMedia('(max-width: 42rem)').matches) {
-          items.forEach((item) => { item.open = false; });
-        }
-        items.forEach((item) => item.addEventListener('toggle', () => {
-          if (!item.open) return;
-          items.forEach((other) => { if (other !== item) other.open = false; });
-        }));
-      });
-    })();
-  </script>
 </section>
 
 <style>
-  .ilogic .section__inner,.ilogic__intro{display:grid}.ilogic .section__inner{gap:clamp(2.5rem,5vw,4.5rem)}.ilogic__intro{grid-template-columns:minmax(0,1fr) minmax(20rem,1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.ilogic__intro .section__eyebrow{grid-column:1/-1}.ilogic__intro .section__title,.ilogic__intro .section__lead{margin:0}
-  .ilogic__formula{display:block;margin-top:.5em;color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:.6em;font-weight:var(--font-weight-semibold);letter-spacing:var(--letter-spacing-wide);line-height:1.4}
-  .ilogic__workbench{display:grid;grid-template-columns:minmax(12rem,.32fr) minmax(0,1fr);border:1px solid var(--lrqa-dark-border);background:color-mix(in srgb,var(--lrqa-white) 2%,transparent)}
-  .ilogic__rail{display:grid;align-content:space-between;gap:1rem;padding:clamp(1.5rem,3vw,2.5rem);border-right:1px solid var(--lrqa-dark-border)}.ilogic__rail span{color:var(--lrqa-white);font-family:var(--font-family-mono);font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.ilogic__rail i{display:block;width:1px;height:2rem;margin-left:.35rem;background:linear-gradient(var(--color-mint-action),transparent);transform-origin:top;animation:railPulse 2.8s var(--easing-emphasis) infinite}
-  .ilogic__grid{display:grid;margin:0;padding:0;list-style:none}.ilogic__grid li+li{border-top:1px solid var(--lrqa-dark-border)}
-  .ilogic__num{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
-  .ilogic__chain,.ilogic__reality p,.ilogic__note strong,.ilogic__note p{margin:0}.ilogic__summary-copy{display:grid;gap:.65rem}.ilogic__summary-copy>strong{color:var(--lrqa-white);font-size:clamp(1.25rem,1vw + 1rem,1.85rem);line-height:1.1}
-  .ilogic__chain{display:flex;flex-wrap:wrap;align-items:baseline;gap:.35rem .5rem}
-  .ilogic__step{color:var(--lrqa-border-soft);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}
-  .ilogic__arrow{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}
-  .ilogic__reality{background:transparent}
-  .ilogic__reality summary{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;align-items:center;gap:1rem;padding:clamp(1.25rem,2.4vw,2rem);cursor:pointer;list-style:none;transition:background-color var(--duration-normal) var(--easing-standard)}
-  .ilogic__reality summary::-webkit-details-marker{display:none}
-  .ilogic__reality summary:hover,.ilogic__reality summary:focus-visible{background:rgba(255,255,255,.05)}
-  .ilogic__reality summary:focus-visible{outline:2px solid var(--color-mint-action);outline-offset:2px}
-  .ilogic__reality-action{display:flex;align-items:center;gap:.65rem;flex:0 0 auto;color:var(--lrqa-border-soft)}
-  .ilogic__reality-hint{font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold)}
-  .ilogic__reality-hint--close{display:none}
-  .ilogic__reality-toggle{display:grid;place-items:center;width:1.8rem;height:1.8rem;color:var(--lrqa-black);background:var(--color-mint-action);font-size:1.25rem;line-height:1;transition:transform 180ms ease}
-  .ilogic__reality[open] .ilogic__reality-hint--open{display:none}
-  .ilogic__reality[open] .ilogic__reality-hint--close{display:inline}
-  .ilogic__reality[open] .ilogic__reality-toggle{transform:rotate(45deg)}
-  .ilogic__reality-body{display:grid;grid-template-columns:minmax(9rem,.35fr) minmax(0,1fr);gap:1rem 2rem;margin:0 clamp(1.25rem,2.4vw,2rem) clamp(1.25rem,2.4vw,2rem) calc(clamp(1.25rem,2.4vw,2rem) + 3.5rem);padding-top:1.25rem;border-top:1px solid var(--lrqa-dark-border)}.ilogic__reality-body>span{color:var(--color-mint-action);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.ilogic__reality p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
-  .ilogic__note{display:grid;grid-template-columns:minmax(15rem,1fr) minmax(0,1fr);gap:1rem clamp(2rem,5vw,5rem);padding-top:1.5rem;border-top:1px solid var(--lrqa-dark-border)}
-  .ilogic__note strong{color:var(--color-mint-action);font-size:clamp(1.1rem,.55vw + 1rem,1.5rem);line-height:1.2}
-  .ilogic__note p{max-width:52rem;color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
-  @keyframes railPulse{0%,100%{opacity:.28;transform:scaleY(.35)}50%{opacity:1;transform:scaleY(1)}}
-  @media(max-width:64rem){.ilogic__intro,.ilogic__note{grid-template-columns:1fr}.ilogic__workbench{grid-template-columns:1fr}.ilogic__rail{grid-template-columns:auto 1fr auto 1fr auto 1fr auto;align-items:center;padding:1rem;border-right:0;border-bottom:1px solid var(--lrqa-dark-border)}.ilogic__rail i{width:auto;height:1px;margin:0;background:linear-gradient(90deg,var(--color-mint-action),transparent);animation:none}}
-  @media(max-width:42rem){.ilogic__rail{display:none}.ilogic__reality summary{grid-template-columns:2rem minmax(0,1fr) auto;padding:1rem}.ilogic__reality-hint{display:none!important}.ilogic__reality-body{grid-template-columns:1fr;margin:0 1rem 1rem 3rem;padding-top:1rem}}
-  @media(prefers-reduced-motion:reduce){.ilogic__rail i{animation:none}}
+  .ilogic .section__inner,
+  .ilogic__intro,
+  .ilogic__checks,
+  .ilogic__checks li,
+  .ilogic__example {
+    display: grid;
+  }
+
+  .ilogic .section__inner {
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .ilogic__intro {
+    grid-template-columns: minmax(0, 0.9fr) minmax(20rem, 1.1fr);
+    gap: 0.75rem clamp(2rem, 6vw, 7rem);
+    align-items: end;
+  }
+
+  .ilogic__intro .section__eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .ilogic__intro .section__title,
+  .ilogic__intro .section__lead,
+  .ilogic__checks,
+  .ilogic__checks h3,
+  .ilogic__checks p,
+  .ilogic__example p {
+    margin: 0;
+  }
+
+  .ilogic__formula {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: clamp(1.25rem, 2.5vw, 2rem);
+    color: var(--lrqa-white);
+    font-family: var(--font-family-mono);
+    font-size: clamp(0.78rem, 0.4vw + 0.7rem, 1rem);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+    border: 1px solid var(--lrqa-dark-border);
+  }
+
+  .ilogic__formula i {
+    color: var(--color-mint-action);
+    font-style: normal;
+  }
+
+  .ilogic__checks {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--lrqa-dark-border);
+    border-left: 1px solid var(--lrqa-dark-border);
+  }
+
+  .ilogic__checks li {
+    align-content: start;
+    gap: 0.65rem;
+    min-height: 13.5rem;
+    padding: clamp(1.25rem, 2vw, 1.8rem);
+    border-right: 1px solid var(--lrqa-dark-border);
+    border-bottom: 1px solid var(--lrqa-dark-border);
+  }
+
+  .ilogic__checks li > span,
+  .ilogic__example > span {
+    color: var(--color-mint-action);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-2xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+  }
+
+  .ilogic__checks h3 {
+    color: var(--lrqa-white);
+    font-size: clamp(1.1rem, 0.65vw + 1rem, 1.55rem);
+    line-height: 1.18;
+  }
+
+  .ilogic__checks p,
+  .ilogic__example p {
+    color: var(--lrqa-border-soft);
+    line-height: 1.6;
+  }
+
+  .ilogic__example {
+    grid-template-columns: minmax(9rem, 0.35fr) repeat(2, minmax(0, 1fr));
+    gap: 1rem clamp(1.5rem, 4vw, 4rem);
+    align-items: start;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--lrqa-dark-border);
+    border-bottom: 1px solid var(--lrqa-dark-border);
+  }
+
+  .ilogic__example strong {
+    color: var(--lrqa-white);
+  }
+
+  @media (max-width: 64rem) {
+    .ilogic__intro,
+    .ilogic__example {
+      grid-template-columns: 1fr;
+    }
+
+    .ilogic__checks {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .ilogic__formula {
+      grid-template-columns: 1fr auto;
+      justify-content: stretch;
+      gap: 0.65rem 1rem;
+    }
+
+    .ilogic__formula i {
+      transform: rotate(90deg);
+    }
+
+    .ilogic__formula i:last-of-type {
+      display: none;
+    }
+
+    .ilogic__formula span:last-child {
+      grid-column: 1 / -1;
+    }
+
+    .ilogic__checks {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ilogic__checks li {
+      min-height: 0;
+      padding: 0.9rem;
+    }
+
+    .ilogic__checks h3 {
+      font-size: 1rem;
+    }
+
+    .ilogic__checks p {
+      font-size: 0.82rem;
+      line-height: 1.48;
+    }
+  }
 </style>

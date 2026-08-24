@@ -1,75 +1,33 @@
 ---
-const formats = [
-  {
-    kicker: "Когда нужен единый контур подготовки",
-    name: "Полный комплекс",
-    lead: "Для процедур с несколькими взаимосвязанными зонами риска: от корректирующих действий и проверки доказательств до подготовки сотрудников к выездной или удалённой оценке.",
-    result: "Согласованный контур подготовки с приоритетами и зонами ответственности.",
-    termsLabel: "Объём и стоимость",
-    terms: "Определяются по итогам аудита",
-    note: "Фиксируются в договоре до старта работ.",
-    featured: true,
-  },
-  {
-    kicker: "Когда задача уже локализована",
-    name: "Точечный блок",
-    lead: "Для конкретной задачи по области аккредитации, СМК, корректирующим действиям или порядку ведения сведений во ФГИС.",
-    result: "Проработанный блок с заранее согласованными границами и результатом.",
-    termsLabel: "Объём и стоимость",
-    terms: "По составу задачи",
-    note: "Согласуются до начала работ.",
-  },
-  {
-    kicker: "Когда готовность важно поддерживать",
-    name: "Периодический независимый аудит",
-    lead: "Для периодической независимой проверки СМК, новых записей и изменений между процедурами Росаккредитации.",
-    result: "Регулярная оценка рисков до следующего подтверждения компетентности.",
-    termsLabel: "Условие",
-    terms: "После аудита готовности",
-    note: "График и формат согласуются индивидуально.",
-  },
+const included = [
+  "Предварительный анализ документов",
+  "Проверка одной площадки",
+  "Итоговый отчёт и разбор результатов",
 ];
 
-const auditResults = [
-  {
-    title: "Карта рисков",
-    text: "с приоритетами по влиянию на готовность",
-  },
-  {
-    title: "Реестр расхождений",
-    text: "между требованиями, документами, записями и практикой",
-  },
-  {
-    title: "План действий",
-    text: "с рекомендациями по дальнейшей подготовке",
-  },
+const formats = [
+  { kicker: "Когда нужен единый контур подготовки", name: "Полный комплекс" },
+  { kicker: "Когда задача уже локализована", name: "Точечный блок" },
+  { kicker: "Когда готовность важно поддерживать", name: "Периодический аудит" },
 ];
 ---
 
 <section id="pricing" class="section section--light formats-section" aria-labelledby="formats-title">
   <div class="section__inner page-container">
     <header class="formats-intro" data-reveal>
-      <p class="section__eyebrow">Форматы работы</p>
-      <h2 id="formats-title" class="section__title">Начинаем с аудита. Дальше — только необходимый объём сопровождения</h2>
-      <p class="section__lead">Независимый аудит готовности выявляет риски и расхождения и помогает определить, какие работы действительно нужны. Решение о дальнейшем сопровождении заказчик принимает после получения результатов.</p>
+      <p class="section__eyebrow">Первый этап</p>
+      <h2 id="formats-title" class="section__title">Стоимость аудита готовности</h2>
+      <p class="section__lead">Начинаем с проверки текущего состояния. Дальнейшие работы заказчик выбирает после получения результатов.</p>
     </header>
 
     <article class="pricing-start" aria-labelledby="pricing-start-title" data-reveal>
       <div class="pricing-start__main">
-        <header class="pricing-start__head">
-          <span class="pricing-start__badge">Первый этап</span>
-          <h3 id="pricing-start-title">Независимый аудит готовности</h3>
-          <p>Предварительно анализируем документы, затем проводим выездную проверку фактической деятельности на площадке заказчика. Проверяем СМК, область аккредитации, записи, сведения во ФГИС, персонал, оборудование и практическое выполнение работ.</p>
-        </header>
+        <span class="pricing-start__badge">Базовый формат</span>
+        <h3 id="pricing-start-title">Независимый аудит готовности</h3>
+        <p>Ведущий аудитор анализирует документы, проводит проверку на площадке и готовит материалы с приоритетами дальнейших действий.</p>
 
-        <ul class="pricing-start__results" aria-label="Результаты независимого аудита готовности">
-          {auditResults.map((result, index) => (
-            <li>
-              <span aria-hidden="true">0{index + 1}</span>
-              <strong>{result.title}</strong>
-              <p>{result.text}</p>
-            </li>
-          ))}
+        <ul class="pricing-start__included" aria-label="Что входит в базовый формат">
+          {included.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><strong>{item}</strong></li>)}
         </ul>
       </div>
 
@@ -81,67 +39,32 @@ const auditResults = [
           </div>
           <div>
             <dt>Срок</dt>
-            <dd><strong>5–10</strong><span>рабочих дней с учётом подготовки итогового отчёта</span></dd>
+            <dd><strong>5–10</strong><span>рабочих дней</span></dd>
           </div>
         </dl>
         <a class="pricing-start__cta cta-angled motion-control" href="#contact" data-contact-context="Независимый аудит готовности: объём и стоимость"><span>Обсудить объём аудита</span><span aria-hidden="true">→</span></a>
       </aside>
 
-      <p class="pricing-start__credit">
-        В стоимость входит проверка одной площадки в течение одного рабочего дня. Транспортные расходы аудитора оплачиваются дополнительно.
-      </p>
+      <p class="pricing-start__note">Один ведущий аудитор, одна площадка и один рабочий день выездной проверки. Транспортные расходы оплачиваются дополнительно. Дополнительных специалистов и их стоимость согласовываем до начала работ.</p>
     </article>
 
-    <div class="formats-block" data-reveal>
-      <header class="formats-block__head">
-        <p class="formats-block__label">После аудита</p>
-        <h3>Три сценария дальнейшей работы</h3>
-        <p>Формат выбираем по выявленным рискам, срокам и объёму изменений — без заранее навязанного пакета.</p>
+    <div class="formats-after" data-reveal>
+      <header>
+        <p>После аудита</p>
+        <h3>Только необходимый объём сопровождения</h3>
+        <span>Формат выбираем по выявленным рискам и фиксируем до начала работ.</span>
       </header>
 
-      <div class="formats-mobile" aria-label="Сценарии дальнейшей работы">
+      <ol aria-label="Сценарии дальнейшей работы">
         {formats.map((format, index) => (
-          <details class:list={["format-disclosure", format.featured && "format-disclosure--featured"]} open={index === 0}>
-            <summary>
-              <span class="format-disclosure__num" aria-hidden="true">0{index + 1}</span>
-              <span class="format-disclosure__title">
-                <small>{format.kicker}</small>
-                <strong>{format.name}</strong>
-              </span>
-              <span class="format-disclosure__toggle" aria-hidden="true">+</span>
-            </summary>
-            <div class="format-disclosure__body">
-              <p>{format.lead}</p>
-              <div>
-                <span>Результат</span>
-                <strong>{format.result}</strong>
-              </div>
-              <div>
-                <span>{format.termsLabel}</span>
-                <strong>{format.terms}</strong>
-                <em>{format.note}</em>
-              </div>
-            </div>
-          </details>
+          <li>
+            <span aria-hidden="true">0{index + 1}</span>
+            <div><small>{format.kicker}</small><strong>{format.name}</strong></div>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   </div>
-
-  <script is:inline>
-    (() => {
-      document.querySelectorAll('.formats-mobile').forEach((group) => {
-        const items = Array.from(group.querySelectorAll('.format-disclosure'));
-        if (window.matchMedia('(max-width: 44rem)').matches) {
-          items.forEach((item) => { item.open = false; });
-        }
-        items.forEach((item) => item.addEventListener('toggle', () => {
-          if (!item.open) return;
-          items.forEach((other) => { if (other !== item) other.open = false; });
-        }));
-      });
-    })();
-  </script>
 </section>
 
 <style>
@@ -149,20 +72,23 @@ const auditResults = [
   .formats-intro,
   .pricing-start,
   .pricing-start__main,
-  .pricing-start__head,
   .pricing-start__offer,
-  .formats-block,
-  .formats-block__head {
+  .pricing-start__included,
+  .formats-after,
+  .formats-after header,
+  .formats-after ol,
+  .formats-after li,
+  .formats-after li div {
     display: grid;
   }
 
   .formats-section .section__inner {
-    gap: clamp(3rem, 6vw, 5rem);
+    gap: clamp(2rem, 4vw, 3.5rem);
   }
 
   .formats-intro {
-    grid-template-columns: minmax(0, 1.28fr) minmax(18rem, 0.72fr);
-    gap: 1rem clamp(2rem, 6vw, 6.5rem);
+    grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+    gap: 0.75rem clamp(2rem, 6vw, 6.5rem);
     align-items: end;
   }
 
@@ -171,118 +97,98 @@ const auditResults = [
   }
 
   .formats-intro .section__title,
-  .formats-intro .section__lead {
+  .formats-intro .section__lead,
+  .pricing-start h3,
+  .pricing-start p,
+  .pricing-start dl,
+  .pricing-start dd,
+  .pricing-start__included,
+  .formats-after h3,
+  .formats-after p,
+  .formats-after ol {
     margin: 0;
   }
 
-  .formats-intro .section__title {
-    max-width: 47rem;
-    font-size: clamp(1.8rem, 2vw + 0.9rem, 2.75rem);
-    line-height: 1.1;
-    text-wrap: balance;
-  }
-
-  .formats-intro .section__lead {
-    max-width: 32rem;
-  }
-
   .pricing-start {
-    grid-template-columns: minmax(0, 1.55fr) minmax(19rem, 0.7fr);
+    grid-template-columns: minmax(0, 1.45fr) minmax(19rem, 0.7fr);
     color: var(--lrqa-white);
     background: var(--lrqa-navy);
     border-top: 4px solid var(--color-mint-action);
   }
 
   .pricing-start__main {
-    gap: clamp(2rem, 4vw, 3.5rem);
-    padding: clamp(2rem, 4vw, 3.5rem);
+    align-content: start;
+    gap: 0.85rem;
+    padding: clamp(1.75rem, 3.5vw, 3rem);
     border-right: 1px solid var(--lrqa-dark-border);
   }
 
-  .pricing-start__head {
-    gap: 0.85rem;
-    max-width: 42rem;
-  }
-
   .pricing-start__badge,
-  .pricing-start__results > li > span,
-  .pricing-start__facts dt {
-    font-size: var(--font-size-xs);
+  .pricing-start__included span,
+  .pricing-start__facts dt,
+  .formats-after header > p,
+  .formats-after li > span,
+  .formats-after small {
+    font-size: var(--font-size-2xs);
     font-weight: var(--font-weight-semibold);
     letter-spacing: var(--letter-spacing-wide);
     text-transform: uppercase;
   }
 
   .pricing-start__badge,
-  .pricing-start__results > li > span {
+  .pricing-start__included span,
+  .formats-after li > span {
     color: var(--color-mint-action);
   }
 
-  .pricing-start h3,
-  .pricing-start p,
-  .pricing-start dt,
-  .pricing-start dd,
-  .pricing-start ul,
-  .formats-block h3,
-  .formats-block p {
-    margin: 0;
-  }
-
   .pricing-start h3 {
-    font-size: clamp(2rem, 2.4vw + 1rem, 3.5rem);
+    font-size: clamp(2rem, 2vw + 1rem, 3.25rem);
     line-height: 1;
   }
 
-  .pricing-start__head p {
-    max-width: 39rem;
+  .pricing-start__main > p {
+    max-width: 42rem;
     color: var(--lrqa-border);
-    line-height: var(--line-height-relaxed);
+    line-height: 1.65;
   }
 
-  .pricing-start__results {
-    display: grid;
+  .pricing-start__included {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1px;
+    margin-top: 1rem;
     padding: 0;
     list-style: none;
-    background: var(--lrqa-dark-border);
-    border: 1px solid var(--lrqa-dark-border);
+    border-top: 1px solid var(--lrqa-dark-border);
+    border-left: 1px solid var(--lrqa-dark-border);
   }
 
-  .pricing-start__results li {
+  .pricing-start__included li {
     display: grid;
     align-content: start;
-    gap: 0.5rem;
-    padding: clamp(1.1rem, 2vw, 1.5rem);
-    background: var(--lrqa-navy);
+    gap: 0.45rem;
+    padding: 1rem;
+    border-right: 1px solid var(--lrqa-dark-border);
+    border-bottom: 1px solid var(--lrqa-dark-border);
   }
 
-  .pricing-start__results strong {
-    font-size: var(--font-size-lg);
-    line-height: 1.2;
-  }
-
-  .pricing-start__results p {
-    color: var(--lrqa-border);
+  .pricing-start__included strong {
     font-size: var(--font-size-sm);
-    line-height: 1.5;
+    line-height: 1.45;
   }
 
   .pricing-start__offer {
     align-content: space-between;
-    gap: 2rem;
-    padding: clamp(2rem, 3vw, 3rem);
+    gap: 1.75rem;
+    padding: clamp(1.75rem, 3vw, 2.75rem);
     background: var(--lrqa-navy-2);
   }
 
   .pricing-start__facts {
     display: grid;
-    gap: 1.75rem;
-    margin: 0;
+    gap: 1.5rem;
   }
 
   .pricing-start__facts > div + div {
-    padding-top: 1.75rem;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--lrqa-dark-border);
   }
 
@@ -294,8 +200,8 @@ const auditResults = [
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: 0.45rem;
-    margin-top: 0.45rem;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
   }
 
   .pricing-start__facts dd strong {
@@ -304,16 +210,15 @@ const auditResults = [
     white-space: nowrap;
   }
 
-  .pricing-start__from {
-    color: var(--lrqa-border-soft);
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
-  }
-
   .pricing-start__facts dd span {
     color: var(--lrqa-border);
     font-size: var(--font-size-sm);
-    line-height: 1.5;
+  }
+
+  .pricing-start__from {
+    color: var(--lrqa-border-soft) !important;
+    font-size: var(--font-size-lg) !important;
+    font-weight: var(--font-weight-semibold);
   }
 
   .pricing-start__cta {
@@ -321,7 +226,6 @@ const auditResults = [
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    width: 100%;
     padding: var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel) * 0.5);
     color: var(--lrqa-black);
     background: var(--gradient-button-primary);
@@ -329,99 +233,73 @@ const auditResults = [
     text-decoration: none;
   }
 
-  .pricing-start__credit {
+  .pricing-start__note {
     grid-column: 1 / -1;
-    padding: 1rem clamp(2rem, 4vw, 3.5rem);
+    padding: 1rem clamp(1.75rem, 3.5vw, 3rem);
     color: var(--lrqa-border);
     font-size: var(--font-size-sm);
-    line-height: var(--line-height-relaxed);
+    line-height: 1.55;
     border-top: 1px solid var(--lrqa-dark-border);
   }
 
-  .formats-block {
-    gap: clamp(1.75rem, 3vw, 2.5rem);
+  .formats-after {
+    grid-template-columns: minmax(16rem, 0.55fr) minmax(0, 1.45fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: start;
   }
 
-  .formats-block__head {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.25fr) minmax(18rem, 0.9fr);
-    gap: 1rem clamp(1.5rem, 4vw, 4rem);
-    align-items: end;
+  .formats-after header {
+    gap: 0.55rem;
   }
 
-  .formats-block__label {
-    align-self: start;
+  .formats-after header > p,
+  .formats-after small {
     color: var(--lrqa-muted);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
   }
 
-  .formats-block__head h3 {
-    font-size: clamp(1.6rem, 1.4vw + 1rem, 2.35rem);
-    line-height: 1.1;
+  .formats-after h3 {
+    font-size: clamp(1.35rem, 1vw + 1rem, 2rem);
+    line-height: 1.12;
   }
 
-  .formats-block__head > p:last-child {
+  .formats-after header > span {
     color: var(--lrqa-muted);
-    line-height: var(--line-height-relaxed);
+    line-height: 1.55;
   }
 
-  @media (max-width: 70rem) {
-    .formats-intro {
-      grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
-    }
-
-    .pricing-start {
-      grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
-    }
-
-    .pricing-start__results {
-      grid-template-columns: 1fr;
-    }
-
-    .pricing-start__results li {
-      grid-template-columns: auto minmax(0, 0.7fr) minmax(0, 1fr);
-      align-items: baseline;
-    }
-
-    .formats-block__head {
-      grid-template-columns: 0.6fr 1.4fr;
-    }
-
-    .formats-block__head > p:last-child {
-      grid-column: 2;
-    }
-
+  .formats-after ol {
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--lrqa-border);
   }
 
-  @media (max-width: 52rem) {
+  .formats-after li {
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--lrqa-border-soft);
+  }
+
+  .formats-after li div {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: baseline;
+  }
+
+  .formats-after strong {
+    font-size: var(--font-size-lg);
+  }
+
+  @media (max-width: 64rem) {
     .formats-intro,
     .pricing-start,
-    .formats-block__head {
+    .formats-after {
       grid-template-columns: 1fr;
-    }
-
-    .formats-intro .section__eyebrow,
-    .formats-block__head > p:last-child {
-      grid-column: 1;
-    }
-
-    .formats-intro .section__lead {
-      max-width: 42rem;
     }
 
     .pricing-start__main {
       border-right: 0;
       border-bottom: 1px solid var(--lrqa-dark-border);
-    }
-
-    .pricing-start__results {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .pricing-start__results li {
-      grid-template-columns: 1fr;
     }
 
     .pricing-start__offer {
@@ -431,7 +309,6 @@ const auditResults = [
 
     .pricing-start__facts {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.5rem;
     }
 
     .pricing-start__facts > div + div {
@@ -442,36 +319,18 @@ const auditResults = [
     }
   }
 
-  @media (max-width: 44rem) {
-    .formats-section .section__inner {
-      gap: 3rem;
-    }
-
-    .formats-intro {
-      gap: 1rem;
-    }
-
-    .formats-intro .section__title {
-      font-size: clamp(1.65rem, 7vw, 2.1rem);
-    }
-
-    .formats-intro .section__lead {
-      font-size: var(--font-size-md);
-      line-height: 1.65;
-    }
-
+  @media (max-width: 48rem) {
     .pricing-start__main,
     .pricing-start__offer {
-      padding: 1.5rem;
+      padding: 1.35rem;
     }
 
-    .pricing-start__results {
+    .pricing-start__included {
       grid-template-columns: 1fr;
     }
 
-    .pricing-start__results li {
-      grid-template-columns: auto minmax(0, 0.8fr) minmax(0, 1fr);
-      padding: 1rem;
+    .pricing-start__included li {
+      grid-template-columns: 2rem minmax(0, 1fr);
     }
 
     .pricing-start__offer,
@@ -480,75 +339,19 @@ const auditResults = [
     }
 
     .pricing-start__facts > div + div {
-      padding-top: 1.25rem;
+      padding-top: 1.1rem;
       padding-left: 0;
       border-top: 1px solid var(--lrqa-dark-border);
       border-left: 0;
     }
 
-    .pricing-start__credit {
-      padding: 1rem 1.5rem;
+    .pricing-start__note {
+      padding: 1rem 1.35rem;
     }
 
-    .formats-block__head {
-      gap: 0.75rem;
-    }
-
-    .formats-block__head > p:last-child {
-      margin-top: 0.25rem;
-    }
-
-  }
-
-  @media (max-width: 30rem) {
-    .pricing-start h3 {
-      font-size: clamp(2rem, 10vw, 2.7rem);
-    }
-
-    .pricing-start__results li {
-      grid-template-columns: auto minmax(0, 1fr);
-    }
-
-    .pricing-start__results li p {
-      grid-column: 2;
-    }
-
-    .pricing-start__cta {
-      justify-content: center;
+    .formats-after li div {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
     }
   }
-
-  .formats-mobile {
-    display: grid;
-    gap: 1px;
-    background: var(--lrqa-border-soft);
-    border: 1px solid var(--lrqa-border-soft);
-  }
-  .format-disclosure { background: var(--lrqa-card-light); }
-  .format-disclosure--featured { box-shadow: inset 4px 0 0 var(--color-mint-action); }
-  .format-disclosure summary {
-    display: grid;
-    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
-    gap: clamp(1rem, 2vw, 2rem);
-    align-items: center;
-    padding: clamp(1.25rem, 2.3vw, 2rem);
-    cursor: pointer;
-    list-style: none;
-  }
-  .format-disclosure summary::-webkit-details-marker { display: none; }
-  .format-disclosure summary:focus-visible { outline: 2px solid var(--color-mint-action); outline-offset: -3px; }
-  .format-disclosure__num { color: var(--lrqa-muted-2); font-family: var(--font-family-mono); font-size: var(--font-size-xs); }
-  .format-disclosure__title { display: grid; gap: .35rem; }
-  .format-disclosure__title small { color: var(--lrqa-muted-dark); font-size: var(--font-size-2xs); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-wide); line-height: 1.4; text-transform: uppercase; }
-  .format-disclosure__title strong { font-size: clamp(1.25rem, 1vw + 1rem, 1.85rem); line-height: 1.12; }
-  .format-disclosure__toggle { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; color: var(--lrqa-black); font-size: 1.5rem; line-height: 1; border: 1px solid var(--lrqa-border); transition: color var(--duration-normal) var(--easing-standard), background-color var(--duration-normal) var(--easing-standard), transform var(--duration-normal) var(--easing-emphasis); }
-  .format-disclosure[open] .format-disclosure__toggle { background: var(--color-mint-action); border-color: var(--color-mint-action); transform: rotate(45deg); }
-  .format-disclosure__body { display: grid; grid-template-columns:minmax(0,1.2fr) minmax(12rem,.8fr) minmax(12rem,.8fr); gap: clamp(1rem,3vw,3rem); padding: 0 clamp(1.25rem,2.3vw,2rem) clamp(1.25rem,2.3vw,2rem) calc(clamp(1.25rem,2.3vw,2rem) + 4.5rem); }
-  .format-disclosure__body > p { color: var(--lrqa-muted); line-height: 1.6; }
-  .format-disclosure__body > div { display: grid; align-content:start; gap: .4rem; padding-top: .9rem; border-top: 1px solid var(--lrqa-border-soft); }
-  .format-disclosure__body > div > span { color: var(--lrqa-muted-2); font-size: var(--font-size-2xs); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-wide); text-transform: uppercase; }
-  .format-disclosure__body > div > strong { line-height: 1.45; }
-  .format-disclosure__body em { color: var(--lrqa-muted); font-size: var(--font-size-sm); font-style: normal; line-height: 1.5; }
-  @media(max-width:52rem){.format-disclosure__body{grid-template-columns:1fr 1fr}.format-disclosure__body>p{grid-column:1/-1}}
-  @media(max-width:44rem){.format-disclosure--featured{box-shadow:inset 0 4px 0 var(--color-mint-action)}.format-disclosure__body{grid-template-columns:1fr;padding:0 1.5rem 1.5rem 3.75rem}.format-disclosure__body>p{grid-column:1}.format-disclosure summary{grid-template-columns:auto minmax(0,1fr) auto;padding:1.5rem}}
 </style>

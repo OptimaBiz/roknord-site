@@ -2,12 +2,12 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import Hero from "../components/Hero.astro";
-import AboutSection from "../components/AboutSection.astro";
 import InspectionLogic from "../components/InspectionLogic.astro";
 import Scenarios from "../components/Scenarios.astro";
 import ProcessSection from "../components/ProcessSection.astro";
 import ExpertMaterial from "../components/ExpertMaterial.astro";
 import AudienceSection from "../components/AudienceSection.astro";
+import ExpertiseTeamSection from "../components/ExpertiseTeamSection.astro";
 import PricingSection from "../components/PricingSection.astro";
 import FaqSection from "../components/FaqSection.astro";
 import ContactForm from "../components/ContactForm.astro";
@@ -19,18 +19,18 @@ import ContactForm from "../components/ContactForm.astro";
 >
   <main id="content">
     <Hero />
-    <AboutSection />
     <Scenarios />
+    <PricingSection />
     <InspectionLogic />
-    <ExpertMaterial />
     <ProcessSection />
     <AudienceSection />
-    <PricingSection />
+    <ExpertiseTeamSection />
+    <ExpertMaterial />
     <FaqSection />
     <ContactForm
       eyebrow="Первый шаг"
       title="Обсудите задачу с экспертом"
-      description="Укажите тип организации, предстоящую процедуру, сроки и основной вопрос. Мы изучим контекст и предложим подходящий формат независимого аудита готовности."
+      description="Укажите тип организации, предстоящую процедуру и сроки. Мы предложим объём первого аудита."
       submitLabel="Отправить запрос"
       statusText="Ответим в течение рабочего дня. Используем данные для ответа на обращение в соответствии с Политикой в отношении обработки персональных данных."
     />

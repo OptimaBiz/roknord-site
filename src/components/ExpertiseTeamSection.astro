@@ -1,0 +1,189 @@
+---
+const principles = [
+  { title: "По профилю задачи", text: "Учитываем тип организации, область и предстоящую процедуру." },
+  { title: "По необходимости", text: "Дополнительные компетенции подключаем только к отдельным вопросам." },
+  { title: "По согласованию", text: "Состав, задачи и стоимость фиксируем до начала соответствующих работ." },
+];
+---
+
+<section id="expertise" class="section section--dark expertise-section" aria-labelledby="expertise-title">
+  <div class="section__inner page-container">
+    <header class="expertise-intro" data-reveal>
+      <p class="section__eyebrow">Экспертная модель</p>
+      <h2 id="expertise-title" class="section__title">Как подбираем аудитора</h2>
+      <p class="section__lead">Для базового аудита назначаем одного ведущего аудитора. Если задача требует дополнительных компетенций, заранее согласовываем расширенный состав.</p>
+    </header>
+
+    <div class="expertise-feature" data-reveal>
+      <figure class="expertise-feature__media">
+        <img
+          src="/images/expertise/team-work-session.webp"
+          alt="Рабочая сессия по анализу документов и доказательств"
+          width="1586"
+          height="992"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <div class="expertise-feature__content">
+        <p class="expertise-feature__label">Состав проекта</p>
+        <h3>Один ответственный контур работы</h3>
+        <p>Ведущий аудитор отвечает за план проверки и целостность выводов. Рокнорд координирует дополнительные компетенции и сводит результаты в единый итоговый материал.</p>
+
+        <ol class="expertise-principles" aria-label="Принципы формирования состава">
+          {principles.map((item, index) => (
+            <li>
+              <span aria-hidden="true">0{index + 1}</span>
+              <div><strong>{item.title}</strong><p>{item.text}</p></div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .expertise-section .section__inner,
+  .expertise-intro,
+  .expertise-feature,
+  .expertise-feature__content,
+  .expertise-principles,
+  .expertise-principles li,
+  .expertise-principles li div {
+    display: grid;
+  }
+
+  .expertise-section .section__inner {
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .expertise-intro {
+    grid-template-columns: minmax(0, 0.9fr) minmax(20rem, 1.1fr);
+    gap: 0.75rem clamp(2rem, 6vw, 7rem);
+    align-items: end;
+  }
+
+  .expertise-intro .section__eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .expertise-intro .section__title,
+  .expertise-intro .section__lead,
+  .expertise-feature figure,
+  .expertise-feature h3,
+  .expertise-feature p,
+  .expertise-principles {
+    margin: 0;
+  }
+
+  .expertise-feature {
+    grid-template-columns: minmax(0, 1.35fr) minmax(20rem, 0.85fr);
+    border: 1px solid var(--lrqa-dark-border);
+  }
+
+  .expertise-feature__media {
+    position: relative;
+    min-height: 34rem;
+    overflow: hidden;
+  }
+
+  .expertise-feature__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 62%, color-mix(in srgb, var(--lrqa-navy) 38%, transparent));
+  }
+
+  .expertise-feature__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.72) contrast(1.03);
+  }
+
+  .expertise-feature__content {
+    align-content: start;
+    gap: 0.9rem;
+    padding: clamp(1.5rem, 3vw, 2.75rem);
+    border-left: 1px solid var(--lrqa-dark-border);
+  }
+
+  .expertise-feature__label,
+  .expertise-principles li > span {
+    color: var(--color-mint-action);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-2xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+  }
+
+  .expertise-feature h3 {
+    font-size: clamp(1.65rem, 1.4vw + 1rem, 2.4rem);
+    line-height: 1.08;
+  }
+
+  .expertise-feature__content > p:not(.expertise-feature__label) {
+    color: var(--lrqa-border);
+    line-height: 1.65;
+  }
+
+  .expertise-principles {
+    margin-top: 0.75rem;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--lrqa-dark-border);
+  }
+
+  .expertise-principles li {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--lrqa-dark-border);
+  }
+
+  .expertise-principles li div {
+    gap: 0.25rem;
+  }
+
+  .expertise-principles strong {
+    color: var(--lrqa-white);
+    line-height: 1.35;
+  }
+
+  .expertise-principles li p {
+    color: var(--lrqa-border);
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 64rem) {
+    .expertise-intro,
+    .expertise-feature {
+      grid-template-columns: 1fr;
+    }
+
+    .expertise-feature__media {
+      min-height: 0;
+      aspect-ratio: 16 / 9;
+    }
+
+    .expertise-feature__content {
+      border-top: 1px solid var(--lrqa-dark-border);
+      border-left: 0;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .expertise-feature__media {
+      aspect-ratio: 4 / 3;
+    }
+
+    .expertise-feature__content {
+      padding: 1.35rem;
+    }
+  }
+</style>

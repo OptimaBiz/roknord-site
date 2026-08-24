@@ -1,11 +1,11 @@
 ---
 const situations = [
-  { id: "scenario-confirmation", title: "Приближается подтверждение компетентности", text: "До подачи заявления определяем приоритетные риски и проверяем готовность документов, записей и фактической практики к оценке соответствия критериям аккредитации.", cta: "Обсудить подготовку к ПК" },
-  { id: "scenario-corrective-actions", title: "По результатам оценки выявлены несоответствия", text: "Анализируем применимые требования и первопричины, помогаем подготовить план корректирующих действий и комплект подтверждающих материалов.", cta: "Разобрать несоответствия" },
+  { id: "scenario-confirmation", title: "Приближается подтверждение компетентности", text: "До подачи проверяем документы, записи и работу на площадке, определяем приоритетные риски.", cta: "Обсудить подготовку к ПК" },
+  { id: "scenario-corrective-actions", title: "По результатам оценки выявлены несоответствия", text: "Анализируем причины и помогаем подготовить план корректирующих действий и подтверждающие материалы.", cta: "Разобрать несоответствия" },
   { id: "scenario-suspension", title: "Действие аккредитации приостановлено или область сокращена", text: "Сопоставляем основания принятого решения, применимую процедуру и фактическое состояние. Формируем приоритеты дальнейших действий в рамках применимой процедуры.", cta: "Обсудить дальнейшие действия" },
-  { id: "scenario-scope-audit", title: "Планируется расширение области аккредитации", text: "Проверяем согласованность заявляемой области, ресурсов, компетентности персонала, документов и фактической готовности.", cta: "Проверить готовность к расширению" },
+  { id: "scenario-scope-audit", title: "Планируется расширение области аккредитации", text: "Сопоставляем заявляемую область с ресурсами, компетентностью персонала и документами.", cta: "Проверить готовность к расширению" },
   { id: "scenario-site-change", title: "Изменяется место осуществления деятельности", text: "Проверяем готовность нового места, ресурсов и подтверждающих документов с учётом применимых требований к внесению изменений в реестр.", cta: "Обсудить изменение места" },
-  { id: "scenario-primary-accreditation", title: "Организация готовится к первичной аккредитации", text: "Сопоставляем проектируемые процессы, документы, ресурсы и записи с применимыми требованиями до подачи заявления.", cta: "Обсудить первичную аккредитацию" },
+  { id: "scenario-primary-accreditation", title: "Организация готовится к первичной аккредитации", text: "До подачи сопоставляем процессы, документы, ресурсы и записи с требованиями.", cta: "Обсудить первичную аккредитацию" },
   { id: "scenario-special-directions", title: "Нужна периодическая независимая проверка СМК", text: "Проверяем СМК, новые записи и изменения между процедурами. Ответственность за систему менеджмента и выполнение процессов остаётся у организации.", cta: "Настроить периодическую проверку" },
 ];
 
@@ -17,8 +17,8 @@ const additionalSituations = [situations[2], situations[4], situations[6]];
   <div class="section__inner page-container">
     <header class="situations-intro" data-reveal>
       <p class="section__eyebrow">Сценарии работы</p>
-      <h2 id="situations-title" class="section__title">Ситуации, в которых нужен независимый аудит готовности</h2>
-      <p class="section__lead">Подключаемся, когда необходимо проверить текущее состояние, определить приоритетные риски и сформировать понятный план дальнейшей подготовки.</p>
+      <h2 id="situations-title" class="section__title">Когда нужен аудит готовности</h2>
+      <p class="section__lead">Проверяем текущее состояние и определяем, что исправить до следующего шага.</p>
     </header>
 
     <div class="situations-list">
@@ -54,6 +54,7 @@ const additionalSituations = [situations[2], situations[4], situations[6]];
   .situations-list{border-top:1px solid var(--lrqa-border)}.situation-row{position:relative;display:grid;grid-template-columns:minmax(15rem,.8fr) minmax(0,1.2fr) auto;gap:1rem clamp(1.5rem,4vw,4rem);align-items:start;padding:clamp(1.35rem,2.4vw,2rem) 0;border-bottom:1px solid var(--lrqa-border-soft);scroll-margin-top:calc(var(--header-total-height) + var(--space-4))}.situation-row::before{content:"";position:absolute;top:-1px;bottom:-1px;left:calc(var(--container-padding)*-1);width:.22rem;background:var(--color-mint-action);transform:scaleY(0);transform-origin:top;transition:transform var(--duration-slow) var(--easing-emphasis)}.situation-row h3,.situation-row p{margin:0}.situation-row h3{font-size:clamp(1.15rem,.8vw + 1rem,1.75rem);line-height:1.2}.situation-row p{max-width:42rem;color:var(--lrqa-muted);line-height:1.58}.situation-row a{display:inline-flex;gap:.55rem;color:var(--lrqa-black);font-weight:var(--font-weight-semibold);text-decoration:none;white-space:nowrap}.situation-row a span{color:var(--color-mint-action)}
   .situations-more{border-bottom:1px solid var(--lrqa-border)}.situations-more>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.15rem 0;cursor:pointer;list-style:none}.situations-more>summary::-webkit-details-marker{display:none}.situations-more>summary:focus-visible{outline:2px solid var(--color-mint-action);outline-offset:.35rem}.situations-more__label{font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.situations-more__action{display:flex;align-items:center;gap:.75rem;color:var(--lrqa-muted);font-size:var(--font-size-sm);font-style:normal}.situations-more__action i{display:grid;place-items:center;width:2rem;height:2rem;color:var(--lrqa-black);background:var(--color-mint-action);font-size:1.35rem;font-style:normal;transition:transform var(--duration-normal) var(--easing-emphasis)}.situations-more[open] .situations-more__action i{transform:rotate(45deg)}.situations-list--additional{border-color:var(--lrqa-border-soft)}
   @media(max-width:64rem){.situations-intro{grid-template-columns:1fr}.situation-row{grid-template-columns:minmax(0,1fr) auto}.situation-row p{grid-column:1/3}}
+  @media(min-width:64.01rem){.situations-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-left:1px solid var(--lrqa-border)}.situation-row{grid-template-columns:1fr;align-content:start;min-height:15.5rem;padding:1.5rem}.situation-row p,.situation-row a{grid-column:1}.situation-row a{align-self:end;width:fit-content;white-space:normal}.situation-row::before{left:-1px}.situations-list--additional{border-top:0}.situations-list--additional .situation-row{min-height:14rem}}
   .situation-row a{position:relative;transition:var(--transition-fast)}
   .situation-row a::after{content:"";position:absolute;right:0;bottom:-.25rem;left:0;height:1px;background:var(--color-mint-action);transform:scaleX(0);transform-origin:left center;transition:transform var(--duration-normal) var(--easing-standard)}
   .situation-row a span{transition:transform var(--duration-normal) var(--easing-standard)}

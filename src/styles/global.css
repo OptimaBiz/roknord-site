@@ -153,7 +153,7 @@ textarea:focus {
     position: absolute;
     z-index: 0;
     left: 50%;
-    top: 50%;
+    top: 66%;
     width: clamp(20rem, 28vw, 30rem);
     aspect-ratio: 1;
     background: url("/images/brand/roknord-mark.svg") center / contain no-repeat;

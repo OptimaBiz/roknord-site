@@ -1,10 +1,10 @@
 ---
 import HeroMedia from "./HeroMedia.astro";
 
-const auditFacts = [
-  { label: "Стоимость", value: "от 100 000 ₽ + НДС 22%" },
-  { label: "Срок", value: "5–10 рабочих дней" },
-  { label: "Базовый формат", value: "Дистанционно, площадка — при необходимости" },
+const projectFacts = [
+  { label: "Договор", value: "Один договор с Рокнорд" },
+  { label: "Состав", value: "Профильные специалисты под задачу" },
+  { label: "Ответственность", value: "Координация и единый комплект материалов" },
 ];
 ---
 
@@ -22,22 +22,22 @@ const auditFacts = [
 
   <div class="hero__inner hero-layout page-container">
     <div class="hero-copy" data-hero-intro>
-      <p class="hero-kicker">Независимый аудит готовности</p>
-      <h1 class="hero-title">Проверьте готовность до официальной оценки</h1>
+      <p class="hero-kicker">Единая точка ответственности</p>
+      <h1 class="hero-title">Подготовка к аккредитации и ПК — командой под вашу задачу</h1>
       <p class="hero-lead">
-        Область аккредитации, СМК, записи. Подготовим карту рисков, реестр расхождений и план действий.
+        Определяем необходимый состав компетенций, привлекаем профильных специалистов и организуем проект — от независимой проверки готовности до плана корректирующих действий. За состав проекта, согласованный объём, сроки и единый комплект материалов отвечает Рокнорд.
       </p>
       <div class="hero-actions">
-        <a class="hero-action hero-action--primary cta-angled motion-control" href="#contact"><span>Обсудить аудит</span><span aria-hidden="true">→</span></a>
+        <a class="hero-action hero-action--primary cta-angled motion-control" href="#contact"><span>Разобрать задачу</span><span aria-hidden="true">→</span></a>
       </div>
     </div>
 
-    <aside class="hero-assurance" aria-label="Условия первого этапа" data-hero-intro>
+    <aside class="hero-assurance" aria-label="Модель работы Рокнорд" data-hero-intro>
       <span class="hero-assurance__scan" aria-hidden="true"></span>
-      <p class="hero-assurance__label">Условия первого этапа</p>
-      <h2>Независимый аудит готовности</h2>
+      <p class="hero-assurance__label">Модель работы</p>
+      <h2>Один ответственный контур проекта</h2>
       <ul>
-        {auditFacts.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><div><small>{item.label}</small><strong>{item.value}</strong></div></li>)}
+        {projectFacts.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><div><small>{item.label}</small><strong>{item.value}</strong></div></li>)}
       </ul>
     </aside>
   </div>

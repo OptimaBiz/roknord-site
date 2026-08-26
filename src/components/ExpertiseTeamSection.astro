@@ -1,8 +1,8 @@
 ---
 const principles = [
-  { title: "По предмету работы", text: "Учитываем тип организации, область, процедуру и конкретные вопросы проекта." },
-  { title: "По релевантности", text: "Сопоставляем профиль специалиста с задачей и подключаем дополнительные компетенции только при необходимости." },
-  { title: "По согласованию", text: "Состав, роли, объём и стоимость фиксируем до начала соответствующих работ." },
+  { title: "По профилю задачи", text: "Учитываем тип организации, область и предстоящую процедуру." },
+  { title: "По необходимости", text: "Дополнительные компетенции подключаем только к отдельным вопросам." },
+  { title: "По согласованию", text: "Состав, задачи и стоимость фиксируем до начала соответствующих работ." },
 ];
 ---
 
@@ -10,8 +10,8 @@ const principles = [
   <div class="section__inner page-container">
     <header class="expertise-intro" data-reveal>
       <p class="section__eyebrow">Экспертная модель</p>
-      <h2 id="expertise-title" class="section__title">Формируем команду под задачу</h2>
-      <p class="section__lead">Рокнорд определяет необходимый состав компетенций, назначает ведущего специалиста и при необходимости подключает экспертов по отдельным направлениям.</p>
+      <h2 id="expertise-title" class="section__title">Как подбираем аудитора</h2>
+      <p class="section__lead">Для базового аудита назначаем одного ведущего аудитора. Если задача требует дополнительных компетенций, заранее согласовываем расширенный состав.</p>
     </header>
 
     <div class="expertise-feature" data-reveal>
@@ -28,8 +28,8 @@ const principles = [
 
       <div class="expertise-feature__content">
         <p class="expertise-feature__label">Состав проекта</p>
-        <h3>Один договор — согласованная работа команды</h3>
-        <p>Рокнорд формирует состав, распределяет роли, контролирует объём и сроки и передаёт заказчику общий комплект итоговых материалов.</p>
+        <h3>Один ответственный контур работы</h3>
+        <p>Ведущий аудитор отвечает за план проверки и целостность выводов. Рокнорд координирует дополнительные компетенции и сводит результаты в единый итоговый материал.</p>
 
         <ol class="expertise-principles" aria-label="Принципы формирования состава">
           {principles.map((item, index) => (
@@ -41,11 +41,6 @@ const principles = [
         </ol>
       </div>
     </div>
-
-    <a class="expertise-mission-link" href="/company/mission/" data-reveal>
-      <span>Миссия, видение и ценности Рокнорд</span>
-      <span aria-hidden="true">↗</span>
-    </a>
   </div>
 </section>
 
@@ -164,31 +159,6 @@ const principles = [
     font-size: var(--font-size-sm);
     line-height: 1.5;
   }
-
-  .expertise-mission-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1.15rem 0;
-    color: var(--lrqa-white);
-    font-weight: var(--font-weight-semibold);
-    text-decoration: none;
-    border-top: 1px solid var(--lrqa-dark-border);
-    border-bottom: 1px solid var(--lrqa-dark-border);
-    transition: color var(--duration-normal) var(--easing-standard);
-  }
-
-  .expertise-mission-link span:last-child {
-    color: var(--color-mint-action);
-    font-size: 1.3rem;
-    transition: transform var(--duration-normal) var(--easing-emphasis);
-  }
-
-  .expertise-mission-link:hover,
-  .expertise-mission-link:focus-visible { color: var(--lrqa-border-soft); }
-  .expertise-mission-link:hover span:last-child,
-  .expertise-mission-link:focus-visible span:last-child { transform: translate(.25rem, -.25rem); }
 
   @media (max-width: 64rem) {
     .expertise-intro,

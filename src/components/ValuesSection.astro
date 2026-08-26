@@ -1,16 +1,16 @@
 ---
 const values = [
   {
-    title: "Соответствие задаче",
-    text: "Формируем состав проекта по типу организации, процедуре и предмету работы, а не по универсальному шаблону.",
+    title: "Релевантность",
+    text: "Подбираем компетенции по типу организации, процедуре и предмету работы, а не по универсальному шаблону.",
   },
   {
-    title: "Ясность",
-    text: "До начала работ фиксируем состав, роли, объём, сроки и ожидаемые материалы.",
+    title: "Прозрачность",
+    text: "До начала проекта фиксируем состав, роли, объём, сроки, стоимость и ожидаемые материалы.",
   },
   {
     title: "Ответственность",
-    text: "Рокнорд координирует специалистов и отвечает перед заказчиком за согласованный контур проекта.",
+    text: "Не перекладываем на заказчика координацию привлечённых специалистов и сбор итоговых материалов.",
   },
   {
     title: "Доказательность",
@@ -23,38 +23,47 @@ const values = [
   <div class="section__inner page-container">
     <header class="values-intro" data-reveal>
       <p class="section__eyebrow">Основания работы</p>
-      <h2 id="values-title" class="section__title">Миссия, видение и ценности</h2>
-      <p class="section__lead">Зачем мы работаем и какие правила соблюдаем в каждом проекте.</p>
+      <h2 id="values-title" class="section__title">Миссия и видение</h2>
+      <p class="section__lead">Почему существует Рокнорд и какой формат работы мы хотим сделать нормой для аккредитованных лиц.</p>
     </header>
 
     <div class="values-statements" data-reveal>
       <article class="values-statement values-statement--mission">
         <span>Миссия</span>
-        <p>Сделать подготовку управляемой: определить задачу, собрать необходимые компетенции и обеспечить согласованный объём, сроки и единый комплект материалов.</p>
+        <p>Снять с заказчика необходимость самостоятельно искать и координировать разрозненных исполнителей. Определить задачу, сформировать команду и организовать проект до передачи согласованного комплекта материалов.</p>
       </article>
       <article class="values-statement">
         <span>Видение</span>
-        <p>Аккредитованное лицо получает профильную команду в одном ответственном контуре, не подбирая и не координируя отдельных исполнителей самостоятельно.</p>
+        <p>Для каждой задачи доступна подходящая компетенция, а заказчик работает с одним ответственным исполнителем и заранее понимает состав, объём, сроки и результат проекта.</p>
       </article>
     </div>
 
-    <ul class="values-list" data-reveal>
-      {values.map((value) => (
-        <li>
-          <h3>{value.title}</h3>
-          <p>{value.text}</p>
-        </li>
-      ))}
-    </ul>
+    <div class="values-principles">
+      <header class="values-list-intro" data-reveal>
+        <p class="section__eyebrow">Принципы</p>
+        <h2 class="section__title">Ценности Рокнорд</h2>
+        <p class="section__lead">Правила, по которым определяем состав команды, границы работы и форму итогового результата.</p>
+      </header>
+
+      <ul class="values-list" data-reveal>
+        {values.map((value) => (
+          <li>
+            <h3>{value.title}</h3>
+            <p>{value.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </section>
 
 <style>
-  .values-section .section__inner,.values-intro,.values-statements,.values-statement,.values-list,.values-list li{display:grid}.values-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}
-  .values-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.values-intro .section__eyebrow{grid-column:1/-1}.values-intro .section__title,.values-intro .section__lead{margin:0}
+  .values-section .section__inner,.values-intro,.values-statements,.values-statement,.values-principles,.values-list-intro,.values-list,.values-list li{display:grid}.values-section .section__inner{gap:clamp(2.5rem,6vw,5rem)}
+  .values-intro,.values-list-intro{grid-template-columns:minmax(0,.9fr) minmax(20rem,1.1fr);gap:1rem clamp(2rem,6vw,7rem);align-items:end}.values-intro .section__eyebrow,.values-list-intro .section__eyebrow{grid-column:1/-1}.values-intro .section__title,.values-intro .section__lead,.values-list-intro .section__title,.values-list-intro .section__lead{margin:0}
   .values-statements{grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--lrqa-dark-border);border-left:1px solid var(--lrqa-dark-border)}
   .values-statement{align-content:start;gap:var(--space-5);min-height:16rem;padding:clamp(1.5rem,3vw,3rem);border-right:1px solid var(--lrqa-dark-border);border-bottom:1px solid var(--lrqa-dark-border)}
   .values-statement>span{color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.values-statement p{max-width:34rem;margin:0;color:var(--lrqa-white);font-size:clamp(1.3rem,1.25vw + 1rem,2rem);font-weight:var(--font-weight-medium);line-height:1.22;text-wrap:balance}.values-statement--mission{background:var(--color-mint-action)}.values-statement--mission>span,.values-statement--mission p{color:var(--lrqa-black)}
+  .values-principles{gap:clamp(1.75rem,3vw,2.75rem)}
   .values-list{grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--lrqa-dark-border);border-left:1px solid var(--lrqa-dark-border)}.values-list li{align-content:start;gap:var(--space-4);min-height:15rem;padding:clamp(1.35rem,2.2vw,2.2rem);border-right:1px solid var(--lrqa-dark-border);border-bottom:1px solid var(--lrqa-dark-border)}.values-list h3,.values-list p{margin:0}.values-list h3{color:var(--lrqa-white);font-size:clamp(1.1rem,.7vw + 1rem,1.5rem);line-height:1.2}.values-list p{color:var(--lrqa-border-soft);line-height:var(--line-height-relaxed)}
-  @media(max-width:64rem){.values-intro{grid-template-columns:1fr}.values-list{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:42rem){.values-statements,.values-list{grid-template-columns:1fr}.values-statement,.values-list li{min-height:auto}.values-statement p{font-size:clamp(1.25rem,5.5vw,1.7rem)}}
+  @media(max-width:64rem){.values-intro,.values-list-intro{grid-template-columns:1fr}.values-list{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:42rem){.values-statements,.values-list{grid-template-columns:1fr}.values-statement,.values-list li{min-height:auto}.values-statement p{font-size:clamp(1.25rem,5.5vw,1.7rem)}}
 </style>

@@ -1,0 +1,106 @@
+<section class="section section--light mission-teaser" aria-labelledby="mission-teaser-title">
+  <div class="section__inner page-container">
+    <article class="mission-teaser__card" data-reveal>
+      <div class="mission-teaser__copy">
+        <p class="section__eyebrow">Компания</p>
+        <h2 id="mission-teaser-title">Миссия, видение и ценности</h2>
+        <p>Как мы понимаем свою роль, принимаем решения и выстраиваем работу с заказчиками.</p>
+      </div>
+
+      <a class="mission-teaser__link" href="/company/mission/">
+        <span>Подробнее о принципах Рокнорд</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </article>
+  </div>
+</section>
+
+<style>
+  .mission-teaser .section__inner { display: grid; }
+
+  .mission-teaser__card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(16rem, .65fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    align-items: end;
+    overflow: hidden;
+    padding: clamp(1.75rem, 4vw, 3.5rem);
+    color: var(--lrqa-white);
+    background: var(--lrqa-navy);
+    border-top: 3px solid var(--color-mint-action);
+  }
+
+  .mission-teaser__card::after {
+    content: "R";
+    position: absolute;
+    right: -1rem;
+    bottom: -4.5rem;
+    color: color-mix(in srgb, var(--color-mint-action) 8%, transparent);
+    font-size: clamp(11rem, 24vw, 22rem);
+    font-weight: 700;
+    line-height: .8;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .mission-teaser__copy {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: .85rem;
+    max-width: 54rem;
+  }
+
+  .mission-teaser__copy h2,
+  .mission-teaser__copy p { margin: 0; }
+
+  .mission-teaser__copy h2 {
+    max-width: 14ch;
+    font-size: clamp(2rem, 3vw + 1rem, 4.5rem);
+    line-height: .98;
+    text-wrap: balance;
+  }
+
+  .mission-teaser__copy > p:not(.section__eyebrow) {
+    max-width: 42rem;
+    color: var(--lrqa-border-soft);
+    font-size: var(--font-size-lg);
+    line-height: 1.55;
+  }
+
+  .mission-teaser__link {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    min-height: 4rem;
+    padding: 1rem 0;
+    color: var(--lrqa-white);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    border-top: 1px solid var(--lrqa-dark-border);
+    border-bottom: 1px solid var(--lrqa-dark-border);
+  }
+
+  .mission-teaser__link span:last-child {
+    color: var(--color-mint-action);
+    font-size: 1.4rem;
+    transition: transform var(--duration-normal) var(--easing-emphasis);
+  }
+
+  .mission-teaser__link:hover span:last-child,
+  .mission-teaser__link:focus-visible span:last-child { transform: translateX(.35rem); }
+
+  @media(max-width:48rem) {
+    .mission-teaser__card { grid-template-columns: 1fr; }
+    .mission-teaser__copy h2 { max-width: 12ch; }
+  }
+
+  @media(prefers-reduced-motion:reduce) {
+    .mission-teaser__link span:last-child { transition: none; }
+    .mission-teaser__link:hover span:last-child { transform: none; }
+  }
+</style>

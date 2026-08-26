@@ -140,6 +140,78 @@ textarea:focus {
   transform: translate(-50%, var(--space-4));
 }
 
+/* Legal consent stays visually connected to its checkbox across form variants. */
+.contact-form-section .contact-consent {
+  grid-template-columns: 1.15rem minmax(0, 1fr);
+  column-gap: 0.65rem;
+}
+
+.contact-form-section .contact-consent input {
+  margin-top: 0.14em;
+}
+
+.contact-form-section .contact-consent .contact-consent__content {
+  display: block;
+  min-width: 0;
+}
+
+.contact-form-section .contact-consent .contact-consent__statement,
+.contact-form-section .contact-consent .contact-consent__documents {
+  display: inline;
+}
+
+.contact-form-section .contact-consent .contact-consent__documents {
+  color: var(--lrqa-white);
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.contact-form-section .contact-consent .contact-consent__link {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--lrqa-white);
+  font: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--lrqa-mint) 78%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.contact-form-section .contact-consent .contact-consent__link + .contact-consent__link::before {
+  content: " · ";
+  margin: 0;
+  color: var(--color-mint-action);
+  text-decoration: none;
+}
+
+.contact-form-section .contact-consent .contact-consent__link:hover,
+.contact-form-section .contact-consent .contact-consent__link:focus-visible {
+  color: var(--lrqa-mint);
+}
+
+.contact-form-section--embedded .contact-consent .contact-consent__documents,
+.contact-form-section--embedded .contact-consent .contact-consent__link {
+  color: var(--lrqa-black);
+}
+
+@media (max-width: 560px) {
+  .contact-form-section .contact-consent {
+    column-gap: 0.6rem;
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+  }
+
+  .contact-form-section .contact-consent .contact-consent__documents {
+    display: block;
+    margin-top: 0.25rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

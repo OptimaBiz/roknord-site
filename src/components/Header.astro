@@ -18,6 +18,11 @@ const audienceLinks = [
   { label: "Провайдерам МСИ", href: "/#audience-msi" },
   { label: "Органам по сертификации халяль", href: "/#audience-halal" },
 ];
+const sectionLinks = [
+  { label: "Новости", href: "/news/" },
+  { label: "Материалы для скачивания", href: "/materials/" },
+  { label: "РАЛ-Атлас", href: "/ral-atlas/" },
+];
 const utilityLinks = [
   { label: "О компании", href: "/company/mission/" },
   { label: "Личный кабинет", href: "#", isLogin: true },
@@ -57,8 +62,12 @@ const utilityLinks = [
           <summary aria-controls="audience-panel" aria-expanded="false">Кому помогаем</summary>
           <div class="nav-dropdown-panel" id="audience-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Кому помогаем</p><div class="nav-dropdown-list nav-dropdown-list--columns">{audienceLinks.map((item) => <a href={item.href}>{item.label}</a>)}</div></div></div>
         </details>
+        <details class="nav-dropdown">
+          <summary aria-controls="sections-panel" aria-expanded="false">Разделы</summary>
+          <div class="nav-dropdown-panel" id="sections-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Разделы</p><div class="nav-dropdown-list">{sectionLinks.map((item) => <a href={item.href}>{item.label}</a>)}</div></div></div>
+        </details>
       </nav>
-      <MobileMenu serviceLinks={serviceLinks} audienceLinks={audienceLinks} utilityLinks={utilityLinks} />
+      <MobileMenu serviceLinks={serviceLinks} audienceLinks={audienceLinks} sectionLinks={sectionLinks} utilityLinks={utilityLinks} />
     </div>
   </div>
 

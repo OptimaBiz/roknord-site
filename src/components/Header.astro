@@ -62,10 +62,7 @@ const utilityLinks = [
           <summary aria-controls="audience-panel" aria-expanded="false">Кому помогаем</summary>
           <div class="nav-dropdown-panel" id="audience-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Кому помогаем</p><div class="nav-dropdown-list nav-dropdown-list--columns">{audienceLinks.map((item) => <a href={item.href}>{item.label}</a>)}</div></div></div>
         </details>
-        <details class="nav-dropdown">
-          <summary aria-controls="sections-panel" aria-expanded="false">Разделы</summary>
-          <div class="nav-dropdown-panel" id="sections-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Разделы</p><div class="nav-dropdown-list">{sectionLinks.map((item) => <a href={item.href}>{item.label}</a>)}</div></div></div>
-        </details>
+        {sectionLinks.map((item) => <a class="site-nav-link" href={item.href}>{item.label}</a>)}
       </nav>
       <MobileMenu serviceLinks={serviceLinks} audienceLinks={audienceLinks} sectionLinks={sectionLinks} utilityLinks={utilityLinks} />
     </div>

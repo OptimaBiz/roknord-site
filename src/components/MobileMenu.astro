@@ -22,12 +22,7 @@ const { serviceLinks, audienceLinks, sectionLinks, utilityLinks } = Astro.props;
         {audienceLinks.map((item) => <a href={item.href}>{item.label}</a>)}
       </div>
     </details>
-    <details class="mobile-menu-group mobile-menu-group--primary">
-      <summary>Разделы</summary>
-      <div class="mobile-menu-group__links">
-        {sectionLinks.map((item) => <a href={item.href}>{item.label}</a>)}
-      </div>
-    </details>
+    {sectionLinks.map((item) => <a class="mobile-menu-primary-link" href={item.href}>{item.label}</a>)}
     <details class="mobile-menu-group mobile-menu-group--company">
       <summary>Компания</summary>
       <div class="mobile-menu-group__links">

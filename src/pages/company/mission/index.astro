@@ -16,7 +16,7 @@ import ContactForm from "../../../components/ContactForm.astro";
         <p data-reveal>Зачем мы работаем и какие правила соблюдаем в каждом проекте.</p>
         <a class="mission-hero__link" href="#mission" data-reveal>Наши основания работы <span aria-hidden="true">↓</span></a>
       </div>
-      <div class="mission-hero__mark" aria-hidden="true">R</div>
+      <img class="mission-hero__mark" src="/images/brand/roknord-mark.svg" alt="" aria-hidden="true" decoding="async" />
     </section>
     <ValuesSection standalone />
     <ContactForm
@@ -97,12 +97,12 @@ import ContactForm from "../../../components/ContactForm.astro";
 
   .mission-hero__mark {
     position: absolute;
-    right: -2vw;
-    bottom: -12vw;
-    color: color-mix(in srgb, var(--color-mint-action) 9%, transparent);
-    font-size: clamp(24rem, 52vw, 48rem);
-    font-weight: 700;
-    line-height: .72;
+    z-index: 1;
+    right: -4vw;
+    bottom: -9vw;
+    width: clamp(22rem, 46vw, 44rem);
+    height: auto;
+    opacity: .13;
     pointer-events: none;
     user-select: none;
   }
@@ -110,6 +110,11 @@ import ContactForm from "../../../components/ContactForm.astro";
   @media (max-width: 47.99rem) {
     .mission-hero { min-height: 38rem; }
     .mission-hero h1 { font-size: clamp(2.7rem, 14vw, 4.5rem); }
-    .mission-hero__mark { right: -18vw; bottom: -6vw; }
+    .mission-hero__mark {
+      right: -18vw;
+      bottom: -2vw;
+      width: clamp(18rem, 82vw, 28rem);
+      opacity: .11;
+    }
   }
 </style>

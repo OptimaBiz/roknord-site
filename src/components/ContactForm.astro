@@ -122,10 +122,10 @@ const consentVersion = "1.1-2026-08-13";
         <label class="contact-consent">
           <input name="personal_data_consent" type="checkbox" value="accepted" required />
           <span class="contact-consent__content">
-            <span class="contact-consent__statement">Я выражаю согласие на обработку персональных данных.</span>
+            <span class="contact-consent__statement">Согласен на обработку персональных данных в соответствии с </span>
             <span class="contact-consent__documents" aria-label="Документы">
-              <button class="contact-consent__link" type="button" data-legal-open="consent">Текст согласия</button>
-              <button class="contact-consent__link" type="button" data-legal-open="privacy" aria-label="Политика в отношении обработки персональных данных">Политика обработки персональных данных</button>
+              <button class="contact-consent__link" type="button" data-legal-open="consent">Текстом согласия</button>
+              <button class="contact-consent__link" type="button" data-legal-open="privacy" aria-label="Политика в отношении обработки персональных данных">Политикой обработки персональных данных</button>.
             </span>
           </span>
         </label>
@@ -717,10 +717,10 @@ const consentVersion = "1.1-2026-08-13";
     cursor: pointer;
   }
 
-  .contact-consent__link + .contact-consent__link::before {
-    content: "·";
-    margin-right: 0.5rem;
-    color: var(--color-mint-action);
+  .contact-form-section .contact-consent .contact-consent__link + .contact-consent__link::before {
+    content: " и ";
+    margin: 0;
+    color: inherit;
   }
 
   .contact-consent__link:hover,

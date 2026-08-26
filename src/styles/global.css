@@ -140,6 +140,34 @@ textarea:focus {
   transform: translate(-50%, var(--space-4));
 }
 
+/* Fill the desktop contact-copy field with the same Roknord mark used on the mission page. */
+@media (min-width: 68.75rem) {
+  .contact-form-section:not(.contact-form-section--embedded) .contact-form-copy {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .contact-form-section:not(.contact-form-section--embedded) .contact-form-copy::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    right: -2.5rem;
+    bottom: -4rem;
+    width: clamp(20rem, 28vw, 30rem);
+    aspect-ratio: 1;
+    background: url("/images/brand/roknord-mark.svg") center / contain no-repeat;
+    opacity: 0.11;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .contact-form-section:not(.contact-form-section--embedded) .contact-form-copy > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
 /* Legal consent stays visually connected to its checkbox across form variants. */
 .contact-form-section .contact-consent {
   grid-template-columns: 1.15rem minmax(0, 1fr);

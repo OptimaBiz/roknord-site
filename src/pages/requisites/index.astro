@@ -17,8 +17,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
           <dl class="requisites-page__details">
             <div><dt>Полное наименование</dt><dd>Общество с ограниченной ответственностью «РОКНОРД»</dd></div>
             <div><dt>Сокращённое наименование</dt><dd>ООО «РОКНОРД»</dd></div>
-            <div><dt>ИНН</dt><dd>7807406530</dd></div>
-            <div><dt>КПП</dt><dd>780701001</dd></div>
+            <div class="requisites-page__inline-row">
+              <div><dt>ИНН</dt><dd>7807406530</dd></div>
+              <div><dt>КПП</dt><dd>780701001</dd></div>
+            </div>
           </dl>
         </section>
 
@@ -99,6 +101,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   .requisites-page__details div {
     display: grid;
     gap: var(--space-1);
+  }
+
+  .requisites-page__details .requisites-page__inline-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
   }
 
   .requisites-page__details dt {

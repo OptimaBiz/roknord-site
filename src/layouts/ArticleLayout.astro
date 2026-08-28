@@ -1,0 +1,102 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import "../styles/article.css";
+
+type FaqItem = {
+  question: string;
+  answer: string;
+};
+
+type Props = {
+  frontmatter: {
+    title: string;
+    description: string;
+    headline: string;
+    eyebrow: string;
+    publishedDate: string;
+    publishedLabel: string;
+    updatedLabel: string;
+    canonical: string;
+    ogTitle: string;
+    ogDescription: string;
+    image: string;
+    imageAlt: string;
+    faq: FaqItem[];
+  };
+};
+
+const { frontmatter } = Astro.props as Props;
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: frontmatter.headline,
+  description: frontmatter.description,
+  datePublished: frontmatter.publishedDate,
+  dateModified: frontmatter.publishedDate,
+  inLanguage: "ru-RU",
+  mainEntityOfPage: frontmatter.canonical,
+  image: `https://roknord.ru${frontmatter.image}`,
+  author: { "@type": "Organization", name: "Рокнорд", url: "https://roknord.ru/" },
+  publisher: { "@type": "Organization", name: "Рокнорд", url: "https://roknord.ru/" },
+};
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: frontmatter.faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+---
+
+<BaseLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  canonical={frontmatter.canonical}
+  ogTitle={frontmatter.ogTitle}
+  ogDescription={frontmatter.ogDescription}
+  ogType="article"
+  ogImage={`https://roknord.ru${frontmatter.image}`}
+  publishedTime={frontmatter.publishedDate}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <main id="content" class="article-page">
+    <header class="article-hero">
+      <div class="article-hero__inner page-container">
+        <nav class="article-breadcrumbs" aria-label="Хлебные крошки">
+          <a href="/">Главная</a><span aria-hidden="true">/</span><a href="/news/">Новости</a>
+        </nav>
+        <p class="section__eyebrow">{frontmatter.eyebrow}</p>
+        <h1>{frontmatter.headline}</h1>
+        <div class="article-hero__meta">
+          <time datetime={frontmatter.publishedDate}>{frontmatter.publishedLabel}</time>
+          <span>{frontmatter.updatedLabel}</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="article-layout page-container">
+      <aside class="article-aside" aria-label="Навигация по статье">
+        <p>В материале</p>
+        <nav>
+          <a href="#korotko">Коротко об изменениях</a>
+          <a href="#opasnye-raboty">Работы повышенной опасности</a>
+          <a href="#pervaya-pomoshch">Первая помощь и СИЗ</a>
+          <a href="#komissii">Инструктажи и комиссии</a>
+          <a href="#checklist">Что проверить работодателю</a>
+          <a href="#faq">Частые вопросы</a>
+        </nav>
+      </aside>
+
+      <article class="article-body">
+        <figure class="article-cover">
+          <img src={frontmatter.image} alt={frontmatter.imageAlt} width="1554" height="992" loading="eager" fetchpriority="high" />
+        </figure>
+        <slot />
+      </article>
+    </div>
+  </main>
+</BaseLayout>

@@ -253,6 +253,10 @@
   display: none;
 }
 
+.mobile-atlas-link {
+  display: none;
+}
+
 .brand {
   display: inline-grid;
   align-content: center;

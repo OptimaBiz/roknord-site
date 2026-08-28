@@ -23,7 +23,7 @@ const { serviceLinks, sectionLinks, utilityLinks } = Astro.props;
         <a class="mobile-menu-service-link" href="/152-fz/">Услуги по 152-ФЗ</a>
       </div>
     </section>
-    {sectionLinks.map((item) => <a class="mobile-menu-primary-link" href={item.href}>{item.label}</a>)}
+    {sectionLinks.filter((item) => item.label !== "РАЛ-Атлас").map((item) => <a class="mobile-menu-primary-link" href={item.href}>{item.label}</a>)}
     <details class="mobile-menu-group mobile-menu-group--company">
       <summary>Компания</summary>
       <div class="mobile-menu-group__links">

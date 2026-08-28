@@ -52,7 +52,7 @@ const utilityLinks = [
       <nav class="site-nav" aria-label="Основная навигация">
         <details class="nav-dropdown">
           <summary aria-controls="services-panel" aria-expanded="false">Услуги</summary>
-          <div class="nav-dropdown-panel" id="services-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Услуги</p><div class="nav-dropdown-service-groups">{serviceGroups.map((group) => group.links.length ? <section class="nav-dropdown-service-group"><h3>{group.label}</h3><div class="nav-dropdown-list">{group.links.map((item) => <a href={item.href}>{item.label}</a>)}</div></section> : <a class="nav-dropdown-service-link" href={group.href}>{group.label}</a>)}</div></div></div>
+          <div class="nav-dropdown-panel" id="services-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Услуги</p><div class="nav-dropdown-service-groups">{serviceGroups.map((group) => group.links.length ? <details class="nav-dropdown-service-group"><summary>{group.label}</summary><div class="nav-dropdown-list">{group.links.map((item) => <a href={item.href}>{item.label}</a>)}</div></details> : <a class="nav-dropdown-service-link" href={group.href}>{group.label}</a>)}</div></div></div>
         </details>
         {sectionLinks.map((item) => <a class="site-nav-link" href={item.href}>{item.label}</a>)}
       </nav>

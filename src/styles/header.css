@@ -395,7 +395,7 @@
   right: 0;
   z-index: calc(var(--z-index-header) + 1);
   display: grid;
-  min-height: 20rem;
+  min-height: 0;
   max-height: none;
   overflow: visible;
   border-top: 1px solid var(--color-border-strong);
@@ -459,30 +459,18 @@
 
 .nav-dropdown-service-groups {
   display: grid;
-  gap: var(--space-5);
+  gap: 0;
 }
 
 .nav-dropdown-service-group {
-  display: grid;
-  gap: var(--space-2);
+  display: block;
 }
 
-.nav-dropdown-service-group h3 {
-  margin: 0;
-  color: var(--color-mint-action);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--letter-spacing-wide);
-  text-transform: uppercase;
-}
-
-.nav-dropdown-service-group .nav-dropdown-list {
-  border-top-color: var(--color-border-strong);
-}
-
+.nav-dropdown-service-group > summary,
 .nav-dropdown-service-link {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   min-height: 4.2rem;
   padding: var(--space-4) 0;
   border-top: 1px solid var(--color-border-strong);
@@ -495,11 +483,45 @@
   transition: var(--transition-fast);
 }
 
+.nav-dropdown-service-group > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.nav-dropdown-service-group > summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-dropdown-service-group > summary::after {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: none;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: translateY(-0.14rem) rotate(45deg);
+  transition: transform var(--duration-fast) var(--easing-standard);
+}
+
+.nav-dropdown-service-group[open] > summary::after {
+  transform: translateY(0.14rem) rotate(225deg);
+}
+
+.nav-dropdown-service-group > summary:hover,
+.nav-dropdown-service-group > summary:focus-visible,
 .nav-dropdown-service-link:hover,
 .nav-dropdown-service-link:focus-visible {
   padding-left: var(--space-4);
   background: var(--color-surface-mega-nav-hover);
   color: var(--color-text-primary);
+}
+
+.nav-dropdown-service-group .nav-dropdown-list {
+  border-top: 0;
+}
+
+.nav-dropdown-service-group .nav-dropdown-list a {
+  padding-left: var(--space-4);
 }
 
 .mobile-menu__icon {

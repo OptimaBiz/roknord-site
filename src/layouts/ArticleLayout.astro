@@ -81,7 +81,7 @@ const faqSchema = {
     <div class="article-layout page-container">
       <aside class="article-aside" aria-label="Навигация по статье">
         <p>В материале</p>
-        <nav>
+        <nav data-article-toc>
           <a href="#korotko">Коротко об изменениях</a>
           <a href="#opasnye-raboty">Работы повышенной опасности</a>
           <a href="#pervaya-pomoshch">Первая помощь и СИЗ</a>
@@ -99,4 +99,60 @@ const faqSchema = {
       </article>
     </div>
   </main>
+
+  <script is:inline>
+    (() => {
+      const toc = document.querySelector('[data-article-toc]');
+      if (!toc) return;
+
+      const items = Array.from(toc.querySelectorAll('a[href^="#"]'))
+        .map((link) => {
+          const id = link.getAttribute('href')?.slice(1);
+          const section = id ? document.getElementById(id) : null;
+          return section ? { link, section } : null;
+        })
+        .filter(Boolean);
+
+      if (!items.length) return;
+
+      let activeLink = null;
+      let frameId = 0;
+
+      const setActive = (nextLink) => {
+        if (activeLink === nextLink) return;
+        items.forEach(({ link }) => link.removeAttribute('aria-current'));
+        nextLink?.setAttribute('aria-current', 'location');
+        activeLink = nextLink;
+      };
+
+      const update = () => {
+        frameId = 0;
+        const headerBottom = Math.max(0, document.querySelector('.header')?.getBoundingClientRect().bottom || 0);
+        const readingLine = headerBottom + Math.min(window.innerHeight * 0.24, 180);
+        const article = document.querySelector('.article-body');
+
+        if (article && article.getBoundingClientRect().top > readingLine) {
+          setActive(null);
+          return;
+        }
+
+        let current = items[0];
+        items.forEach((item) => {
+          if (item.section.getBoundingClientRect().top <= readingLine) current = item;
+        });
+
+        const atPageEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+        setActive(atPageEnd ? items[items.length - 1].link : current.link);
+      };
+
+      const requestUpdate = () => {
+        if (!frameId) frameId = window.requestAnimationFrame(update);
+      };
+
+      window.addEventListener('scroll', requestUpdate, { passive: true });
+      window.addEventListener('resize', requestUpdate, { passive: true });
+      window.addEventListener('load', requestUpdate, { once: true });
+      requestUpdate();
+    })();
+  </script>
 </BaseLayout>

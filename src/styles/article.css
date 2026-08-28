@@ -79,7 +79,8 @@
 }
 
 .article-aside a {
-  padding: var(--space-3) 0;
+  padding: var(--space-3) 0 var(--space-3) var(--space-3);
+  border-left: 0.18rem solid transparent;
   border-bottom: 1px solid var(--lrqa-border-soft);
   color: var(--lrqa-muted-dark);
   font-size: var(--font-size-sm);
@@ -89,7 +90,14 @@
 .article-aside a:hover,
 .article-aside a:focus-visible {
   color: var(--lrqa-black);
-  padding-left: var(--space-2);
+  padding-left: var(--space-4);
+}
+
+.article-aside a[aria-current="location"] {
+  border-left-color: var(--color-mint-action);
+  color: var(--lrqa-black);
+  font-weight: var(--font-weight-semibold);
+  padding-left: var(--space-4);
 }
 
 .article-body {

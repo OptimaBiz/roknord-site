@@ -1,7 +1,7 @@
 ---
 type NavItem = { label: string; href: string; isLogin?: boolean };
-type Props = { serviceLinks: NavItem[]; audienceLinks: NavItem[]; sectionLinks: NavItem[]; utilityLinks: NavItem[] };
-const { serviceLinks, audienceLinks, sectionLinks, utilityLinks } = Astro.props;
+type Props = { serviceLinks: NavItem[]; sectionLinks: NavItem[]; utilityLinks: NavItem[] };
+const { serviceLinks, sectionLinks, utilityLinks } = Astro.props;
 ---
 
 <details class="mobile-menu">
@@ -10,8 +10,8 @@ const { serviceLinks, audienceLinks, sectionLinks, utilityLinks } = Astro.props;
     <span class="mobile-menu__label">Меню</span>
   </summary>
   <nav class="mobile-menu-panel" id="mobile-drawer" aria-label="Мобильное меню">
-    <details class="mobile-menu-group mobile-menu-group--primary">
-      <summary>Услуги</summary>
+    <section class="mobile-menu-group mobile-menu-group--primary mobile-menu-group--services" aria-labelledby="mobile-services-title">
+      <p class="mobile-menu-group__title" id="mobile-services-title">Услуги</p>
       <div class="mobile-menu-group__links mobile-menu-service-groups">
         <details class="mobile-menu-subgroup">
           <summary>Росаккредитация (ФСА)</summary>
@@ -22,13 +22,7 @@ const { serviceLinks, audienceLinks, sectionLinks, utilityLinks } = Astro.props;
         <a class="mobile-menu-service-link" href="/occupational-safety/">Охрана труда</a>
         <a class="mobile-menu-service-link" href="/152-fz/">Услуги по 152-ФЗ</a>
       </div>
-    </details>
-    <details class="mobile-menu-group mobile-menu-group--primary">
-      <summary>Кому помогаем</summary>
-      <div class="mobile-menu-group__links">
-        {audienceLinks.map((item) => <a href={item.href}>{item.label}</a>)}
-      </div>
-    </details>
+    </section>
     {sectionLinks.map((item) => <a class="mobile-menu-primary-link" href={item.href}>{item.label}</a>)}
     <details class="mobile-menu-group mobile-menu-group--company">
       <summary>Компания</summary>

@@ -575,7 +575,7 @@
   display: grid;
   align-content: start;
   grid-auto-rows: max-content;
-  gap: var(--space-4);
+  gap: 0;
   padding: var(--space-4);
   margin-top: var(--space-3);
   border: 1px solid var(--color-border-strong);
@@ -620,7 +620,7 @@
   margin: 0;
   color: var(--color-mint-action);
   font-family: var(--font-heading);
-  font-size: clamp(1.35rem, 4.8vw, 1.62rem);
+  font-size: clamp(1.05rem, 4vw, 1.18rem);
   font-weight: var(--font-weight-bold);
   line-height: 1.05;
 }
@@ -649,7 +649,7 @@
   margin: 0;
   color: var(--color-mint-action);
   font-family: var(--font-heading);
-  font-size: clamp(1.35rem, 4.8vw, 1.62rem);
+  font-size: clamp(1.05rem, 4vw, 1.18rem);
   font-weight: var(--font-weight-bold);
   line-height: 1.05;
   letter-spacing: 0;
@@ -667,8 +667,9 @@
   min-height: 2.75rem;
   padding-block: var(--space-2);
   color: var(--color-text-primary);
-  font-size: clamp(1.08rem, 3.7vw, 1.2rem);
-  line-height: 1.35;
+  font-size: clamp(0.92rem, 3.5vw, 1rem);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
 }
 
 .mobile-menu-service-groups {
@@ -686,7 +687,7 @@
   gap: var(--space-4);
   min-height: 2.9rem;
   color: var(--color-text-primary);
-  font-size: clamp(1.08rem, 3.7vw, 1.2rem);
+  font-size: clamp(0.92rem, 3.5vw, 1rem);
   font-weight: var(--font-weight-semibold);
   list-style: none;
   cursor: pointer;
@@ -721,9 +722,10 @@
   align-items: center;
   min-height: 2.55rem;
   padding-block: var(--space-2);
-  color: var(--color-text-primary);
-  font-size: var(--font-size-sm);
-  line-height: 1.35;
+  color: var(--color-text-muted);
+  font-size: clamp(0.84rem, 3.2vw, 0.92rem);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
 }
 
 .mobile-menu-service-link {
@@ -732,7 +734,7 @@
   min-height: 3.25rem;
   border-bottom: 1px solid var(--lrqa-dark-border);
   color: var(--color-text-primary);
-  font-size: clamp(1.08rem, 3.7vw, 1.2rem);
+  font-size: clamp(0.92rem, 3.5vw, 1rem);
   font-weight: var(--font-weight-semibold);
   line-height: 1.35;
   text-decoration: none;
@@ -746,7 +748,7 @@
   border-top: 1px solid var(--lrqa-dark-border);
   color: var(--color-mint-action);
   font-family: var(--font-heading);
-  font-size: clamp(1.35rem, 4.8vw, 1.62rem);
+  font-size: clamp(1.05rem, 4vw, 1.18rem);
   font-weight: var(--font-weight-bold);
   line-height: 1.05;
   text-decoration: none;
@@ -759,6 +761,11 @@
 
 .mobile-menu-group--company {
   border-top: 1px solid var(--lrqa-dark-border);
+}
+
+.mobile-menu-group--company .mobile-menu-group__links a {
+  color: var(--color-text-muted);
+  font-size: clamp(0.84rem, 3.2vw, 0.92rem);
 }
 
 .mobile-menu-cta {

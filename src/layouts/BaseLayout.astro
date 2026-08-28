@@ -10,11 +10,23 @@ import LoginModal from "../components/LoginModal.astro";
 type Props = {
   title: string;
   description: string;
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogType?: "website" | "article";
+  ogImage?: string;
+  publishedTime?: string;
 };
 
 const {
   title,
   description,
+  canonical,
+  ogTitle = title,
+  ogDescription = description,
+  ogType = "website",
+  ogImage,
+  publishedTime,
 } = Astro.props as Props;
 ---
 
@@ -25,6 +37,14 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogType === "article" && publishedTime && <meta property="article:published_time" content={publishedTime} />}
     <meta name="theme-color" content="" id="theme-color-meta" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />

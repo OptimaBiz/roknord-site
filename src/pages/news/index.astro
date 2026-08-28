@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Новости Рокнорд"
+  description="Новости, нормативные изменения и экспертные разъяснения Рокнорд."
+>
+  <main id="content" class="news-page">
+    <section class="news-page__hero">
+      <div class="page-container">
+        <p class="section__eyebrow">Новости</p>
+        <h1>Изменения, которые важно учесть в работе</h1>
+        <p>Нормативные обновления и экспертные разъяснения для рабочих процессов и подготовки документов.</p>
+      </div>
+    </section>
+
+    <section class="news-page__list page-container" aria-label="Последние материалы">
+      <article class="news-card">
+        <a class="news-card__image" href="/postanovlenie-805-ohrana-truda-2026/" aria-label="Открыть статью о Постановлении № 805">
+          <img src="/images/news/postanovlenie-805-ohrana-truda-2026.png" alt="Инструктаж работников по охране труда перед практической подготовкой" width="1668" height="939" loading="eager" />
+        </a>
+        <div class="news-card__body">
+          <p class="news-card__meta">Охрана труда · 28 августа 2026</p>
+          <h2><a href="/postanovlenie-805-ohrana-truda-2026/">Постановление № 805: что изменится в обучении по охране труда с 31 августа 2026 года</a></h2>
+          <p>Разбираем изменения в Правилах № 2464: периодичность обучения, инструктажи, первая помощь, СИЗ, комиссии и оформление протоколов.</p>
+          <a class="news-card__link" href="/postanovlenie-805-ohrana-truda-2026/">Читать материал <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .news-page { min-height: calc(100svh - var(--header-total-height)); background: var(--lrqa-card-light); color: var(--lrqa-black); }
+  .news-page__hero { padding-block: clamp(var(--space-10), 8vw, var(--space-16)); color: var(--lrqa-white); background: var(--lrqa-navy); }
+  .news-page__hero > div { display: grid; gap: var(--space-5); }
+  .news-page__hero h1, .news-page__hero p { margin: 0; }
+  .news-page__hero h1 { max-width: 15ch; font-size: var(--type-page-title); line-height: var(--line-height-display); letter-spacing: -0.035em; }
+  .news-page__hero > div > p:last-child { max-width: 42rem; color: var(--lrqa-border-soft); font-size: var(--type-lead); line-height: var(--line-height-relaxed); }
+  .news-page__list { padding-block: clamp(var(--space-10), 7vw, var(--space-16)); }
+  .news-card { display: grid; grid-template-columns: minmax(17rem, .9fr) minmax(0, 1.1fr); border-top: 1px solid var(--lrqa-border); border-bottom: 1px solid var(--lrqa-border); }
+  .news-card__image { min-height: 21rem; overflow: hidden; background: var(--lrqa-card-grey); }
+  .news-card__image img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--duration-slow) var(--easing-emphasis); }
+  .news-card:hover .news-card__image img { transform: scale(1.03); }
+  .news-card__body { display: grid; align-content: start; gap: var(--space-5); padding: clamp(var(--space-6), 4vw, var(--space-10)); }
+  .news-card__body p, .news-card__body h2 { margin: 0; }
+  .news-card__meta { color: var(--lrqa-muted); font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-wide); text-transform: uppercase; }
+  .news-card h2 { max-width: 24ch; font-size: clamp(1.55rem, 2.2vw, 2.45rem); line-height: 1.08; }
+  .news-card__body > p:not(.news-card__meta) { color: var(--lrqa-muted-dark); line-height: var(--line-height-relaxed); }
+  .news-card__link { display: inline-flex; gap: var(--space-3); align-items: center; margin-top: var(--space-3); color: var(--lrqa-black); font-weight: var(--font-weight-bold); }
+  .news-card__link span { color: var(--color-mint-action); font-size: 1.3em; }
+  .news-card a:hover, .news-card a:focus-visible { color: var(--lrqa-muted); }
+  @media (max-width: 48rem) { .news-card { grid-template-columns: 1fr; } .news-card__image { min-height: 14rem; } }
+  @media (prefers-reduced-motion: reduce) { .news-card:hover .news-card__image img { transform: none; } }
+</style>

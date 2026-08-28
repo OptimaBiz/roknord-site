@@ -32,14 +32,14 @@
   }
 
   .mission-teaser__card::after {
-    content: "R";
+    content: "";
     position: absolute;
     right: -1rem;
     bottom: -4.5rem;
-    color: color-mix(in srgb, var(--color-mint-action) 8%, transparent);
-    font-size: clamp(11rem, 24vw, 22rem);
-    font-weight: 700;
-    line-height: .8;
+    width: clamp(11rem, 24vw, 22rem);
+    aspect-ratio: 257 / 252;
+    background: url("/images/brand/roknord-logo-transparent.png") 32.5% center / auto 125.4% no-repeat;
+    opacity: .1;
     pointer-events: none;
     user-select: none;
   }

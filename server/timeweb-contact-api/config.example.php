@@ -6,6 +6,7 @@ return [
     'allowed_origins' => [
         'https://roknord.ru',
         'https://www.roknord.ru',
+        'https://atlas.roknord.ru',
     ],
     'smtp' => [
         'host' => 'smtp.timeweb.ru',

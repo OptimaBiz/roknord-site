@@ -68,6 +68,7 @@ $formName = cleanText($_POST['form_name'] ?? '', 80);
 $subjects = [
     'Контактная форма' => 'Заявка с сайта Рокнорд',
     'Получить PDF' => 'Запрос PDF: карта рисков перед ПК ОС СМ',
+    'РАЛ Атлас — расширенный мониторинг' => 'Подписка на расширенный мониторинг РАЛ Атлас',
 ];
 
 if (!isset($subjects[$formName])) {
@@ -87,7 +88,7 @@ $consentTimestamp = cleanText($_POST['consent_timestamp'] ?? '', 40);
 $consentPage = trim((string) ($_POST['consent_page'] ?? ''));
 $consentPageParts = filter_var($consentPage, FILTER_VALIDATE_URL) !== false ? parse_url($consentPage) : false;
 $consentPageHost = is_array($consentPageParts) ? strtolower((string) ($consentPageParts['host'] ?? '')) : '';
-if (!in_array($consentPageHost, ['roknord.ru', 'www.roknord.ru'], true)) {
+if (!in_array($consentPageHost, ['roknord.ru', 'www.roknord.ru', 'atlas.roknord.ru'], true)) {
     respond(422, ['ok' => false, 'message' => 'Не удалось подтвердить страницу отправки формы.']);
 }
 $consentPage = mb_substr($consentPage, 0, 2048);
@@ -110,7 +111,7 @@ if (mb_strlen($email) > 254 || filter_var($email, FILTER_VALIDATE_EMAIL) === fal
     respond(422, ['ok' => false, 'message' => 'Укажите корректный адрес электронной почты.']);
 }
 
-if ($formName === 'Контактная форма') {
+if (in_array($formName, ['Контактная форма', 'РАЛ Атлас — расширенный мониторинг'], true)) {
     if (!preg_match('/^[+0-9()\s-]{6,24}$/u', $phone)) {
         respond(422, ['ok' => false, 'message' => 'Укажите корректный номер телефона.']);
     }

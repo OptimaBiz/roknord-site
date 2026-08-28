@@ -413,16 +413,13 @@
   }
 
   body.mobile-menu-open {
-    position: fixed;
-    right: 0;
-    left: 0;
-    width: 100%;
     overflow: hidden;
+    height: 100dvh;
   }
 
   .header-primary {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     gap: var(--space-3);
     width: 100%;

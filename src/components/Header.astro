@@ -67,7 +67,6 @@ const utilityLinks = [
       const mobileMenu = headerRoot?.querySelector('.mobile-menu');
       const mobileGroups = mobileMenu ? Array.from(mobileMenu.querySelectorAll('.mobile-menu-group')) : [];
       const getInertTargets = () => Array.from(document.querySelectorAll('main, footer, .cookie-panel, .scroll-up-control'));
-      let lockedScrollY = 0;
       const syncExpandedState = (details) => {
         const summary = details.querySelector('summary');
         if (summary) summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
@@ -99,8 +98,6 @@ const utilityLinks = [
         mobileMenu.addEventListener('toggle', () => {
           syncExpandedState(mobileMenu);
           if (mobileMenu.open) {
-            lockedScrollY = window.scrollY;
-            document.body.style.top = `-${lockedScrollY}px`;
             document.body.classList.add('mobile-menu-open');
             getInertTargets().forEach((target) => {
               if (target instanceof HTMLElement && !target.inert) {
@@ -112,14 +109,12 @@ const utilityLinks = [
           } else if (document.body.classList.contains('mobile-menu-open')) {
             mobileGroups.forEach((group) => { group.open = false; });
             document.body.classList.remove('mobile-menu-open');
-            document.body.style.top = '';
             getInertTargets().forEach((target) => {
               if (target instanceof HTMLElement && target.dataset.mobileMenuInert === 'true') {
                 target.inert = false;
                 delete target.dataset.mobileMenuInert;
               }
             });
-            window.scrollTo(0, lockedScrollY);
           }
         });
         mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeAll));

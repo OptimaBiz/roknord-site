@@ -12,8 +12,15 @@ const { serviceLinks, audienceLinks, sectionLinks, utilityLinks } = Astro.props;
   <nav class="mobile-menu-panel" id="mobile-drawer" aria-label="Мобильное меню">
     <details class="mobile-menu-group mobile-menu-group--primary">
       <summary>Услуги</summary>
-      <div class="mobile-menu-group__links">
-        {serviceLinks.map((item) => <a href={item.href}>{item.label}</a>)}
+      <div class="mobile-menu-group__links mobile-menu-service-groups">
+        <details class="mobile-menu-subgroup">
+          <summary>Росаккредитация (ФСА)</summary>
+          <div class="mobile-menu-subgroup__links">
+            {serviceLinks.map((item) => <a href={item.href}>{item.label}</a>)}
+          </div>
+        </details>
+        <a class="mobile-menu-service-link" href="/occupational-safety/">Охрана труда</a>
+        <a class="mobile-menu-service-link" href="/152-fz/">Услуги по 152-ФЗ</a>
       </div>
     </details>
     <details class="mobile-menu-group mobile-menu-group--primary">

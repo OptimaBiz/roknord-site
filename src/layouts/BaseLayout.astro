@@ -7,6 +7,7 @@ import CookiePanel from "../components/CookiePanel.astro";
 import ScrollUpControl from "../components/ScrollUpControl.astro";
 import LoginModal from "../components/LoginModal.astro";
 import PdnAuditHeader from "../components/pdn-audit/PdnAuditHeader.astro";
+import PdnAuditFooter from "../components/pdn-audit/PdnAuditFooter.astro";
 
 type Props = {
   title: string;
@@ -18,6 +19,7 @@ type Props = {
   ogImage?: string;
   publishedTime?: string;
   landingHeader?: boolean;
+  landingFooter?: boolean;
 };
 
 const {
@@ -30,6 +32,7 @@ const {
   ogImage,
   publishedTime,
   landingHeader = false,
+  landingFooter = false,
 } = Astro.props as Props;
 ---
 
@@ -166,7 +169,7 @@ const {
     <div class="site-shell">
       {landingHeader ? <PdnAuditHeader /> : <Header />}
       <slot />
-      <Footer />
+      {landingFooter ? <PdnAuditFooter /> : <Footer />}
       <CookiePanel />
       <ScrollUpControl />
       <LoginModal />

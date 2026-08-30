@@ -26,7 +26,7 @@ const faq = [
 ];
 const jsonLd = [{"@context":"https://schema.org","@type":"Service","name":"Аудит обработки персональных данных по 152-ФЗ","description":description,"provider":{"@type":"Organization","name":"ООО «РОКНОРД»","url":"https://roknord.ru/"},"areaServed":{"@type":"Country","name":"Россия"},"url":canonical},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://roknord.ru/"},{"@type":"ListItem","position":2,"name":"152-ФЗ","item":"https://roknord.ru/152-fz/"},{"@type":"ListItem","position":3,"name":"Аудит 152-ФЗ","item":canonical}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":faq.map(([question,answer])=>({"@type":"Question","name":question,"acceptedAnswer":{"@type":"Answer","text":answer}}))}];
 ---
-<BaseLayout title={title} description={description} canonical={canonical} ogTitle={title} ogDescription={description} ogImage="https://roknord.ru/images/pdn-audit/og-audit-152-fz.svg" landingHeader>
+<BaseLayout title={title} description={description} canonical={canonical} ogTitle={title} ogDescription={description} ogImage="https://roknord.ru/images/pdn-audit/og-audit-152-fz.svg" landingHeader landingFooter>
   <Fragment slot="head"><meta name="robots" content="index, follow" /></Fragment>
   <main id="content" class="pdn-audit">
     <PdnAuditHero /><PdnAuditSelfCheck /><PdnAuditVisuals /><PdnAuditResult /><PdnAuditDetails /><PdnAuditCommercial /><PdnAuditFaq /><PdnAuditLeadForm />

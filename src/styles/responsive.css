@@ -159,11 +159,24 @@
   .header-atlas-compact {
     display: inline-flex;
     align-items: center;
-    margin-left: auto;
+    justify-self: center;
     color: var(--color-mint-action);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-semibold);
     white-space: nowrap;
+  }
+
+  .header-primary {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .header-primary .brand {
+    justify-self: start;
+  }
+
+  .header-primary .mobile-menu {
+    justify-self: end;
   }
 
   .material-download {

@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PdnAuditHero from "../../../components/pdn-audit/PdnAuditHero.astro";
+import PdnAuditSelfCheck from "../../../components/pdn-audit/PdnAuditSelfCheck.astro";
+import PdnAuditVisuals from "../../../components/pdn-audit/PdnAuditVisuals.astro";
+import PdnAuditResult from "../../../components/pdn-audit/PdnAuditResult.astro";
+import PdnAuditDetails from "../../../components/pdn-audit/PdnAuditDetails.astro";
+import PdnAuditCommercial from "../../../components/pdn-audit/PdnAuditCommercial.astro";
+import PdnAuditFaq from "../../../components/pdn-audit/PdnAuditFaq.astro";
+import PdnAuditLeadForm from "../../../components/pdn-audit/PdnAuditLeadForm.astro";
+import "../../../styles/pdn-audit.css";
+
+const title = "Аудит 152-ФЗ за 48 часов — сайт, CRM и документы | РОКНОРД";
+const description = "Аудит обработки персональных данных по 152-ФЗ. Проверим сайт, CRM, документы и сведения Роскомнадзора. Карта рисков и конкретный план исправлений.";
+const canonical = "https://roknord.ru/152-fz/audit/";
+const faq = [
+  ["Что именно входит в аудит?","До начала работ мы фиксируем контур. В стандартном варианте оцениваются сайт, основные точки поступления данных, CRM и сервисы, применимые документы и сведения оператора в реестре Роскомнадзора."],
+  ["Вы только находите нарушения или помогаете исправить?","Формируем перечень необходимых действий. Конкретные тексты, документы и технические задания входят в результат в пределах согласованного объёма. Дополнительное сопровождение согласовывается отдельно."],
+  ["Нужен ли вам полный доступ к CRM?","Не всегда. Необходимый уровень доступа определяем после понимания схемы обработки и не запрашиваем избыточные права."],
+  ["Что нужно предоставить?","Сайт, сведения об организации, перечень основных систем и сервисов и согласованный комплект документов. Точный список формируется до начала проверки."],
+  ["Вы проверяете уведомление Роскомнадзора?","Да. В согласованном контуре проверяется соответствие сведений оператора фактической схеме и необходимость актуализации по применимости."],
+  ["Что если у нас несколько сайтов или юридических лиц?","Такой проект можно проверить, но его объём, стоимость и срок определяются отдельно."],
+  ["Когда начинаются 48 часов?","После согласования объёма и получения необходимых исходных данных."],
+  ["Можно ли после аудита заказать полное исправление?","Да, если это необходимо. Объём дальнейших работ определяется по карте рисков."],
+  ["Аудит гарантирует отсутствие претензий регулятора?","Нет. Цель аудита — выявить значимые расхождения, снизить риски и подготовить согласованный контур к корректировке. Решение и действия регулятора нельзя гарантировать."]
+];
+const jsonLd = [{"@context":"https://schema.org","@type":"Service","name":"Аудит обработки персональных данных по 152-ФЗ","description":description,"provider":{"@type":"Organization","name":"ООО «РОКНОРД»","url":"https://roknord.ru/"},"areaServed":{"@type":"Country","name":"Россия"},"url":canonical},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://roknord.ru/"},{"@type":"ListItem","position":2,"name":"152-ФЗ","item":"https://roknord.ru/152-fz/"},{"@type":"ListItem","position":3,"name":"Аудит 152-ФЗ","item":canonical}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":faq.map(([question,answer])=>({"@type":"Question","name":question,"acceptedAnswer":{"@type":"Answer","text":answer}}))}];
+---
+<BaseLayout title={title} description={description} canonical={canonical} ogTitle={title} ogDescription={description} ogImage="https://roknord.ru/images/pdn-audit/og-audit-152-fz.svg" landingHeader>
+  <Fragment slot="head"><meta name="robots" content="index, follow" /></Fragment>
+  <main id="content" class="pdn-audit">
+    <PdnAuditHero /><PdnAuditSelfCheck /><PdnAuditVisuals /><PdnAuditResult /><PdnAuditDetails /><PdnAuditCommercial /><PdnAuditFaq /><PdnAuditLeadForm />
+  </main>
+  <a class="pdn-mobile-cta cta-angled" href="#audit-form">Аудит за 48 часов →</a>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script is:inline>
+    (() => {
+      const metrikaId = 111070145;
+      window.__pdnGoal = (name, params = {}) => { if (window.__roknordAnalyticsOn && typeof window.ym === 'function') window.ym(metrikaId, 'reachGoal', name, params); };
+      window.__pdnGoal('pdn_audit_view');
+      document.addEventListener('click', (event) => { const target = event.target instanceof Element ? event.target.closest('[data-pdn-goal]') : null; if (target) window.__pdnGoal(target.dataset.pdnGoal); });
+      document.querySelectorAll('[data-pdn-observe]').forEach((element) => { const observer = new IntersectionObserver((entries) => { if (!entries[0].isIntersecting) return; window.__pdnGoal(element.dataset.pdnObserve); observer.disconnect(); }, { threshold: .25 }); observer.observe(element); });
+      const form = document.querySelector('#audit-form'); const sticky = document.querySelector('.pdn-mobile-cta'); if (form && sticky) new IntersectionObserver(([entry]) => sticky.classList.toggle('is-hidden', entry.isIntersecting), { threshold: .05 }).observe(form);
+    })();
+  </script>
+</BaseLayout>

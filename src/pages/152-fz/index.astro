@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionPlaceholderPage from "../../components/SectionPlaceholderPage.astro";
+import "../../styles/pdn-audit.css";
 ---
 
 <BaseLayout
@@ -13,4 +14,10 @@ import SectionPlaceholderPage from "../../components/SectionPlaceholderPage.astr
     description="Здесь будет собрана информация о работах, связанных с требованиями 152-ФЗ и организацией процессов обработки персональных данных."
     note="Раздел находится в разработке. Направьте нам задачу, чтобы обсудить подходящий формат работы."
   />
+  <aside class="pdn-direction-link page-container" aria-label="Услуга направления 152-ФЗ">
+    <p class="pdn-label">Экспертная проверка</p>
+    <h2>Аудит 152-ФЗ за 48 часов</h2>
+    <p>Проверка сайта, CRM, документов и сведений оператора с картой рисков и планом исправлений.</p>
+    <a class="button button-primary cta-angled" href="/152-fz/audit/">Подробнее →</a>
+  </aside>
 </BaseLayout>

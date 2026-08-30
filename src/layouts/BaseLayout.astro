@@ -6,6 +6,7 @@ import Footer from "../components/Footer.astro";
 import CookiePanel from "../components/CookiePanel.astro";
 import ScrollUpControl from "../components/ScrollUpControl.astro";
 import LoginModal from "../components/LoginModal.astro";
+import PdnAuditHeader from "../components/pdn-audit/PdnAuditHeader.astro";
 
 type Props = {
   title: string;
@@ -16,6 +17,7 @@ type Props = {
   ogType?: "website" | "article";
   ogImage?: string;
   publishedTime?: string;
+  landingHeader?: boolean;
 };
 
 const {
@@ -27,6 +29,7 @@ const {
   ogType = "website",
   ogImage,
   publishedTime,
+  landingHeader = false,
 } = Astro.props as Props;
 ---
 
@@ -49,6 +52,7 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <title>{title}</title>
+    <slot name="head" />
     <script is:inline>
       const themeColorMeta = document.getElementById("theme-color-meta");
       if (themeColorMeta) {
@@ -160,7 +164,7 @@ const {
   <body>
     <a class="skip-link" href="#content">Перейти к содержимому</a>
     <div class="site-shell">
-      <Header />
+      {landingHeader ? <PdnAuditHeader /> : <Header />}
       <slot />
       <Footer />
       <CookiePanel />

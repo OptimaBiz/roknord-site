@@ -1,10 +1,10 @@
 <section class="pdn-section pdn-section--light" aria-labelledby="selfcheck-title" data-selfcheck>
   <div class="page-container">
-    <div class="pdn-intro"><p class="pdn-label">Быстрая самодиагностика</p><h2 id="selfcheck-title">Политика на сайте ещё не означает, что контур ПДн оформлен правильно</h2><p>Отметьте, что используется в вашей компании. Проверка займёт несколько секунд.</p></div>
+    <div class="pdn-intro"><p class="pdn-label">Когда аудит нужен</p><h2 id="selfcheck-title">Определите предварительный объём проверки</h2><p>Отметьте процессы, которые используются в организации. Это не оценка риска: выбор поможет понять, какие части обработки нужно включить в обсуждение.</p></div>
     <div class="selfcheck__grid">
       {['Есть формы заявки на сайте','Заявки попадают в CRM','Используется аналитика','Есть чат, обратный звонок или учёт звонков','Клиенты пишут в мессенджеры','Есть сотрудники','Используются облачные сервисы','Есть рассылки','Доступ имеют подрядчики','Уведомление в РКН уже подавалось'].map((item) => <label class="selfcheck__item"><input type="checkbox" value={item} /><span>{item}</span></label>)}
     </div>
-    <div class="selfcheck__result" aria-live="polite"><strong data-selfcheck-count>0 точек</strong><p data-selfcheck-message>Даже простой контур требует корректного оформления обработки персональных данных.</p><a class="button button-primary cta-angled" href="#audit-form" data-selfcheck-cta>Проверить этот контур →</a></div>
+    <div class="selfcheck__result" aria-live="polite"><strong data-selfcheck-count>Контур не выбран</strong><p data-selfcheck-message>Выберите применимые процессы — они будут переданы вместе с запросом на расчёт.</p><a class="button button-primary cta-angled" href="#audit-form" data-selfcheck-cta>Понять, что войдёт в аудит →</a></div>
   </div>
 </section>
 <script is:inline>
@@ -18,8 +18,8 @@
     const goal = (name) => window.__pdnGoal?.(name);
     const update = () => {
       const selected = inputs.filter((input) => input.checked);
-      count.textContent = `${selected.length} ${selected.length === 1 ? 'точка' : selected.length < 5 ? 'точки' : 'точек'}`;
-      message.textContent = selected.length >= 5 ? 'У вас развитый контур обработки ПДн. Проверки одной политики на сайте недостаточно.' : selected.length >= 2 ? 'У вас несколько взаимосвязанных точек обработки. Их стоит проверять как единый процесс.' : 'Даже простой контур требует корректного оформления обработки персональных данных.';
+      count.textContent = selected.length ? `Выбрано: ${selected.length}` : 'Контур не выбран';
+      message.textContent = selected.length ? `Предварительно в контур входят: ${selected.map((input) => input.value.toLowerCase()).join('; ')}. Это не результат аудита.` : 'Выберите применимые процессы — они будут переданы вместе с запросом на расчёт.';
       sessionStorage.setItem('pdnAuditSelfcheck', JSON.stringify(selected.map((input) => input.value)));
       if (!started) { started = true; goal('pdn_audit_selfcheck_start'); }
       if (selected.length === 5) goal('pdn_audit_selfcheck_complete');

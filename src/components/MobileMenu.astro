@@ -27,7 +27,7 @@ const { serviceLinks, sectionLinks, utilityLinks } = Astro.props;
     <details class="mobile-menu-group mobile-menu-group--company">
       <summary>Компания</summary>
       <div class="mobile-menu-group__links">
-        {utilityLinks.map((item) => item.isLogin ? <a href={item.href} data-login-trigger>{item.label}</a> : <a href={item.href}>{item.label}</a>)}
+        {utilityLinks.filter((item) => !item.isLogin).map((item) => <a href={item.href}>{item.label}</a>)}
       </div>
     </details>
     <a class="service-cta cta-angled mobile-menu-cta motion-control" href="/#contact">Разобрать задачу</a>

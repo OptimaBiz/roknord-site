@@ -156,6 +156,16 @@
 }
 
 @media (max-width: 47.99rem) {
+  .header-atlas-compact {
+    display: inline-flex;
+    align-items: center;
+    margin-left: auto;
+    color: var(--color-mint-action);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+  }
+
   .material-download {
     padding-block: var(--space-8) var(--space-10);
   }

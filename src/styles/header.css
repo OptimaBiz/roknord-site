@@ -253,6 +253,10 @@
   display: none;
 }
 
+.header-atlas-compact {
+  display: none;
+}
+
 .brand {
   display: inline-grid;
   align-content: center;

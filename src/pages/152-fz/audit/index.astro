@@ -1,11 +1,11 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PdnAuditHero from "../../../components/pdn-audit/PdnAuditHero.astro";
-import PdnAuditSelfCheck from "../../../components/pdn-audit/PdnAuditSelfCheck.astro";
 import PdnAuditVisuals from "../../../components/pdn-audit/PdnAuditVisuals.astro";
 import PdnAuditResult from "../../../components/pdn-audit/PdnAuditResult.astro";
 import PdnAuditDetails from "../../../components/pdn-audit/PdnAuditDetails.astro";
-import PdnAuditCommercial from "../../../components/pdn-audit/PdnAuditCommercial.astro";
+import PdnAuditScenarios from "../../../components/pdn-audit/PdnAuditScenarios.astro";
+import PdnAuditPricing from "../../../components/pdn-audit/PdnAuditPricing.astro";
 import PdnAuditFaq from "../../../components/pdn-audit/PdnAuditFaq.astro";
 import PdnAuditLeadForm from "../../../components/pdn-audit/PdnAuditLeadForm.astro";
 import { pdnAuditFaqs as faq } from "../../../components/pdn-audit/pdnAuditFaqData";
@@ -19,7 +19,7 @@ const jsonLd = [{"@context":"https://schema.org","@type":"Service","name":"Ау�
 <BaseLayout title={title} description={description} canonical={canonical} ogTitle={title} ogDescription={description} ogImage="https://roknord.ru/images/pdn-audit/og-audit-152-fz.svg" landingHeader landingFooter>
   <Fragment slot="head"><meta name="robots" content="index, follow" /></Fragment>
   <main id="content" class="pdn-audit">
-    <PdnAuditHero /><PdnAuditSelfCheck /><PdnAuditVisuals /><PdnAuditResult /><PdnAuditDetails /><PdnAuditCommercial /><PdnAuditFaq /><PdnAuditLeadForm />
+    <PdnAuditHero /><PdnAuditScenarios /><PdnAuditVisuals /><PdnAuditResult /><PdnAuditDetails /><PdnAuditPricing /><PdnAuditFaq /><PdnAuditLeadForm />
   </main>
   <a class="pdn-mobile-cta cta-angled" href="#audit-form">Определить объём →</a>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

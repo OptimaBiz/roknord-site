@@ -1,7 +1,7 @@
 ---
 type NavItem = { label: string; href: string; isLogin?: boolean };
-type Props = { serviceLinks: NavItem[]; audienceLinks: NavItem[]; sectionLinks: NavItem[]; utilityLinks: NavItem[] };
-const { serviceLinks, audienceLinks, sectionLinks, utilityLinks } = Astro.props;
+type Props = { serviceLinks: NavItem[]; sectionLinks: NavItem[]; utilityLinks: NavItem[] };
+const { serviceLinks, sectionLinks, utilityLinks } = Astro.props;
 ---
 
 <details class="mobile-menu">
@@ -21,12 +21,6 @@ const { serviceLinks, audienceLinks, sectionLinks, utilityLinks } = Astro.props;
         </details>
         <a class="mobile-menu-service-link" href="/occupational-safety/">Охрана труда</a>
         <a class="mobile-menu-service-link" href="/152-fz/">Услуги по 152-ФЗ</a>
-      </div>
-    </details>
-    <details class="mobile-menu-group mobile-menu-group--primary">
-      <summary>Кому помогаем</summary>
-      <div class="mobile-menu-group__links">
-        {audienceLinks.map((item) => <a href={item.href}>{item.label}</a>)}
       </div>
     </details>
     {sectionLinks.map((item) => <a class="mobile-menu-primary-link" href={item.href}>{item.label}</a>)}

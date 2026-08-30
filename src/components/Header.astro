@@ -13,16 +13,6 @@ const serviceGroups = [
   { label: "Охрана труда", href: "/occupational-safety/", links: [] },
   { label: "Услуги по 152-ФЗ", href: "/152-fz/", links: [] },
 ];
-const audienceLinks = [
-  { label: "Испытательным лабораториям", href: "/#audience-testing" },
-  { label: "Медицинским лабораториям", href: "/#audience-medical" },
-  { label: "Органам по сертификации систем менеджмента", href: "/#audience-cert-ms" },
-  { label: "Органам по сертификации продукции", href: "/#audience-cert-product" },
-  { label: "Органам инспекции", href: "/#audience-inspection" },
-  { label: "Калибровочным лабораториям", href: "/#audience-calibration" },
-  { label: "Провайдерам МСИ", href: "/#audience-msi" },
-  { label: "Органам по сертификации халяль", href: "/#audience-halal" },
-];
 const sectionLinks = [
   { label: "Новости", href: "/news/" },
   { label: "Материалы для скачивания", href: "/materials/" },
@@ -63,13 +53,9 @@ const utilityLinks = [
           <summary aria-controls="services-panel" aria-expanded="false">Услуги</summary>
           <div class="nav-dropdown-panel" id="services-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Услуги</p><div class="nav-dropdown-service-groups">{serviceGroups.map((group) => group.links.length ? <section class="nav-dropdown-service-group"><h3>{group.label}</h3><div class="nav-dropdown-list">{group.links.map((item) => <a href={item.href}>{item.label}</a>)}</div></section> : <a class="nav-dropdown-service-link" href={group.href}>{group.label}</a>)}</div></div></div>
         </details>
-        <details class="nav-dropdown">
-          <summary aria-controls="audience-panel" aria-expanded="false">Кому помогаем</summary>
-          <div class="nav-dropdown-panel" id="audience-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Кому помогаем</p><div class="nav-dropdown-list nav-dropdown-list--columns">{audienceLinks.map((item) => <a href={item.href}>{item.label}</a>)}</div></div></div>
-        </details>
         {sectionLinks.map((item) => <a class="site-nav-link" href={item.href}>{item.label}</a>)}
       </nav>
-      <MobileMenu serviceLinks={serviceLinks} audienceLinks={audienceLinks} sectionLinks={sectionLinks} utilityLinks={utilityLinks} />
+      <MobileMenu serviceLinks={serviceLinks} sectionLinks={sectionLinks} utilityLinks={utilityLinks} />
     </div>
   </div>
 

@@ -26,7 +26,6 @@ export const serviceGroups: ServiceGroup[] = [
 
 export const sectionLinks: NavItem[] = [
   { label: "Новости", href: "/news/" },
-  { label: "Материалы для скачивания", href: "/materials/" },
   { label: "РАЛ-Атлас", href: "https://atlas.roknord.ru/" },
 ];
 

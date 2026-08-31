@@ -3,13 +3,13 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
-  title="Реквизиты и адрес — Рокнорд"
-  description="Реквизиты и адрес ООО «РОКНОРД»."
+  title="Реквизиты ООО «РОКНОРД» — ИНН 7807406530, ОГРН 1267800054686"
+  description="Юридические реквизиты ООО «РОКНОРД»: ИНН 7807406530, ОГРН 1267800054686, КПП 780701001, адрес и контакты."
 >
   <main id="content" class="requisites-page">
     <div class="page-container requisites-page__inner">
       <p class="eyebrow">Юридическая информация</p>
-      <h1>Реквизиты и адрес</h1>
+      <h1>Реквизиты ООО «РОКНОРД»</h1>
 
       <div class="requisites-page__grid">
         <section class="requisites-page__section" aria-labelledby="company-details-title">
@@ -17,10 +17,14 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
           <dl class="requisites-page__details">
             <div><dt>Полное наименование</dt><dd>Общество с ограниченной ответственностью «РОКНОРД»</dd></div>
             <div><dt>Сокращённое наименование</dt><dd>ООО «РОКНОРД»</dd></div>
+            <div><dt>Бренд</dt><dd>РОКНОРД / ROKNORD</dd></div>
             <div class="requisites-page__inline-row">
               <div><dt>ИНН</dt><dd>7807406530</dd></div>
               <div><dt>КПП</dt><dd>780701001</dd></div>
             </div>
+            <div><dt>ОГРН</dt><dd>1267800054686</dd></div>
+            <div><dt>Дата регистрации</dt><dd>28 июля 2026 года</dd></div>
+            <div><dt>Официальный сайт</dt><dd><a href="https://roknord.ru/">roknord.ru</a></dd></div>
           </dl>
         </section>
 
@@ -34,6 +38,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
           <p><a href="mailto:hello@roknord.ru">hello@roknord.ru</a></p>
         </section>
       </div>
+
+      <aside class="requisites-page__notice" aria-label="Разграничение юридических лиц">
+        <strong>Обратите внимание:</strong> ООО «РОКНОРД» (ИНН 7807406530) и ООО «РОКОНОРД» (ИНН 7810030052) — разные юридические лица. Официальный сайт ООО «РОКНОРД» — <a href="https://roknord.ru/">roknord.ru</a>.
+      </aside>
 
       <section class="requisites-page__map-section" aria-labelledby="map-title">
         <h2 id="map-title">Как нас найти</h2>
@@ -84,6 +92,15 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   .requisites-page__map-section {
     padding-top: var(--space-6);
     border-top: 1px solid var(--lrqa-border);
+  }
+
+  .requisites-page__notice {
+    margin-top: var(--space-10);
+    padding: var(--space-5);
+    color: var(--lrqa-muted-dark);
+    background: var(--lrqa-card-grey);
+    border-left: 3px solid var(--color-mint-action);
+    line-height: var(--line-height-relaxed);
   }
 
   .requisites-page h2 {

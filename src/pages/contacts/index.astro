@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Контакты ООО «РОКНОРД» — Санкт-Петербург" description="Контакты ООО «РОКНОРД»: адрес в Санкт-Петербурге, телефон, email, режим работы и реквизиты. ИНН 7807406530.">
+  <main id="content" class="contacts-page">
+    <section class="contacts-page__hero"><div class="page-container"><p class="section__eyebrow">Связаться с компанией</p><h1>Контакты ООО «РОКНОРД»</h1><p>Расскажите о процедуре, сроках и текущем состоянии документов. Мы уточним задачу и предложим подходящий формат первого этапа.</p></div></section>
+    <div class="contacts-page__content page-container">
+      <section class="contacts-page__details" aria-labelledby="contacts-details-title">
+        <div><p class="section__eyebrow">Контактные данные</p><h2 id="contacts-details-title">ООО «РОКНОРД»</h2><p>ИНН 7807406530</p><p>Официальный сайт: <a href="https://roknord.ru/">roknord.ru</a></p></div>
+        <address><p><span>Телефон</span><a href="tel:+78123898178">+7 (812) 389-81-78</a></p><p><span>Email</span><a href="mailto:hello@roknord.ru">hello@roknord.ru</a></p><p><span>Адрес</span>198320, г. Санкт-Петербург, г. Красное Село, ул. Свободы, д. 57Д, пом. 7-Н, офис 615</p><p><span>Режим работы</span>Уточняется по телефону</p></address>
+      </section>
+      <div class="contacts-page__actions"><a class="service-cta cta-angled" href="/#contact">Разобрать задачу</a><a href="/requisites/">Посмотреть реквизиты <span aria-hidden="true">→</span></a></div>
+      <section class="contacts-page__map" aria-labelledby="contacts-map-title"><h2 id="contacts-map-title">Как нас найти</h2><iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=101442465176" width="560" height="400" frameborder="0" title="Офис ООО «РОКНОРД» в Красном Селе" loading="lazy"></iframe></section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .contacts-page{background:var(--lrqa-card-light);color:var(--lrqa-black)}.contacts-page__hero{padding-block:clamp(4rem,8vw,8rem);color:var(--lrqa-white);background:var(--lrqa-navy)}.contacts-page__hero>div{display:grid;gap:var(--space-5)}.contacts-page h1,.contacts-page h2,.contacts-page p{margin:0}.contacts-page h1{font-size:var(--type-page-title);line-height:.95}.contacts-page__hero p:last-child{max-width:45rem;color:var(--lrqa-border-soft);font-size:var(--type-lead);line-height:var(--line-height-relaxed)}.contacts-page__content{display:grid;gap:var(--space-8);padding-block:clamp(4rem,8vw,8rem)}.contacts-page__details{display:grid;grid-template-columns:.8fr 1.2fr;gap:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--lrqa-border)}.contacts-page__details>div{display:grid;align-content:start;gap:var(--space-3)}.contacts-page__details h2{font-size:clamp(1.8rem,3vw,3rem)}.contacts-page__details address{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-6);font-style:normal}.contacts-page__details address p{display:grid;align-content:start;gap:var(--space-2);line-height:var(--line-height-relaxed)}.contacts-page__details address span{color:var(--lrqa-muted);font-size:var(--font-size-xs);text-transform:uppercase;letter-spacing:var(--letter-spacing-wide)}.contacts-page a{color:var(--lrqa-black);text-decoration:underline;text-decoration-color:var(--color-mint-action);text-underline-offset:.2em}.contacts-page__actions{display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-5)}.contacts-page__actions .service-cta{color:var(--lrqa-black);text-decoration:none}.contacts-page__map{display:grid;gap:var(--space-5);padding-top:var(--space-6);border-top:1px solid var(--lrqa-border)}.contacts-page__map iframe{display:block;width:100%;height:clamp(22rem,45vw,32rem);border:1px solid var(--lrqa-border)}@media(max-width:48rem){.contacts-page__details{grid-template-columns:1fr}.contacts-page__details address{grid-template-columns:1fr}}
+</style>

@@ -12,11 +12,49 @@ import MissionTeaser from "../components/MissionTeaser.astro";
 import PricingSection from "../components/PricingSection.astro";
 import FaqSection from "../components/FaqSection.astro";
 import ContactForm from "../components/ContactForm.astro";
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://roknord.ru/#website",
+  url: "https://roknord.ru/",
+  name: "РОКНОРД",
+  alternateName: ["ROKNORD", "ООО РОКНОРД", "roknord.ru"],
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://roknord.ru/#organization",
+  name: "РОКНОРД",
+  legalName: "Общество с ограниченной ответственностью «РОКНОРД»",
+  alternateName: ["ООО «РОКНОРД»", "ROKNORD"],
+  url: "https://roknord.ru/",
+  logo: "https://roknord.ru/images/brand/roknord-logo.png",
+  email: "hello@roknord.ru",
+  telephone: "+7-812-389-81-78",
+  foundingDate: "2026-07-28",
+  taxID: "7807406530",
+  identifier: [
+    { "@type": "PropertyValue", propertyID: "ИНН", value: "7807406530" },
+    { "@type": "PropertyValue", propertyID: "ОГРН", value: "1267800054686" },
+    { "@type": "PropertyValue", propertyID: "КПП", value: "780701001" },
+  ],
+  address: {
+    "@type": "PostalAddress",
+    postalCode: "198320",
+    addressCountry: "RU",
+    addressRegion: "Санкт-Петербург",
+    addressLocality: "Красное Село",
+    streetAddress: "ул. Свободы, д. 57Д, пом. 7-Н, офис 615",
+  },
+};
 ---
 
 <BaseLayout
-  title="Рокнорд — подготовка к аккредитации и подтверждению компетентности"
-  description="Независимый аудит готовности к аккредитации и подтверждению компетентности: область, СМК, доказательства, ФГИС и рекомендации по корректирующим действиям."
+  title="РОКНОРД — экспертное сопровождение бизнеса в регулируемых процедурах"
+  description="ООО «РОКНОРД» — экспертное сопровождение бизнеса в регулируемых и обязательных процедурах: Росаккредитация, 152-ФЗ, охрана труда. Санкт-Петербург. ИНН 7807406530."
+  structuredData={[websiteSchema, organizationSchema]}
 >
   <main id="content">
     <Hero />

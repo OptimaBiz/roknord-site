@@ -16,18 +16,26 @@ type Props = {
   ogType?: "website" | "article";
   ogImage?: string;
   publishedTime?: string;
+  robots?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 };
 
 const {
   title,
   description,
-  canonical,
+  canonical = new URL(Astro.url.pathname, "https://roknord.ru").href,
   ogTitle = title,
   ogDescription = description,
   ogType = "website",
   ogImage,
   publishedTime,
+  robots,
+  structuredData,
 } = Astro.props as Props;
+
+const structuredDataItems = structuredData
+  ? (Array.isArray(structuredData) ? structuredData : [structuredData])
+  : [];
 ---
 
 <!doctype html>
@@ -37,8 +45,10 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    {robots && <meta name="robots" content={robots} />}
     {canonical && <link rel="canonical" href={canonical} />}
     <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="РОКНОРД" />
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />
@@ -49,6 +59,7 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <title>{title}</title>
+    {structuredDataItems.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}
     <script is:inline>
       const themeColorMeta = document.getElementById("theme-color-meta");
       if (themeColorMeta) {

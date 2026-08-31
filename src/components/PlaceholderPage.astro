@@ -13,7 +13,7 @@ const { eyebrow, title, description, points, note } = Astro.props as Props;
 const contactHref = `/?context=${encodeURIComponent(title)}#contact`;
 ---
 
-<BaseLayout title={`${title} — Рокнорд`} description={description}>
+<BaseLayout title={`${title} — РОКНОРД`} description={description} robots="noindex,follow">
   <main id="content">
     <section class="hero">
       <div class="page-container">

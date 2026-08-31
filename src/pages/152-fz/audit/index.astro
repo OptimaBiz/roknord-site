@@ -12,7 +12,7 @@ import { pdnAuditFaqs as faq } from "../../../components/pdn-audit/pdnAuditFaqDa
 import "../../../styles/pdn-audit.css";
 
 const title = "Аудит по 152-ФЗ с комплектом документов за 22 000 ₽ | РОКНОРД";
-const description = "Аудит по 152-ФЗ с документами за 22 000 ₽. За 48 часов проверим сайт, CRM и сведения Роскомнадзора, подготовим карту рисков, план исправлений, политику, согласия и проект уведомления.";
+const description = "Аудит по 152-ФЗ с документами за 22 000 ₽. Проверим сайт, CRM и сведения Роскомнадзора, подготовим политику, согласия, задания для внедрения и поможем подать уведомление.";
 const canonical = "https://roknord.ru/152-fz/audit/";
 const image = "https://roknord.ru/images/pdn-audit/shema-marshruta-personalnyh-dannyh-152-fz.webp";
 const jsonLd = [{"@context":"https://schema.org","@type":"Service","name":"Аудит по 152-ФЗ со стандартным комплектом документов","description":description,"image":image,"provider":{"@type":"Organization","name":"ООО «РОКНОРД»","url":"https://roknord.ru/"},"areaServed":{"@type":"Country","name":"Россия"},"url":canonical,"offers":{"@type":"Offer","price":"22000","priceCurrency":"RUB","url":canonical}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://roknord.ru/"},{"@type":"ListItem","position":2,"name":"152-ФЗ","item":"https://roknord.ru/152-fz/"},{"@type":"ListItem","position":3,"name":"Аудит и документы по 152-ФЗ","item":canonical}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":faq.map(([question,answer])=>({"@type":"Question","name":question,"acceptedAnswer":{"@type":"Answer","text":answer}}))}];

@@ -23,6 +23,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
           ИНН 7807406530, КПП 780701001, адрес: 198320, г. Санкт-Петербург, г. Красное Село,
           ул. Свободы, д. 57Д, пом. 7-Н, офис 615, далее — Оператор.
         </p>
+        <p class="legal-page__registry">
+          <span>Регистрационный номер в реестре операторов, осуществляющих обработку персональных данных</span>
+          <strong>78-26-215919</strong>
+        </p>
         <p>
           Контакты Оператора: <a href="mailto:hello@roknord.ru">hello@roknord.ru</a>,
           <a href="tel:+78123898178">+7 (812) 389-81-78</a>.
@@ -176,5 +180,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 </BaseLayout>
 
 <style>
-  .legal-page{background:var(--lrqa-card-light);color:var(--lrqa-black)}.legal-page__inner{max-width:58rem;padding-block:clamp(4rem,8vw,8rem)}.legal-page .eyebrow{color:var(--lrqa-muted-dark)}.legal-page h1{max-width:48rem;margin:var(--space-3) 0 var(--space-5);color:var(--lrqa-black);font-size:clamp(2.4rem,6vw,5.5rem);line-height:.98}.legal-page__lead{max-width:48rem;color:var(--lrqa-muted-dark);font-size:var(--font-size-lg);line-height:var(--line-height-relaxed)}.legal-page__section{max-width:52rem;margin-top:var(--space-10);padding-top:var(--space-6);border-top:1px solid var(--lrqa-border)}.legal-page h2{margin:0 0 var(--space-4);color:var(--lrqa-black);font-size:clamp(1.35rem,2.4vw,2rem)}.legal-page p,.legal-page li{color:var(--lrqa-muted-dark);font-size:var(--font-size-body);line-height:var(--line-height-relaxed)}.legal-page ul{display:grid;gap:var(--space-2);padding-left:1.3rem}.legal-page strong{color:var(--lrqa-black)}.legal-page a{color:var(--lrqa-black);text-decoration:underline;text-decoration-color:var(--lrqa-mint);text-underline-offset:.18em}.legal-page__note{margin-block:var(--space-10) var(--space-5);font-size:var(--font-size-sm)}
+  .legal-page{background:var(--lrqa-card-light);color:var(--lrqa-black)}.legal-page__inner{max-width:58rem;padding-block:clamp(4rem,8vw,8rem)}.legal-page .eyebrow{color:var(--lrqa-muted-dark)}.legal-page h1{max-width:48rem;margin:var(--space-3) 0 var(--space-5);color:var(--lrqa-black);font-size:clamp(2.4rem,6vw,5.5rem);line-height:.98}.legal-page__lead{max-width:48rem;color:var(--lrqa-muted-dark);font-size:var(--font-size-lg);line-height:var(--line-height-relaxed)}.legal-page__section{max-width:52rem;margin-top:var(--space-10);padding-top:var(--space-6);border-top:1px solid var(--lrqa-border)}.legal-page h2{margin:0 0 var(--space-4);color:var(--lrqa-black);font-size:clamp(1.35rem,2.4vw,2rem)}.legal-page p,.legal-page li{color:var(--lrqa-muted-dark);font-size:var(--font-size-body);line-height:var(--line-height-relaxed)}.legal-page ul{display:grid;gap:var(--space-2);padding-left:1.3rem}.legal-page strong{color:var(--lrqa-black)}.legal-page a{color:var(--lrqa-black);text-decoration:underline;text-decoration-color:var(--lrqa-mint);text-underline-offset:.18em}.legal-page__registry{display:flex;align-items:center;justify-content:space-between;gap:var(--space-5);margin:var(--space-5) 0;padding:var(--space-4) var(--space-5);border-left:3px solid var(--lrqa-mint);background:var(--lrqa-card-grey)}.legal-page__registry span{max-width:35rem;font-size:var(--font-size-sm);line-height:1.45}.legal-page__registry strong{font-family:var(--font-family-mono);font-size:clamp(1rem,2vw,1.2rem);white-space:nowrap}.legal-page__note{margin-block:var(--space-10) var(--space-5);font-size:var(--font-size-sm)}
+  @media(max-width:48rem){.legal-page__registry{align-items:flex-start;flex-direction:column;gap:var(--space-2)}}
 </style>

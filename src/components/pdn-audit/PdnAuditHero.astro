@@ -3,7 +3,7 @@
     <div class="pdn-hero__copy" data-reveal>
       <p class="pdn-label">Аудит и документы по 152‑ФЗ</p>
       <h1 id="pdn-title"><span>Аудит по 152‑ФЗ</span><span>и документы</span></h1>
-      <p class="pdn-hero__lead">За 22&nbsp;000 ₽ проверим сайт, CRM, документы и сведения в Роскомнадзоре. Подготовим стандартный комплект документов, конкретные тексты и задания для исправлений и поможем подать уведомление в Роскомнадзор.</p>
+      <p class="pdn-hero__lead">Проверим сайт, CRM, документы и сведения в Роскомнадзоре. Подготовим первичный комплект документов, конкретные тексты и перечень исправлений. Поможем подать уведомление в Роскомнадзор.</p>
 
       <ul class="pdn-hero__benefits" aria-label="Что входит в услугу">
         <li>Политика, согласия и внутренние документы</li>
@@ -12,7 +12,10 @@
       </ul>
 
       <div class="pdn-hero__price">
-        <strong>22&nbsp;000 ₽</strong>
+        <div class="pdn-hero__price-value">
+          <strong>22&nbsp;000 ₽</strong>
+          <small>+ НДС</small>
+        </div>
         <span>Фиксированная стоимость стандартного объёма. Срок — 48 часов после получения исходных данных.</span>
       </div>
 
@@ -112,6 +115,18 @@
     color: var(--color-accent);
     font: 700 clamp(1.8rem, 2.3vw, 2.35rem)/1 var(--font-family-mono);
     white-space: nowrap;
+  }
+
+  .pdn-hero__price-value {
+    display: grid;
+    gap: .35rem;
+  }
+
+  .pdn-hero__price-value small {
+    color: var(--color-text-muted);
+    font: 600 var(--font-size-xs)/1.2 var(--font-family-mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
   }
 
   .pdn-hero__price span {

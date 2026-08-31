@@ -10,18 +10,52 @@
         <a class="button button-primary cta-angled" href="#audit-form" data-pdn-goal="pdn_audit_hero_cta">Заказать услугу →</a>
       </div>
     </div>
-    <div class="risk-board" aria-label="Демонстрационная карта рисков аудита" data-reveal>
-      <div class="risk-board__top"><span>Фрагмент карты рисков</span><span>Демонстрационный пример</span></div>
-      <p class="risk-board__status">Проблема № ПД-07 · высокий приоритет</p>
-      <ol class="risk-board__list">
-        <li><span>Факт</span><strong>Форма → внешняя CRM</strong><small>имя и телефон передаются во внешний сервис</small></li>
-        <li><span>Риск</span><strong>Процесс описан не полностью</strong><small>документы и сведения РКН требуют проверки</small></li>
-        <li><span>Исправить</span><strong>Проверить договор и документы</strong><small>дать разработчику и ответственному конкретные действия</small></li>
-      </ol>
-      <div class="risk-board__flow"><span>Сайт</span><i>→</i><span>CRM</span><i>→</i><span>Документы</span><i>→</i><span>РКН</span></div>
-    </div>
+    <figure class="pdn-hero__data-route" data-reveal>
+      <img
+        src="/images/pdn-audit/marshrut-personalnyh-dannyh-sayta-152-fz.webp"
+        width="1536"
+        height="1024"
+        alt="Схема маршрута персональных данных от формы сайта через CRM, менеджера и хранилище до удаления с сопоставлением документов и сведений Роскомнадзора"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        sizes="(max-width: 64rem) calc(100vw - 2rem), 52vw"
+      />
+      <figcaption>Маршрут персональных данных: форма сайта, CRM, внешние сервисы, хранение и удаление. При аудите сопоставляем фактический процесс с политикой, внутренними документами, договорами и сведениями оператора в Роскомнадзоре.</figcaption>
+    </figure>
   </div>
 </section>
 <aside class="pdn-proof" aria-label="Параметры аудита"><div class="page-container pdn-proof__grid">
   <div><strong>48 часов</strong><span>до карты рисков и плана</span></div><div><strong>4 блока</strong><span>сайт · CRM · документы · РКН</span></div><div><strong>22 000 ₽</strong><span>аудит + стандартный комплект</span></div><div><strong>Далее по задаче</strong><span>дополнительный объём согласуем</span></div>
 </div></aside>
+
+<style>
+  .pdn-hero__data-route {
+    display: grid;
+    gap: var(--space-3);
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .pdn-hero__data-route img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: contain;
+    background: var(--lrqa-white);
+  }
+
+  .pdn-hero__data-route figcaption {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-relaxed);
+  }
+
+  @media (max-width: 64rem) {
+    .pdn-hero__data-route {
+      max-width: 60rem;
+    }
+  }
+</style>

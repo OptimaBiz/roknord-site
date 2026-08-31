@@ -2,7 +2,7 @@
   <div class="page-container pdn-hero__grid">
     <div class="pdn-hero__copy" data-reveal>
       <p class="pdn-label">Персональные данные</p>
-      <h1 id="pdn-title">Аудит 152-ФЗ + разработка комплекта документов</h1>
+      <h1 id="pdn-title"><span>Аудит 152‑ФЗ</span><span>+ разработка</span><span>комплекта документов</span></h1>
       <p class="pdn-hero__lead">Проверим сайт, CRM, документы и сведения в Роскомнадзоре: устраним расхождения между фактическими процессами и тем, как они оформлены.</p>
       <div class="pdn-hero__promise"><strong>Аудит за 48 часов для стандартного объёма:</strong><span>карта рисков, план исправлений и стандартный комплект документов: политика обработки персональных данных, согласия и уведомление в Роскомнадзор.</span></div>
       <p class="pdn-hero__offer"><strong>22&nbsp;000 ₽ — фиксированная цена</strong><span>Дополнительные задачи согласуем отдельно после аудита.</span></p>
@@ -25,11 +25,25 @@
     </figure>
   </div>
 </section>
-<aside class="pdn-proof" aria-label="Параметры аудита"><div class="page-container pdn-proof__grid">
-  <div><strong>48 часов</strong><span>до карты рисков и плана</span></div><div><strong>4 блока</strong><span>сайт · CRM · документы · РКН</span></div><div><strong>22 000 ₽</strong><span>аудит + стандартный комплект</span></div><div><strong>Далее по задаче</strong><span>дополнительный объём согласуем</span></div>
-</div></aside>
 
 <style>
+  .pdn-hero__grid {
+    grid-template-columns: minmax(0, .9fr) minmax(32rem, 1.1fr);
+    gap: clamp(2.5rem, 4vw, 5rem);
+  }
+
+  .pdn-hero h1 {
+    width: 100%;
+    max-width: 16ch;
+    font-size: clamp(2.8rem, 3.2vw, 3.5rem);
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  .pdn-hero h1 span {
+    display: block;
+  }
+
   .pdn-hero__data-route {
     display: grid;
     gap: var(--space-3);
@@ -54,8 +68,56 @@
   }
 
   @media (max-width: 64rem) {
+    .pdn-hero__grid {
+      grid-template-columns: 1fr;
+      gap: clamp(3rem, 7vw, 4.5rem);
+    }
+
+    .pdn-hero__copy {
+      max-width: 48rem;
+    }
+
+    .pdn-hero h1 {
+      max-width: 18ch;
+      font-size: clamp(2.75rem, 5.5vw, 3.5rem);
+    }
+
     .pdn-hero__data-route {
       max-width: 60rem;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .pdn-hero {
+      padding-block: clamp(3rem, 12vw, 4.5rem);
+    }
+
+    .pdn-hero__grid {
+      gap: var(--space-10);
+    }
+
+    .pdn-hero__copy {
+      gap: var(--space-4);
+    }
+
+    .pdn-hero h1 {
+      max-width: 14ch;
+      font-size: clamp(2.1rem, 9.2vw, 2.45rem);
+      line-height: 1.02;
+    }
+
+    .pdn-hero__lead,
+    .pdn-hero__promise {
+      font-size: 1rem;
+    }
+
+    .pdn-hero__offer strong {
+      font-size: 1.25rem;
+      line-height: 1.15;
+    }
+
+    .pdn-hero__data-route figcaption {
+      font-size: var(--font-size-2xs);
     }
   }
 </style>

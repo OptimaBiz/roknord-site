@@ -22,7 +22,6 @@ const jsonLd = [{"@context":"https://schema.org","@type":"Service","name":"Ау�
   <main id="content" class="pdn-audit">
     <PdnAuditHero /><PdnAuditScenarios /><PdnAuditVisuals /><PdnAuditResult /><PdnAuditDetails /><PdnAuditPricing /><PdnAuditFaq /><PdnAuditLeadForm />
   </main>
-  <a class="pdn-mobile-cta cta-angled" href="#audit-form">Узнать стоимость →</a>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <script is:inline>
     (() => {
@@ -31,7 +30,6 @@ const jsonLd = [{"@context":"https://schema.org","@type":"Service","name":"Ау�
       window.__pdnGoal('pdn_audit_view');
       document.addEventListener('click', (event) => { const target = event.target instanceof Element ? event.target.closest('[data-pdn-goal]') : null; if (target) window.__pdnGoal(target.dataset.pdnGoal); });
       document.querySelectorAll('[data-pdn-observe]').forEach((element) => { const observer = new IntersectionObserver((entries) => { if (!entries[0].isIntersecting) return; window.__pdnGoal(element.dataset.pdnObserve); observer.disconnect(); }, { threshold: .25 }); observer.observe(element); });
-      const form = document.querySelector('#audit-form'); const sticky = document.querySelector('.pdn-mobile-cta'); if (form && sticky) new IntersectionObserver(([entry]) => sticky.classList.toggle('is-hidden', entry.isIntersecting), { threshold: .05 }).observe(form);
     })();
   </script>
 </BaseLayout>

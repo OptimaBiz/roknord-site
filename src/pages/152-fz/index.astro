@@ -1,17 +1,49 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import SectionPlaceholderPage from "../../components/SectionPlaceholderPage.astro";
+import "../../styles/pdn-audit.css";
 ---
 
 <BaseLayout
-  title="Услуги по 152-ФЗ — Рокнорд"
-  description="Раздел услуг Рокнорд по 152-ФЗ находится в разработке."
-  robots="noindex,follow"
+  title="Персональные данные и 152-ФЗ для организаций | РОКНОРД"
+  description="Услуги РОКНОРД по проверке обработки персональных данных: аудит сайта, CRM, сервисов, документов и сведений оператора Роскомнадзора."
+  canonical="https://roknord.ru/152-fz/"
 >
-  <SectionPlaceholderPage
-    eyebrow="Услуги"
-    title="Услуги по 152-ФЗ"
-    description="Здесь будет собрана информация о работах, связанных с требованиями 152-ФЗ и организацией процессов обработки персональных данных."
-    note="Раздел находится в разработке. Направьте нам задачу, чтобы обсудить подходящий формат работы."
-  />
+  <main id="content" class="pdn-audit pdn-hub">
+    <section class="pdn-section">
+      <div class="page-container pdn-hub__hero">
+        <div>
+          <p class="pdn-label">Направление РОКНОРД</p>
+          <h1>Персональные данные и 152-ФЗ</h1>
+          <p class="pdn-hero__lead">Проверяем, как организация фактически получает, использует, передаёт, хранит и удаляет персональные данные. Сопоставляем процессы с документами и сведениями оператора.</p>
+          <a class="button button-primary cta-angled" href="/152-fz/audit/">Перейти к аудиту →</a>
+        </div>
+        <aside>
+          <strong>Что получает заказчик</strong>
+          <ul>
+            <li>подтверждённые наблюдения;</li>
+            <li>приоритеты рисков;</li>
+            <li>план исправлений;</li>
+            <li>технические задания по применимости.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="pdn-section pdn-section--light">
+      <div class="page-container">
+        <div class="pdn-intro">
+          <p class="pdn-label">Основная услуга</p>
+          <h2>Аудит обработки персональных данных по 152-ФЗ</h2>
+          <p>Сайт и формы, CRM и сервисы, подрядчики, применимые документы и сведения Роскомнадзора рассматриваются как части одного фактического процесса.</p>
+        </div>
+        <div class="scope-grid">
+          <article><p class="pdn-label">Сайт</p><h3>Точки сбора</h3><p>Формы, тексты, аналитика, подключённые сервисы и маршрут после отправки.</p></article>
+          <article><p class="pdn-label">Системы</p><h3>CRM и интеграции</h3><p>Доступы, передачи, подрядчики, хранение и удаление по применимости.</p></article>
+          <article><p class="pdn-label">Документы</p><h3>Оформление процессов</h3><p>Политика, согласия, локальные акты, договорные конструкции и записи.</p></article>
+          <article><p class="pdn-label">Роскомнадзор</p><h3>Сведения оператора</h3><p>Цели, категории, способы обработки и основания для актуализации.</p></article>
+        </div>
+        <a class="button button-primary cta-angled pdn-hub__cta" href="/152-fz/audit/">Определить объём и стоимость →</a>
+      </div>
+    </section>
+  </main>
 </BaseLayout>

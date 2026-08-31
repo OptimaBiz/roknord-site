@@ -34,7 +34,6 @@ const auditFacts = [
     <aside class="hero-assurance" aria-label="Условия первого этапа" data-hero-intro>
       <span class="hero-assurance__scan" aria-hidden="true"></span>
       <p class="hero-assurance__label">Условия первого этапа</p>
-      <h2>Независимый аудит готовности</h2>
       <ul>
         {auditFacts.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><div><small>{item.label}</small><strong>{item.value}</strong></div></li>)}
       </ul>

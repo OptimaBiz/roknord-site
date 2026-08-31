@@ -11,10 +11,10 @@ export type ServiceGroup = {
 };
 
 export const serviceLinks: NavItem[] = [
+  { label: "Подготовка к первичной аккредитации", href: "/#scenario-primary-accreditation" },
   { label: "Подготовка к подтверждению компетентности", href: "/#scenario-confirmation" },
   { label: "Аудит и актуализация области аккредитации", href: "/#scenario-scope-audit" },
   { label: "Корректирующие действия после выявления несоответствий", href: "/#scenario-corrective-actions" },
-  { label: "Подготовка к первичной аккредитации", href: "/#scenario-primary-accreditation" },
   { label: "Специальные направления", href: "/#scenario-special-directions" },
 ];
 

@@ -36,22 +36,21 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
           </address>
           <p><a href="tel:+78123898178">+7 (812) 389-81-78</a></p>
           <p><a href="mailto:hello@roknord.ru">hello@roknord.ru</a></p>
+          <section class="requisites-page__map-section" aria-labelledby="map-title">
+            <h3 id="map-title">Как нас найти</h3>
+            <div class="requisites-page__map">
+              <iframe
+                src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=101442465176"
+                width="560"
+                height="400"
+                frameborder="0"
+                title="Карта расположения офиса Рокнорд"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </section>
         </section>
       </div>
-
-      <section class="requisites-page__map-section" aria-labelledby="map-title">
-        <h2 id="map-title">Как нас найти</h2>
-        <div class="requisites-page__map">
-          <iframe
-            src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=101442465176"
-            width="560"
-            height="400"
-            frameborder="0"
-            title="Карта расположения офиса Рокнорд"
-            loading="lazy"
-          ></iframe>
-        </div>
-      </section>
     </div>
   </main>
 </BaseLayout>
@@ -90,7 +89,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     border-top: 1px solid var(--lrqa-border);
   }
 
-  .requisites-page h2 {
+  .requisites-page h2,
+  .requisites-page h3 {
     margin: 0 0 var(--space-5);
     color: var(--lrqa-black);
     font-size: clamp(1.35rem, 2.4vw, 2rem);
@@ -139,7 +139,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   }
 
   .requisites-page__map-section {
-    margin-top: var(--space-10);
+    margin-top: var(--space-7);
   }
 
   .requisites-page__map {
@@ -150,7 +150,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   .requisites-page__map iframe {
     display: block;
     width: 100%;
-    height: clamp(22rem, 45vw, 32rem);
+    height: clamp(18rem, 30vw, 24rem);
     border: 0;
   }
 

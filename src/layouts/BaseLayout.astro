@@ -6,6 +6,7 @@ import Footer from "../components/Footer.astro";
 import CookiePanel from "../components/CookiePanel.astro";
 import ScrollUpControl from "../components/ScrollUpControl.astro";
 import LoginModal from "../components/LoginModal.astro";
+import PdnAuditFooter from "../components/pdn-audit/PdnAuditFooter.astro";
 
 type Props = {
   title: string;
@@ -18,6 +19,7 @@ type Props = {
   publishedTime?: string;
   robots?: string;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
+  landingFooter?: boolean;
 };
 
 const {
@@ -31,6 +33,7 @@ const {
   publishedTime,
   robots,
   structuredData,
+  landingFooter = false,
 } = Astro.props as Props;
 
 const structuredDataItems = structuredData
@@ -173,7 +176,7 @@ const structuredDataItems = structuredData
     <div class="site-shell">
       <Header />
       <slot />
-      <Footer />
+      {landingFooter ? <PdnAuditFooter /> : <Footer />}
       <CookiePanel />
       <ScrollUpControl />
       <LoginModal />

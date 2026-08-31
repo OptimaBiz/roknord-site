@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PdnAuditHero from "../../../components/pdn-audit/PdnAuditHero.astro";
+import PdnAuditVisuals from "../../../components/pdn-audit/PdnAuditVisuals.astro";
+import PdnAuditResult from "../../../components/pdn-audit/PdnAuditResult.astro";
+import PdnAuditDetails from "../../../components/pdn-audit/PdnAuditDetails.astro";
+import PdnAuditScenarios from "../../../components/pdn-audit/PdnAuditScenarios.astro";
+import PdnAuditPricing from "../../../components/pdn-audit/PdnAuditPricing.astro";
+import PdnAuditFaq from "../../../components/pdn-audit/PdnAuditFaq.astro";
+import PdnAuditLeadForm from "../../../components/pdn-audit/PdnAuditLeadForm.astro";
+import { pdnAuditFaqs as faq } from "../../../components/pdn-audit/pdnAuditFaqData";
+import "../../../styles/pdn-audit.css";
+
+const title = "Аудит персональных данных по 152-ФЗ для бизнеса | РОКНОРД";
+const description = "Аудит обработки персональных данных по 152-ФЗ, разработка основных документов и подготовка уведомления в Роскомнадзор. Проверим сайт, CRM и процессы, составим план внедрения под ваш бизнес.";
+const canonical = "https://roknord.ru/152-fz/audit/";
+const jsonLd = [{"@context":"https://schema.org","@type":"Service","name":"Аудит обработки персональных данных по 152-ФЗ","description":description,"provider":{"@type":"Organization","name":"ООО «РОКНОРД»","url":"https://roknord.ru/"},"areaServed":{"@type":"Country","name":"Россия"},"url":canonical},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://roknord.ru/"},{"@type":"ListItem","position":2,"name":"152-ФЗ","item":"https://roknord.ru/152-fz/"},{"@type":"ListItem","position":3,"name":"Аудит 152-ФЗ","item":canonical}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":faq.map(([question,answer])=>({"@type":"Question","name":question,"acceptedAnswer":{"@type":"Answer","text":answer}}))}];
+---
+<BaseLayout title={title} description={description} canonical={canonical} ogTitle={title} ogDescription={description} ogImage="https://roknord.ru/images/pdn-audit/og-audit-152-fz.svg" landingHeader landingFooter>
+  <Fragment slot="head"><meta name="robots" content="index, follow" /></Fragment>
+  <main id="content" class="pdn-audit">
+    <PdnAuditHero /><PdnAuditScenarios /><PdnAuditVisuals /><PdnAuditResult /><PdnAuditDetails /><PdnAuditPricing /><PdnAuditFaq /><PdnAuditLeadForm />
+  </main>
+  <a class="pdn-mobile-cta cta-angled" href="#audit-form">Узнать стоимость →</a>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script is:inline>
+    (() => {
+      const metrikaId = 111070145;
+      window.__pdnGoal = (name, params = {}) => { if (window.__roknordAnalyticsOn && typeof window.ym === 'function') window.ym(metrikaId, 'reachGoal', name, params); };
+      window.__pdnGoal('pdn_audit_view');
+      document.addEventListener('click', (event) => { const target = event.target instanceof Element ? event.target.closest('[data-pdn-goal]') : null; if (target) window.__pdnGoal(target.dataset.pdnGoal); });
+      document.querySelectorAll('[data-pdn-observe]').forEach((element) => { const observer = new IntersectionObserver((entries) => { if (!entries[0].isIntersecting) return; window.__pdnGoal(element.dataset.pdnObserve); observer.disconnect(); }, { threshold: .25 }); observer.observe(element); });
+      const form = document.querySelector('#audit-form'); const sticky = document.querySelector('.pdn-mobile-cta'); if (form && sticky) new IntersectionObserver(([entry]) => sticky.classList.toggle('is-hidden', entry.isIntersecting), { threshold: .05 }).observe(form);
+    })();
+  </script>
+</BaseLayout>

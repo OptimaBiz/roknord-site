@@ -1,0 +1,14 @@
+<section class="pdn-section" id="scope" aria-labelledby="scope-title" data-pdn-observe="pdn_audit_scope_view">
+  <div class="page-container">
+    <div class="pdn-intro"><p class="pdn-label">Что проверим</p><h2 id="scope-title">От формы на сайте до Роскомнадзора</h2><p>Посмотрим, где вы получаете персональные данные, куда они уходят и как это оформлено.</p></div>
+    <div class="scope-grid scope-grid--dark">
+      <article><p class="pdn-label">01 / Сайт</p><h3>Формы и сервисы</h3><p>Какие данные собираются, что написано рядом с формами и куда уходит заявка.</p></article>
+      <article><p class="pdn-label">02 / CRM</p><h3>Доступ и передача</h3><p>Кто видит данные, какие системы и подрядчики участвуют в работе.</p></article>
+      <article><p class="pdn-label">03 / Документы</p><h3>Правила компании</h3><p>Совпадают ли политика, согласия, локальные акты и договоры с реальной работой.</p></article>
+      <article><p class="pdn-label">04 / Роскомнадзор</p><h3>Сведения в реестре</h3><p>Соответствует ли указанная информация тому, как компания работает сейчас.</p></article>
+    </div>
+    <div class="data-map data-map--compact" role="img" aria-label="Путь персональных данных от сайта до хранения и удаления">
+      <div class="data-map__route">{['Форма','CRM','Сотрудник','Хранение','Удаление'].map((node, i) => <><span>{node}</span>{i < 4 && <i aria-hidden="true">→</i>}</>)}</div>
+    </div>
+  </div>
+</section>

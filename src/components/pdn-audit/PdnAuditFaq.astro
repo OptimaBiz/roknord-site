@@ -1,0 +1,5 @@
+---
+import { pdnAuditFaqs as faqs } from './pdnAuditFaqData';
+---
+<section class="pdn-section" id="faq" aria-labelledby="faq-title"><div class="page-container"><div class="pdn-intro"><p class="pdn-label">Вопросы и ответы</p><h2 id="faq-title">Частые вопросы</h2></div><div class="pdn-faq">{faqs.map((faq) => <details><summary>{faq[0]}<span aria-hidden="true">+</span></summary><p>{faq[1]}</p></details>)}</div></div></section>
+<script is:inline>document.querySelectorAll('.pdn-faq details').forEach((item) => item.addEventListener('toggle', () => { if (item.open) window.__pdnGoal?.('pdn_audit_faq_open'); }));</script>

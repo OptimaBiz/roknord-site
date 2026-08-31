@@ -1,3 +1,7 @@
+---
+import { serviceGroups } from "../data/siteNavigation";
+---
+
 <footer class="footer">
   <div class="footer__columns page-container">
     <section class="footer__col footer__col--brand" aria-labelledby="footer-brand-title">
@@ -20,10 +24,23 @@
       <nav class="footer__nav" aria-label="Работа с нами">
         <a class="footer__nav-link" href="/company/">О компании</a>
         <a class="footer__nav-link" href="/company/mission/">Миссия, видение и ценности</a>
-        <a class="footer__nav-link" href="/#approach">Логика оценки соответствия</a>
-        <a class="footer__nav-link" href="/#directions">Сценарии работы</a>
-        <a class="footer__nav-link" href="/#deliverables">Направления</a>
-        <a class="footer__nav-link" href="/#pricing">Форматы работы</a>
+        <a class="footer__nav-link" href="mailto:hello@roknord.ru?subject=Карьера%20в%20Рокнорд">Карьера</a>
+        <a class="footer__nav-link" href="mailto:hello@roknord.ru?subject=Сотрудничество%20с%20Рокнорд">Сотрудничество</a>
+        <details class="footer__services">
+          <summary>Услуги</summary>
+          <div class="footer__services-panel">
+            {serviceGroups.map((group) => group.links.length ? (
+              <section class="footer__service-group" aria-label={group.label}>
+                <p>{group.label}</p>
+                <div>
+                  {group.links.map((item) => <a class="footer__service-link" href={item.href}>{item.label}</a>)}
+                </div>
+              </section>
+            ) : (
+              <a class="footer__service-link footer__service-link--group" href={group.href}>{group.label}</a>
+            ))}
+          </div>
+        </details>
       </nav>
     </section>
 
@@ -133,6 +150,96 @@
 
   .footer__nav--legal {
     margin-top: var(--space-2);
+  }
+
+  .footer__services {
+    width: 100%;
+    max-width: 26rem;
+    border-top: 1px solid var(--color-border-strong);
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .footer__services summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 2.75rem;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-snug);
+    list-style: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+  }
+
+  .footer__services summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .footer__services summary::after {
+    content: "";
+    width: 0.55rem;
+    height: 0.55rem;
+    flex: none;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: translateY(-0.16rem) rotate(45deg);
+    transition: transform var(--duration-fast) var(--easing-standard);
+  }
+
+  .footer__services[open] summary::after {
+    transform: translateY(0.16rem) rotate(225deg);
+  }
+
+  .footer__services summary:hover,
+  .footer__services summary:focus-visible {
+    color: var(--color-mint-action);
+  }
+
+  .footer__services-panel {
+    display: grid;
+    gap: var(--space-4);
+    padding: 0 0 var(--space-5);
+  }
+
+  .footer__service-group {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .footer__service-group p {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-snug);
+  }
+
+  .footer__service-group div {
+    display: grid;
+    gap: var(--space-2);
+    padding-left: var(--space-3);
+    border-left: 1px solid var(--color-mint-action);
+  }
+
+  .footer__service-link {
+    width: fit-content;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-relaxed);
+    transition: var(--transition-fast);
+  }
+
+  .footer__service-link--group {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .footer__service-link:hover,
+  .footer__service-link:focus-visible {
+    color: var(--color-mint-action);
   }
 
   .footer__nav-link {

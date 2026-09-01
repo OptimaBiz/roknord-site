@@ -7,6 +7,11 @@ type FaqItem = {
   answer: string;
 };
 
+type TocItem = {
+  id: string;
+  label: string;
+};
+
 type Props = {
   frontmatter: {
     title: string;
@@ -21,6 +26,10 @@ type Props = {
     ogDescription: string;
     image: string;
     imageAlt: string;
+    imageWidth?: number;
+    imageHeight?: number;
+    modifiedDate?: string;
+    toc: TocItem[];
     faq: FaqItem[];
   };
 };
@@ -32,7 +41,7 @@ const articleSchema = {
   headline: frontmatter.headline,
   description: frontmatter.description,
   datePublished: frontmatter.publishedDate,
-  dateModified: frontmatter.publishedDate,
+  dateModified: frontmatter.modifiedDate ?? frontmatter.publishedDate,
   inLanguage: "ru-RU",
   mainEntityOfPage: frontmatter.canonical,
   image: `https://roknord.ru${frontmatter.image}`,
@@ -82,18 +91,20 @@ const faqSchema = {
       <aside class="article-aside" aria-label="Навигация по статье">
         <p>В материале</p>
         <nav data-article-toc>
-          <a href="#korotko">Коротко об изменениях</a>
-          <a href="#opasnye-raboty">Работы повышенной опасности</a>
-          <a href="#pervaya-pomoshch">Первая помощь и СИЗ</a>
-          <a href="#komissii">Инструктажи и комиссии</a>
-          <a href="#checklist">Что проверить работодателю</a>
-          <a href="#faq">Частые вопросы</a>
+          {frontmatter.toc.map((item) => <a href={`#${item.id}`}>{item.label}</a>)}
         </nav>
       </aside>
 
       <article class="article-body">
         <figure class="article-cover">
-          <img src={frontmatter.image} alt={frontmatter.imageAlt} width="1672" height="941" loading="eager" fetchpriority="high" />
+          <img
+            src={frontmatter.image}
+            alt={frontmatter.imageAlt}
+            width={frontmatter.imageWidth ?? 1672}
+            height={frontmatter.imageHeight ?? 941}
+            loading="eager"
+            fetchpriority="high"
+          />
         </figure>
         <slot />
       </article>

@@ -17,6 +17,18 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
     <section class="news-page__list page-container" aria-label="Последние материалы">
       <article class="news-card">
+        <a class="news-card__image" href="/personalnye-dannye-na-sajte-proverka-roskomnadzora-2026/" aria-label="Открыть статью о проверке обработки персональных данных на сайте">
+          <img src="/images/news/personalnye-dannye-na-sajte-proverka-roskomnadzora-2026.png" alt="Специалист сопоставляет форму сайта с картой процессов обработки данных" width="1672" height="941" loading="eager" />
+        </a>
+        <div class="news-card__body">
+          <p class="news-card__meta">Персональные данные · 1 сентября 2026</p>
+          <h2><a href="/personalnye-dannye-na-sajte-proverka-roskomnadzora-2026/">Персональные данные на сайте: что проверить после разъяснений Роскомнадзора</a></h2>
+          <p>Разбираем формы, цели и основания обработки, политику, сторонние сервисы и соответствие сайта уведомлению оператора.</p>
+          <a class="news-card__link" href="/personalnye-dannye-na-sajte-proverka-roskomnadzora-2026/">Читать материал <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="news-card">
         <a class="news-card__image" href="/postanovlenie-805-ohrana-truda-2026/" aria-label="Открыть статью о Постановлении № 805">
           <img src="/images/news/postanovlenie-805-ohrana-truda-2026.png" alt="Инструктаж работников по охране труда перед практической подготовкой" width="1668" height="939" loading="eager" />
         </a>
@@ -38,7 +50,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   .news-page__hero h1, .news-page__hero p { margin: 0; }
   .news-page__hero h1 { max-width: 15ch; font-size: var(--type-page-title); line-height: var(--line-height-display); letter-spacing: -0.035em; }
   .news-page__hero > div > p:last-child { max-width: 42rem; color: var(--lrqa-border-soft); font-size: var(--type-lead); line-height: var(--line-height-relaxed); }
-  .news-page__list { padding-block: clamp(var(--space-10), 7vw, var(--space-16)); }
+  .news-page__list { display: grid; gap: clamp(var(--space-10), 7vw, var(--space-16)); padding-block: clamp(var(--space-10), 7vw, var(--space-16)); }
   .news-card { display: grid; grid-template-columns: minmax(17rem, .9fr) minmax(0, 1.1fr); border-top: 1px solid var(--lrqa-border); border-bottom: 1px solid var(--lrqa-border); }
   .news-card__image { min-height: 21rem; overflow: hidden; background: var(--lrqa-card-grey); }
   .news-card__image img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--duration-slow) var(--easing-emphasis); }

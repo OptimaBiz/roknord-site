@@ -1,14 +1,11 @@
-@import "@fontsource/onest/400.css";
-@import "@fontsource/onest/500.css";
-@import "@fontsource/onest/600.css";
-@import "@fontsource/onest/700.css";
+@import "@fontsource-variable/manrope";
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
 @import "@fontsource/jetbrains-mono/600.css";
 
 :root {
-  --color-dark-foundation: #121316;
-  --color-mint-action: #17E08A;
+  --color-dark-foundation: #12362E;
+  --color-mint-action: #5BF5C2;
   --color-magenta-editorial: #C45BC2;
   --color-divider-light: #E3E2DC;
   --color-white: #F5F4F0;
@@ -34,23 +31,23 @@
   --color-gradient-navy-7: color-mix(in srgb, var(--lrqa-navy) 84%, var(--lrqa-mint));
   --color-gradient-navy-8: color-mix(in srgb, var(--lrqa-nav) 86%, var(--lrqa-white));
 
-  --lrqa-navy: #121316;
-  --lrqa-navy-2: #1B1D22;
-  --lrqa-nav: #15171B;
-  --lrqa-dark-mass: #101114;
-  --lrqa-mint: #17E08A;
-  --lrqa-mint-2: #17E08A;
-  --lrqa-mint-3: #0FBE74;
+  --lrqa-navy: #12362E;
+  --lrqa-navy-2: #173F36;
+  --lrqa-nav: #0F3029;
+  --lrqa-dark-mass: #0B2822;
+  --lrqa-mint: #5BF5C2;
+  --lrqa-mint-2: #72F7CE;
+  --lrqa-mint-3: #35DCA7;
   --lrqa-white: #F5F4F0;
   --lrqa-white-soft: #F5F4F0;
   --lrqa-card-light: #F5F4F0;
   --lrqa-card-grey: #E5E4DF;
   --lrqa-warning: #E7B94D;
   --lrqa-black: #121316;
-  --lrqa-dark-border: #34373D;
-  --lrqa-muted-dark: #35393F;
-  --lrqa-muted: #6E7278;
-  --lrqa-muted-2: #8A8E94;
+  --lrqa-dark-border: #31564E;
+  --lrqa-muted-dark: #3F625B;
+  --lrqa-muted: #668179;
+  --lrqa-muted-2: #8FA49E;
   --lrqa-border: #BFC1BC;
   --lrqa-border-soft: #D8D7D1;
 
@@ -113,8 +110,8 @@
   --input-focus-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--lrqa-mint) 16%, transparent);
   --input-background: color-mix(in srgb, var(--lrqa-white) 4%, transparent);
 
-  --font-family-base: "Onest", ui-sans-serif, system-ui, sans-serif;
-  --font-family-heading: "Onest", ui-sans-serif, system-ui, sans-serif;
+  --font-family-base: "Manrope Variable", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-family-heading: "Manrope Variable", "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-family-mono: "JetBrains Mono", ui-monospace, monospace;
   --font-body: var(--font-family-base);
   --font-heading: var(--font-family-heading);

@@ -2,7 +2,7 @@
 _generated: 2026-06-04 | files: 79 | components: 19 | styles: 11 | pages: 9_
 
 ## Project Overview
-Astro SSG marketing site for Рокнорд — independent accreditation readiness consulting. Russian-language, no client framework (pure Astro + vanilla JS). Token-first CSS design system with dark navy / mint brand palette. Montserrat font. Dev server: `npm run dev -- --port 4321`. No database, no API routes — all pages are static.
+Astro SSG marketing site for Рокнорд — independent accreditation readiness consulting. Russian-language, no client framework (pure Astro + vanilla JS). Token-first CSS design system with dark green / turquoise brand palette. Manrope font. Dev server: `npm run dev -- --port 4321`. No database, no API routes — all pages are static.
 
 ## Directory Tree (annotated)
 ```
@@ -181,7 +181,7 @@ responsive.css    # All @media overrides (48rem tablet, 64rem desktop, 47.99rem 
 **Token conventions** (from `tokens.css`):
 - Colors: `--lrqa-navy`, `--lrqa-mint`, `--color-mint-action`, `--color-editorial-accent` (magenta)
 - Spacing: `--space-1` … `--space-20` (0.25rem steps)
-- Typography: `--font-family-base` = Montserrat; `--font-weight-hero-title` = 900
+- Typography: `--font-family-base` = Manrope; `--font-weight-hero-title` follows `src/styles/tokens.css`
 - All radii = 0 (sharp rectangular design system)
 - Shadows = none (visual depth via clip-path + drop-shadow filters only)
 

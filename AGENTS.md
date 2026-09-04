@@ -147,7 +147,7 @@ Prefer:
 ## Visual Direction
 
 Roknord visual system:
-- dark navy base with mint accents, white surfaces, and restrained grey neutrals;
+- dark green base with turquoise accents, white surfaces, and restrained grey neutrals;
 - large dark hero;
 - large typography;
 - blocky editorial composition;
@@ -193,10 +193,10 @@ Do not place `О компании`, `Материалы`, or `Контакты` 
 
 The intended result is a corporate assurance/advisory site, not a generic SaaS landing page:
 
-- dark navy header and hero mass;
+- dark green header and hero mass;
 - mint accents used for CTA, links, arrows, and key actions;
 - white and restrained grey content surfaces;
-- large Montserrat typography;
+- large Manrope typography;
 - sharp rectangular, editorial composition;
 - large image/video/report blocks;
 - hard grid alignment and generous spacing;
@@ -214,30 +214,30 @@ Do not copy external logos, text, imagery, trademarked assets, or exact HTML/CSS
 The mandatory LRQA-derived base palette is:
 
 ```css
---lrqa-navy: #0E0B3A;
---lrqa-navy-2: #0F0B38;
---lrqa-nav: #110D34;
---lrqa-dark-mass: #0F0C37;
---lrqa-mint: #00FAB0;
---lrqa-mint-2: #00F8AF;
---lrqa-mint-3: #00F9B0;
+--lrqa-navy: #12362E;
+--lrqa-navy-2: #173F36;
+--lrqa-nav: #0F3029;
+--lrqa-dark-mass: #0B2822;
+--lrqa-mint: #5BF5C2;
+--lrqa-mint-2: #72F7CE;
+--lrqa-mint-3: #35DCA7;
 --lrqa-white: #FFFFFF;
 --lrqa-white-soft: #FEFEFE;
 --lrqa-card-light: #F9F9FA;
 --lrqa-card-grey: #ECECEC;
 --lrqa-warning: #FED503;
 --lrqa-black: #000000;
---lrqa-dark-border: #27274E;
---lrqa-muted-dark: #3A3752;
---lrqa-muted: #55536E;
---lrqa-muted-2: #73718B;
+--lrqa-dark-border: #31564E;
+--lrqa-muted-dark: #3F625B;
+--lrqa-muted: #668179;
+--lrqa-muted-2: #8FA49E;
 --lrqa-border: #B9B8C5;
 --lrqa-border-soft: #DEDDE4;
 ```
 
 Do not reintroduce `#B7FF00`, `#D7FF3F`, `#003A40`, `#002D32`, or `#F4F1EA` as approved brand colors.
 
-Use the existing Montserrat variables: `--font-family-base`, `--font-family-heading`, `--font-body`, and `--font-heading`. Do not switch typefaces unless explicitly requested.
+Use the existing Manrope variables: `--font-family-base`, `--font-family-heading`, `--font-body`, and `--font-heading`. Do not switch typefaces unless explicitly requested.
 
 ### Editorial Promo Pattern
 

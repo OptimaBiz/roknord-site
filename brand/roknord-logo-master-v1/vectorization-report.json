@@ -1,0 +1,17 @@
+{
+  "source": "/Users/mac1/Documents/Рокнорд сайт/public/images/brand/roknord-logo-transparent.png",
+  "source_dimensions": [
+    2115,
+    316
+  ],
+  "base_contours": 12,
+  "accent_contours": 2,
+  "base_nodes": 1775,
+  "accent_nodes": 71,
+  "colors": {
+    "ink": "#121316",
+    "mint": "#5BF5C2",
+    "green": "#12362E",
+    "white": "#FFFFFF"
+  }
+}

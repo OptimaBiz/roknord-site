@@ -61,6 +61,8 @@ const structuredDataItems = structuredData
     <meta name="theme-color" content="" id="theme-color-meta" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <title>{title}</title>
     {structuredDataItems.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}
     <script is:inline>

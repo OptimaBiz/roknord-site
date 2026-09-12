@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
 
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -9,86 +8,77 @@ TIMEWEB_SSH_HOST="${TIMEWEB_SSH_HOST:-vh348.timeweb.ru}"
 TIMEWEB_SSH_PORT="${TIMEWEB_SSH_PORT:-22}"
 TIMEWEB_SSH_USER="${TIMEWEB_SSH_USER:-slimmboy}"
 TIMEWEB_SITE_PATH="${TIMEWEB_SITE_PATH:-roknord/public_html}"
-TIMEWEB_DEPLOY_TRANSPORT="${TIMEWEB_DEPLOY_TRANSPORT:-ssh}"
+TIMEWEB_PHP_BIN="${TIMEWEB_PHP_BIN:-php}"
+TIMEWEB_PUBLIC_ORIGIN="${TIMEWEB_PUBLIC_ORIGIN:-https://roknord.ru}"
 
-validate_safe_value() {
-  local name="$1"
-  local value="$2"
-
-  if [[ ! "$value" =~ ^[A-Za-z0-9._/@:-]+$ ]]; then
-    echo "Некорректное значение $name." >&2
-    exit 1
-  fi
+safe_value() {
+  [[ "$2" =~ ^[A-Za-z0-9._/@:-]+$ && "$2" != -* ]] || { echo "Некорректное значение $1." >&2; exit 1; }
 }
-
-validate_safe_value "TIMEWEB_SSH_HOST" "$TIMEWEB_SSH_HOST"
-validate_safe_value "TIMEWEB_SSH_PORT" "$TIMEWEB_SSH_PORT"
-validate_safe_value "TIMEWEB_SITE_PATH" "$TIMEWEB_SITE_PATH"
-
-if [[ "$TIMEWEB_DEPLOY_TRANSPORT" != "ssh" && "$TIMEWEB_DEPLOY_TRANSPORT" != "ftp" ]]; then
-  echo "TIMEWEB_DEPLOY_TRANSPORT должен быть ssh или ftp." >&2
+safe_value TIMEWEB_SSH_HOST "$TIMEWEB_SSH_HOST"
+safe_value TIMEWEB_SSH_USER "$TIMEWEB_SSH_USER"
+safe_value TIMEWEB_PHP_BIN "$TIMEWEB_PHP_BIN"
+safe_value TIMEWEB_SITE_PATH "$TIMEWEB_SITE_PATH"
+[[ "$TIMEWEB_SSH_PORT" =~ ^[0-9]+$ ]] || { echo "Некорректный SSH-порт." >&2; exit 1; }
+[[ "$TIMEWEB_SITE_PATH" == */public_html && "$TIMEWEB_SITE_PATH" != *..* && "$TIMEWEB_SITE_PATH" != /public_html ]] || {
+  echo "TIMEWEB_SITE_PATH должен указывать на каталог вида roknord/public_html без '..'." >&2; exit 1;
+}
+if [[ "${TIMEWEB_DEPLOY_TRANSPORT:-ssh}" != ssh ]]; then
+  echo "Полная публикация кабинета требует SSH: FTP не может проверить PHP и инициализировать приватную базу. Используйте TIMEWEB_DEPLOY_TRANSPORT=ssh." >&2
   exit 1
 fi
+command -v rsync >/dev/null || { echo "Для публикации требуется rsync." >&2; exit 1; }
+SITE_ROOT="${TIMEWEB_SITE_PATH%/public_html}"
+TARGET="$TIMEWEB_SSH_USER@$TIMEWEB_SSH_HOST"
+SSH_ARGS=(-4 -p "$TIMEWEB_SSH_PORT" -o BatchMode=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15)
+if [[ -n "${TIMEWEB_SSH_KEY:-}" ]]; then
+  [[ -f "$TIMEWEB_SSH_KEY" ]] || { echo "SSH-ключ не найден." >&2; exit 1; }
+  SSH_ARGS+=(-o IdentitiesOnly=yes -i "$TIMEWEB_SSH_KEY")
+fi
+# rsync uses its own argument parser, not shell backslash escaping.
+SSH_COMMAND=ssh
+for argument in "${SSH_ARGS[@]}"; do
+  argument="${argument//\"/\"\"}"
+  SSH_COMMAND+=" \"$argument\""
+done
 
-echo "Собираю production-версию сайта..."
+echo "Проверяю SSH, PHP и каталоги Timeweb до изменения сайта..."
+ssh "${SSH_ARGS[@]}" "$TARGET" bash -s -- "$TIMEWEB_SITE_PATH" "$TIMEWEB_PHP_BIN" <<'REMOTE'
+set -euo pipefail
+site_path="$1"
+php_bin="$2"
+site_root="${site_path%/public_html}"
+[[ -d "$site_path" && -w "$site_path" && -w "$site_root" ]] || { echo "Каталог сайта отсутствует или недоступен для записи." >&2; exit 1; }
+for destination in "$site_path" "$site_root/client-portal" "$site_root/client-portal/public" "$site_root/client-portal-private" "$site_path/portal-api"; do
+  [[ ! -L "$destination" ]] || { echo "Каталог публикации не должен быть символической ссылкой." >&2; exit 1; }
+done
+"$php_bin" -r 'if (PHP_VERSION_ID < 80300) { fwrite(STDERR, "Required: PHP 8.3+; select TIMEWEB_PHP_BIN and website PHP version.\n"); exit(1); } foreach (["pdo_sqlite", "mbstring", "fileinfo", "session"] as $ext) { if (!extension_loaded($ext)) { fwrite(STDERR, "Missing PHP extension: ".$ext."\n"); exit(1); } }'
+REMOTE
+
 npm run build
 
-if [[ "$TIMEWEB_DEPLOY_TRANSPORT" == "ssh" ]]; then
-  validate_safe_value "TIMEWEB_SSH_USER" "$TIMEWEB_SSH_USER"
+echo "Устанавливаю PHP-кабинет вне public_html; клиентские данные не копируются..."
+ssh "${SSH_ARGS[@]}" "$TARGET" "umask 077; mkdir -p '$SITE_ROOT/client-portal/public'"
+rsync -az --timeout=30 --delay-updates --chmod=F600 \
+  -e "$SSH_COMMAND" \
+  server/client-portal/bootstrap.php server/client-portal/manage.php server/client-portal/install.php \
+  "$TARGET:$SITE_ROOT/client-portal/"
+rsync -az --timeout=30 --delay-updates --chmod=F600 \
+  -e "$SSH_COMMAND" server/client-portal/public/portal.php "$TARGET:$SITE_ROOT/client-portal/public/"
+ssh "${SSH_ARGS[@]}" "$TARGET" "'$TIMEWEB_PHP_BIN' '$SITE_ROOT/client-portal/install.php' '$TIMEWEB_SITE_PATH'"
 
-  if ! command -v rsync >/dev/null 2>&1; then
-    echo "Для SSH-деплоя требуется rsync." >&2
-    exit 1
-  fi
+echo "Публикую точку входа API..."
+ssh "${SSH_ARGS[@]}" "$TARGET" "mkdir -p '$TIMEWEB_SITE_PATH/portal-api'"
+rsync -az --timeout=30 --delay-updates --chmod=F644 -e "$SSH_COMMAND" \
+  server/client-portal/public/.htaccess server/client-portal/public/.user.ini "$TARGET:$TIMEWEB_SITE_PATH/portal-api/"
+rsync -az --timeout=30 --delay-updates --chmod=F644 -e "$SSH_COMMAND" \
+  server/client-portal/timeweb-entry.php "$TARGET:$TIMEWEB_SITE_PATH/portal-api/portal.php"
 
-  SSH_COMMAND="ssh -4 -p $TIMEWEB_SSH_PORT -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15"
-  if [[ -n "${TIMEWEB_SSH_KEY:-}" ]]; then
-    SSH_COMMAND="$SSH_COMMAND -i $TIMEWEB_SSH_KEY"
-  fi
+# A PHP CLI check cannot detect a different PHP version or HTTPS setup in the web server.
+node scripts/check-portal.mjs "$TIMEWEB_PUBLIC_ORIGIN"
 
-  echo "Загружаю dist/ на Timeweb по SSH..."
-  rsync -az --timeout=30 --delay-updates \
-    --exclude='*.mp4' \
-    --exclude='*.webm' \
-    -e "$SSH_COMMAND" \
-    ./dist/ "$TIMEWEB_SSH_USER@$TIMEWEB_SSH_HOST:$TIMEWEB_SITE_PATH/"
-
-  echo "Деплой на Timeweb завершён."
-  exit 0
-fi
-
-if [[ -n "${TIMEWEB_FTP_USER:-}" && -n "${TIMEWEB_FTP_PASSWORD:-}" ]]; then
-  if ! command -v lftp >/dev/null 2>&1; then
-    echo "Для FTP-деплоя установи lftp: brew install lftp" >&2
-    exit 1
-  fi
-
-  TIMEWEB_FTP_HOST="${TIMEWEB_FTP_HOST:-$TIMEWEB_SSH_HOST}"
-  TIMEWEB_FTP_PATH="${TIMEWEB_FTP_PATH:-public_html}"
-  validate_safe_value "TIMEWEB_FTP_HOST" "$TIMEWEB_FTP_HOST"
-  validate_safe_value "TIMEWEB_FTP_PATH" "$TIMEWEB_FTP_PATH"
-
-  echo "Загружаю dist/ на Timeweb по FTP..."
-  lftp -u "$TIMEWEB_FTP_USER","$TIMEWEB_FTP_PASSWORD" "$TIMEWEB_FTP_HOST" -e "
-    set ftp:ssl-allow false;
-    set net:timeout 20;
-    set net:max-retries 3;
-    mirror --reverse --parallel=1 --exclude-glob '*.mp4' --exclude-glob '*.webm' ./dist/ ./$TIMEWEB_FTP_PATH/;
-    bye
-  "
-
-  echo "Деплой на Timeweb завершён."
-  exit 0
-fi
-
-cat >&2 <<'MESSAGE'
-Не настроен доступ к Timeweb.
-
-Для SSH-деплоя добавь SSH-ключ в Timeweb.
-При необходимости задай TIMEWEB_SSH_USER, TIMEWEB_SSH_KEY, TIMEWEB_SSH_HOST,
-TIMEWEB_SSH_PORT и TIMEWEB_SITE_PATH.
-
-Для FTP-деплоя задай TIMEWEB_DEPLOY_TRANSPORT=ftp,
-TIMEWEB_FTP_USER и TIMEWEB_FTP_PASSWORD.
-MESSAGE
-exit 1
+echo "Загружаю dist/ на Timeweb..."
+rsync -az --timeout=30 --delay-updates \
+  --exclude='*.mp4' --exclude='*.webm' --exclude='/portal-api/' \
+  -e "$SSH_COMMAND" ./dist/ "$TARGET:$TIMEWEB_SITE_PATH/"
+node scripts/check-portal.mjs "$TIMEWEB_PUBLIC_ORIGIN"
+echo "Деплой сайта и PHP-кабинета завершён. Индивидуальные аккаунты создаются отдельно; демо-вход не включён."

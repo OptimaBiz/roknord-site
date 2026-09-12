@@ -7,7 +7,7 @@ import { audienceLinks, sectionLinks, serviceGroups, serviceLinks, utilityLinks 
   <div class="header-service" aria-label="Служебная навигация">
     <div class="topbar__inner header-service-inner page-container">
       <nav class="utility-nav" aria-label="Служебные ссылки">
-        {utilityLinks.map((item) => item.isLogin ? <a href={item.href} data-login-trigger>{item.label}</a> : <a href={item.href}>{item.label}</a>)}
+        {[...utilityLinks, ...sectionLinks].map((item) => <a href={item.href} aria-current={Astro.url.pathname === item.href ? 'page' : undefined}>{item.label}</a>)}
       </nav>
       <a class="service-phone" href="tel:+78123898178">+7(812)38-98-178</a>
       <a class="service-account service-account--mobile" href="/account/">
@@ -24,7 +24,6 @@ import { audienceLinks, sectionLinks, serviceGroups, serviceLinks, utilityLinks 
         <img class="brand-logo" src="/images/brand/roknord-logo-inverse.svg" width="2115" height="316" alt="РОКНОРД" decoding="async" />
         <span class="brand-slogan">Сложные процедуры. Твёрдая подготовка.</span>
       </a>
-      <a class="mobile-atlas-link" href="https://atlas.roknord.ru/">РАЛ‑Атлас</a>
       <nav class="site-nav" aria-label="Основная навигация">
         <details class="nav-dropdown">
           <summary aria-controls="services-panel" aria-expanded="false">Услуги</summary>
@@ -45,7 +44,13 @@ import { audienceLinks, sectionLinks, serviceGroups, serviceLinks, utilityLinks 
       const dropdowns = headerRoot ? Array.from(headerRoot.querySelectorAll('.nav-dropdown')) : [];
       const mobileMenu = headerRoot?.querySelector('.mobile-menu');
       const mobileGroups = mobileMenu ? Array.from(mobileMenu.querySelectorAll('.mobile-menu-group')) : [];
-      const getInertTargets = () => Array.from(document.querySelectorAll('main, footer, .cookie-panel, .scroll-up-control'));
+      const inertTargets = new Set();
+      const mobileBreakpoint = window.matchMedia('(max-width: 47.99rem)');
+      let menuLocked = false;
+      let savedScrollY = 0;
+      const updateMenuTop = () => {
+        if (mobileMenu?.open) headerRoot.style.setProperty('--mobile-menu-top', Math.max(0, headerRoot.getBoundingClientRect().bottom) + 'px');
+      };
       const syncExpandedState = (details) => {
         const summary = details.querySelector('summary');
         if (summary) summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
@@ -54,7 +59,47 @@ import { audienceLinks, sectionLinks, serviceGroups, serviceLinks, utilityLinks 
       };
       const closeAll = () => {
         dropdowns.forEach((dropdown) => { dropdown.open = false; syncExpandedState(dropdown); });
-        if (mobileMenu) { mobileMenu.open = false; syncExpandedState(mobileMenu); }
+        if (mobileMenu) { mobileMenu.open = false; syncMobileState(); }
+      };
+      const syncMobileState = () => {
+        syncExpandedState(mobileMenu);
+        const trigger = mobileMenu.querySelector(':scope > summary');
+        trigger.setAttribute('aria-label', mobileMenu.open ? 'Закрыть меню' : 'Открыть меню');
+        trigger.querySelector('.mobile-menu__label').textContent = mobileMenu.open ? 'Закрыть' : 'Меню';
+        if (mobileMenu.open && !menuLocked) {
+          savedScrollY = window.scrollY;
+          document.body.style.setProperty('--mobile-menu-scroll-offset', -savedScrollY + 'px');
+          document.body.classList.add('mobile-menu-open');
+          menuLocked = true;
+          // Only the disclosure remains interactive; preserve pre-existing inert states.
+          let branch = mobileMenu;
+          while (branch.parentElement) {
+            Array.from(branch.parentElement.children).forEach(target => {
+              if (target !== branch && target instanceof HTMLElement && !target.inert) {
+                target.inert = true;
+                inertTargets.add(target);
+              }
+            });
+            if (branch.parentElement === document.body) break;
+            branch = branch.parentElement;
+          }
+          dropdowns.forEach(dropdown => { dropdown.open = false; syncExpandedState(dropdown); });
+          mobileGroups.forEach(group => {
+            group.open = Boolean(group.querySelector('[aria-current="page"]'));
+            syncExpandedState(group);
+          });
+          trigger.focus({ preventScroll: true });
+          updateMenuTop();
+        } else if (!mobileMenu.open && menuLocked) {
+          menuLocked = false;
+          inertTargets.forEach(target => { target.inert = false; });
+          inertTargets.clear();
+          document.body.classList.remove('mobile-menu-open');
+          document.body.style.removeProperty('--mobile-menu-scroll-offset');
+          window.scrollTo({ top: savedScrollY, behavior: 'instant' });
+          mobileGroups.forEach(group => { group.open = false; syncExpandedState(group); });
+          mobileMenu.querySelector('.mobile-menu-content').scrollTop = 0;
+        }
       };
       dropdowns.forEach((dropdown) => {
         syncExpandedState(dropdown);
@@ -69,37 +114,47 @@ import { audienceLinks, sectionLinks, serviceGroups, serviceLinks, utilityLinks 
       if (mobileMenu) {
         syncExpandedState(mobileMenu);
         mobileGroups.forEach((group) => {
+          syncExpandedState(group);
+          group.addEventListener('toggle', () => syncExpandedState(group));
           group.querySelector('summary')?.addEventListener('click', () => {
             if (group.open) return;
             mobileGroups.forEach((other) => { if (other !== group) other.open = false; });
           });
         });
-        mobileMenu.addEventListener('toggle', () => {
-          syncExpandedState(mobileMenu);
-          if (mobileMenu.open) {
-            document.body.classList.add('mobile-menu-open');
-            getInertTargets().forEach((target) => {
-              if (target instanceof HTMLElement && !target.inert) {
-                target.inert = true;
-                target.dataset.mobileMenuInert = 'true';
-              }
-            });
-            dropdowns.forEach((dropdown) => { dropdown.open = false; syncExpandedState(dropdown); });
-          } else if (document.body.classList.contains('mobile-menu-open')) {
-            mobileGroups.forEach((group) => { group.open = false; });
-            document.body.classList.remove('mobile-menu-open');
-            getInertTargets().forEach((target) => {
-              if (target instanceof HTMLElement && target.dataset.mobileMenuInert === 'true') {
-                target.inert = false;
-                delete target.dataset.mobileMenuInert;
-              }
+        mobileMenu.addEventListener('toggle', syncMobileState);
+        mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+          closeAll();
+          mobileMenu.querySelector(':scope > summary').focus({ preventScroll: true });
+          const destination = new URL(link.href);
+          if (destination.pathname === location.pathname && destination.hash) {
+            const target = document.getElementById(decodeURIComponent(destination.hash.slice(1)));
+            if (target) requestAnimationFrame(() => {
+              const hadTabindex = target.hasAttribute('tabindex');
+              if (!hadTabindex) target.setAttribute('tabindex', '-1');
+              target.focus({ preventScroll: true });
+              if (!hadTabindex) target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
             });
           }
+        }));
+        mobileBreakpoint.addEventListener('change', () => {
+          const wasOpen = mobileMenu.open;
+          closeAll();
+          if (wasOpen && !mobileBreakpoint.matches) headerRoot.querySelector('.brand')?.focus({ preventScroll: true });
         });
-        mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeAll));
+        window.addEventListener('resize', updateMenuTop);
+        new ResizeObserver(updateMenuTop).observe(headerRoot);
+        window.addEventListener('pagehide', closeAll);
       }
       document.addEventListener('click', (event) => { if (event.target instanceof Element && !event.target.closest('.header')) closeAll(); });
       document.addEventListener('keydown', (event) => {
+        if (event.key === 'Tab' && mobileMenu?.open) {
+          const controls = Array.from(mobileMenu.querySelectorAll('summary, a[href], button')).filter(item => item.getClientRects().length && !item.closest('[inert]'));
+          const first = controls[0];
+          const last = controls[controls.length - 1];
+          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+          else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+          return;
+        }
         if (event.key !== 'Escape') return;
         const active = [...dropdowns, mobileMenu].find((item) => item?.open && item.contains(document.activeElement));
         closeAll();

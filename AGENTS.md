@@ -165,8 +165,10 @@ Repeat the color system, composition principles, header/hero rhythm, large image
 
 The approved header has two levels:
 
-1. Top service row: `О компании`, `Личный кабинет`, `Карьера`, `Сотрудничество`, `Контакты`; CTA: `Разобрать задачу`.
+1. Top service row: `О компании`, `Личный кабинет`, `Карьера`, `Сотрудничество`, `Контакты`, `Новости`, `РАЛ-Атлас`; CTA: `Разобрать задачу`.
 2. Main product row: Roknord logo and only `Услуги` and `Кому помогаем` as primary items.
+
+`РАЛ-Атлас` links to `https://atlas.roknord.ru/` from the top row and mobile menu, not the footer. Mobile navigation exposes the account, news and atlas directly, uses single-level service/audience disclosures, and keeps contact actions visible while its content scrolls.
 
 Dropdown `Услуги`:
 

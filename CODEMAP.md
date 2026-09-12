@@ -6,7 +6,7 @@
 
 - `src/pages/index.astro`: Hero → Scenarios → PricingSection → InspectionLogic → ProcessSection → AudienceSection → ExpertiseTeamSection → MissionTeaser → ExpertMaterial → FaqSection → ContactForm.
 - `src/layouts/BaseLayout.astro`: общая шапка, footer, метаданные, согласие на аналитику; `privatePage` исключает аналитику и cookie-панель из кабинета.
-- `src/components/Header.astro`, `MobileMenu.astro`: служебные ссылки и раскрывающиеся меню «Услуги»/«Кому помогаем». Данные: `src/data/siteNavigation.ts`, `audiences.ts`.
+- `src/components/Header.astro`, `MobileMenu.astro`: служебные ссылки, включая «Новости» и «РАЛ-Атлас», и раскрывающиеся меню «Услуги»/«Кому помогаем». Мобильная панель: быстрые ссылки, один уровень раскрытия, закреплённые контакты, управление фокусом и блокировка фоновой прокрутки. Данные: `src/data/siteNavigation.ts`, `audiences.ts`. Проверки: `tests/navigation.test.mjs`.
 - `src/data/services.ts`: содержание 14 страниц услуг и аудиторий. `ServicePage.astro` — общий шаблон; `src/pages/[service].astro` создаёт новые маршруты. Существующие каталоги страниц остаются тонкими обёртками.
 - `src/pages/materials/`: каталог, учебный пример аудита, материал для ОС СМК и его страница получения.
 - `src/pages/ral-atlas/`: описание порядка использования сведений и ссылка на отдельный сервис.

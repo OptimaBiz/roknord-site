@@ -1,0 +1,9 @@
+---
+import ServicePage from '../components/ServicePage.astro';
+import { services } from '../data/services';
+export function getStaticPaths() {
+  const existing = ['testing-labs', 'medical-labs', 'certification-bodies', 'primary-accreditation', 'occupational-safety'];
+  return Object.keys(services).filter(slug => !existing.includes(slug)).map(service => ({ params: { service } }));
+}
+---
+<ServicePage slug={Astro.params.service} />

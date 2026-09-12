@@ -1,6 +1,6 @@
 ---
 import MobileMenu from "./MobileMenu.astro";
-import { sectionLinks, serviceGroups, serviceLinks, utilityLinks } from "../data/siteNavigation";
+import { audienceLinks, sectionLinks, serviceGroups, serviceLinks, utilityLinks } from "../data/siteNavigation";
 ---
 
 <header class="header">
@@ -10,7 +10,7 @@ import { sectionLinks, serviceGroups, serviceLinks, utilityLinks } from "../data
         {utilityLinks.map((item) => item.isLogin ? <a href={item.href} data-login-trigger>{item.label}</a> : <a href={item.href}>{item.label}</a>)}
       </nav>
       <a class="service-phone" href="tel:+78123898178">+7(812)38-98-178</a>
-      <a class="service-account service-account--mobile" href="#" data-login-trigger>
+      <a class="service-account service-account--mobile" href="/account/">
         <img class="service-account__icon" src="/icons/account_icon_1.svg" alt="" aria-hidden="true" decoding="async" /><span>Личный кабинет</span>
       </a>
       <a class="service-cta cta-angled motion-control" href="/#contact">Разобрать задачу</a>
@@ -30,7 +30,10 @@ import { sectionLinks, serviceGroups, serviceLinks, utilityLinks } from "../data
           <summary aria-controls="services-panel" aria-expanded="false">Услуги</summary>
           <div class="nav-dropdown-panel" id="services-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Услуги</p><div class="nav-dropdown-service-groups">{serviceGroups.map((group) => group.links.length ? <details class="nav-dropdown-service-group"><summary>{group.label}</summary><div class="nav-dropdown-list">{group.links.map((item) => <a href={item.href}>{item.label}</a>)}</div></details> : <a class="nav-dropdown-service-link" href={group.href}>{group.label}</a>)}</div></div></div>
         </details>
-        {sectionLinks.map((item) => <a class="site-nav-link" href={item.href}>{item.label}</a>)}
+        <details class="nav-dropdown">
+          <summary aria-controls="audiences-panel" aria-expanded="false">Кому помогаем</summary>
+          <div class="nav-dropdown-panel" id="audiences-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Кому помогаем</p><div class="nav-dropdown-list">{audienceLinks.map(item => <a href={item.href}>{item.label}</a>)}</div></div></div>
+        </details>
       </nav>
       <MobileMenu serviceLinks={serviceLinks} sectionLinks={sectionLinks} utilityLinks={utilityLinks} />
     </div>
@@ -96,7 +99,12 @@ import { sectionLinks, serviceGroups, serviceLinks, utilityLinks } from "../data
         mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeAll));
       }
       document.addEventListener('click', (event) => { if (event.target instanceof Element && !event.target.closest('.header')) closeAll(); });
-      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeAll(); });
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        const active = [...dropdowns, mobileMenu].find((item) => item?.open && item.contains(document.activeElement));
+        closeAll();
+        active?.querySelector('summary')?.focus();
+      });
     })();
   </script>
 </header>

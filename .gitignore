@@ -20,6 +20,7 @@ pnpm-debug.log*
 # Timeweb contact API secrets and dependencies
 server/timeweb-contact-api/config.php
 server/timeweb-contact-api/vendor/
+server/client-portal-private/
 
 # macOS-specific files
 .DS_Store

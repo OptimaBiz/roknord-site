@@ -99,6 +99,8 @@ const faqSchema = {
         <figure class="article-cover">
           <img
             src={frontmatter.image}
+            srcset={frontmatter.image.endsWith(".webp") ? `${frontmatter.image.replace(".webp", "-800.webp")} 800w, ${frontmatter.image} ${frontmatter.imageWidth ?? 1672}w` : undefined}
+            sizes="(max-width: 48rem) calc(100vw - 60px), (max-width: 75rem) 70vw, 900px"
             alt={frontmatter.imageAlt}
             width={frontmatter.imageWidth ?? 1672}
             height={frontmatter.imageHeight ?? 941}

@@ -10,7 +10,7 @@ updatedLabel: "Материал актуален на 5 сентября 2026 г
 canonical: "https://roknord.ru/uvedomlenie-roskomnadzora-personalnye-dannye-2026/"
 ogTitle: "Уведомление Роскомнадзора и фактическая обработка данных"
 ogDescription: "Что сопоставить в реестре операторов с реальными целями, системами, получателями, местами хранения и сроками обработки."
-image: "/images/news/uvedomlenie-roskomnadzora-personalnye-dannye-2026.png"
+image: "/images/news/uvedomlenie-roskomnadzora-personalnye-dannye-2026.webp"
 imageAlt: "Специалист сверяет сведения реестра с внутренней картой обработки данных"
 imageWidth: 1672
 imageHeight: 941

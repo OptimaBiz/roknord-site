@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/account.css';
+---
+<BaseLayout title="Личный кабинет — Рокнорд" description="Документы, этапы проекта и связь с координатором Рокнорд." robots="noindex,nofollow" privatePage>
+<main id="content" class="account-page">
+  <header class="account-heading page-container"><p class="section__eyebrow">Рабочее пространство клиента</p><h1>Личный кабинет</h1><p>Все материалы проекта. Один порядок работы.</p></header>
+  <div class="account-shell page-container" id="portal">
+    <p id="portal-status" role="status" aria-live="polite">Подключаем кабинет…</p>
+    <noscript>Для входа в кабинет включите JavaScript. Связаться с координатором: <a href="mailto:hello@roknord.ru">hello@roknord.ru</a>.</noscript>
+    <section id="portal-login" class="account-login" hidden aria-labelledby="login-title">
+      <div class="account-login-copy"><p class="section__eyebrow">Рокнорд · клиентам</p><h2 id="login-title">Продолжим работу над вашим проектом</h2><p>Договор и приложения, материалы проверки, задачи и переписка — в одном месте.</p><ol><li>Согласуйте состав работ.</li><li>Передайте исходные материалы.</li><li>Получите результаты и обсудите следующие действия.</li></ol></div>
+      <form id="login-form" class="account-form"><h2>Вход в кабинет</h2><label>Электронная почта<input name="email" type="email" autocomplete="username" required maxlength="254" /></label><label>Пароль<input name="password" type="password" autocomplete="current-password" required maxlength="72" /></label><button class="button button-primary cta-angled" type="submit">Войти →</button><p>Данные доступа передаёт координатор проекта.</p><a href="mailto:hello@roknord.ru?subject=Доступ%20в%20личный%20кабинет">Нужен доступ или новый пароль?</a></form>
+    </section>
+    <div id="portal-workspace" hidden>
+      <div class="account-toolbar"><div><strong id="client-company"></strong><p id="client-name"></p></div><button id="portal-logout" class="account-text-button">Выйти из кабинета ↗</button></div>
+      <p class="account-demo" id="portal-demo" hidden>Демонстрационный проект. Организация и документы вымышлены. Не загружайте реальные данные.</p>
+      <div class="account-layout">
+        <nav class="account-nav" aria-label="Разделы кабинета"><a href="#project">Проект</a><a href="#documents">Документы</a><a href="#tasks">Задачи</a><a href="#messages">Переписка</a><a href="#security">Доступ</a></nav>
+        <div class="account-content">
+          <section id="project" class="account-panel" aria-labelledby="project-title"><p class="section__eyebrow">Текущий проект</p><h2 id="project-title"></h2><dl class="account-project-facts"><div><dt>Этап</dt><dd id="project-stage"></dd></div><div><dt>Срок</dt><dd id="project-due"></dd></div><div><dt>Координатор</dt><dd id="project-manager"></dd></div></dl><div class="account-next"><strong>Следующий шаг</strong><p id="project-next"></p></div><button class="account-text-button" id="portal-refresh">Обновить данные ↻</button></section>
+          <section id="documents" class="account-panel" aria-labelledby="documents-title"><p class="section__eyebrow">Файлы проекта</p><h2 id="documents-title">Договор и документы</h2><p>Скачивайте согласованные версии и результаты проверки. Категория и дата помогут выбрать нужный файл.</p><div id="document-list" class="account-documents"></div><details class="account-upload"><summary>Передать документ координатору</summary><form id="upload-form" class="account-form"><label>PDF до 10 МБ<input type="file" name="file" accept="application/pdf,.pdf" required /></label><p>Загружайте только материалы согласованного проекта. Общий лимит — 100 МБ.</p><button class="button button-primary cta-angled">Передать PDF →</button></form></details></section>
+          <section id="tasks" class="account-panel" aria-labelledby="tasks-title"><p class="section__eyebrow">Подготовка материалов</p><h2 id="tasks-title">Ваши задачи</h2><p>Отметка означает, что вы выполнили свой шаг. Выводы аудита и приёмка результатов согласуются отдельно.</p><div id="task-list" class="account-tasks"></div></section>
+          <section id="messages" class="account-panel" aria-labelledby="messages-title"><p class="section__eyebrow">Связь по проекту</p><h2 id="messages-title">Переписка с координатором</h2><p>Здесь показаны последние 100 сообщений. Чтобы проверить ответы, обновите данные проекта.</p><ol id="message-list" class="account-messages"></ol><form id="message-form" class="account-form"><label>Ваше сообщение<textarea name="body" rows="4" required maxlength="4000"></textarea></label><button class="button button-primary cta-angled">Отправить сообщение →</button></form></section>
+          <section id="security" class="account-panel" aria-labelledby="security-title"><p class="section__eyebrow">Настройки доступа</p><h2 id="security-title">Сменить пароль</h2><form id="password-form" class="account-form"><label>Текущий пароль<input name="current" type="password" autocomplete="current-password" required /></label><label>Новый пароль<input name="password" type="password" autocomplete="new-password" minlength="12" maxlength="72" required /></label><label>Повторите новый пароль<input name="confirmation" type="password" autocomplete="new-password" minlength="12" maxlength="72" required /></label><p>Не менее 12 символов, до 72 байт. После смены пароля остальные сеансы будут завершены.</p><button class="button button-primary cta-angled">Сохранить пароль →</button></form></section>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+  import '../../scripts/account';
+</script>
+</BaseLayout>

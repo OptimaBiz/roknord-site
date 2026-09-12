@@ -3,6 +3,7 @@ export type NavItem = {
   href: string;
   isLogin?: boolean;
 };
+export { audienceLinks } from './audiences';
 
 export type ServiceGroup = {
   label: string;
@@ -11,11 +12,11 @@ export type ServiceGroup = {
 };
 
 export const serviceLinks: NavItem[] = [
-  { label: "Подготовка к первичной аккредитации", href: "/#scenario-primary-accreditation" },
-  { label: "Подготовка к подтверждению компетентности", href: "/#scenario-confirmation" },
-  { label: "Аудит и актуализация области аккредитации", href: "/#scenario-scope-audit" },
-  { label: "Корректирующие действия после выявления несоответствий", href: "/#scenario-corrective-actions" },
-  { label: "Специальные направления", href: "/#scenario-special-directions" },
+  { label: "Подготовка к подтверждению компетентности", href: "/competence-confirmation/" },
+  { label: "Аудит и актуализация области аккредитации", href: "/accreditation-scope/" },
+  { label: "Корректирующие действия после несоответствий", href: "/corrective-actions/" },
+  { label: "Подготовка к первичной аккредитации", href: "/primary-accreditation/" },
+  { label: "Специальные направления", href: "/special-directions/" },
 ];
 
 export const serviceGroups: ServiceGroup[] = [
@@ -31,7 +32,7 @@ export const sectionLinks: NavItem[] = [
 
 export const utilityLinks: NavItem[] = [
   { label: "О компании", href: "/company/" },
-  { label: "Личный кабинет", href: "#", isLogin: true },
+  { label: "Личный кабинет", href: "/account/" },
   { label: "Карьера", href: "mailto:hello@roknord.ru?subject=Карьера%20в%20Рокнорд" },
   { label: "Сотрудничество", href: "mailto:hello@roknord.ru?subject=Сотрудничество%20с%20Рокнорд" },
   { label: "Контакты", href: "/contacts/" },

@@ -10,7 +10,7 @@ updatedLabel: "Материал актуален на 1 сентября 2026 г
 canonical: "https://roknord.ru/personalnye-dannye-na-sajte-proverka-roskomnadzora-2026/"
 ogTitle: "Что проверить на сайте при обработке персональных данных в 2026 году"
 ogDescription: "Практический разбор требований к формам, политике, целям обработки, сторонним сервисам и уведомлению Роскомнадзора."
-image: "/images/news/personalnye-dannye-na-sajte-proverka-roskomnadzora-2026.png"
+image: "/images/news/personalnye-dannye-na-sajte-proverka-roskomnadzora-2026.webp"
 imageAlt: "Специалист сопоставляет форму сайта с картой процессов обработки данных"
 imageWidth: 1672
 imageHeight: 941

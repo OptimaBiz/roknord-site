@@ -10,7 +10,7 @@ updatedLabel: "Материал актуален на 28 августа 2026 г�
 canonical: "https://roknord.ru/postanovlenie-805-ohrana-truda-2026/"
 ogTitle: "Что изменится в обучении по охране труда с 31 августа 2026 года"
 ogDescription: "Разбираем изменения Постановления Правительства № 805 к Правилам № 2464: обучение, инструктажи, первая помощь, СИЗ, работы повышенной опасности и оформление документов."
-image: "/images/news/postanovlenie-805-ohrana-truda-2026.png"
+image: "/images/news/postanovlenie-805-ohrana-truda-2026.webp"
 imageAlt: "Инструктаж работников по охране труда перед практической подготовкой"
 imageWidth: 1668
 imageHeight: 939

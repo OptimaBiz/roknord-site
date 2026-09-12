@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { services } from '../data/services';
+import '../styles/service.css';
+const { slug } = Astro.props;
+const service = services[slug];
+const contactHref = `/?context=${encodeURIComponent(service.title)}#contact`;
+---
+<BaseLayout title={`${service.title} — Рокнорд`} description={service.description}>
+  <main id="content" class="service-page">
+    <header class="service-hero page-container">
+      <nav aria-label="Хлебные крошки"><a href="/">Главная</a> / <span>{service.eyebrow}</span></nav>
+      <p class="section__eyebrow">{service.eyebrow}</p>
+      <h1>{service.title}</h1>
+      <p class="service-lead">{service.description}</p>
+      <a class="button button-primary cta-angled" href={contactHref}>Разобрать задачу →</a>
+    </header>
+    <section class="service-section page-container" aria-labelledby="service-checks">
+      <div class="service-intro"><h2 id="service-checks">Что проверяем</h2><p>Глубину анализа и выборку фиксируем до начала работ. Выводы относятся к проверенным материалам и согласованному предмету аудита.</p></div>
+      {service.image && <img class="service-cover" src={service.image} alt="" loading="lazy" />}
+      <ol class="service-checks">{service.checks.map(([title, text], index) => <li><span>0{index + 1}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol>
+    </section>
+    <section class="service-section service-result page-container" aria-labelledby="service-result">
+      <p class="section__eyebrow">Результат работы</p><h2 id="service-result">Выводы, с которыми можно работать</h2>
+      <div class="service-columns"><div><h3>Карта рисков</h3><p>Наблюдение, связанное требование, подтверждение и приоритет для каждого выявленного вопроса.</p></div><div><h3>Реестр расхождений</h3><p>Список документов, записей и процессов, которые требуют уточнения или согласования между собой.</p></div><div><h3>План действий</h3><p>Рекомендуемые действия, ожидаемые доказательства и последовательность проверки результата.</p></div></div>
+      <a href="/materials/audit-report-example/">Посмотреть учебный пример результата →</a>
+    </section>
+    <section class="service-section page-container" aria-labelledby="service-start"><div class="service-intro"><h2 id="service-start">Как начинается работа</h2><p>{service.preparation}</p></div><ol class="service-steps"><li><strong>Обсуждаем задачу.</strong> Уточняем ситуацию, сроки и ожидаемый результат.</li><li><strong>Согласуем объём.</strong> Фиксируем предмет, выборку, стоимость и формат передачи материалов.</li><li><strong>Проверяем и обсуждаем выводы.</strong> Передаём результаты и объясняем основания рекомендаций.</li></ol></section>
+    <section class="service-section page-container" aria-labelledby="service-faq"><h2 id="service-faq">Вопросы до начала работы</h2><details><summary>Можно ли начать с отдельного участка?</summary><p>Да. Предметом может быть область, выборка дел или отдельный процесс. Границы проверки отражаем в предложении и итоговых материалах.</p></details><details><summary>От чего зависят стоимость и срок?</summary><p>От количества площадок, состава работ, объёма выборки и готовности материалов. Конкретные условия фиксируем после первичного разбора.</p></details>{slug === 'occupational-safety' ? <details><summary>Что подтверждает результат анализа?</summary><p>Итоговые материалы отражают рассмотренные документы, записи, выявленные расхождения и ограничения выборки. Рекомендации служат основанием для планирования дальнейших действий организации.</p></details> : <details><summary>Кто принимает решение по процедуре аккредитации?</summary><p>Решение принимает уполномоченный орган. Рокнорд проводит независимую подготовку и анализ доказательств в согласованных границах.</p></details>}<a class="button button-primary cta-angled" href={contactHref}>Обсудить объём проверки →</a></section>
+  </main>
+</BaseLayout>

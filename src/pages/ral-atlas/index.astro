@@ -1,17 +1,5 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SectionPlaceholderPage from "../../components/SectionPlaceholderPage.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/service.css';
 ---
-
-<BaseLayout
-  title="РАЛ-Атлас — Рокнорд"
-  description="РАЛ-Атлас Рокнорд — навигация по направлениям и участникам сферы аккредитации. Раздел находится в разработке."
-  robots="noindex,follow"
->
-  <SectionPlaceholderPage
-    eyebrow="РАЛ-Атлас"
-    title="РАЛ-Атлас"
-    description="Здесь появится навигационный раздел по направлениям, организациям и материалам, связанным со сферой аккредитации."
-    note="Мы готовим структуру и наполнение атласа. Раздел пока доступен как заглушка."
-  />
-</BaseLayout>
+<BaseLayout title="РАЛ-Атлас — навигация по сфере аккредитации" description="Переход к РАЛ-Атласу и рабочий порядок проверки сведений об участниках сферы аккредитации."><main id="content" class="service-page"><header class="service-hero page-container"><p class="section__eyebrow">Инструменты</p><h1>РАЛ-Атлас</h1><p class="service-lead">Отдельный сервис для навигации по сфере аккредитации. Откройте атлас, чтобы продолжить работу с доступными в нём сведениями.</p><a class="button button-primary cta-angled" href="https://atlas.roknord.ru/">Перейти в РАЛ-Атлас ↗</a></header><section class="service-section page-container"><h2>Как использовать сведения</h2><ol class="service-steps"><li><strong>Уточните организацию.</strong> Сопоставьте наименование и идентификаторы, чтобы исключить совпадения.</li><li><strong>Проверьте актуальность.</strong> Для решения по контрагенту сверяйте статус и область с действующими сведениями официального реестра Росаккредитации.</li><li><strong>Изучите область.</strong> Наличие записи об организации не подтверждает возможность выполнения любой работы.</li><li><strong>Зафиксируйте основания.</strong> Сохраните дату проверки и источники сведений, использованных при принятии решения.</li></ol><p>РАЛ-Атлас не заменяет официальный реестр или проверку доказательств по конкретной задаче.</p><a href="/accreditation-scope/">Аудит области аккредитации →</a></section></main></BaseLayout>

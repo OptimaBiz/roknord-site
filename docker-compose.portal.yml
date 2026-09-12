@@ -1,0 +1,25 @@
+services:
+  portal:
+    image: php:8.3-cli
+    ports:
+      - "127.0.0.1:4387:8000"
+    environment:
+      ROKNORD_PORTAL_ENV: development
+      ROKNORD_PORTAL_ORIGIN: http://127.0.0.1:4387
+      ROKNORD_PORTAL_DATA: /portal-data
+    volumes:
+      - .:/workspace:ro
+      - portal-data:/portal-data
+    command: ["php", "-d", "upload_max_filesize=10M", "-d", "post_max_size=12M", "-S", "0.0.0.0:8000", "-t", "/workspace/dist", "/workspace/server/client-portal/router.php"]
+  seed:
+    image: php:8.3-cli
+    profiles: ["tools"]
+    environment:
+      ROKNORD_PORTAL_ENV: development
+      ROKNORD_PORTAL_DATA: /portal-data
+    volumes:
+      - ./server/client-portal:/portal:ro
+      - portal-data:/portal-data
+    command: ["php", "/portal/manage.php", "demo"]
+volumes:
+  portal-data:

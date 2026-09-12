@@ -1,4 +1,5 @@
 ---
+import { audienceLinks } from '../data/siteNavigation';
 type NavItem = { label: string; href: string; isLogin?: boolean };
 type Props = { serviceLinks: NavItem[]; sectionLinks: NavItem[]; utilityLinks: NavItem[] };
 const { serviceLinks, sectionLinks, utilityLinks } = Astro.props;
@@ -23,6 +24,7 @@ const { serviceLinks, sectionLinks, utilityLinks } = Astro.props;
         <a class="mobile-menu-service-link" href="/152-fz/">Услуги по 152-ФЗ</a>
       </div>
     </section>
+    <details class="mobile-menu-group"><summary>Кому помогаем</summary><div class="mobile-menu-group__links">{audienceLinks.map(item => <a href={item.href}>{item.label}</a>)}</div></details>
     {sectionLinks.filter((item) => item.label !== "РАЛ-Атлас").map((item) => <a class="mobile-menu-primary-link" href={item.href}>{item.label}</a>)}
     <details class="mobile-menu-group mobile-menu-group--company">
       <summary>Компания</summary>

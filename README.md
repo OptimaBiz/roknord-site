@@ -1,43 +1,37 @@
-# Astro Starter Kit: Minimal
+# Рокнорд
+
+Русскоязычный B2B-сайт независимой подготовки к аккредитации и подтверждению компетентности. Статический Astro 7, Manrope, CSS и обычный JavaScript. Node.js >=22.12.0, npm и зафиксированный package-lock.json.
 
 ```sh
-npm create astro@latest -- --template minimal
+npm ci
+npm run dev
+npm run build
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Сборка: `dist/`. Исходники: `src/`, публичные материалы: `public/`. Источник токенов: `src/styles/tokens.css`. Каталог услуг: `src/data/services.ts`, общий шаблон: `src/components/ServicePage.astro`. Статьи используют `ArticleLayout.astro` и `article.css`.
 
-## 🚀 Project Structure
+## Кабинет клиента
 
-Inside of your Astro project, you'll see the following folders and files:
+Интерфейс `/account/` работает с отдельным PHP API. Для локальной проверки после сборки:
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+docker compose -f docker-compose.portal.yml run --rm seed
+docker compose -f docker-compose.portal.yml up -d portal
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Адрес: `http://127.0.0.1:4387/account/`. Демо: `demo@roknord.example` / `Roknord-Demo-2026!`. Данные вымышлены; повторный seed не перезаписывает проект. В production демонстрационный вход запрещён.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Инструкции по индивидуальным аккаунтам, документам, переписке, тестам и установке PHP-части: [server/client-portal/README.md](server/client-portal/README.md).
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Проверки и публикация
 
-## 🧞 Commands
+- `npm run build` — все публичные страницы и статическая оболочка кабинета.
+- `npm audit` — известные уязвимости зависимостей.
+- `node tests/portal.test.mjs` — интеграционные проверки локального PHP-кабинета.
+- `node tests/browser-review.mjs` — браузерная проверка, нужен Chromium и работающий локальный кабинет.
+- `node scripts/optimize-news.mjs` — WebP-версии исходных PNG-обложек.
 
-All commands are run from the root of the project, from a terminal:
+Контактная форма использует существующий PHP/SMTP-обработчик; реальные тестовые отправки требуют разрешения. В кабинете аналитика отключена. Приватные файлы хранятся вне document root.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+`npm run deploy:timeweb` публикует статический сайт на Timeweb только по явному запросу. PHP-кабинет устанавливается отдельно по инструкции. Push в main сам по себе сайт не публикует. `docs/` и ZIP-архив — старые публикационные артефакты, не исходники.

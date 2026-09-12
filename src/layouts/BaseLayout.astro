@@ -5,7 +5,6 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import CookiePanel from "../components/CookiePanel.astro";
 import ScrollUpControl from "../components/ScrollUpControl.astro";
-import LoginModal from "../components/LoginModal.astro";
 import PdnAuditFooter from "../components/pdn-audit/PdnAuditFooter.astro";
 
 type Props = {
@@ -20,6 +19,7 @@ type Props = {
   robots?: string;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
   landingFooter?: boolean;
+  privatePage?: boolean;
 };
 
 const {
@@ -29,11 +29,12 @@ const {
   ogTitle = title,
   ogDescription = description,
   ogType = "website",
-  ogImage,
+  ogImage = 'https://roknord.ru/images/hero/roknord-hero-poster.jpg',
   publishedTime,
   robots,
   structuredData,
   landingFooter = false,
+  privatePage = false,
 } = Astro.props as Props;
 
 const structuredDataItems = structuredData
@@ -68,12 +69,12 @@ const structuredDataItems = structuredData
     <script is:inline>
       const themeColorMeta = document.getElementById("theme-color-meta");
       if (themeColorMeta) {
-        const themeColor = getComputedStyle(document.documentElement).getPropertyValue("--color-bg").trim();
+        const themeColor = getComputedStyle(document.documentElement).getPropertyValue("--lrqa-nav").trim();
         if (themeColor) themeColorMeta.setAttribute("content", themeColor);
       }
     </script>
 
-    <script is:inline>
+    {!privatePage && <script is:inline>
       const roknordMetrikaId = 111070145;
       const roknordMetrikaSrc = `https://mc.yandex.ru/metrika/tag.js?id=${roknordMetrikaId}`;
 
@@ -172,16 +173,16 @@ const structuredDataItems = structuredData
         });
       }
     </script>
+    }
   </head>
   <body>
     <a class="skip-link" href="#content">Перейти к содержимому</a>
     <div class="site-shell">
       <Header />
       <slot />
-      {landingFooter ? <PdnAuditFooter /> : <Footer />}
-      <CookiePanel />
+      {landingFooter ? <PdnAuditFooter /> : <Footer showCookieSettings={!privatePage} />}
+      {!privatePage && <CookiePanel />}
       <ScrollUpControl />
-      <LoginModal />
     </div>
     <script is:inline>
       (() => {

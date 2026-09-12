@@ -1,17 +1,5 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SectionPlaceholderPage from "../../components/SectionPlaceholderPage.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/service.css';
 ---
-
-<BaseLayout
-  title="Материалы для скачивания — Рокнорд"
-  description="Материалы Рокнорд для самопроверки и подготовки к процедурам аккредитации. Раздел находится в разработке."
-  robots="noindex,follow"
->
-  <SectionPlaceholderPage
-    eyebrow="Материалы"
-    title="Материалы для скачивания"
-    description="Соберём здесь карты рисков, чек-листы и другие рабочие материалы для самопроверки и подготовки к процедурам."
-    note="Раздел находится в разработке. Доступный материал уже размещён в каталоге Рокнорд."
-  />
-</BaseLayout>
+<BaseLayout title="Материалы для подготовки к аккредитации — Рокнорд" description="Карта рисков, учебный пример результата аудита и экспертные статьи для самостоятельной проверки документов и процессов."><main id="content" class="service-page"><header class="service-hero page-container"><p class="section__eyebrow">Библиотека</p><h1>Материалы для осмысленной подготовки</h1><p class="service-lead">Рабочие ориентиры для самопроверки и понимания доказательной базы. Состав требований к конкретной организации определяется отдельно.</p></header><section class="service-section page-container"><h2>Рабочие материалы</h2><ol class="service-checks"><li><span>01</span><div><h3><a href="/materials/karta-riskov-pk-os-smk-2026/">Карта рисков при подготовке ОС СМК →</a></h3><p>Материал для первичной самопроверки органа по сертификации систем менеджмента. Описание и порядок получения — на странице материала.</p></div></li><li><span>02</span><div><h3><a href="/materials/audit-report-example/">Учебный пример результата аудита →</a></h3><p>Как связать наблюдение, доказательство, риск и рекомендуемое действие. Доступен без регистрации.</p></div></li><li><span>03</span><div><h3><a href="/news/">Новости и экспертные разъяснения →</a></h3><p>Тематические статьи с датами актуальности, практическими вопросами и первичными источниками.</p></div></li></ol></section></main></BaseLayout>

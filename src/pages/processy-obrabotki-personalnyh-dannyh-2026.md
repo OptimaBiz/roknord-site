@@ -10,7 +10,7 @@ updatedLabel: "Материал актуален на 3 сентября 2026 г
 canonical: "https://roknord.ru/processy-obrabotki-personalnyh-dannyh-2026/"
 ogTitle: "Сначала процесс, затем документы: обработка персональных данных"
 ogDescription: "Почему политика и согласия должны следовать за анализом целей, оснований, систем, получателей и сроков обработки персональных данных."
-image: "/images/news/processy-obrabotki-personalnyh-dannyh-2026.png"
+image: "/images/news/processy-obrabotki-personalnyh-dannyh-2026.webp"
 imageAlt: "Специалисты сопоставляют этапы обработки данных на карте процессов"
 imageWidth: 1672
 imageHeight: 941

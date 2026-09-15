@@ -65,6 +65,7 @@ const consentVersion = "1.1-2026-08-13";
         <input type="hidden" name="consent_timestamp" value="" />
         <input type="hidden" name="consent_page" value="" />
         <input type="hidden" name="request_context" value="" data-contact-context-input />
+        <input type="hidden" name="attribution" value="" data-contact-attribution-input />
         <input type="text" name="_gotcha" class="contact-form__trap" tabindex="-1" autocomplete="off" />
 
         <p class="contact-form__context" data-contact-context-display hidden></p>
@@ -74,6 +75,7 @@ const consentVersion = "1.1-2026-08-13";
             <span>Имя</span>
             <input
               name="name"
+              class="ym-disable-keys"
               type="text"
               autocomplete="name"
               minlength="2"
@@ -88,6 +90,7 @@ const consentVersion = "1.1-2026-08-13";
               <span>Телефон</span>
               <input
                 name="phone"
+                class="ym-disable-keys"
                 type="tel"
                 autocomplete="tel"
                 inputmode="tel"
@@ -101,7 +104,7 @@ const consentVersion = "1.1-2026-08-13";
 
         <label class="contact-field">
           <span>Электронная почта</span>
-          <input name="email" type="email" autocomplete="email" placeholder="name@company.ru" required />
+          <input class="ym-disable-keys" name="email" type="email" autocomplete="email" placeholder="name@company.ru" required />
         </label>
 
         {showMessage && (
@@ -109,6 +112,7 @@ const consentVersion = "1.1-2026-08-13";
             <span>Опишите задачу</span>
             <textarea
               name="message"
+              class="ym-disable-keys"
               data-contact-message
               rows="5"
               minlength="10"
@@ -146,6 +150,7 @@ const consentVersion = "1.1-2026-08-13";
             <button class="legal-dialog__close" type="button" data-legal-close aria-label="Закрыть текст согласия">×</button>
           </div>
           <div class="legal-dialog__body">
+            <!--noindex-->
             <p>Я, субъект персональных данных, свободно, своей волей и в своём интересе выражаю согласие на обработку моих персональных данных оператором — Обществом с ограниченной ответственностью «РОКНОРД» (ООО «РОКНОРД»), адрес: 198320, Санкт-Петербург, г. Красное Село, ул. Свободы, д. 57Д, пом. 7-Н, офис 615.</p>
             <p><strong>Цель обработки:</strong> рассмотрение обращения, подготовка ответа, связь со мной, уточнение деталей задачи и подготовка предложения по согласованному формату работы.</p>
             <p><strong>Перечень данных:</strong> имя, номер телефона, адрес электронной почты, сведения об организации, содержание обращения и иные данные, которые я добровольно укажу в форме.</p>
@@ -154,6 +159,7 @@ const consentVersion = "1.1-2026-08-13";
             <p>Согласие оформляется отдельно от иных подтверждаемых документов. Непредоставление согласия означает невозможность отправить обращение через форму сайта.</p>
             <p><strong>Редакция согласия:</strong> 1.1 от 13 августа 2026 года.</p>
             <p><a href="/personal-data-consent/">Открыть отдельную страницу согласия</a></p>
+            <!--/noindex-->
           </div>
         </div>
       </dialog>
@@ -165,12 +171,14 @@ const consentVersion = "1.1-2026-08-13";
             <button class="legal-dialog__close" type="button" data-legal-close aria-label="Закрыть политику в отношении обработки персональных данных">×</button>
           </div>
           <div class="legal-dialog__body">
+            <!--noindex-->
             <p><strong>Оператор:</strong> Общество с ограниченной ответственностью «РОКНОРД» (ООО «РОКНОРД»), адрес: 198320, Санкт-Петербург, г. Красное Село, ул. Свободы, д. 57Д, пом. 7-Н, офис 615. ИНН 7807406530, КПП 780701001.</p>
             <p><strong>Какие данные обрабатываются:</strong> имя, телефон, электронная почта, сведения об организации, содержание обращения, а также необходимые для работы и безопасности сайта технические сведения.</p>
             <p><strong>Цели:</strong> регистрация и рассмотрение обращения, подготовка ответа, связь с пользователем, обеспечение работы и безопасности сайта. Данные формы обрабатываются на основании отдельно выраженного согласия.</p>
             <p><strong>Порядок и срок:</strong> данные обрабатываются только в необходимом объёме и хранятся до достижения заявленной цели либо до отзыва согласия, если иной срок не установлен законом.</p>
             <p><strong>Права пользователя:</strong> можно запросить сведения об обработке, уточнение, блокирование или удаление данных и отозвать согласие, направив обращение на <a href="mailto:hello@roknord.ru">hello@roknord.ru</a>.</p>
             <p><a href="/privacy-policy/">Открыть полную Политику в отношении обработки персональных данных</a></p>
+            <!--/noindex-->
           </div>
         </div>
       </dialog>
@@ -187,7 +195,38 @@ const consentVersion = "1.1-2026-08-13";
       const contactContextInput = contactRoot?.querySelector("[data-contact-context-input]");
       const contactContextDisplay = contactRoot?.querySelector("[data-contact-context-display]");
       const contactMessage = contactRoot?.querySelector("[data-contact-message]");
+      const contactAttributionInput = contactRoot?.querySelector("[data-contact-attribution-input]");
       const legalDialogs = contactRoot?.querySelectorAll("[data-legal-dialog]") || [];
+
+      const attributionKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "yclid"];
+      let attribution = {};
+      try {
+        attribution = JSON.parse(window.sessionStorage.getItem("roknord-attribution") || "{}");
+      } catch {}
+      if (!attribution || typeof attribution !== "object" || Array.isArray(attribution)) attribution = {};
+      const currentUrl = new URL(window.location.href);
+      attributionKeys.forEach((key) => {
+        const value = currentUrl.searchParams.get(key);
+        if (value) attribution[key] = value;
+      });
+      attribution.landing_page ||= window.location.href;
+      attribution.referrer ||= document.referrer;
+      try {
+        window.sessionStorage.setItem("roknord-attribution", JSON.stringify(attribution));
+      } catch {}
+      if (contactAttributionInput instanceof HTMLInputElement) {
+        contactAttributionInput.value = JSON.stringify(attribution);
+      }
+
+      if (contactForm instanceof HTMLFormElement) {
+        contactForm.addEventListener("focusin", () => {
+          const formNameInput = contactForm.elements.namedItem("form_name");
+          window.__roknordReachGoal?.("form_start", {
+            form_name: formNameInput instanceof HTMLInputElement ? formNameInput.value : "Контактная форма",
+            source_page: window.location.pathname,
+          });
+        }, { once: true });
+      }
 
       const applyContactContext = (value) => {
         const context = typeof value === "string" ? value.trim() : "";
@@ -318,6 +357,9 @@ const consentVersion = "1.1-2026-08-13";
           const pageInput = contactForm.elements.namedItem("consent_page");
           if (timestampInput instanceof HTMLInputElement) timestampInput.value = new Date().toISOString();
           if (pageInput instanceof HTMLInputElement) pageInput.value = window.location.href;
+          if (contactAttributionInput instanceof HTMLInputElement) {
+            contactAttributionInput.value = JSON.stringify(attribution);
+          }
 
           const response = await fetch(contactForm.action, {
             method: contactForm.method,
@@ -336,6 +378,13 @@ const consentVersion = "1.1-2026-08-13";
           }
 
           const successUrl = contactForm.dataset.successUrl || "/thank-you/";
+          const formNameInput = contactForm.elements.namedItem("form_name");
+          window.__roknordStorePendingConversion?.({
+            form_name: formNameInput instanceof HTMLInputElement ? formNameInput.value : "Контактная форма",
+            source_page: window.location.pathname,
+            request_context: contactContextInput instanceof HTMLInputElement ? contactContextInput.value : "",
+            ...attribution,
+          });
           const gateKey = contactForm.dataset.gateKey;
           if (gateKey) {
             try {

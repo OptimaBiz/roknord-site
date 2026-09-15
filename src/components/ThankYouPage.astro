@@ -37,18 +37,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     </section>
   </main>
 
-  <script is:inline>
-    // Сюда форма уводит только после успешной отправки — значит это и есть конверсия.
-    (function () {
-      var fire = function () {
-        if (window.__roknordAnalyticsOn && typeof window.ym === "function") {
-          window.ym(111070145, "reachGoal", "form_submit");
-        }
-      };
-      if (typeof ym === "function") fire();
-      else window.addEventListener("load", fire, { once: true });
-    })();
-  </script>
 </BaseLayout>
 
 <style>

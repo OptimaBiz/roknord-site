@@ -17,16 +17,13 @@ const canonical = "https://roknord.ru/152-fz/audit/";
 const image = "https://roknord.ru/images/pdn-audit/audit-152-fz-zashchita-personalnyh-dannyh.webp";
 const jsonLd = [{"@context":"https://schema.org","@type":"Service","name":"Аудит по 152-ФЗ со стандартным комплектом документов","description":description,"image":image,"provider":{"@type":"Organization","name":"ООО «РОКНОРД»","url":"https://roknord.ru/"},"areaServed":{"@type":"Country","name":"Россия"},"url":canonical,"offers":{"@type":"Offer","price":"30000","priceCurrency":"RUB","url":canonical}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://roknord.ru/"},{"@type":"ListItem","position":2,"name":"152-ФЗ","item":"https://roknord.ru/152-fz/"},{"@type":"ListItem","position":3,"name":"Аудит и документы по 152-ФЗ","item":canonical}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":faq.map(([question,answer])=>({"@type":"Question","name":question,"acceptedAnswer":{"@type":"Answer","text":answer}}))}];
 ---
-<BaseLayout title={title} description={description} canonical={canonical} ogTitle={title} ogDescription={description} ogImage={image} landingHeader landingFooter>
-  <Fragment slot="head"><meta name="robots" content="index, follow" /></Fragment>
+<BaseLayout title={title} description={description} canonical={canonical} ogTitle={title} ogDescription={description} ogImage={image} structuredData={jsonLd} landingFooter>
   <main id="content" class="pdn-audit">
     <PdnAuditHero /><PdnAuditScenarios /><PdnAuditVisuals /><PdnAuditResult /><PdnAuditDetails /><PdnAuditPricing /><PdnAuditFaq /><PdnAuditLeadForm />
   </main>
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <script is:inline>
     (() => {
-      const metrikaId = 111070145;
-      window.__pdnGoal = (name, params = {}) => { if (window.__roknordAnalyticsOn && typeof window.ym === 'function') window.ym(metrikaId, 'reachGoal', name, params); };
+      window.__pdnGoal = (name, params = {}) => window.__roknordReachGoal?.(name, params);
       window.__pdnGoal('pdn_audit_view');
       document.addEventListener('click', (event) => { const target = event.target instanceof Element ? event.target.closest('[data-pdn-goal]') : null; if (target) window.__pdnGoal(target.dataset.pdnGoal); });
       document.querySelectorAll('[data-pdn-observe]').forEach((element) => { const observer = new IntersectionObserver((entries) => { if (!entries[0].isIntersecting) return; window.__pdnGoal(element.dataset.pdnObserve); observer.disconnect(); }, { threshold: .25 }); observer.observe(element); });

@@ -1,10 +1,40 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const canonical = "https://roknord.ru/news/";
+const newsItems = [
+  ["Уведомление Роскомнадзора: что должно совпадать с реальной обработкой", "/uvedomlenie-roskomnadzora-personalnye-dannye-2026/"],
+  ["Сначала процесс, затем документы: как оценить обработку персональных данных", "/processy-obrabotki-personalnyh-dannyh-2026/"],
+  ["Персональные данные на сайте: что проверить после разъяснений Роскомнадзора", "/personalnye-dannye-na-sajte-proverka-roskomnadzora-2026/"],
+  ["Постановление № 805: что изменится в обучении по охране труда с 31 августа 2026 года", "/postanovlenie-805-ohrana-truda-2026/"],
+];
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Новости РОКНОРД",
+    description: "Разбор изменений Росаккредитации, требований к персональным данным и охране труда.",
+    url: canonical,
+    isPartOf: { "@type": "WebSite", "@id": "https://roknord.ru/#website" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: newsItems.map(([name, path], index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name,
+      url: new URL(path, canonical).href,
+    })),
+  },
+];
 ---
 
 <BaseLayout
-  title="Новости и экспертные материалы — РОКНОРД"
-  description="Новости, нормативные изменения и экспертные разъяснения Рокнорд."
+  title="Новости Росаккредитации, 152-ФЗ и охраны труда — РОКНОРД"
+  description="Разбор изменений Росаккредитации, требований к персональным данным и охране труда: что изменилось, что проверить и какие первичные источники использовать."
+  canonical={canonical}
+  structuredData={structuredData}
 >
   <main id="content" class="news-page">
     <section class="news-page__hero">

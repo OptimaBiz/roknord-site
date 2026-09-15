@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Страница не найдена — Рокнорд"
+  description="Запрошенная страница не найдена. Перейдите на главную страницу Рокнорд или выберите нужное направление работы."
+  robots="noindex,follow"
+>
+  <main id="content" class="not-found-page">
+    <section class="not-found-page__inner page-container" aria-labelledby="not-found-title">
+      <p class="section__eyebrow">Ошибка 404</p>
+      <h1 id="not-found-title">Страница не найдена</h1>
+      <p>Возможно, адрес изменился или в ссылке есть ошибка. Вернитесь на главную или выберите нужное направление.</p>
+      <div class="not-found-page__actions">
+        <a class="button button-primary cta-angled" href="/">На главную →</a>
+        <a href="/#directions">Выбрать направление</a>
+        <a href="/contacts/">Связаться с Рокнорд</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .not-found-page {
+    display: grid;
+    min-height: calc(100svh - var(--header-total-height));
+    color: var(--lrqa-white);
+    background: var(--lrqa-navy);
+  }
+
+  .not-found-page__inner {
+    display: grid;
+    align-content: center;
+    gap: var(--space-5);
+    padding-block: clamp(5rem, 11vw, 10rem);
+  }
+
+  .not-found-page h1,
+  .not-found-page p {
+    margin: 0;
+  }
+
+  .not-found-page h1 {
+    max-width: 12ch;
+    font-size: var(--type-page-title);
+    line-height: var(--line-height-display);
+  }
+
+  .not-found-page__inner > p:not(.section__eyebrow) {
+    max-width: 42rem;
+    color: var(--lrqa-border-soft);
+    font-size: var(--type-lead);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .not-found-page__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-5);
+    margin-top: var(--space-4);
+  }
+
+  .not-found-page__actions > a:not(.button) {
+    color: var(--color-mint-action);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  @media (max-width: 48rem) {
+    .not-found-page__actions,
+    .not-found-page__actions .button {
+      width: 100%;
+    }
+  }
+</style>

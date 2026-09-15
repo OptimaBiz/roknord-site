@@ -1,4 +1,8 @@
+User-agent: Yandex
+Allow: /
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&yclid&context
+Sitemap: https://roknord.ru/sitemap.xml
+
 User-agent: *
 Allow: /
-
 Sitemap: https://roknord.ru/sitemap.xml

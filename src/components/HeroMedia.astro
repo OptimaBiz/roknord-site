@@ -27,11 +27,13 @@ const hasVideo = Boolean(desktopSrc);
 
 <div class={`hero-media ${className}`.trim()} aria-hidden="true">
   <picture class="hero-media__poster-frame">
-    <source media="(max-width: 47.99rem)" srcset={mobilePoster} />
+    <source media="(max-width: 47.99rem)" srcset={mobilePoster} width="720" height="1176" />
     <img
       class="hero-media__poster"
       src={posterSrc}
       alt={posterAlt}
+      width="1280"
+      height="720"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -46,7 +48,7 @@ const hasVideo = Boolean(desktopSrc);
       muted
       loop
       playsinline
-      preload="auto"
+      preload="none"
       disablepictureinpicture
       data-hero-video
       data-mobile-video-src={mobileSrc}
@@ -70,7 +72,9 @@ const hasVideo = Boolean(desktopSrc);
       var mobileSrc = video.getAttribute("data-mobile-video-src") || desktopSrc;
       var desktopQuery = window.matchMedia("(min-width: 48rem)");
       var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-      var userPaused = motionQuery.matches || Boolean(navigator.connection?.saveData);
+      // На мобильных сначала показываем оптимизированный постер. Видео загружается
+      // только после явного действия пользователя, не расходуя рекламный трафик.
+      var userPaused = motionQuery.matches || Boolean(navigator.connection?.saveData) || !desktopQuery.matches;
       var inView = true;
       var toggle;
       function updateControl() {

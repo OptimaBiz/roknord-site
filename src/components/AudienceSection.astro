@@ -29,7 +29,7 @@ const audiences = [
           <ol class="audience-grid">
             {audiences.map((item, index) => (
               <li id={item.id} class:list={["audience-cell", index < 3 && "audience-cell--lead"]}>
-                <img class="audience-cell__media" src={item.image} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+                <img class="audience-cell__media" src={item.image} alt="" width="800" height="1200" aria-hidden="true" loading="lazy" decoding="async" />
                 <div class="audience-cell__content">
                   <span class="audience-cell__num" aria-hidden="true">0{index + 1}</span>
                   <h3><a class="audience-cell__link" href={audienceCardRoutes[index]}>{item.title}<span aria-hidden="true"> ↗</span></a></h3>

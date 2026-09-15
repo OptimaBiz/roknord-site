@@ -6,6 +6,7 @@ import Footer from "../components/Footer.astro";
 import CookiePanel from "../components/CookiePanel.astro";
 import ScrollUpControl from "../components/ScrollUpControl.astro";
 import PdnAuditFooter from "../components/pdn-audit/PdnAuditFooter.astro";
+import { organizationSchema } from "../data/organization";
 
 type Props = {
   title: string;
@@ -37,9 +38,10 @@ const {
   privatePage = false,
 } = Astro.props as Props;
 
-const structuredDataItems = structuredData
+const pageStructuredDataItems = structuredData
   ? (Array.isArray(structuredData) ? structuredData : [structuredData])
   : [];
+const structuredDataItems = [organizationSchema, ...pageStructuredDataItems];
 ---
 
 <!doctype html>
@@ -77,6 +79,32 @@ const structuredDataItems = structuredData
     {!privatePage && <script is:inline>
       const roknordMetrikaId = 111070145;
       const roknordMetrikaSrc = `https://mc.yandex.ru/metrika/tag.js?id=${roknordMetrikaId}`;
+      window.__roknordGoalQueue = window.__roknordGoalQueue || [];
+
+      window.__roknordReachGoal = function (name, params) {
+        try {
+          if (window.localStorage.getItem("roknord-cookie-consent") !== "accepted") return false;
+        } catch {
+          return false;
+        }
+
+        if (window.__roknordAnalyticsOn && typeof window.ym === "function") {
+          window.ym(roknordMetrikaId, "reachGoal", name, params || {});
+          return true;
+        }
+
+        window.__roknordGoalQueue.push({ name, params: params || {} });
+        return false;
+      };
+
+      window.__roknordStorePendingConversion = function (params) {
+        try {
+          window.sessionStorage.setItem("roknord-pending-conversion", JSON.stringify({
+            ...params,
+            createdAt: new Date().toISOString(),
+          }));
+        } catch {}
+      };
 
       window.__roknordEnableAnalytics = function () {
         if (window.__roknordAnalyticsOn || window.__roknordAnalyticsLoading) return;
@@ -111,6 +139,12 @@ const structuredDataItems = structuredData
             accurateTrackBounce: true,
             trackLinks: true,
           });
+
+          const queuedGoals = window.__roknordGoalQueue.splice(0);
+          queuedGoals.forEach(function (goal) {
+            window.ym(roknordMetrikaId, "reachGoal", goal.name, goal.params);
+          });
+          window.dispatchEvent(new CustomEvent("roknord:analytics-ready"));
         };
 
         const existingScript = document.querySelector('script[data-roknord-metrika]');
@@ -140,6 +174,7 @@ const structuredDataItems = structuredData
         }
         window.__roknordAnalyticsOn = false;
         window.__roknordAnalyticsLoading = false;
+        window.__roknordGoalQueue.length = 0;
 
         const cookieNames = document.cookie
           .split(";")
@@ -160,18 +195,30 @@ const structuredDataItems = structuredData
       } catch (e) {}
 
       // Цели phone_click / email_click. Делегируем на document, чтобы не зависеть
-      // от того, в какой секции лежит ссылка. Цель form_submit живёт на /thank-you/.
+      // от того, в какой секции лежит ссылка. form_submit передаётся после успешного ответа формы.
       if (!window.__roknordGoalsBound) {
         window.__roknordGoalsBound = true;
 
         document.addEventListener("click", function (event) {
           if (!(event.target instanceof Element)) return;
           var link = event.target.closest('a[href^="tel:"], a[href^="mailto:"]');
-          if (!link || !window.__roknordAnalyticsOn || typeof window.ym !== "function") return;
+          if (!link) return;
           var goal = link.getAttribute("href").indexOf("tel:") === 0 ? "phone_click" : "email_click";
-          window.ym(roknordMetrikaId, "reachGoal", goal);
+          window.__roknordReachGoal(goal, {
+            page: window.location.pathname,
+            target: link.getAttribute("href"),
+          });
         });
       }
+
+      try {
+        const pendingConversion = window.sessionStorage.getItem("roknord-pending-conversion");
+        if (pendingConversion) {
+          window.sessionStorage.removeItem("roknord-pending-conversion");
+          const conversion = JSON.parse(pendingConversion);
+          window.__roknordReachGoal("form_submit", conversion);
+        }
+      } catch {}
     </script>
     }
   </head>

@@ -1,31 +1,149 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { services } from '../data/services';
-import '../styles/service.css';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "./ContactForm.astro";
+import { services } from "../data/services";
+import "../styles/service.css";
+
 const { slug } = Astro.props;
 const service = services[slug];
-const contactHref = `/?context=${encodeURIComponent(service.title)}#contact`;
+const canonical = new URL(`/${slug}/`, "https://roknord.ru").href;
+const contactHref = "#contact";
+
+const seoTitles: Record<string, string> = {
+  "testing-labs": "Аудит готовности испытательной лаборатории к аккредитации — Рокнорд",
+  "medical-labs": "Аудит готовности медицинской лаборатории к аккредитации — Рокнорд",
+  "certification-bodies": "Аудит готовности органа по сертификации систем менеджмента — Рокнорд",
+  "product-certification": "Аудит готовности органа по сертификации продукции — Рокнорд",
+  "inspection-bodies": "Аудит готовности органа инспекции к аккредитации — Рокнорд",
+  "calibration-labs": "Аудит готовности калибровочной лаборатории — Рокнорд",
+  "proficiency-testing": "Аудит готовности провайдера МСИ к аккредитации — Рокнорд",
+  "halal-certification": "Подготовка органа по сертификации халяль к аккредитации — Рокнорд",
+  "primary-accreditation": "Подготовка к первичной аккредитации — Рокнорд",
+  "competence-confirmation": "Подготовка к подтверждению компетентности Росаккредитации — Рокнорд",
+  "accreditation-scope": "Аудит и актуализация области аккредитации — Рокнорд",
+  "corrective-actions": "Корректирующие действия после несоответствий — Рокнорд",
+  "special-directions": "Специальные направления подготовки к аккредитации — Рокнорд",
+  "occupational-safety": "Анализ организации охраны труда — Рокнорд",
+};
+
+const faq = [
+  {
+    question: "Можно ли начать с отдельного участка?",
+    answer: "Да. Предметом может быть область, выборка дел или отдельный процесс. Границы проверки отражаем в предложении и итоговых материалах.",
+  },
+  {
+    question: "От чего зависят стоимость и срок?",
+    answer: "От количества площадок, состава работ, объёма выборки и готовности материалов. Конкретные условия фиксируем после первичного разбора.",
+  },
+  slug === "occupational-safety"
+    ? {
+        question: "Что подтверждает результат анализа?",
+        answer: "Итоговые материалы отражают рассмотренные документы, записи, выявленные расхождения и ограничения выборки. Рекомендации служат основанием для планирования дальнейших действий организации.",
+      }
+    : {
+        question: "Кто принимает решение по процедуре аккредитации?",
+        answer: "Решение принимает уполномоченный орган. Рокнорд проводит независимую подготовку и анализ доказательств в согласованных границах.",
+      },
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.title,
+    description: service.description,
+    provider: {
+      "@type": "Organization",
+      "@id": "https://roknord.ru/#organization",
+      name: "РОКНОРД",
+      url: "https://roknord.ru/",
+    },
+    url: canonical,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Главная", item: "https://roknord.ru/" },
+      { "@type": "ListItem", position: 2, name: service.title, item: canonical },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  },
+];
 ---
-<BaseLayout title={`${service.title} — Рокнорд`} description={service.description}>
+
+<BaseLayout
+  title={seoTitles[slug] ?? `${service.title} — Рокнорд`}
+  description={service.description}
+  canonical={canonical}
+  structuredData={structuredData}
+>
   <main id="content" class="service-page">
     <header class="service-hero page-container">
       <nav aria-label="Хлебные крошки"><a href="/">Главная</a> / <span>{service.eyebrow}</span></nav>
       <p class="section__eyebrow">{service.eyebrow}</p>
       <h1>{service.title}</h1>
       <p class="service-lead">{service.description}</p>
-      <a class="button button-primary cta-angled" href={contactHref}>Разобрать задачу →</a>
+      <a class="button button-primary cta-angled" href={contactHref} data-contact-context={service.title}>Разобрать задачу →</a>
     </header>
+
     <section class="service-section page-container" aria-labelledby="service-checks">
-      <div class="service-intro"><h2 id="service-checks">Что проверяем</h2><p>Глубину анализа и выборку фиксируем до начала работ. Выводы относятся к проверенным материалам и согласованному предмету аудита.</p></div>
-      {service.image && <img class="service-cover" src={service.image} alt="" loading="lazy" />}
-      <ol class="service-checks">{service.checks.map(([title, text], index) => <li><span>0{index + 1}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol>
+      <div class="service-intro">
+        <h2 id="service-checks">Что проверяем</h2>
+        <p>Глубину анализа и выборку фиксируем до начала работ. Выводы относятся к проверенным материалам и согласованному предмету аудита.</p>
+      </div>
+      {service.image && (
+        <img class="service-cover" src={service.image} alt="" width="800" height="1200" loading="lazy" decoding="async" />
+      )}
+      <ol class="service-checks">
+        {service.checks.map(([title, text], index) => (
+          <li><span>0{index + 1}</span><div><h3>{title}</h3><p>{text}</p></div></li>
+        ))}
+      </ol>
     </section>
+
     <section class="service-section service-result page-container" aria-labelledby="service-result">
-      <p class="section__eyebrow">Результат работы</p><h2 id="service-result">Выводы, с которыми можно работать</h2>
-      <div class="service-columns"><div><h3>Карта рисков</h3><p>Наблюдение, связанное требование, подтверждение и приоритет для каждого выявленного вопроса.</p></div><div><h3>Реестр расхождений</h3><p>Список документов, записей и процессов, которые требуют уточнения или согласования между собой.</p></div><div><h3>План действий</h3><p>Рекомендуемые действия, ожидаемые доказательства и последовательность проверки результата.</p></div></div>
+      <p class="section__eyebrow">Результат работы</p>
+      <h2 id="service-result">Выводы, с которыми можно работать</h2>
+      <div class="service-columns">
+        <div><h3>Карта рисков</h3><p>Наблюдение, связанное требование, подтверждение и приоритет для каждого выявленного вопроса.</p></div>
+        <div><h3>Реестр расхождений</h3><p>Список документов, записей и процессов, которые требуют уточнения или согласования между собой.</p></div>
+        <div><h3>План действий</h3><p>Рекомендуемые действия, ожидаемые доказательства и последовательность проверки результата.</p></div>
+      </div>
       <a href="/materials/audit-report-example/">Посмотреть учебный пример результата →</a>
     </section>
-    <section class="service-section page-container" aria-labelledby="service-start"><div class="service-intro"><h2 id="service-start">Как начинается работа</h2><p>{service.preparation}</p></div><ol class="service-steps"><li><strong>Обсуждаем задачу.</strong> Уточняем ситуацию, сроки и ожидаемый результат.</li><li><strong>Согласуем объём.</strong> Фиксируем предмет, выборку, стоимость и формат передачи материалов.</li><li><strong>Проверяем и обсуждаем выводы.</strong> Передаём результаты и объясняем основания рекомендаций.</li></ol></section>
-    <section class="service-section page-container" aria-labelledby="service-faq"><h2 id="service-faq">Вопросы до начала работы</h2><details><summary>Можно ли начать с отдельного участка?</summary><p>Да. Предметом может быть область, выборка дел или отдельный процесс. Границы проверки отражаем в предложении и итоговых материалах.</p></details><details><summary>От чего зависят стоимость и срок?</summary><p>От количества площадок, состава работ, объёма выборки и готовности материалов. Конкретные условия фиксируем после первичного разбора.</p></details>{slug === 'occupational-safety' ? <details><summary>Что подтверждает результат анализа?</summary><p>Итоговые материалы отражают рассмотренные документы, записи, выявленные расхождения и ограничения выборки. Рекомендации служат основанием для планирования дальнейших действий организации.</p></details> : <details><summary>Кто принимает решение по процедуре аккредитации?</summary><p>Решение принимает уполномоченный орган. Рокнорд проводит независимую подготовку и анализ доказательств в согласованных границах.</p></details>}<a class="button button-primary cta-angled" href={contactHref}>Обсудить объём проверки →</a></section>
+
+    <section class="service-section page-container" aria-labelledby="service-start">
+      <div class="service-intro"><h2 id="service-start">Как начинается работа</h2><p>{service.preparation}</p></div>
+      <ol class="service-steps">
+        <li><strong>Обсуждаем задачу.</strong> Уточняем ситуацию, сроки и ожидаемый результат.</li>
+        <li><strong>Согласуем объём.</strong> Фиксируем предмет, выборку, стоимость и формат передачи материалов.</li>
+        <li><strong>Проверяем и обсуждаем выводы.</strong> Передаём результаты и объясняем основания рекомендаций.</li>
+      </ol>
+    </section>
+
+    <section class="service-section page-container" aria-labelledby="service-faq">
+      <h2 id="service-faq">Вопросы до начала работы</h2>
+      {faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}
+      <a class="button button-primary cta-angled" href={contactHref} data-contact-context={service.title}>Обсудить объём проверки →</a>
+    </section>
+
+    <ContactForm
+      eyebrow="Первый шаг"
+      title="Уточнить объём проверки"
+      description="Укажите тип организации, предстоящую процедуру и сроки. Мы уточним предмет первого этапа и предложим подходящий формат работы."
+      submitLabel="Отправить запрос"
+      subject={`Заявка: ${service.title}`}
+      formName={`Страница услуги: ${service.title}`}
+      statusText="Ответим в течение рабочего дня. До начала работ согласуем объём, срок и стоимость."
+    />
   </main>
 </BaseLayout>

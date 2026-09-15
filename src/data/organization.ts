@@ -31,4 +31,10 @@ export const organizationSchema = {
     email: "hello@roknord.ru",
     availableLanguage: "Russian",
   },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "10:00",
+    closes: "18:00",
+  },
 };

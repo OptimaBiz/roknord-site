@@ -24,7 +24,7 @@ body {
   line-height: var(--line-height-body);
   color: var(--color-text-primary);
   background: var(--color-surface-page);
-  text-rendering: optimizeLegibility;
+  text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -39,6 +39,12 @@ body::before {
   mask-image: radial-gradient(circle at center, var(--color-grid-mask), transparent var(--grid-mask-stop));
   opacity: var(--backdrop-opacity);
   z-index: var(--z-index-base);
+}
+
+@media (max-width: 47.99rem) {
+  body::before {
+    display: none;
+  }
 }
 
 img,
@@ -60,7 +66,7 @@ h6 {
   overflow-wrap: normal;
   word-break: normal;
   hyphens: manual;
-  text-wrap: balance;
+  text-wrap: wrap;
 }
 
 a {

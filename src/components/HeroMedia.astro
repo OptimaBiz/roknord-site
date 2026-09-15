@@ -35,7 +35,7 @@ const hasVideo = Boolean(desktopSrc);
       width="1280"
       height="720"
       loading="eager"
-      decoding="async"
+      decoding="sync"
       fetchpriority="high"
     />
   </picture>
@@ -44,7 +44,6 @@ const hasVideo = Boolean(desktopSrc);
     <video
       class="hero-media__video"
       id="hero-background-video"
-      autoplay
       muted
       loop
       playsinline
@@ -72,9 +71,9 @@ const hasVideo = Boolean(desktopSrc);
       var mobileSrc = video.getAttribute("data-mobile-video-src") || desktopSrc;
       var desktopQuery = window.matchMedia("(min-width: 48rem)");
       var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-      // На мобильных сначала показываем оптимизированный постер. Видео загружается
-      // только после явного действия пользователя, не расходуя рекламный трафик.
-      var userPaused = motionQuery.matches || Boolean(navigator.connection?.saveData) || !desktopQuery.matches;
+      // Постер показывается на всех устройствах. Видео загружается только после
+      // явного действия пользователя и не расходует трафик в фоне.
+      var userPaused = true;
       var inView = true;
       var toggle;
       function updateControl() {
@@ -121,9 +120,10 @@ const hasVideo = Boolean(desktopSrc);
       video.addEventListener('play', updateControl);
       video.addEventListener('pause', updateControl);
       motionQuery.addEventListener('change', function () {
-        userPaused = motionQuery.matches;
-        if (userPaused) video.pause();
-        else { syncVideoSource(); startVideo(); }
+        if (motionQuery.matches) {
+          userPaused = true;
+          video.pause();
+        }
         updateControl();
       });
       function connectControl() {

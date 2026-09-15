@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 const root = path.resolve('dist');
-const files = fs.readdirSync(root,{recursive:true}).filter(file=>file.endsWith('.html'));
+const files = fs.readdirSync(root,{recursive:true}).filter(file=>file.endsWith('.html')&&!/^yandex_[a-f0-9]+\.html$/i.test(file));
 const sitemap = fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');
 const failures=[];
 let indexed=0;
@@ -11,8 +11,8 @@ for (const file of files) {
   const route='/'+file.replace(/index.html$/,'');
   const canonical=`https://roknord.ru${route}`;
   if((html.match(/<h1(?:\s|>)/g)||[]).length!==1)failures.push(`${route}: H1`);
-  if(!html.includes(`rel="canonical" href="${canonical}"`))failures.push(`${route}: canonical`);
   const noindex=/<meta[^>]+name="robots"[^>]+content="[^\"]*noindex/.test(html);
+  if(!noindex&&!html.includes(`rel="canonical" href="${canonical}"`))failures.push(`${route}: canonical`);
   if(!noindex){indexed++;if(!sitemap.includes(`<loc>${canonical}</loc>`))failures.push(`${route}: sitemap missing`);}
   if(noindex&&sitemap.includes(`<loc>${canonical}</loc>`))failures.push(`${route}: noindex in sitemap`);
   for (const match of html.matchAll(/(?:href|src)="(\/[^"\s]*)"/g)) {
@@ -31,6 +31,13 @@ for (const file of files) {
     assert.ok(article.image.endsWith('.webp'),route+' WebP');
     assert.ok(html.includes(`src="${new URL(article.image).pathname}"`),route+' cover');
     assert.ok(json.some(item=>item['@type']==='FAQPage'),route+' FAQ');
+  }
+}
+const allowedFormNames=new Set(['Контактная форма','Получить PDF','РАЛ Атлас — расширенный мониторинг']);
+for(const file of files){
+  const html=fs.readFileSync(path.join(root,file),'utf8');
+  for(const match of html.matchAll(/name="form_name" value="([^"]+)"/g)){
+    if(!allowedFormNames.has(match[1]))failures.push(`/${file}: unsupported form_name ${match[1]}`);
   }
 }
 assert.deepEqual(failures,[]);

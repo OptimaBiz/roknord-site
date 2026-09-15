@@ -29,6 +29,6 @@
 
     window.addEventListener("scroll", queueVisibilityUpdate, { passive: true });
     window.addEventListener("resize", queueVisibilityUpdate);
-    updateVisibility();
+    queueVisibilityUpdate();
   })();
 </script>

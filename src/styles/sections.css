@@ -13,6 +13,12 @@
   z-index: var(--z-index-raised);
 }
 
+/* Keep the long home page light on first paint without hiding its content. */
+.home-content > section:nth-child(n + 3) {
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto 64rem;
+}
+
 .page-container,
 .container,
 .section__inner {

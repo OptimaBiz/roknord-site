@@ -30,7 +30,7 @@ const {
   ogTitle = title,
   ogDescription = description,
   ogType = "website",
-  ogImage = 'https://roknord.ru/images/hero/roknord-hero-poster.jpg',
+  ogImage = 'https://roknord.ru/images/hero/roknord-hero-poster.webp',
   publishedTime,
   robots,
   structuredData,
@@ -61,21 +61,13 @@ const structuredDataItems = [organizationSchema, ...pageStructuredDataItems];
     {canonical && <meta property="og:url" content={canonical} />}
     {ogImage && <meta property="og:image" content={ogImage} />}
     {ogType === "article" && publishedTime && <meta property="article:published_time" content={publishedTime} />}
-    <meta name="theme-color" content="" id="theme-color-meta" />
+    <meta name="theme-color" content="#0F3029" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260904" />
     <link rel="icon" href="/favicon.ico?v=20260904" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20260904" />
     <link rel="manifest" href="/site.webmanifest?v=20260904" />
     <title>{title}</title>
     {structuredDataItems.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}
-    <script is:inline>
-      const themeColorMeta = document.getElementById("theme-color-meta");
-      if (themeColorMeta) {
-        const themeColor = getComputedStyle(document.documentElement).getPropertyValue("--lrqa-nav").trim();
-        if (themeColor) themeColorMeta.setAttribute("content", themeColor);
-      }
-    </script>
-
     {!privatePage && <script is:inline>
       const roknordMetrikaId = 111070145;
       const roknordMetrikaSrc = `https://mc.yandex.ru/metrika/tag.js?id=${roknordMetrikaId}`;
@@ -268,18 +260,21 @@ const structuredDataItems = [organizationSchema, ...pageStructuredDataItems];
           });
         };
 
+        const measureStories = () => stories.flatMap((story) => {
+          if (!(story instanceof HTMLElement) || !story.classList.contains('is-scroll-story')) return [];
+          const stage = story.querySelector('[data-scroll-stage]');
+          const track = story.querySelector('[data-scroll-track]');
+          if (!(stage instanceof HTMLElement) || !(track instanceof HTMLElement)) return [];
+          const distance = Math.max(0, track.scrollWidth - stage.clientWidth);
+          const availableScroll = Math.max(1, story.offsetHeight - stage.offsetHeight);
+          const travelled = Math.min(Math.max(-story.getBoundingClientRect().top, 0), availableScroll);
+          return [{ track, transform: `translate3d(${-distance * (travelled / availableScroll)}px, 0, 0)` }];
+        });
+
         const update = () => {
           frameId = 0;
-          stories.forEach((story) => {
-            if (!(story instanceof HTMLElement) || !story.classList.contains('is-scroll-story')) return;
-            const stage = story.querySelector('[data-scroll-stage]');
-            const track = story.querySelector('[data-scroll-track]');
-            if (!(stage instanceof HTMLElement) || !(track instanceof HTMLElement)) return;
-            const distance = Math.max(0, track.scrollWidth - stage.clientWidth);
-            const availableScroll = Math.max(1, story.offsetHeight - stage.offsetHeight);
-            const travelled = Math.min(Math.max(-story.getBoundingClientRect().top, 0), availableScroll);
-            track.style.transform = `translate3d(${-distance * (travelled / availableScroll)}px, 0, 0)`;
-          });
+          const measurements = measureStories();
+          measurements.forEach(({ track, transform }) => { track.style.transform = transform; });
         };
 
         const requestUpdate = () => {
@@ -289,13 +284,16 @@ const structuredDataItems = [organizationSchema, ...pageStructuredDataItems];
         const setup = () => {
           reset();
           if (!mobileQuery.matches || reducedMotionQuery.matches) return;
-          stories.forEach((story) => {
-            if (!(story instanceof HTMLElement)) return;
+          const measurements = stories.flatMap((story) => {
+            if (!(story instanceof HTMLElement)) return [];
             const stage = story.querySelector('[data-scroll-stage]');
             const track = story.querySelector('[data-scroll-track]');
-            if (!(stage instanceof HTMLElement) || !(track instanceof HTMLElement)) return;
+            if (!(stage instanceof HTMLElement) || !(track instanceof HTMLElement)) return [];
             const distance = Math.max(0, track.scrollWidth - stage.clientWidth);
-            if (distance < 2) return;
+            if (distance < 2) return [];
+            return [{ story, distance }];
+          });
+          measurements.forEach(({ story, distance }) => {
             story.style.setProperty('--scroll-story-distance', `${Math.ceil(distance)}px`);
             story.classList.add('is-scroll-story');
           });

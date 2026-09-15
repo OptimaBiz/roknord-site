@@ -66,7 +66,7 @@ const consentVersion = "1.1-2026-08-13";
         <input type="hidden" name="consent_page" value="" />
         <input type="hidden" name="request_context" value="" data-contact-context-input />
         <input type="hidden" name="attribution" value="" data-contact-attribution-input />
-        <input type="text" name="_gotcha" class="contact-form__trap" tabindex="-1" autocomplete="off" />
+        <input type="text" name="_gotcha" class="contact-form__trap" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
         <p class="contact-form__context" data-contact-context-display hidden></p>
 
@@ -129,7 +129,7 @@ const consentVersion = "1.1-2026-08-13";
             <span class="contact-consent__statement">Согласен на обработку персональных данных в соответствии с </span>
             <span class="contact-consent__documents" aria-label="Документы">
               <button class="contact-consent__link" type="button" data-legal-open="consent">Текстом согласия</button>
-              <button class="contact-consent__link" type="button" data-legal-open="privacy" aria-label="Политика в отношении обработки персональных данных">Политикой обработки персональных данных</button>.
+              <button class="contact-consent__link" type="button" data-legal-open="privacy">Политикой обработки персональных данных</button>.
             </span>
           </span>
         </label>

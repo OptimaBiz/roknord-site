@@ -17,6 +17,10 @@ for (const response of [
 ]) await assert.rejects(checkPortal('https://roknord.ru', async () => response));
 await assert.rejects(checkPortal('http://roknord.ru', async () => valid()));
 
+const deploySource = readFileSync(resolve('scripts/deploy-timeweb.sh'), 'utf8');
+assert.ok(deploySource.includes('--chmod=Fu=rw,Fgo='), 'private file mode must work with the system rsync');
+assert.ok(!deploySource.includes('--chmod=F600'), 'numeric chmod syntax is not supported by the system rsync');
+
 // Stub only the external transport, never connect to hosting or upload test data.
 const fixture = mkdtempSync(join(tmpdir(), 'roknord-deploy-check-'));
 try {

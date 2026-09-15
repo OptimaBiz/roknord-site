@@ -200,6 +200,20 @@
   text-underline-offset: .3em;
 }
 
+.utility-nav a.utility-nav__atlas {
+  color: var(--color-dark-foundation);
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+  text-decoration-color: var(--color-mint-action);
+  text-decoration-thickness: 2px;
+  text-underline-offset: .3em;
+}
+
+.utility-nav a.utility-nav__atlas:hover,
+.utility-nav a.utility-nav__atlas:focus-visible {
+  color: var(--lrqa-nav);
+}
+
 @media (hover: hover) {
   .utility-nav a:hover {
     color: var(--color-dark-foundation);
@@ -652,6 +666,13 @@
   color: var(--color-mint-action);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
+}
+
+.mobile-menu-resources a.mobile-menu-resource--atlas {
+  color: var(--color-mint-action);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: .3em;
 }
 
 .mobile-menu-group {

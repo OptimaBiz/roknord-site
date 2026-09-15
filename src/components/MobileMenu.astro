@@ -19,7 +19,7 @@ const companyLinks = utilityLinks.filter(item => !['/account/', '/contacts/'].in
       </a>
       <nav aria-label="Мобильное меню">
         <div class="mobile-menu-resources">
-          {sectionLinks.map(item => <a href={item.href} aria-current={current(item.href)}>{item.label}<span class:list={[{ 'mobile-menu-arrow--external': item.href.startsWith('https:') }]} aria-hidden="true">→</span></a>)}
+          {sectionLinks.map(item => <a class:list={{ 'mobile-menu-resource--atlas': item.href === 'https://atlas.roknord.ru/' }} href={item.href} aria-current={current(item.href)}>{item.label}<span class:list={[{ 'mobile-menu-arrow--external': item.href.startsWith('https:') }]} aria-hidden="true">→</span></a>)}
         </div>
         <details class="mobile-menu-group">
           <summary aria-controls="mobile-services"><span>Услуги<small>Подготовка, аудит и корректирующие действия</small></span></summary>

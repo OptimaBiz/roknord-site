@@ -58,19 +58,19 @@ npm run build
 
 echo "Устанавливаю PHP-кабинет вне public_html; клиентские данные не копируются..."
 ssh "${SSH_ARGS[@]}" "$TARGET" "umask 077; mkdir -p '$SITE_ROOT/client-portal/public'"
-rsync -az --timeout=30 --delay-updates --chmod=F600 \
+rsync -az --timeout=30 --delay-updates --chmod=Fu=rw,Fgo= \
   -e "$SSH_COMMAND" \
   server/client-portal/bootstrap.php server/client-portal/manage.php server/client-portal/install.php \
   "$TARGET:$SITE_ROOT/client-portal/"
-rsync -az --timeout=30 --delay-updates --chmod=F600 \
+rsync -az --timeout=30 --delay-updates --chmod=Fu=rw,Fgo= \
   -e "$SSH_COMMAND" server/client-portal/public/portal.php "$TARGET:$SITE_ROOT/client-portal/public/"
 ssh "${SSH_ARGS[@]}" "$TARGET" "'$TIMEWEB_PHP_BIN' '$SITE_ROOT/client-portal/install.php' '$TIMEWEB_SITE_PATH'"
 
 echo "Публикую точку входа API..."
 ssh "${SSH_ARGS[@]}" "$TARGET" "mkdir -p '$TIMEWEB_SITE_PATH/portal-api'"
-rsync -az --timeout=30 --delay-updates --chmod=F644 -e "$SSH_COMMAND" \
+rsync -az --timeout=30 --delay-updates --chmod=Fu=rw,Fgo=r -e "$SSH_COMMAND" \
   server/client-portal/public/.htaccess server/client-portal/public/.user.ini "$TARGET:$TIMEWEB_SITE_PATH/portal-api/"
-rsync -az --timeout=30 --delay-updates --chmod=F644 -e "$SSH_COMMAND" \
+rsync -az --timeout=30 --delay-updates --chmod=Fu=rw,Fgo=r -e "$SSH_COMMAND" \
   server/client-portal/timeweb-entry.php "$TARGET:$TIMEWEB_SITE_PATH/portal-api/portal.php"
 
 # A PHP CLI check cannot detect a different PHP version or HTTPS setup in the web server.

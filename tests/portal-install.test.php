@@ -17,7 +17,7 @@ mkdir($site . '/client-portal/public', 0700);
 mkdir($site . '/public_html/portal-api', 0755);
 copy(__DIR__ . '/../server/client-portal/public/portal.php', $site . '/client-portal/public/portal.php');
 copy(__DIR__ . '/../server/client-portal/timeweb-entry.php', $site . '/public_html/portal-api/portal.php');
-$request = '$_SERVER["HTTPS"]="on"; $_SERVER["REQUEST_METHOD"]="GET"; $_SERVER["DOCUMENT_ROOT"]=$argv[1]; $_GET["action"]="session"; require $argv[1]."/portal-api/portal.php";';
+$request = '$_SERVER["HTTPS"]="off"; $_SERVER["HTTP_X_FORWARDED_PROTO"]="https"; $_SERVER["REQUEST_METHOD"]="GET"; $_SERVER["DOCUMENT_ROOT"]=$argv[1]; $_GET["action"]="session"; require $argv[1]."/portal-api/portal.php";';
 $session = shell_exec(escapeshellarg(PHP_BINARY) . ' -r ' . escapeshellarg($request) . ' ' . escapeshellarg($site . '/public_html'));
 $payload = json_decode($session ?? '', true, 512, JSON_THROW_ON_ERROR);
 check($payload['user'] === null && preg_match('/^[a-f0-9]{64}$/', $payload['csrf']) === 1, 'Published entrypoint must load private API and schema');

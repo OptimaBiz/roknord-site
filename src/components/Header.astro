@@ -7,7 +7,7 @@ import { audienceLinks, sectionLinks, serviceGroups, serviceLinks, utilityLinks 
   <div class="header-service" aria-label="Служебная навигация">
     <div class="topbar__inner header-service-inner page-container">
       <nav class="utility-nav" aria-label="Служебные ссылки">
-        {[...utilityLinks, ...sectionLinks].map((item) => <a href={item.href} aria-current={Astro.url.pathname === item.href ? 'page' : undefined}>{item.label}</a>)}
+        {[...utilityLinks, ...sectionLinks].map((item) => <a class:list={{ 'utility-nav__atlas': item.href === 'https://atlas.roknord.ru/' }} href={item.href} aria-current={Astro.url.pathname === item.href ? 'page' : undefined}>{item.label}</a>)}
       </nav>
       <a class="service-phone" href="tel:+78123898178">+7(812)38-98-178</a>
       <a class="service-account service-account--mobile" href="/account/">

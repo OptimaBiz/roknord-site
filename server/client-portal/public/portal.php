@@ -8,11 +8,18 @@ header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: no-referrer');
 header('X-Robots-Tag: noindex, nofollow');
 function respond(int $status, array $data): never { http_response_code($status); echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR); exit; }
+function request_is_https(): bool {
+    $https = strtolower(trim((string)($_SERVER['HTTPS'] ?? '')));
+    if ($https !== '' && !in_array($https, ['off', '0'], true)) return true;
+    if ((int)($_SERVER['SERVER_PORT'] ?? 0) === 443) return true;
+    $forwarded = strtolower(trim(explode(',', (string)($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? ''))[0]));
+    return $forwarded === 'https';
+}
 
 try {
     ini_set('display_errors', '0');
     $local = PHP_SAPI === 'cli-server' && getenv('ROKNORD_PORTAL_ENV') === 'development';
-    if (!$local && ($_SERVER['HTTPS'] ?? '') !== 'on') respond(400, ['message'=>'Требуется защищённое соединение.']);
+    if (!$local && !request_is_https()) respond(400, ['message'=>'Требуется защищённое соединение.']);
     $origin = getenv('ROKNORD_PORTAL_ORIGIN') ?: 'https://roknord.ru';
     $method = $_SERVER['REQUEST_METHOD'];
     if ($method === 'POST' && ($_SERVER['HTTP_ORIGIN'] ?? '') !== $origin) respond(403, ['message'=>'Недопустимый источник запроса.']);

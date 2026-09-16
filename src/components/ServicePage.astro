@@ -8,15 +8,17 @@ const { slug } = Astro.props;
 const service = services[slug];
 const canonical = new URL(`/${slug}/`, "https://roknord.ru").href;
 const contactHref = "#contact";
+const isAccreditationService = slug !== "occupational-safety";
+const startLabel = isAccreditationService ? "Начать с аудита готовности" : "Обсудить анализ";
 
 const seoTitles: Record<string, string> = {
-  "testing-labs": "Аудит готовности испытательной лаборатории к аккредитации — Рокнорд",
-  "medical-labs": "Аудит готовности медицинской лаборатории к аккредитации — Рокнорд",
-  "certification-bodies": "Аудит готовности органа по сертификации систем менеджмента — Рокнорд",
-  "product-certification": "Аудит готовности органа по сертификации продукции — Рокнорд",
-  "inspection-bodies": "Аудит готовности органа инспекции к аккредитации — Рокнорд",
-  "calibration-labs": "Аудит готовности калибровочной лаборатории — Рокнорд",
-  "proficiency-testing": "Аудит готовности провайдера МСИ к аккредитации — Рокнорд",
+  "testing-labs": "Подготовка испытательной лаборатории к аккредитации — Рокнорд",
+  "medical-labs": "Подготовка медицинской лаборатории к аккредитации — Рокнорд",
+  "certification-bodies": "Подготовка органа по сертификации систем менеджмента — Рокнорд",
+  "product-certification": "Подготовка органа по сертификации продукции — Рокнорд",
+  "inspection-bodies": "Подготовка органа инспекции к аккредитации — Рокнорд",
+  "calibration-labs": "Подготовка калибровочной лаборатории к аккредитации — Рокнорд",
+  "proficiency-testing": "Подготовка провайдера МСИ к аккредитации — Рокнорд",
   "halal-certification": "Подготовка органа по сертификации халяль к аккредитации — Рокнорд",
   "primary-accreditation": "Подготовка к первичной аккредитации — Рокнорд",
   "competence-confirmation": "Подготовка к подтверждению компетентности Росаккредитации — Рокнорд",
@@ -27,13 +29,27 @@ const seoTitles: Record<string, string> = {
 };
 
 const faq = [
-  {
-    question: "Можно ли начать с отдельного участка?",
-    answer: "Да. Предметом может быть область, выборка дел или отдельный процесс. Границы проверки отражаем в предложении и итоговых материалах.",
-  },
+  isAccreditationService
+    ? {
+        question: "Почему начинаем с аудита готовности?",
+        answer: "Аудит показывает фактические риски и позволяет определить необходимый объём подготовки без лишних работ. Его границы, стоимость и результат фиксируем до начала.",
+      }
+    : {
+        question: "Можно ли начать с отдельного участка?",
+        answer: "Да. Предметом может быть отдельный процесс, выборка документов или конкретный вопрос. Границы анализа отражаем в предложении и итоговых материалах.",
+      },
+  isAccreditationService
+    ? {
+        question: "Можно ли поручить всю дальнейшую подготовку?",
+        answer: "Да. После аудита отдельно согласуем комплексную подготовку или нужные этапы: документы, процессы, доказательства, область и корректирующие действия.",
+      }
+    : {
+        question: "Можно ли продолжить работу после анализа?",
+        answer: "Да. По результатам отдельно согласуем необходимый объём дальнейшей работы, сроки и стоимость.",
+      },
   {
     question: "От чего зависят стоимость и срок?",
-    answer: "От количества площадок, состава работ, объёма выборки и готовности материалов. Конкретные условия фиксируем после первичного разбора.",
+    answer: "От количества площадок, состава работ, объёма выборки и состояния материалов. Условия первого этапа фиксируем заранее, дальнейших работ — после разбора результатов.",
   },
   slug === "occupational-safety"
     ? {
@@ -92,13 +108,13 @@ const structuredData = [
       <p class="section__eyebrow">{service.eyebrow}</p>
       <h1>{service.title}</h1>
       <p class="service-lead">{service.description}</p>
-      <a class="button button-primary cta-angled" href={contactHref} data-contact-context={service.title}>Разобрать задачу →</a>
+      <a class="button button-primary cta-angled" href={contactHref} data-contact-context={service.title}>{startLabel} →</a>
     </header>
 
     <section class="service-section page-container" aria-labelledby="service-checks">
       <div class="service-intro">
-        <h2 id="service-checks">Что проверяем</h2>
-        <p>Глубину анализа и выборку фиксируем до начала работ. Выводы относятся к проверенным материалам и согласованному предмету аудита.</p>
+        <h2 id="service-checks">Что проверяем на старте</h2>
+        <p>{isAccreditationService ? "Первый этап — аудит готовности. Его глубину и выборку фиксируем до начала, чтобы по результатам определить точный объём дальнейшей подготовки." : "Глубину анализа и выборку фиксируем до начала. Выводы относятся к рассмотренным материалам и согласованному предмету работы."}</p>
       </div>
       {service.image && (
         <img class="service-cover" src={service.image} alt="" width="800" height="1200" loading="lazy" decoding="async" />
@@ -111,35 +127,36 @@ const structuredData = [
     </section>
 
     <section class="service-section service-result page-container" aria-labelledby="service-result">
-      <p class="section__eyebrow">Результат работы</p>
-      <h2 id="service-result">Выводы, с которыми можно работать</h2>
+      <p class="section__eyebrow">После первого этапа</p>
+      <h2 id="service-result">Понятный объём дальнейшей работы</h2>
       <div class="service-columns">
-        <div><h3>Карта рисков</h3><p>Наблюдение, связанное требование, подтверждение и приоритет для каждого выявленного вопроса.</p></div>
-        <div><h3>Реестр расхождений</h3><p>Список документов, записей и процессов, которые требуют уточнения или согласования между собой.</p></div>
-        <div><h3>План действий</h3><p>Рекомендуемые действия, ожидаемые доказательства и последовательность проверки результата.</p></div>
+        <div><h3>Карта рисков</h3><p>Показывает, какие вопросы требуют внимания и почему они важны для предстоящей процедуры.</p></div>
+        <div><h3>План подготовки</h3><p>Определяет последовательность действий, необходимые материалы и ожидаемые подтверждения результата.</p></div>
+        <div><h3>Расчёт следующего этапа</h3><p>По фактическому объёму согласовываем срок и стоимость комплексной подготовки или отдельных работ.</p></div>
       </div>
       <a href="/materials/audit-report-example/">Посмотреть учебный пример результата →</a>
     </section>
 
     <section class="service-section page-container" aria-labelledby="service-start">
-      <div class="service-intro"><h2 id="service-start">Как начинается работа</h2><p>{service.preparation}</p></div>
+      <div class="service-intro"><h2 id="service-start">Как строится работа</h2><p><strong>Для первого этапа понадобятся:</strong> {service.preparation}</p></div>
       <ol class="service-steps">
-        <li><strong>Обсуждаем задачу.</strong> Уточняем ситуацию, сроки и ожидаемый результат.</li>
-        <li><strong>Согласуем объём.</strong> Фиксируем предмет, выборку, стоимость и формат передачи материалов.</li>
-        <li><strong>Проверяем и обсуждаем выводы.</strong> Передаём результаты и объясняем основания рекомендаций.</li>
+        <li><strong>Обсуждаем задачу.</strong> Уточняем ситуацию, процедуру, сроки и исходные данные.</li>
+        <li><strong>Проводим первый этап.</strong> Фиксируем объём, стоимость и результат аудита или анализа до начала работ.</li>
+        <li><strong>Формируем дальнейший план.</strong> После разбора результатов становится понятен необходимый объём подготовки.</li>
+        <li><strong>Выполняем согласованные работы.</strong> Берём весь контур или отдельные этапы и затем проверяем результат.</li>
       </ol>
     </section>
 
     <section class="service-section page-container" aria-labelledby="service-faq">
       <h2 id="service-faq">Вопросы до начала работы</h2>
       {faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}
-      <a class="button button-primary cta-angled" href={contactHref} data-contact-context={service.title}>Обсудить объём проверки →</a>
+      <a class="button button-primary cta-angled" href={contactHref} data-contact-context={service.title}>{startLabel} →</a>
     </section>
 
     <ContactForm
       eyebrow="Первый шаг"
-      title="Уточнить объём проверки"
-      description="Укажите тип организации, предстоящую процедуру и сроки. Мы уточним предмет первого этапа и предложим подходящий формат работы."
+      title={isAccreditationService ? "Начать с аудита готовности" : "Обсудить первый этап"}
+      description="Укажите тип организации, предстоящую процедуру и сроки. Сначала согласуем объём первого этапа, дальнейший план — по его результатам."
       submitLabel="Отправить запрос"
       subject={`Заявка: ${service.title}`}
       formName="Контактная форма"

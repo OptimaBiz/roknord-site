@@ -6,9 +6,9 @@ const included = [
 ];
 
 const formats = [
-  { kicker: "Когда нужен единый контур подготовки", name: "Полный комплекс" },
-  { kicker: "Когда задача уже локализована", name: "Точечный блок" },
-  { kicker: "Когда готовность важно поддерживать", name: "Периодический аудит" },
+  { kicker: "Когда нужен весь путь", name: "Комплексная подготовка к процедуре" },
+  { kicker: "Когда выявлены конкретные проблемы", name: "Устранение несоответствий" },
+  { kicker: "Когда часть работы команда берёт на себя", name: "Отдельный блок подготовки" },
 ];
 ---
 
@@ -16,22 +16,22 @@ const formats = [
   <div class="section__inner page-container">
     <header class="formats-intro" data-reveal>
       <p class="section__eyebrow">Первый этап</p>
-      <h2 id="formats-title" class="section__title">Стоимость аудита готовности</h2>
-      <p class="section__lead">Начинаем с проверки текущего состояния. Дальнейшие работы заказчик выбирает после получения результатов.</p>
+      <h2 id="formats-title" class="section__title">Сначала аудит — затем точная подготовка</h2>
+      <p class="section__lead">Проверяем текущее состояние, затем определяем точный объём, срок и стоимость дальнейшей работы.</p>
     </header>
 
     <article class="pricing-start" aria-labelledby="pricing-start-title" data-reveal>
       <div class="pricing-start__main">
         <span class="pricing-start__badge">Базовый формат</span>
         <h3 id="pricing-start-title">Независимый аудит готовности</h3>
-        <p>Проверим область аккредитации, СМК, записи и фактическую практику — дистанционно и, при необходимости, на площадке.</p>
+        <p>Проверяем область аккредитации, СМК, записи и фактическую практику — дистанционно и, при необходимости, на площадке.</p>
 
-        <ul class="pricing-start__included" aria-label="Что входит в базовый формат">
+        <ul class="pricing-start__included" aria-label="Что входит в базовый аудит">
           {included.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><strong>{item}</strong></li>)}
         </ul>
       </div>
 
-      <aside class="pricing-start__offer" aria-label="Стоимость и срок независимого аудита готовности">
+      <aside class="pricing-start__offer" aria-label="Стоимость и срок аудита готовности">
         <dl class="pricing-start__facts">
           <div>
             <dt>Стоимость</dt>
@@ -45,17 +45,17 @@ const formats = [
         <a class="pricing-start__cta cta-angled motion-control" href="#contact" data-contact-context="Независимый аудит готовности: объём и стоимость"><span>Обсудить объём аудита</span><span aria-hidden="true">→</span></a>
       </aside>
 
-      <p class="pricing-start__note">Один ведущий аудитор. Формат и необходимость выезда на площадку согласовываем до начала работ. Транспортные расходы при выезде оплачиваются дополнительно. Дополнительных специалистов и их стоимость согласовываем до начала работ.</p>
+      <p class="pricing-start__note">Формат и необходимость выезда согласовываем до начала. После аудита вы получаете понятную картину текущего состояния и можете поручить Рокнорд весь дальнейший объём или отдельные этапы.</p>
     </article>
 
     <div class="formats-after" data-reveal>
       <header>
         <p>После аудита</p>
-        <h3>Только необходимый объём сопровождения</h3>
-        <span>Формат выбираем по выявленным рискам и фиксируем до начала работ.</span>
+        <h3>Понятно, что делать дальше и сколько это стоит</h3>
+        <span>Формируем план по фактическим рискам и отдельно согласовываем каждый следующий этап.</span>
       </header>
 
-      <ol aria-label="Сценарии дальнейшей работы">
+      <ol aria-label="Варианты дальнейшей работы">
         {formats.map((format, index) => (
           <li>
             <span aria-hidden="true">0{index + 1}</span>
@@ -310,9 +310,7 @@ const formats = [
       align-items: end;
     }
 
-    .pricing-start__facts {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+    .pricing-start__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
     .pricing-start__facts > div + div {
       padding-top: 0;

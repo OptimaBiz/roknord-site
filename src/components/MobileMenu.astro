@@ -22,7 +22,7 @@ const companyLinks = utilityLinks.filter(item => !['/account/', '/contacts/'].in
           {sectionLinks.map(item => <a class:list={{ 'mobile-menu-resource--atlas': item.href === 'https://atlas.roknord.ru/' }} href={item.href} aria-current={current(item.href)}>{item.label}<span class:list={[{ 'mobile-menu-arrow--external': item.href.startsWith('https:') }]} aria-hidden="true">→</span></a>)}
         </div>
         <details class="mobile-menu-group">
-          <summary aria-controls="mobile-services"><span>Услуги<small>Подготовка, аудит и корректирующие действия</small></span></summary>
+          <summary aria-controls="mobile-services"><span>Услуги<small>Аудит, подготовка и корректирующие действия</small></span></summary>
           <div class="mobile-menu-group__links" id="mobile-services">
             {serviceLinks.map(item => <a href={item.href} aria-current={current(item.href)}>{item.label}<span aria-hidden="true">→</span></a>)}
             <div class="mobile-menu-specialties">

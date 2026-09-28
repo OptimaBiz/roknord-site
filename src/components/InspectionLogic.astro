@@ -1,205 +1,37 @@
 ---
-const checks = [
-  {
-    title: "Область и ресурсы",
-    text: "Сопоставляем заявленную область с оборудованием, помещениями и компетентностью персонала.",
-  },
-  {
-    title: "СМК и записи",
-    text: "Проверяем, подтверждают ли записи выполнение установленных процедур.",
-  },
-  {
-    title: "Персонал и практика",
-    text: "Сверяем полномочия и подтверждения компетентности с фактически выполняемыми работами.",
-  },
-  {
-    title: "Сведения во ФГИС",
-    text: "Проверяем согласованность сведений во ФГИС с внутренними документами и записями.",
-  },
+const outcomes = [
+  { title: "Что уже готово", text: "Отделяем рабочие элементы системы от того, что требует внимания." },
+  { title: "Где возникает риск", text: "Показываем расхождения между требованиями, документами, записями и практикой." },
+  { title: "Чем он подтверждён", text: "Каждый вывод связываем с требованием и доступными доказательствами." },
+  { title: "Что делать дальше", text: "Расставляем действия по приоритету, чтобы команда не исправляла всё подряд." },
 ];
 ---
 
-<section id="approach" class="section section--dark ilogic" aria-labelledby="ilogic-title">
+<section id="result" class="section section--grey audit-outcome" aria-labelledby="outcome-title">
   <div class="section__inner page-container">
-    <header class="ilogic__intro" data-reveal>
-      <p class="section__eyebrow">Предмет аудита</p>
-      <h2 id="ilogic-title" class="section__title">Что именно проверяем</h2>
-      <p class="section__lead">Документа недостаточно: важно, чтобы требования, процедуры, записи и работа организации подтверждали друг друга.</p>
+    <header class="audit-outcome__intro" data-reveal>
+      <p class="section__eyebrow">Результат аудита</p>
+      <h2 id="outcome-title" class="section__title">После проверки у вас остаётся ясный план, а не ещё одна папка документов</h2>
+      <p class="section__lead">Итоговый материал помогает принять решение: что исправить своими силами, где нужна экспертная помощь и к чему можно не возвращаться.</p>
     </header>
 
-    <div class="ilogic__formula" aria-label="Логика проверки" data-reveal>
-      <span>Требование</span><i aria-hidden="true">→</i><span>Процедура</span><i aria-hidden="true">→</i><span>Запись</span><i aria-hidden="true">→</i><span>Доказательство</span>
-    </div>
-
-    <ol class="ilogic__checks" data-reveal>
-      {checks.map((item, index) => (
-        <li>
-          <span aria-hidden="true">0{index + 1}</span>
-          <h3>{item.title}</h3>
-          <p>{item.text}</p>
-        </li>
+    <ol class="audit-outcome__list" data-reveal>
+      {outcomes.map((item, index) => (
+        <li><span>0{index + 1}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></li>
       ))}
     </ol>
 
-    <aside class="ilogic__example" aria-label="Пример результата аудита" data-reveal>
-      <span>Пример результата</span>
-      <p><strong>Расхождение:</strong> фактически выполняемая работа не подтверждена действующей записью.</p>
-      <p><strong>Дальше:</strong> определяем применимое требование, приоритет и необходимое действие.</p>
-    </aside>
+    <div class="audit-outcome__bottom" data-reveal>
+      <p><span>Главный итог</span><strong>Руководитель понимает реальное состояние готовности и последовательность следующих шагов.</strong></p>
+      <a href="#contact" data-contact-context="Аудит готовности: результат и состав отчёта">Уточнить состав результата <span aria-hidden="true">→</span></a>
+    </div>
   </div>
 </section>
 
 <style>
-  .ilogic .section__inner,
-  .ilogic__intro,
-  .ilogic__checks,
-  .ilogic__checks li,
-  .ilogic__example {
-    display: grid;
-  }
-
-  .ilogic .section__inner {
-    gap: clamp(2rem, 4vw, 3.5rem);
-  }
-
-  .ilogic__intro {
-    grid-template-columns: minmax(0, 0.9fr) minmax(20rem, 1.1fr);
-    gap: 0.75rem clamp(2rem, 6vw, 7rem);
-    align-items: end;
-  }
-
-  .ilogic__intro .section__eyebrow {
-    grid-column: 1 / -1;
-  }
-
-  .ilogic__intro .section__title,
-  .ilogic__intro .section__lead,
-  .ilogic__checks,
-  .ilogic__checks h3,
-  .ilogic__checks p,
-  .ilogic__example p {
-    margin: 0;
-  }
-
-  .ilogic__formula {
-    display: grid;
-    grid-template-columns: repeat(7, auto);
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    padding: clamp(1.25rem, 2.5vw, 2rem);
-    color: var(--lrqa-white);
-    font-family: var(--font-family-mono);
-    font-size: clamp(0.78rem, 0.4vw + 0.7rem, 1rem);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-    border: 1px solid var(--lrqa-dark-border);
-  }
-
-  .ilogic__formula i {
-    color: var(--color-mint-action);
-    font-style: normal;
-  }
-
-  .ilogic__checks {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    padding: 0;
-    list-style: none;
-    border-top: 1px solid var(--lrqa-dark-border);
-    border-left: 1px solid var(--lrqa-dark-border);
-  }
-
-  .ilogic__checks li {
-    align-content: start;
-    gap: 0.65rem;
-    min-height: 13.5rem;
-    padding: clamp(1.25rem, 2vw, 1.8rem);
-    border-right: 1px solid var(--lrqa-dark-border);
-    border-bottom: 1px solid var(--lrqa-dark-border);
-  }
-
-  .ilogic__checks li > span,
-  .ilogic__example > span {
-    color: var(--color-mint-action);
-    font-family: var(--font-family-mono);
-    font-size: var(--font-size-2xs);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-  }
-
-  .ilogic__checks h3 {
-    color: var(--lrqa-white);
-    font-size: clamp(1.1rem, 0.65vw + 1rem, 1.55rem);
-    line-height: 1.18;
-  }
-
-  .ilogic__checks p,
-  .ilogic__example p {
-    color: var(--lrqa-border-soft);
-    line-height: 1.6;
-  }
-
-  .ilogic__example {
-    grid-template-columns: minmax(9rem, 0.35fr) repeat(2, minmax(0, 1fr));
-    gap: 1rem clamp(1.5rem, 4vw, 4rem);
-    align-items: start;
-    padding: 1.25rem 0;
-    border-top: 1px solid var(--lrqa-dark-border);
-    border-bottom: 1px solid var(--lrqa-dark-border);
-  }
-
-  .ilogic__example strong {
-    color: var(--lrqa-white);
-  }
-
-  @media (max-width: 64rem) {
-    .ilogic__intro,
-    .ilogic__example {
-      grid-template-columns: 1fr;
-    }
-
-    .ilogic__checks {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (max-width: 48rem) {
-    .ilogic__formula {
-      grid-template-columns: 1fr auto;
-      justify-content: stretch;
-      gap: 0.65rem 1rem;
-    }
-
-    .ilogic__formula i {
-      transform: rotate(90deg);
-    }
-
-    .ilogic__formula i:last-of-type {
-      display: none;
-    }
-
-    .ilogic__formula span:last-child {
-      grid-column: 1 / -1;
-    }
-
-    .ilogic__checks {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .ilogic__checks li {
-      min-height: 0;
-      padding: 0.9rem;
-    }
-
-    .ilogic__checks h3 {
-      font-size: 1rem;
-    }
-
-    .ilogic__checks p {
-      font-size: 0.82rem;
-      line-height: 1.48;
-    }
-  }
+  .audit-outcome .section__inner,.audit-outcome__intro,.audit-outcome__list{display:grid}.audit-outcome .section__inner{gap:clamp(2.5rem,5vw,4.5rem)}.audit-outcome__intro{grid-template-columns:minmax(0,1.2fr) minmax(18rem,.7fr);gap:.85rem clamp(2rem,7vw,8rem);align-items:end}.audit-outcome__intro .section__eyebrow{grid-column:1/-1}.audit-outcome__intro .section__title,.audit-outcome__intro .section__lead{margin:0}.audit-outcome__intro .section__title{max-width:18ch}
+  .audit-outcome__list{grid-template-columns:repeat(2,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--lrqa-border);border-left:1px solid var(--lrqa-border)}.audit-outcome__list li{display:grid;grid-template-columns:2.5rem 1fr;gap:1rem;min-height:11rem;padding:clamp(1.25rem,2.4vw,2rem);background:var(--lrqa-white);border-right:1px solid var(--lrqa-border);border-bottom:1px solid var(--lrqa-border)}.audit-outcome__list li>span{color:var(--lrqa-muted);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.audit-outcome__list li div{display:grid;align-content:start;gap:.55rem}.audit-outcome__list h3,.audit-outcome__list p{margin:0}.audit-outcome__list h3{color:var(--lrqa-navy);font-size:clamp(1.15rem,.65vw + 1rem,1.55rem)}.audit-outcome__list p{max-width:33rem;color:var(--lrqa-muted);font-size:.95rem;line-height:1.55}
+  .audit-outcome__bottom{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:end;padding-top:1.5rem;border-top:3px solid var(--lrqa-navy)}.audit-outcome__bottom p{display:grid;gap:.45rem;max-width:54rem;margin:0}.audit-outcome__bottom p span{color:var(--lrqa-muted);font-size:var(--font-size-2xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.audit-outcome__bottom p strong{color:var(--lrqa-navy);font-size:clamp(1.25rem,1vw + 1rem,2rem);line-height:1.28}.audit-outcome__bottom a{display:inline-flex;gap:.7rem;color:var(--lrqa-navy);font-weight:var(--font-weight-semibold);text-decoration:none;border-bottom:1px solid var(--lrqa-border)}.audit-outcome__bottom a span{color:var(--color-accent-strong)}
+  @media(max-width:64rem){.audit-outcome__intro,.audit-outcome__bottom{grid-template-columns:1fr}.audit-outcome__bottom a{width:fit-content}}
+  @media(max-width:47.99rem){.audit-outcome__list{grid-template-columns:1fr}.audit-outcome__list li{min-height:0}.audit-outcome__intro .section__title{max-width:none}}
 </style>

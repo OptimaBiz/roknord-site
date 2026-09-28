@@ -5,10 +5,7 @@ import Hero from "../components/Hero.astro";
 import InspectionLogic from "../components/InspectionLogic.astro";
 import Scenarios from "../components/Scenarios.astro";
 import ProcessSection from "../components/ProcessSection.astro";
-import ExpertMaterial from "../components/ExpertMaterial.astro";
-import AudienceSection from "../components/AudienceSection.astro";
-import ExpertiseTeamSection from "../components/ExpertiseTeamSection.astro";
-import MissionTeaser from "../components/MissionTeaser.astro";
+import AtlasBridge from "../components/AtlasBridge.astro";
 import PricingSection from "../components/PricingSection.astro";
 import FaqSection from "../components/FaqSection.astro";
 import ContactForm from "../components/ContactForm.astro";
@@ -25,26 +22,23 @@ const websiteSchema = {
 ---
 
 <BaseLayout
-  title="РОКНОРД — подготовка к аккредитации и подтверждению компетентности"
-  description="Начинаем с независимого аудита готовности, затем помогаем подготовиться к аккредитации или ПК: область, СМК, доказательства и корректирующие действия."
+  title="Подготовка к аккредитации и подтверждению компетентности — РОКНОРД"
+  description="Независимый аудит готовности к аккредитации и подтверждению компетентности: область, СМК, персонал, записи и фактическая практика. Реестр расхождений и план действий."
   structuredData={websiteSchema}
 >
   <main id="content" class="home-content">
     <Hero />
     <Scenarios />
-    <PricingSection />
     <InspectionLogic />
     <ProcessSection />
-    <AudienceSection />
-    <ExpertiseTeamSection />
-    <MissionTeaser />
-    <ExpertMaterial />
+    <PricingSection />
+    <AtlasBridge />
     <FaqSection />
     <ContactForm
-      eyebrow="Первый шаг"
-      title="Обсудите аудит готовности"
-      description="Укажите тип организации, предстоящую процедуру и сроки. Определим объём первого аудита, а дальнейший план сформируем по его результатам."
-      submitLabel="Отправить запрос"
+      eyebrow="Следующий шаг"
+      title="Обсудим вашу процедуру и определим первый этап"
+      description="Укажите тип организации, предстоящую процедуру и сроки. Согласуем состав, формат и границы независимого аудита готовности."
+      submitLabel="Обсудить задачу"
       statusText="Ответим в течение рабочего дня. Используем данные для ответа на обращение в соответствии с Политикой в отношении обработки персональных данных."
     />
   </main>

@@ -162,7 +162,7 @@ textarea:focus {
     top: 66%;
     width: clamp(20rem, 28vw, 30rem);
     aspect-ratio: 1;
-    background: url("/images/brand/roknord-mark.svg") center / contain no-repeat;
+    background: url("/images/brand/roknord-master-k.svg?v=20260929") center / contain no-repeat;
     opacity: 0.11;
     transform: translate(-50%, -50%);
     pointer-events: none;

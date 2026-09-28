@@ -1,7 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Фирменный знак Рокнорд">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="580 10 330 300" role="img" aria-label="Фирменная буква К РОКНОРД">
   <g fill-rule="evenodd" clip-rule="evenodd">
-    <path fill="#F5F4F0" d="M142 124H200V279L142 337V124Z"/>
-    <path fill="#17E08A" d="M322 124H389L166 388H142V337L322 124Z"/>
-    <path fill="#F5F4F0" d="M300 290L401 388H327L262 325L300 290Z"/>
+    <path fill="#FFFFFF" d="M750 226 734 210v-2l-3-2v-2l37-37v-2l3-1 6 6v2l11 10v2l12 11v2l11 10v2l10 9v2l9 8v2l8 7v2l12 11v2l8 7v2l24 24v3h-76l-7-7v-2l-9-8v-2l-10-9v-2l-8-7v-2l-10-9v-2Zm-144 47h-1v-44h1Zm6-237v-1h48v1Z"/>
+    <path fill="#5BF5C2" d="m664 132-27 27v2l-2 2h-2v2l-27 26V35h6v1h48v-1h2l2 2Zm19 94h-1v2h-2v2l-8 7v2l-10 9v2l-12 11v2l-14 13v2l-9 9h-21v-59l12-12v-2l10-9v-2l11-10v-2l10-9v-2l47-47v-2l16-15v-2l28-28v-2l13-12v-2l16-15v-2l10-9v-2l7-7h77v2l-10 9v2h-2v2l-22 21v2l-45 45v2l-41 41v2l-19 18v2l-18 17v2h-2v2l-11 10v2Z"/>
   </g>
 </svg>

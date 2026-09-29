@@ -71,9 +71,9 @@ const hasVideo = Boolean(desktopSrc);
       var mobileSrc = video.getAttribute("data-mobile-video-src") || desktopSrc;
       var desktopQuery = window.matchMedia("(min-width: 48rem)");
       var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-      // Постер показывается на всех устройствах. Видео загружается только после
-      // явного действия пользователя и не расходует трафик в фоне.
-      var userPaused = true;
+      // По умолчанию запускаем беззвучное фоновое видео. Для пользователей,
+      // выбравших уменьшение движения, сохраняем статичный постер.
+      var userPaused = motionQuery.matches;
       var inView = true;
       var toggle;
       function updateControl() {

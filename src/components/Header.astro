@@ -1,6 +1,6 @@
 ---
 import MobileMenu from "./MobileMenu.astro";
-import { audienceLinks, sectionLinks, serviceGroups, serviceLinks, utilityLinks } from "../data/siteNavigation";
+import { audienceGroups, sectionLinks, serviceGroups, serviceLinks, utilityLinks } from "../data/siteNavigation";
 ---
 
 <header class="header">
@@ -31,7 +31,28 @@ import { audienceLinks, sectionLinks, serviceGroups, serviceLinks, utilityLinks 
         </details>
         <details class="nav-dropdown">
           <summary aria-controls="audiences-panel" aria-expanded="false">Кому помогаем</summary>
-          <div class="nav-dropdown-panel" id="audiences-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Кому помогаем</p><div class="nav-dropdown-list">{audienceLinks.map(item => <a href={item.href}>{item.label}</a>)}</div></div></div>
+          <div class="nav-dropdown-panel" id="audiences-panel">
+            <div class="container nav-dropdown-inner nav-dropdown-inner--audiences">
+              <div class="nav-dropdown-heading">
+                <p class="nav-dropdown-title">Кому помогаем</p>
+                <p>Выберите вашу роль — покажем релевантные задачи и формат подготовки.</p>
+              </div>
+              <div class="nav-audience-groups">
+                {audienceGroups.map((group, index) => (
+                  <section class="nav-audience-group" aria-labelledby={`audience-group-${index}`}>
+                    <div class="nav-audience-group__heading">
+                      <h2 id={`audience-group-${index}`}>{group.label}</h2>
+                      <p>{group.description}</p>
+                    </div>
+                    <div class="nav-audience-group__links">
+                      {group.links.map(item => <a href={item.href}>{item.label}<span aria-hidden="true">→</span></a>)}
+                    </div>
+                    {group.sectors.length > 0 && <div class="nav-audience-sectors"><span>Отраслевой фокус</span>{group.sectors.map(sector => <strong>{sector}</strong>)}</div>}
+                  </section>
+                ))}
+              </div>
+            </div>
+          </div>
         </details>
       </nav>
       <MobileMenu serviceLinks={serviceLinks} sectionLinks={sectionLinks} utilityLinks={utilityLinks} />

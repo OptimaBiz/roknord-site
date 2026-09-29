@@ -1,5 +1,5 @@
 ---
-import { audienceLinks, type NavItem } from '../data/siteNavigation';
+import { audienceGroups, type NavItem } from '../data/siteNavigation';
 type Props = { serviceLinks: NavItem[]; sectionLinks: NavItem[]; utilityLinks: NavItem[] };
 const { serviceLinks, sectionLinks, utilityLinks } = Astro.props;
 const current = (href: string) => Astro.url.pathname === href ? 'page' as const : undefined;
@@ -33,8 +33,17 @@ const companyLinks = utilityLinks.filter(item => !['/account/', '/contacts/'].in
         </details>
         <details class="mobile-menu-group">
           <summary aria-controls="mobile-audiences"><span>Кому помогаем<small>Выберите направление вашей организации</small></span></summary>
-          <div class="mobile-menu-group__links" id="mobile-audiences">
-            {audienceLinks.map(item => <a href={item.href} aria-current={current(item.href)}>{item.label}<span aria-hidden="true">→</span></a>)}
+          <div class="mobile-menu-group__links mobile-audience-groups" id="mobile-audiences">
+            {audienceGroups.map(group => (
+              <section class="mobile-audience-group">
+                <div class="mobile-audience-group__heading">
+                  <strong>{group.label}</strong>
+                  <small>{group.description}</small>
+                </div>
+                {group.links.map(item => <a href={item.href} aria-current={current(item.href)}>{item.label}<span aria-hidden="true">→</span></a>)}
+                {group.sectors.length > 0 && <p class="mobile-audience-sectors"><span>Отрасли:</span> {group.sectors.join(' · ')}</p>}
+              </section>
+            ))}
           </div>
         </details>
         <div class="mobile-menu-company" aria-label="Компания">

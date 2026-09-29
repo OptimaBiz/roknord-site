@@ -3,7 +3,7 @@ export type NavItem = {
   href: string;
   isLogin?: boolean;
 };
-export { audienceLinks } from './audiences';
+export { audienceGroups, audienceLinks } from './audiences';
 
 export type ServiceGroup = {
   label: string;

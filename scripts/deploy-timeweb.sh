@@ -48,7 +48,7 @@ site_path="$1"
 php_bin="$2"
 site_root="${site_path%/public_html}"
 [[ -d "$site_path" && -w "$site_path" && -w "$site_root" ]] || { echo "Каталог сайта отсутствует или недоступен для записи." >&2; exit 1; }
-for destination in "$site_path" "$site_root/client-portal" "$site_root/client-portal/public" "$site_root/client-portal-private" "$site_path/portal-api"; do
+for destination in "$site_path" "$site_root/client-portal" "$site_root/client-portal/public" "$site_root/client-portal-private" "$site_root/geoip" "$site_path/portal-api"; do
   [[ ! -L "$destination" ]] || { echo "Каталог публикации не должен быть символической ссылкой." >&2; exit 1; }
 done
 "$php_bin" -r 'if (PHP_VERSION_ID < 80300) { fwrite(STDERR, "Required: PHP 8.3+; select TIMEWEB_PHP_BIN and website PHP version.\n"); exit(1); } foreach (["pdo_sqlite", "mbstring", "fileinfo", "session"] as $ext) { if (!extension_loaded($ext)) { fwrite(STDERR, "Missing PHP extension: ".$ext."\n"); exit(1); } }'
@@ -73,12 +73,19 @@ rsync -az --timeout=30 --delay-updates --chmod=Fu=rw,Fgo=r -e "$SSH_COMMAND" \
 rsync -az --timeout=30 --delay-updates --chmod=Fu=rw,Fgo=r -e "$SSH_COMMAND" \
   server/client-portal/timeweb-entry.php "$TARGET:$TIMEWEB_SITE_PATH/portal-api/portal.php"
 
+echo "Публикую локальное определение страны для выбора языка..."
+ssh "${SSH_ARGS[@]}" "$TARGET" "mkdir -p '$SITE_ROOT/geoip'"
+rsync -az --timeout=30 --delay-updates --chmod=Fu=rw,Fgo=r -e "$SSH_COMMAND" \
+  server/geoip/ru-ranges.json "$TARGET:$SITE_ROOT/geoip/ru-ranges.json"
+rsync -az --timeout=30 --delay-updates --chmod=Fu=rw,Fgo=r -e "$SSH_COMMAND" \
+  server/geoip/public/language-country.php "$TARGET:$TIMEWEB_SITE_PATH/language-country.php"
+
 # A PHP CLI check cannot detect a different PHP version or HTTPS setup in the web server.
 node scripts/check-portal.mjs "$TIMEWEB_PUBLIC_ORIGIN"
 
 echo "Загружаю dist/ на Timeweb..."
 rsync -az --timeout=30 --delay-updates \
-  --exclude='*.mp4' --exclude='*.webm' --exclude='/portal-api/' \
+  --exclude='*.mp4' --exclude='*.webm' --exclude='/portal-api/' --exclude='/language-country.php' \
   -e "$SSH_COMMAND" ./dist/ "$TARGET:$TIMEWEB_SITE_PATH/"
 node scripts/check-portal.mjs "$TIMEWEB_PUBLIC_ORIGIN"
 echo "Деплой сайта и PHP-кабинета завершён. Индивидуальные аккаунты создаются отдельно; демо-вход не включён."

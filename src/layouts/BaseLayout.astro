@@ -237,12 +237,48 @@ const structuredDataItems = [organizationSchema, ...pageStructuredDataItems];
     </div>
     {autoDetectLanguage && locale === "ru" && <script is:inline>
       (() => {
-        const key = "roknord-language";
+        const languageKey = "roknord-language";
+        const countryKey = "roknord-country";
         let saved = null;
-        try { saved = window.localStorage.getItem(key); } catch {}
+        try { saved = window.localStorage.getItem(languageKey); } catch {}
         if (saved || location.pathname !== "/" || /bot|crawler|spider|slurp/i.test(navigator.userAgent)) return;
-        const preferred = (navigator.languages?.[0] || navigator.language || "ru").toLowerCase();
-        if (!preferred.startsWith("ru")) location.replace(`/en/${location.search}${location.hash}`);
+
+        const openEnglish = () => location.replace(`/en/${location.search}${location.hash}`);
+        const applyCountry = (country) => {
+          if (country === "OTHER") openEnglish();
+        };
+
+        try {
+          const cached = JSON.parse(window.localStorage.getItem(countryKey) || "null");
+          if (cached?.expiresAt > Date.now() && ["RU", "OTHER"].includes(cached.country)) {
+            applyCountry(cached.country);
+            return;
+          }
+        } catch {}
+
+        const controller = new AbortController();
+        const timeout = window.setTimeout(() => controller.abort(), 1800);
+        fetch("/language-country.php", {
+          credentials: "same-origin",
+          headers: { Accept: "application/json" },
+          signal: controller.signal,
+        })
+          .then((response) => response.ok ? response.json() : Promise.reject())
+          .then((result) => {
+            if (!["RU", "OTHER"].includes(result?.country)) throw new Error("Unknown country");
+            try {
+              window.localStorage.setItem(countryKey, JSON.stringify({
+                country: result.country,
+                expiresAt: Date.now() + 86400000,
+              }));
+            } catch {}
+            applyCountry(result.country);
+          })
+          .catch(() => {
+            const preferred = (navigator.languages?.[0] || navigator.language || "ru").toLowerCase();
+            if (!preferred.startsWith("ru")) openEnglish();
+          })
+          .finally(() => window.clearTimeout(timeout));
       })();
     </script>}
     <script is:inline>

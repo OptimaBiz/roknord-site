@@ -31,7 +31,7 @@ const tr = (value: string) => en ? (englishLabels[value] || value) : value;
       <a class="service-account service-account--mobile" href="/account/">
         <img class="service-account__icon" src="/icons/account_icon_1.svg" alt="" width="200" height="200" aria-hidden="true" decoding="async" /><span>{labels.account}</span>
       </a>
-      <div class="language-switch" aria-label={en ? "Language" : "Язык"}><a href="/" data-language-link="ru" lang="ru" aria-current={!en ? "page" : undefined}>RU</a><a href="/en/" data-language-link="en" lang="en" aria-current={en ? "page" : undefined}>EN</a></div>
+      <div class="language-switch language-switch--desktop" aria-label={en ? "Language" : "Язык"}><a href="/" data-language-link="ru" lang="ru" aria-current={!en ? "page" : undefined}>RU</a><a href="/en/" data-language-link="en" lang="en" aria-current={en ? "page" : undefined}>EN</a></div>
       <a class="service-cta cta-angled motion-control" href={contactHref}>{labels.cta}</a>
       <a class="service-cta service-cta--mobile motion-control" href={contactHref}>{labels.cta}</a>
     </div>
@@ -74,6 +74,7 @@ const tr = (value: string) => en ? (englishLabels[value] || value) : value;
           </div>
         </details>
       </nav>
+      <div class="language-switch language-switch--mobile" aria-label={en ? "Language" : "Язык"}><a href="/" data-language-link="ru" lang="ru" aria-current={!en ? "page" : undefined}>RU</a><a href="/en/" data-language-link="en" lang="en" aria-current={en ? "page" : undefined}>EN</a></div>
       <MobileMenu serviceLinks={serviceLinks} sectionLinks={sectionLinks} utilityLinks={utilityLinks} locale={locale} />
     </div>
   </div>

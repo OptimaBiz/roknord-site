@@ -1,34 +1,32 @@
 ---
-const processSteps = [
-  { step: "01", title: "Анализ документов", text: "Изучаем область, СМК, записи и исходные данные по ресурсам.", output: "План проверки" },
-  { step: "02", title: "Проверка практики", text: "Проверяем фактическую работу дистанционно и, при необходимости, на площадке.", output: "Наблюдения и подтверждающие материалы" },
-  { step: "03", title: "Сопоставление", text: "Сверяем требования, процедуры, записи и фактическую работу.", output: "Карта рисков и реестр расхождений" },
-  { step: "04", title: "Отчёт и разбор", text: "Определяем приоритеты, объём дальнейшей подготовки и следующие действия.", output: "Отчёт, план и основа для расчёта" },
-];
+import { homepageContent, type SiteLocale } from "../data/homepage";
+type Props = { locale?: SiteLocale };
+const { locale = "ru" } = Astro.props as Props;
+const content = homepageContent[locale].process;
 ---
 
 <section id="formats" class="section section--dark process-section" aria-labelledby="process-title">
   <div class="section__inner page-container">
     <header class="process-intro" data-reveal>
-      <p class="section__eyebrow">Процесс</p>
-      <h2 id="process-title" class="section__title">Как проходит аудит</h2>
-      <p class="section__lead">От документов и фактической практики — к понятному плану дальнейшей подготовки.</p>
+      <p class="section__eyebrow">{content.eyebrow}</p>
+      <h2 id="process-title" class="section__title">{content.title}</h2>
+      <p class="section__lead">{content.lead}</p>
     </header>
 
     <div class="process-scroll-story">
       <div class="process-scroll-stage">
         <ol class="process-timeline">
-          {processSteps.map((item) => (
+          {content.steps.map((item) => (
             <li class="process-step">
               <span class="process-step__number">{item.step}</span>
               <div class="process-step__copy"><h3>{item.title}</h3><p>{item.text}</p></div>
-              <div class="process-step__output"><span>Результат этапа</span><strong>{item.output}</strong></div>
+              <div class="process-step__output"><span>{content.outputLabel}</span><strong>{item.output}</strong></div>
             </li>
           ))}
         </ol>
       </div>
     </div>
-    <a class="process-cta" href="#contact" data-contact-context="Независимый аудит готовности" data-reveal>Обсудить аудит <span aria-hidden="true">→</span></a>
+    <a class="process-cta" href="#contact" data-contact-context={content.context} data-reveal>{content.cta} <span aria-hidden="true">→</span></a>
   </div>
 </section>
 

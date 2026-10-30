@@ -1,62 +1,79 @@
 ---
-const included = [
-  "Предварительный анализ документов",
-  "Проверка фактической практики",
-  "Итоговый отчёт и разбор результатов",
-];
-
-const formats = [
-  { kicker: "Когда нужен весь путь", name: "Комплексная подготовка к процедуре" },
-  { kicker: "Когда выявлены конкретные проблемы", name: "Устранение несоответствий" },
-  { kicker: "Когда часть работы команда берёт на себя", name: "Отдельный блок подготовки" },
-];
+import type { SiteLocale } from "../data/homepage";
+type Props = { locale?: SiteLocale };
+const { locale = "ru" } = Astro.props as Props;
+const copy = locale === "en" ? {
+  eyebrow: "First stage", title: "Audit first — then targeted preparation", lead: "We assess the current state and then define the precise scope, timeframe and cost of further work.",
+  badge: "Core format", auditTitle: "Independent readiness audit", auditText: "We review the accreditation scope, management system, records and actual practice remotely and, where necessary, on site.", includedLabel: "Included in the core audit",
+  included: ["Preliminary document review", "Review of actual practice", "Final report and findings review"],
+  offerLabel: "Readiness audit price and timeframe", cost: "Price", from: "from", vat: "+ 22% VAT", duration: "Timeframe", days: "working days", cta: "Discuss the audit scope", context: "Independent readiness audit: scope and price",
+  note: "The format and need for an on-site visit are agreed before work begins. After the audit, you receive a clear view of the current state and may engage Roknord for the complete preparation scope or selected stages.",
+  after: "After the audit", afterTitle: "You know what to do next and what it will cost", afterText: "We develop a plan based on actual risks and agree each subsequent stage separately.", optionsLabel: "Further work options",
+  formats: [
+    { kicker: "When the complete route is required", name: "Comprehensive preparation for the procedure" },
+    { kicker: "When specific issues have been identified", name: "Corrective action for nonconformities" },
+    { kicker: "When your team handles part of the work", name: "A defined preparation workstream" },
+  ],
+} : {
+  eyebrow: "Первый этап", title: "Сначала аудит — затем точная подготовка", lead: "Проверяем текущее состояние, затем определяем точный объём, срок и стоимость дальнейшей работы.",
+  badge: "Базовый формат", auditTitle: "Независимый аудит готовности", auditText: "Проверяем область аккредитации, СМК, записи и фактическую практику — дистанционно и, при необходимости, на площадке.", includedLabel: "Что входит в базовый аудит",
+  included: ["Предварительный анализ документов", "Проверка фактической практики", "Итоговый отчёт и разбор результатов"],
+  offerLabel: "Стоимость и срок аудита готовности", cost: "Стоимость", from: "от", vat: "+ НДС 22%", duration: "Срок", days: "рабочих дней", cta: "Обсудить объём аудита", context: "Независимый аудит готовности: объём и стоимость",
+  note: "Формат и необходимость выезда согласовываем до начала. После аудита вы получаете понятную картину текущего состояния и можете поручить Рокнорд весь дальнейший объём или отдельные этапы.",
+  after: "После аудита", afterTitle: "Понятно, что делать дальше и сколько это стоит", afterText: "Формируем план по фактическим рискам и отдельно согласовываем каждый следующий этап.", optionsLabel: "Варианты дальнейшей работы",
+  formats: [
+    { kicker: "Когда нужен весь путь", name: "Комплексная подготовка к процедуре" },
+    { kicker: "Когда выявлены конкретные проблемы", name: "Устранение несоответствий" },
+    { kicker: "Когда часть работы команда берёт на себя", name: "Отдельный блок подготовки" },
+  ],
+};
 ---
 
 <section id="pricing" class="section section--light formats-section" aria-labelledby="formats-title">
   <div class="section__inner page-container">
     <header class="formats-intro" data-reveal>
-      <p class="section__eyebrow">Первый этап</p>
-      <h2 id="formats-title" class="section__title">Сначала аудит — затем точная подготовка</h2>
-      <p class="section__lead">Проверяем текущее состояние, затем определяем точный объём, срок и стоимость дальнейшей работы.</p>
+      <p class="section__eyebrow">{copy.eyebrow}</p>
+      <h2 id="formats-title" class="section__title">{copy.title}</h2>
+      <p class="section__lead">{copy.lead}</p>
     </header>
 
     <article class="pricing-start" aria-labelledby="pricing-start-title" data-reveal>
       <div class="pricing-start__main">
-        <span class="pricing-start__badge">Базовый формат</span>
-        <h3 id="pricing-start-title">Независимый аудит готовности</h3>
-        <p>Проверяем область аккредитации, СМК, записи и фактическую практику — дистанционно и, при необходимости, на площадке.</p>
+        <span class="pricing-start__badge">{copy.badge}</span>
+        <h3 id="pricing-start-title">{copy.auditTitle}</h3>
+        <p>{copy.auditText}</p>
 
-        <ul class="pricing-start__included" aria-label="Что входит в базовый аудит">
-          {included.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><strong>{item}</strong></li>)}
+        <ul class="pricing-start__included" aria-label={copy.includedLabel}>
+          {copy.included.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><strong>{item}</strong></li>)}
         </ul>
       </div>
 
-      <aside class="pricing-start__offer" aria-label="Стоимость и срок аудита готовности">
+      <aside class="pricing-start__offer" aria-label={copy.offerLabel}>
         <dl class="pricing-start__facts">
           <div>
-            <dt>Стоимость</dt>
-            <dd><span class="pricing-start__from">от</span><strong>100 000 ₽</strong><span>+ НДС 22%</span></dd>
+            <dt>{copy.cost}</dt>
+            <dd><span class="pricing-start__from">{copy.from}</span><strong>100 000 ₽</strong><span>{copy.vat}</span></dd>
           </div>
           <div>
-            <dt>Срок</dt>
-            <dd><strong>5–10</strong><span>рабочих дней</span></dd>
+            <dt>{copy.duration}</dt>
+            <dd><strong>5–10</strong><span>{copy.days}</span></dd>
           </div>
         </dl>
-        <a class="pricing-start__cta cta-angled motion-control" href="#contact" data-contact-context="Независимый аудит готовности: объём и стоимость"><span>Обсудить объём аудита</span><span aria-hidden="true">→</span></a>
+        <a class="pricing-start__cta cta-angled motion-control" href="#contact" data-contact-context={copy.context}><span>{copy.cta}</span><span aria-hidden="true">→</span></a>
       </aside>
 
-      <p class="pricing-start__note">Формат и необходимость выезда согласовываем до начала. После аудита вы получаете понятную картину текущего состояния и можете поручить Рокнорд весь дальнейший объём или отдельные этапы.</p>
+      <p class="pricing-start__note">{copy.note}</p>
     </article>
 
     <div class="formats-after" data-reveal>
       <header>
-        <p>После аудита</p>
-        <h3>Понятно, что делать дальше и сколько это стоит</h3>
-        <span>Формируем план по фактическим рискам и отдельно согласовываем каждый следующий этап.</span>
+        <p>{copy.after}</p>
+        <h3>{copy.afterTitle}</h3>
+        <span>{copy.afterText}</span>
       </header>
 
-      <ol aria-label="Варианты дальнейшей работы">
-        {formats.map((format, index) => (
+      <ol aria-label={copy.optionsLabel}>
+        {copy.formats.map((format, index) => (
           <li>
             <span aria-hidden="true">0{index + 1}</span>
             <div><small>{format.kicker}</small><strong>{format.name}</strong></div>

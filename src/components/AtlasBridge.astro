@@ -1,13 +1,22 @@
+---
+import type { SiteLocale } from "../data/homepage";
+type Props = { locale?: SiteLocale };
+const { locale = "ru" } = Astro.props as Props;
+const copy = locale === "en"
+  ? { eyebrow: "A free Roknord service", title: "Check an organisation in the Rosaccreditation register", text: "Status, key details and a link to the official FSA record. No registration required.", cta: "Open RAL Atlas" }
+  : { eyebrow: "Бесплатный сервис Рокнорд", title: "Проверьте организацию в реестре Росаккредитации", text: "Статус, основные сведения и ссылка на официальную карточку ФСА. Без регистрации.", cta: "Открыть РАЛ Атлас" };
+---
+
 <section class="section section--light atlas-bridge" aria-labelledby="atlas-title">
   <div class="section__inner page-container">
     <div class="atlas-bridge__panel" data-reveal>
       <div class="atlas-bridge__mark" aria-hidden="true">РАЛ</div>
       <div class="atlas-bridge__copy">
-        <p>Бесплатный сервис Рокнорд</p>
-        <h2 id="atlas-title">Проверьте организацию в реестре Росаккредитации</h2>
-        <span>Статус, основные сведения и ссылка на официальную карточку ФСА. Без регистрации.</span>
+        <p>{copy.eyebrow}</p>
+        <h2 id="atlas-title">{copy.title}</h2>
+        <span>{copy.text}</span>
       </div>
-      <a class="atlas-bridge__cta cta-angled motion-control" href="https://atlas.roknord.ru/">Открыть РАЛ Атлас <span aria-hidden="true">→</span></a>
+      <a class="atlas-bridge__cta cta-angled motion-control" href="https://atlas.roknord.ru/">{copy.cta} <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>

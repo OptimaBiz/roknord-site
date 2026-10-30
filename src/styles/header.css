@@ -960,3 +960,4 @@
     color: var(--color-mint-action);
   }
 }
+.language-switch{display:flex;align-items:center;gap:.35rem;margin-left:auto;font-size:var(--font-size-2xs);font-weight:var(--font-weight-bold);letter-spacing:.08em}.language-switch a{padding:.25rem .35rem;color:var(--lrqa-border-soft);text-decoration:none;border-bottom:1px solid transparent}.language-switch a:hover,.language-switch a:focus-visible,.language-switch a[aria-current="page"]{color:var(--color-mint-action);border-bottom-color:currentColor}

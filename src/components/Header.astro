@@ -1,53 +1,72 @@
 ---
 import MobileMenu from "./MobileMenu.astro";
 import { audienceGroups, sectionLinks, serviceGroups, serviceLinks, utilityLinks } from "../data/siteNavigation";
+import type { SiteLocale } from "../data/homepage";
+type Props = { locale?: SiteLocale };
+const { locale = "ru" } = Astro.props as Props;
+const en = locale === "en";
+const homeHref = en ? "/en/" : "/";
+const contactHref = en ? "/en/#contact" : "/#contact";
+const labels = en ? {
+  serviceNav: "Utility navigation", utilityLinks: "Utility links", account: "Client portal", cta: "Discuss your needs", slogan: "Complex procedures. Thorough preparation.", home: "ROKNORD. Home page", mainNav: "Main navigation", services: "Services", audiences: "Who we help", audienceHint: "Select your role to see relevant tasks and preparation options.", sector: "Sector focus",
+} : {
+  serviceNav: "Служебная навигация", utilityLinks: "Служебные ссылки", account: "Личный кабинет", cta: "Разобрать задачу", slogan: "Сложные процедуры. Твёрдая подготовка.", home: "РОКНОРД. Сложные процедуры. Твёрдая подготовка. На главную страницу", mainNav: "Основная навигация", services: "Услуги", audiences: "Кому помогаем", audienceHint: "Выберите вашу роль — покажем релевантные задачи и формат подготовки.", sector: "Отраслевой фокус",
+};
+const englishLabels: Record<string, string> = {
+  "О компании": "About", "Личный кабинет": "Client portal", "Карьера": "Careers", "Сотрудничество": "Partnerships", "Контакты": "Contacts", "Новости": "News", "РАЛ-Атлас": "RAL Atlas",
+  "Росаккредитация (ФСА)": "Rosaccreditation (FSA)", "Охрана труда": "Occupational safety", "Услуги по 152-ФЗ": "Personal data compliance",
+  "Подготовка к подтверждению компетентности": "Competence confirmation preparation", "Аудит и актуализация области аккредитации": "Accreditation scope audit and update", "Корректирующие действия после несоответствий": "Corrective action after nonconformities", "Подготовка к первичной аккредитации": "Initial accreditation preparation", "Специальные направления": "Specialist services",
+  "Аккредитованным лицам": "Accredited bodies", "Лаборатории и органы оценки соответствия": "Laboratories and conformity assessment bodies", "Бизнесу и работодателям": "Businesses and employers", "Обязательные требования вне системы аккредитации": "Mandatory requirements outside accreditation", "Испытательным лабораториям": "Testing laboratories", "Медицинским лабораториям": "Medical laboratories", "Органам по сертификации систем менеджмента": "Management system certification bodies", "Органам по сертификации продукции": "Product certification bodies", "Органам инспекции": "Inspection bodies", "Калибровочным лабораториям": "Calibration laboratories", "Провайдерам МСИ": "Proficiency testing providers", "Органам по сертификации халяль": "Halal certification bodies", "Строительство": "Construction", "Промышленность": "Industry",
+};
+const tr = (value: string) => en ? (englishLabels[value] || value) : value;
 ---
 
-<header class="header">
-  <div class="header-service" aria-label="Служебная навигация">
+<header class="header" data-menu-open={en ? "Open menu" : "Открыть меню"} data-menu-close={en ? "Close menu" : "Закрыть меню"} data-menu-label={en ? "Menu" : "Меню"} data-close-label={en ? "Close" : "Закрыть"}>
+  <div class="header-service" aria-label={labels.serviceNav}>
     <div class="topbar__inner header-service-inner page-container">
-      <nav class="utility-nav" aria-label="Служебные ссылки">
-        {[...utilityLinks, ...sectionLinks].map((item) => <a class:list={{ 'utility-nav__atlas': item.href === 'https://atlas.roknord.ru/' }} href={item.href} aria-current={Astro.url.pathname === item.href ? 'page' : undefined}>{item.label}</a>)}
+      <nav class="utility-nav" aria-label={labels.utilityLinks}>
+        {[...utilityLinks, ...sectionLinks].map((item) => <a class:list={{ 'utility-nav__atlas': item.href === 'https://atlas.roknord.ru/' }} href={item.href} aria-current={Astro.url.pathname === item.href ? 'page' : undefined}>{tr(item.label)}</a>)}
       </nav>
       <a class="service-phone" href="tel:+78123898178">+7(812)38-98-178</a>
       <a class="service-account service-account--mobile" href="/account/">
-        <img class="service-account__icon" src="/icons/account_icon_1.svg" alt="" width="200" height="200" aria-hidden="true" decoding="async" /><span>Личный кабинет</span>
+        <img class="service-account__icon" src="/icons/account_icon_1.svg" alt="" width="200" height="200" aria-hidden="true" decoding="async" /><span>{labels.account}</span>
       </a>
-      <a class="service-cta cta-angled motion-control" href="/#contact">Разобрать задачу</a>
-      <a class="service-cta service-cta--mobile motion-control" href="/#contact">Разобрать задачу</a>
+      <div class="language-switch" aria-label={en ? "Language" : "Язык"}><a href="/" data-language-link="ru" lang="ru" aria-current={!en ? "page" : undefined}>RU</a><a href="/en/" data-language-link="en" lang="en" aria-current={en ? "page" : undefined}>EN</a></div>
+      <a class="service-cta cta-angled motion-control" href={contactHref}>{labels.cta}</a>
+      <a class="service-cta service-cta--mobile motion-control" href={contactHref}>{labels.cta}</a>
     </div>
   </div>
 
   <div class="header__inner header-inner page-container">
     <div class="header-primary">
-      <a class="brand" href="/" aria-label="РОКНОРД. Сложные процедуры. Твёрдая подготовка. На главную страницу" title="ООО «РОКНОРД»">
+      <a class="brand" href={homeHref} aria-label={labels.home} title="ООО «РОКНОРД»">
         <img class="brand-logo" src="/images/brand/roknord-logo-transparent.png" width="2115" height="316" alt="РОКНОРД" decoding="async" />
-        <span class="brand-slogan">Сложные процедуры. Твёрдая подготовка.</span>
+        <span class="brand-slogan">{labels.slogan}</span>
       </a>
-      <nav class="site-nav" aria-label="Основная навигация">
+      <nav class="site-nav" aria-label={labels.mainNav}>
         <details class="nav-dropdown">
-          <summary aria-controls="services-panel" aria-expanded="false">Услуги</summary>
-          <div class="nav-dropdown-panel" id="services-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">Услуги</p><div class="nav-dropdown-service-groups">{serviceGroups.map((group) => group.links.length ? <details class="nav-dropdown-service-group"><summary>{group.label}</summary><div class="nav-dropdown-list">{group.links.map((item) => <a href={item.href}>{item.label}</a>)}</div></details> : <a class="nav-dropdown-service-link" href={group.href}>{group.label}</a>)}</div></div></div>
+          <summary aria-controls="services-panel" aria-expanded="false">{labels.services}</summary>
+          <div class="nav-dropdown-panel" id="services-panel"><div class="container nav-dropdown-inner"><p class="nav-dropdown-title">{labels.services}</p><div class="nav-dropdown-service-groups">{serviceGroups.map((group) => group.links.length ? <details class="nav-dropdown-service-group"><summary>{tr(group.label)}</summary><div class="nav-dropdown-list">{group.links.map((item) => <a href={item.href}>{tr(item.label)}</a>)}</div></details> : <a class="nav-dropdown-service-link" href={group.href}>{tr(group.label)}</a>)}</div></div></div>
         </details>
         <details class="nav-dropdown">
-          <summary aria-controls="audiences-panel" aria-expanded="false">Кому помогаем</summary>
+          <summary aria-controls="audiences-panel" aria-expanded="false">{labels.audiences}</summary>
           <div class="nav-dropdown-panel" id="audiences-panel">
             <div class="container nav-dropdown-inner nav-dropdown-inner--audiences">
               <div class="nav-dropdown-heading">
-                <p class="nav-dropdown-title">Кому помогаем</p>
-                <p>Выберите вашу роль — покажем релевантные задачи и формат подготовки.</p>
+                <p class="nav-dropdown-title">{labels.audiences}</p>
+                <p>{labels.audienceHint}</p>
               </div>
               <div class="nav-audience-groups">
                 {audienceGroups.map((group, index) => (
                   <section class="nav-audience-group" aria-labelledby={`audience-group-${index}`}>
                     <div class="nav-audience-group__heading">
-                      <h2 id={`audience-group-${index}`}>{group.label}</h2>
-                      <p>{group.description}</p>
+                      <h2 id={`audience-group-${index}`}>{tr(group.label)}</h2>
+                      <p>{tr(group.description)}</p>
                     </div>
                     <div class="nav-audience-group__links">
-                      {group.links.map(item => <a href={item.href}>{item.label}<span aria-hidden="true">→</span></a>)}
+                      {group.links.map(item => <a href={item.href}>{tr(item.label)}<span aria-hidden="true">→</span></a>)}
                     </div>
-                    {group.sectors.length > 0 && <div class="nav-audience-sectors"><span>Отраслевой фокус</span>{group.sectors.map(sector => <strong>{sector}</strong>)}</div>}
+                    {group.sectors.length > 0 && <div class="nav-audience-sectors"><span>{labels.sector}</span>{group.sectors.map(sector => <strong>{tr(sector)}</strong>)}</div>}
                   </section>
                 ))}
               </div>
@@ -55,7 +74,7 @@ import { audienceGroups, sectionLinks, serviceGroups, serviceLinks, utilityLinks
           </div>
         </details>
       </nav>
-      <MobileMenu serviceLinks={serviceLinks} sectionLinks={sectionLinks} utilityLinks={utilityLinks} />
+      <MobileMenu serviceLinks={serviceLinks} sectionLinks={sectionLinks} utilityLinks={utilityLinks} locale={locale} />
     </div>
   </div>
 
@@ -85,8 +104,8 @@ import { audienceGroups, sectionLinks, serviceGroups, serviceLinks, utilityLinks
       const syncMobileState = () => {
         syncExpandedState(mobileMenu);
         const trigger = mobileMenu.querySelector(':scope > summary');
-        trigger.setAttribute('aria-label', mobileMenu.open ? 'Закрыть меню' : 'Открыть меню');
-        trigger.querySelector('.mobile-menu__label').textContent = mobileMenu.open ? 'Закрыть' : 'Меню';
+        trigger.setAttribute('aria-label', mobileMenu.open ? headerRoot.dataset.menuClose : headerRoot.dataset.menuOpen);
+        trigger.querySelector('.mobile-menu__label').textContent = mobileMenu.open ? headerRoot.dataset.closeLabel : headerRoot.dataset.menuLabel;
         if (mobileMenu.open && !menuLocked) {
           savedScrollY = window.scrollY;
           document.body.style.setProperty('--mobile-menu-scroll-offset', -savedScrollY + 'px');

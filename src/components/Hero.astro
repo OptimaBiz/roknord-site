@@ -1,11 +1,10 @@
 ---
 import HeroMedia from "./HeroMedia.astro";
+import { homepageContent, type SiteLocale } from "../data/homepage";
 
-const principles = [
-  { title: "До процедуры", text: "Риски видны заранее" },
-  { title: "По приоритетам", text: "Понятно, с чего начать" },
-  { title: "По доказательствам", text: "Каждый вывод обоснован" },
-];
+type Props = { locale?: SiteLocale };
+const { locale = "ru" } = Astro.props as Props;
+const content = homepageContent[locale].hero;
 ---
 
 <section id="top" class="hero hero--editorial">
@@ -21,19 +20,19 @@ const principles = [
   <div class="hero-editorial__veil" aria-hidden="true"></div>
   <div class="hero__inner hero-editorial page-container">
     <div class="hero-editorial__copy" data-hero-intro>
-      <p class="hero-editorial__eyebrow">Независимый аудит</p>
-      <h1 class="hero-editorial__title">Проверьте себя до экспертизы ФСА</h1>
+      <p class="hero-editorial__eyebrow">{content.eyebrow}</p>
+      <h1 class="hero-editorial__title">{content.title}</h1>
       <p class="hero-editorial__lead">
-        Проверим СМК, структуру документов и реальную работу до официальной процедуры.<br />
-        Вы увидите, какие исправления внести в первую очередь.
+        {content.lead[0]}<br />
+        {content.lead[1]}
       </p>
       <div class="hero-editorial__actions">
-        <a class="hero-editorial__primary hero-action--primary cta-angled motion-control" href="#contact"><span>Обсудить вашу ситуацию</span><span aria-hidden="true">→</span></a>
-        <a class="hero-editorial__secondary" href="#result">Что получите по итогам <span aria-hidden="true">↓</span></a>
-        <button class="hero-editorial__video" type="button" data-video-toggle aria-controls="hero-background-video" aria-pressed="false">Включить видео</button>
+        <a class="hero-editorial__primary hero-action--primary cta-angled motion-control" href="#contact"><span>{content.primary}</span><span aria-hidden="true">→</span></a>
+        <a class="hero-editorial__secondary" href="#result">{content.secondary} <span aria-hidden="true">↓</span></a>
+        <button class="hero-editorial__video" type="button" data-video-toggle data-play-label={content.video} data-pause-label={locale === "en" ? "Pause video" : "Приостановить видео"} aria-controls="hero-background-video" aria-pressed="false">{content.video}</button>
       </div>
-      <ul class="hero-editorial__principles" aria-label="Принципы аудита">
-        {principles.map((item) => <li><strong>{item.title}</strong><span>{item.text}</span></li>)}
+      <ul class="hero-editorial__principles" aria-label={content.principlesLabel}>
+        {content.principles.map((item) => <li><strong>{item.title}</strong><span>{item.text}</span></li>)}
       </ul>
     </div>
 

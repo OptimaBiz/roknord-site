@@ -78,7 +78,7 @@ const hasVideo = Boolean(desktopSrc);
       var toggle;
       function updateControl() {
         if (!toggle) return;
-        toggle.textContent = video.paused ? 'Включить видео' : 'Приостановить видео';
+        toggle.textContent = video.paused ? (toggle.dataset.playLabel || 'Включить видео') : (toggle.dataset.pauseLabel || 'Приостановить видео');
         toggle.setAttribute('aria-pressed', video.paused ? 'false' : 'true');
       }
 

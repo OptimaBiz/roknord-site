@@ -1,62 +1,67 @@
 ---
 import { audienceGroups, type NavItem } from '../data/siteNavigation';
-type Props = { serviceLinks: NavItem[]; sectionLinks: NavItem[]; utilityLinks: NavItem[] };
-const { serviceLinks, sectionLinks, utilityLinks } = Astro.props;
+import type { SiteLocale } from '../data/homepage';
+type Props = { serviceLinks: NavItem[]; sectionLinks: NavItem[]; utilityLinks: NavItem[]; locale?: SiteLocale };
+const { serviceLinks, sectionLinks, utilityLinks, locale = 'ru' } = Astro.props;
+const en = locale === 'en';
+const dictionary: Record<string, string> = { 'Личный кабинет':'Client portal','Новости':'News','РАЛ-Атлас':'RAL Atlas','О компании':'About','Карьера':'Careers','Сотрудничество':'Partnerships','Контакты':'Contacts','Подготовка к подтверждению компетентности':'Competence confirmation preparation','Аудит и актуализация области аккредитации':'Accreditation scope audit and update','Корректирующие действия после несоответствий':'Corrective action after nonconformities','Подготовка к первичной аккредитации':'Initial accreditation preparation','Специальные направления':'Specialist services','Испытательным лабораториям':'Testing laboratories','Медицинским лабораториям':'Medical laboratories','Органам по сертификации систем менеджмента':'Management system certification bodies','Органам по сертификации продукции':'Product certification bodies','Органам инспекции':'Inspection bodies','Калибровочным лабораториям':'Calibration laboratories','Провайдерам МСИ':'Proficiency testing providers','Органам по сертификации халяль':'Halal certification bodies','Аккредитованным лицам':'Accredited bodies','Лаборатории и органы оценки соответствия':'Laboratories and conformity assessment bodies','Бизнесу и работодателям':'Businesses and employers','Обязательные требования вне системы аккредитации':'Mandatory requirements outside accreditation','Охрана труда':'Occupational safety','Персональные данные и 152-ФЗ':'Personal data compliance','Строительство':'Construction','Промышленность':'Industry' };
+const tr = (value: string) => en ? (dictionary[value] || value) : value;
+const labels = en ? { open:'Open menu', menu:'Menu', accountNote:'Contract, documents and work status', nav:'Mobile navigation', services:'Services', servicesNote:'Audit, preparation and corrective action', safety:'Occupational safety', personal:'Personal data compliance', audiences:'Who we help', audiencesNote:'Select your organisation type', sectors:'Sectors:', company:'Company', contacts:'Contacts', cta:'Discuss your needs' } : { open:'Открыть меню', menu:'Меню', accountNote:'Договор, документы и ход работ', nav:'Мобильное меню', services:'Услуги', servicesNote:'Аудит, подготовка и корректирующие действия', safety:'Охрана труда', personal:'Услуги по 152-ФЗ', audiences:'Кому помогаем', audiencesNote:'Выберите направление вашей организации', sectors:'Отрасли:', company:'Компания', contacts:'Контакты', cta:'Разобрать задачу' };
 const current = (href: string) => Astro.url.pathname === href ? 'page' as const : undefined;
 const companyLinks = utilityLinks.filter(item => !['/account/', '/contacts/'].includes(item.href));
 ---
 
 <details class="mobile-menu">
-  <summary aria-label="Открыть меню" aria-controls="mobile-drawer" aria-expanded="false">
+  <summary aria-label={labels.open} aria-controls="mobile-drawer" aria-expanded="false">
     <span class="mobile-menu__icon" aria-hidden="true"><span></span><span></span><span></span></span>
-    <span class="mobile-menu__label">Меню</span>
+    <span class="mobile-menu__label">{labels.menu}</span>
   </summary>
   <div class="mobile-menu-panel" id="mobile-drawer">
     <div class="mobile-menu-content">
       <a class="mobile-menu-account" href="/account/" aria-current={current('/account/')}>
-        <span><strong>Личный кабинет</strong><small>Договор, документы и ход работ</small></span>
+        <span><strong>{tr('Личный кабинет')}</strong><small>{labels.accountNote}</small></span>
         <span class="mobile-menu-arrow--external" aria-hidden="true">→</span>
       </a>
-      <nav aria-label="Мобильное меню">
+      <nav aria-label={labels.nav}>
         <div class="mobile-menu-resources">
-          {sectionLinks.map(item => <a class:list={{ 'mobile-menu-resource--atlas': item.href === 'https://atlas.roknord.ru/' }} href={item.href} aria-current={current(item.href)}>{item.label}<span class:list={[{ 'mobile-menu-arrow--external': item.href.startsWith('https:') }]} aria-hidden="true">→</span></a>)}
+          {sectionLinks.map(item => <a class:list={{ 'mobile-menu-resource--atlas': item.href === 'https://atlas.roknord.ru/' }} href={item.href} aria-current={current(item.href)}>{tr(item.label)}<span class:list={[{ 'mobile-menu-arrow--external': item.href.startsWith('https:') }]} aria-hidden="true">→</span></a>)}
         </div>
         <details class="mobile-menu-group">
-          <summary aria-controls="mobile-services"><span>Услуги<small>Аудит, подготовка и корректирующие действия</small></span></summary>
+          <summary aria-controls="mobile-services"><span>{labels.services}<small>{labels.servicesNote}</small></span></summary>
           <div class="mobile-menu-group__links" id="mobile-services">
-            {serviceLinks.map(item => <a href={item.href} aria-current={current(item.href)}>{item.label}<span aria-hidden="true">→</span></a>)}
+            {serviceLinks.map(item => <a href={item.href} aria-current={current(item.href)}>{tr(item.label)}<span aria-hidden="true">→</span></a>)}
             <div class="mobile-menu-specialties">
-              <a href="/occupational-safety/" aria-current={current('/occupational-safety/')}>Охрана труда<span aria-hidden="true">→</span></a>
-              <a href="/152-fz/" aria-current={current('/152-fz/')}>Услуги по 152-ФЗ<span aria-hidden="true">→</span></a>
+              <a href="/occupational-safety/" aria-current={current('/occupational-safety/')}>{labels.safety}<span aria-hidden="true">→</span></a>
+              <a href="/152-fz/" aria-current={current('/152-fz/')}>{labels.personal}<span aria-hidden="true">→</span></a>
             </div>
           </div>
         </details>
         <details class="mobile-menu-group">
-          <summary aria-controls="mobile-audiences"><span>Кому помогаем<small>Выберите направление вашей организации</small></span></summary>
+          <summary aria-controls="mobile-audiences"><span>{labels.audiences}<small>{labels.audiencesNote}</small></span></summary>
           <div class="mobile-menu-group__links mobile-audience-groups" id="mobile-audiences">
             {audienceGroups.map(group => (
               <section class="mobile-audience-group">
                 <div class="mobile-audience-group__heading">
-                  <strong>{group.label}</strong>
-                  <small>{group.description}</small>
+                  <strong>{tr(group.label)}</strong>
+                  <small>{tr(group.description)}</small>
                 </div>
-                {group.links.map(item => <a href={item.href} aria-current={current(item.href)}>{item.label}<span aria-hidden="true">→</span></a>)}
-                {group.sectors.length > 0 && <p class="mobile-audience-sectors"><span>Отрасли:</span> {group.sectors.join(' · ')}</p>}
+                {group.links.map(item => <a href={item.href} aria-current={current(item.href)}>{tr(item.label)}<span aria-hidden="true">→</span></a>)}
+                {group.sectors.length > 0 && <p class="mobile-audience-sectors"><span>{labels.sectors}</span> {group.sectors.map(tr).join(' · ')}</p>}
               </section>
             ))}
           </div>
         </details>
-        <div class="mobile-menu-company" aria-label="Компания">
-          {companyLinks.map(item => <a href={item.href} aria-current={current(item.href)}>{item.label}{item.href.startsWith('mailto:') && <span class="mobile-menu-link-note">Написать на почту</span>}</a>)}
+        <div class="mobile-menu-company" aria-label={labels.company}>
+          {companyLinks.map(item => <a href={item.href} aria-current={current(item.href)}>{tr(item.label)}{item.href.startsWith('mailto:') && <span class="mobile-menu-link-note">{en ? 'Send an email' : 'Написать на почту'}</span>}</a>)}
         </div>
       </nav>
     </div>
     <div class="mobile-menu-actions">
       <div class="mobile-menu-contact">
         <a href="tel:+78123898178">+7 (812) 389-81-78</a>
-        <a href="/contacts/" aria-current={current('/contacts/')}>Контакты <span aria-hidden="true">→</span></a>
+        <a href="/contacts/" aria-current={current('/contacts/')}>{labels.contacts} <span aria-hidden="true">→</span></a>
       </div>
-      <a class="service-cta cta-angled mobile-menu-cta motion-control" href="/#contact">Разобрать задачу <span aria-hidden="true">→</span></a>
+      <a class="service-cta cta-angled mobile-menu-cta motion-control" href={en ? '/en/#contact' : '/#contact'}>{labels.cta} <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </details>

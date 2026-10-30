@@ -1,5 +1,14 @@
 ---
-const faq = [
+import type { SiteLocale } from "../data/homepage";
+type Props = { locale?: SiteLocale };
+const { locale = "ru" } = Astro.props as Props;
+const faq = locale === "en" ? [
+  { question: "Why does the work start with an audit?", answer: "The audit establishes the actual state before any further scope is proposed. It identifies risks, priorities and the preparation work that is genuinely required." },
+  { question: "What happens after the audit?", answer: "You receive findings, a gap register and an action plan. We then agree the scope, timeframe and cost of further preparation, either comprehensively or by individual workstream." },
+  { question: "Can Roknord handle the complete preparation?", answer: "Yes. Following the audit, we can undertake comprehensive preparation for initial accreditation or competence confirmation, including work on the scope, management system, evidence and corrective actions." },
+  { question: "How long does the work take?", answer: "A core audit normally takes 5–10 working days. The timeframe for further preparation depends on the organisation’s current state and is defined after the findings review." },
+  { question: "Who decides on accreditation or competence confirmation?", answer: "Rosaccreditation makes the decision under the established procedure. Roknord independently assesses readiness and supports the agreed preparation scope." },
+] : [
   {
     question: "Почему работа начинается с аудита?",
     answer: "Чтобы сначала увидеть фактическое состояние и не предлагать лишний объём. Аудит показывает риски, приоритеты и реальные задачи подготовки.",
@@ -21,17 +30,18 @@ const faq = [
     answer: "Решение принимает Росаккредитация в установленном порядке. Рокнорд независимо проверяет готовность и помогает выполнить согласованный объём подготовки.",
   },
 ];
+const heading = locale === "en" ? { eyebrow: "Frequently asked questions", title: "Frequently asked questions about working with Roknord", label: "Questions and answers" } : { eyebrow: "Частые вопросы", title: "Частые вопросы о работе с Рокнорд", label: "Вопросы и ответы" };
 ---
 
 <section id="faq" class="section section--light">
   <div class="section__inner page-container">
     <div class="faq-shell">
       <div class="section-stack faq-intro" data-reveal>
-        <p class="section__eyebrow">Частые вопросы</p>
-        <h2 class="section__title">Частые вопросы о работе с Рокнорд</h2>
+        <p class="section__eyebrow">{heading.eyebrow}</p>
+        <h2 class="section__title">{heading.title}</h2>
       </div>
 
-      <div class="faq-list" aria-label="Вопросы и ответы" data-reveal>
+      <div class="faq-list" aria-label={heading.label} data-reveal>
         {faq.map((item) => (
           <details class="faq-item">
             <summary class="faq-question">{item.question}</summary>

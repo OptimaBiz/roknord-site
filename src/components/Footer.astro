@@ -1,47 +1,52 @@
 ---
 import { serviceGroups } from "../data/siteNavigation";
-const { showCookieSettings = true } = Astro.props;
+import type { SiteLocale } from "../data/homepage";
+const { showCookieSettings = true, locale = "ru" } = Astro.props as { showCookieSettings?: boolean; locale?: SiteLocale };
+const en = locale === "en";
+const copy = en ? { home:'Roknord home page', slogan:'Complex procedures. Thorough preparation.', tagline:'We begin with an independent audit and support further preparation for accreditation and competence confirmation.', company:'ROKNORD LLC', details:'Company details', work:'Work with us', portal:'Client portal', news:'News', materials:'Resources', about:'About', mission:'Mission, vision and values', careers:'Careers', partnerships:'Partnerships', services:'Services', contactsDocs:'Contacts and documents', contacts:'Contacts', documents:'Documents', privacy:'Personal data processing policy', consent:'Personal data processing consent', cookies:'Cookie settings', bottom:'© 2026 ROKNORD LLC · Saint Petersburg, Russia' } : { home:'Рокнорд, на главную страницу', slogan:'Сложные процедуры. Твёрдая подготовка.', tagline:'Начинаем с независимого аудита и ведём дальнейшую подготовку к аккредитации и подтверждению компетентности.', company:'ООО «РОКНОРД»', details:'Реквизиты', work:'Работа с нами', portal:'Личный кабинет', news:'Новости', materials:'Материалы', about:'О компании', mission:'Миссия, видение и ценности', careers:'Карьера', partnerships:'Сотрудничество', services:'Услуги', contactsDocs:'Контакты и документы', contacts:'Контакты', documents:'Документы', privacy:'Политика обработки ПД', consent:'Согласие на обработку ПД', cookies:'Настройки cookie', bottom:'© 2026 ООО «РОКНОРД» Санкт-Петербург, Россия' };
+const dictionary: Record<string,string> = { 'Росаккредитация (ФСА)':'Rosaccreditation (FSA)','Охрана труда':'Occupational safety','Услуги по 152-ФЗ':'Personal data compliance','Подготовка к подтверждению компетентности':'Competence confirmation preparation','Аудит и актуализация области аккредитации':'Accreditation scope audit and update','Корректирующие действия после несоответствий':'Corrective action after nonconformities','Подготовка к первичной аккредитации':'Initial accreditation preparation','Специальные направления':'Specialist services' };
+const tr = (value:string) => en ? (dictionary[value] || value) : value;
 ---
 
 <footer class="footer">
   <div class="footer__columns page-container">
     <section class="footer__col footer__col--brand" aria-labelledby="footer-brand-title">
       <h2 class="footer__heading footer__heading--brand" id="footer-brand-title">
-        <a class="footer__logo-link" href="/" aria-label="Рокнорд, на главную страницу">
+        <a class="footer__logo-link" href={en ? "/en/" : "/"} aria-label={copy.home}>
           <img class="footer__logo" src="/images/brand/roknord-logo-transparent.png" width="2115" height="316" alt="РОКНОРД" decoding="async" />
         </a>
       </h2>
-      <p class="footer__brand-slogan">Сложные процедуры. Твёрдая подготовка.</p>
-      <p class="footer__tagline">Начинаем с независимого аудита и ведём дальнейшую подготовку к аккредитации и подтверждению компетентности.</p>
+      <p class="footer__brand-slogan">{copy.slogan}</p>
+      <p class="footer__tagline">{copy.tagline}</p>
       <address class="footer__requisites">
-        <a href="/company/"><strong>ООО «РОКНОРД»</strong></a>
+        <a href="/company/"><strong>{copy.company}</strong></a>
         <a href="/requisites/">ИНН 7807406530</a>
-        <a href="/requisites/">Реквизиты <span aria-hidden="true">→</span></a>
+        <a href="/requisites/">{copy.details} <span aria-hidden="true">→</span></a>
       </address>
     </section>
 
     <section class="footer__col footer__col--nav" aria-labelledby="footer-work-title">
-      <h2 class="footer__heading" id="footer-work-title">Работа с нами</h2>
-      <nav class="footer__nav" aria-label="Работа с нами">
-        <a class="footer__nav-link" href="/account/">Личный кабинет</a>
-        <a class="footer__nav-link" href="/news/">Новости</a>
-        <a class="footer__nav-link" href="/materials/">Материалы</a>
-        <a class="footer__nav-link" href="/company/">О компании</a>
-        <a class="footer__nav-link" href="/company/mission/">Миссия, видение и ценности</a>
-        <a class="footer__nav-link" href="mailto:hello@roknord.ru?subject=Карьера%20в%20Рокнорд">Карьера</a>
-        <a class="footer__nav-link" href="mailto:hello@roknord.ru?subject=Сотрудничество%20с%20Рокнорд">Сотрудничество</a>
+      <h2 class="footer__heading" id="footer-work-title">{copy.work}</h2>
+      <nav class="footer__nav" aria-label={copy.work}>
+        <a class="footer__nav-link" href="/account/">{copy.portal}</a>
+        <a class="footer__nav-link" href="/news/">{copy.news}</a>
+        <a class="footer__nav-link" href="/materials/">{copy.materials}</a>
+        <a class="footer__nav-link" href="/company/">{copy.about}</a>
+        <a class="footer__nav-link" href="/company/mission/">{copy.mission}</a>
+        <a class="footer__nav-link" href={en ? "mailto:hello@roknord.ru?subject=Career%20at%20Roknord" : "mailto:hello@roknord.ru?subject=Карьера%20в%20Рокнорд"}>{copy.careers}</a>
+        <a class="footer__nav-link" href={en ? "mailto:hello@roknord.ru?subject=Partnership%20with%20Roknord" : "mailto:hello@roknord.ru?subject=Сотрудничество%20с%20Рокнорд"}>{copy.partnerships}</a>
         <details class="footer__services">
-          <summary>Услуги</summary>
+          <summary>{copy.services}</summary>
           <div class="footer__services-panel">
             {serviceGroups.map((group) => group.links.length ? (
-              <section class="footer__service-group" aria-label={group.label}>
-                <p>{group.label}</p>
+              <section class="footer__service-group" aria-label={tr(group.label)}>
+                <p>{tr(group.label)}</p>
                 <div>
-                  {group.links.map((item) => <a class="footer__service-link" href={item.href}>{item.label}</a>)}
+                  {group.links.map((item) => <a class="footer__service-link" href={item.href}>{tr(item.label)}</a>)}
                 </div>
               </section>
             ) : (
-              <a class="footer__service-link footer__service-link--group" href={group.href}>{group.label}</a>
+              <a class="footer__service-link footer__service-link--group" href={group.href}>{tr(group.label)}</a>
             ))}
           </div>
         </details>
@@ -49,21 +54,21 @@ const { showCookieSettings = true } = Astro.props;
     </section>
 
     <section class="footer__col footer__col--nav" aria-labelledby="footer-contact-title">
-      <h2 class="footer__heading" id="footer-contact-title">Контакты и документы</h2>
+      <h2 class="footer__heading" id="footer-contact-title">{copy.contactsDocs}</h2>
       <address class="footer__contacts">
-        <a class="footer__nav-link" href="/contacts/">Контакты</a>
+        <a class="footer__nav-link" href="/contacts/">{copy.contacts}</a>
         <a class="footer__nav-link" href="tel:+78123898178">+7(812)38-98-178</a>
         <a class="footer__nav-link" href="mailto:hello@roknord.ru">hello@roknord.ru</a>
       </address>
-      <nav class="footer__nav footer__nav--legal" aria-label="Документы">
-        <a class="footer__nav-link" href="/privacy-policy/">Политика обработки ПД</a>
-        <a class="footer__nav-link" href="/personal-data-consent/">Согласие на обработку ПД</a>
-        {showCookieSettings && <button class="footer__nav-link footer__nav-button" type="button" data-cookie-settings>Настройки cookie</button>}
+      <nav class="footer__nav footer__nav--legal" aria-label={copy.documents}>
+        <a class="footer__nav-link" href="/privacy-policy/">{copy.privacy}</a>
+        <a class="footer__nav-link" href="/personal-data-consent/">{copy.consent}</a>
+        {showCookieSettings && <button class="footer__nav-link footer__nav-button" type="button" data-cookie-settings>{copy.cookies}</button>}
       </nav>
     </section>
   </div>
 
-  <div class="footer__bottom page-container">© 2026 ООО «РОКНОРД» Санкт-Петербург, Россия</div>
+  <div class="footer__bottom page-container">{copy.bottom}</div>
 </footer>
 
 <style>

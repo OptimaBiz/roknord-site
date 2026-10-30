@@ -1,29 +1,27 @@
 ---
-const outcomes = [
-  { title: "Что уже готово", text: "Отделяем рабочие элементы системы от того, что требует внимания." },
-  { title: "Где возникает риск", text: "Показываем расхождения между требованиями, документами, записями и практикой." },
-  { title: "Чем он подтверждён", text: "Каждый вывод связываем с требованием и доступными доказательствами." },
-  { title: "Что делать дальше", text: "Расставляем действия по приоритету, чтобы команда не исправляла всё подряд." },
-];
+import { homepageContent, type SiteLocale } from "../data/homepage";
+type Props = { locale?: SiteLocale };
+const { locale = "ru" } = Astro.props as Props;
+const content = homepageContent[locale].outcome;
 ---
 
 <section id="result" class="section section--grey audit-outcome" aria-labelledby="outcome-title">
   <div class="section__inner page-container">
     <header class="audit-outcome__intro" data-reveal>
-      <p class="section__eyebrow">Результат аудита</p>
-      <h2 id="outcome-title" class="section__title">После проверки у вас остаётся ясный план, а не ещё одна папка документов</h2>
-      <p class="section__lead">Итоговый материал помогает принять решение: что исправить своими силами, где нужна экспертная помощь и к чему можно не возвращаться.</p>
+      <p class="section__eyebrow">{content.eyebrow}</p>
+      <h2 id="outcome-title" class="section__title">{content.title}</h2>
+      <p class="section__lead">{content.lead}</p>
     </header>
 
     <ol class="audit-outcome__list" data-reveal>
-      {outcomes.map((item, index) => (
+      {content.items.map((item, index) => (
         <li><span>0{index + 1}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></li>
       ))}
     </ol>
 
     <div class="audit-outcome__bottom" data-reveal>
-      <p><span>Главный итог</span><strong>Руководитель понимает реальное состояние готовности и последовательность следующих шагов.</strong></p>
-      <a href="#contact" data-contact-context="Аудит готовности: результат и состав отчёта">Уточнить состав результата <span aria-hidden="true">→</span></a>
+      <p><span>{content.resultLabel}</span><strong>{content.result}</strong></p>
+      <a href="#contact" data-contact-context={content.context}>{content.cta} <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>

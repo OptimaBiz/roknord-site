@@ -1,12 +1,17 @@
-<aside class="cookie-panel" data-cookie-panel hidden aria-label="Настройки файлов cookie" aria-live="polite">
+---
+import type { SiteLocale } from "../data/homepage";
+const { locale = "ru" } = Astro.props as { locale?: SiteLocale };
+const en = locale === "en";
+---
+<aside class="cookie-panel" data-cookie-panel hidden aria-label={en ? "Cookie settings" : "Настройки файлов cookie"} aria-live="polite" data-accepted={en ? "Current choice: analytics enabled." : "Текущий выбор: аналитика разрешена."} data-declined={en ? "Current choice: analytics disabled." : "Текущий выбор: аналитика отключена."}>
   <p class="cookie-panel__text">
-    Необходимые cookie обеспечивают работу сайта. Яндекс Метрика и аналитические cookie включаются только после вашего согласия.
+    {en ? "Essential cookies keep the website working. Yandex Metrica and analytics cookies are enabled only with your consent." : "Необходимые cookie обеспечивают работу сайта. Яндекс Метрика и аналитические cookie включаются только после вашего согласия."}
   </p>
   <p class="cookie-panel__status" data-cookie-status hidden></p>
   <div class="cookie-panel__actions">
-    <a class="cookie-panel__link" href="/privacy-policy/#cookies">Подробнее</a>
-    <button class="cookie-panel__decline motion-control" type="button" data-cookie-decline>Отклонить</button>
-    <button class="cookie-panel__button cta-angled motion-control" type="button" data-cookie-accept>Принять</button>
+    <a class="cookie-panel__link" href="/privacy-policy/#cookies">{en ? "Learn more" : "Подробнее"}</a>
+    <button class="cookie-panel__decline motion-control" type="button" data-cookie-decline>{en ? "Decline" : "Отклонить"}</button>
+    <button class="cookie-panel__button cta-angled motion-control" type="button" data-cookie-accept>{en ? "Accept" : "Принять"}</button>
   </div>
 </aside>
 
@@ -30,9 +35,7 @@
     const showPanel = (showCurrentChoice = false, moveFocus = false) => {
       if (status instanceof HTMLElement) {
         status.hidden = !showCurrentChoice || (stored !== "accepted" && stored !== "declined");
-        status.textContent = stored === "accepted"
-          ? "Текущий выбор: аналитика разрешена."
-          : "Текущий выбор: аналитика отключена.";
+        status.textContent = stored === "accepted" ? panel.dataset.accepted : panel.dataset.declined;
       }
       panel.hidden = false;
       if (moveFocus) accept.focus();

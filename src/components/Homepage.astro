@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "./Hero.astro";
+import InspectionLogic from "./InspectionLogic.astro";
+import Scenarios from "./Scenarios.astro";
+import ProcessSection from "./ProcessSection.astro";
+import AtlasBridge from "./AtlasBridge.astro";
+import PricingSection from "./PricingSection.astro";
+import FaqSection from "./FaqSection.astro";
+import ContactForm from "./ContactForm.astro";
+import { homepageContent, type SiteLocale } from "../data/homepage";
+
+type Props = { locale: SiteLocale };
+const { locale } = Astro.props as Props;
+const content = homepageContent[locale];
+const en = locale === "en";
+const canonical = en ? "https://roknord.ru/en/" : "https://roknord.ru/";
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://roknord.ru/#website",
+  url: "https://roknord.ru/",
+  name: "РОКНОРД",
+  alternateName: ["ROKNORD", "ООО РОКНОРД", "roknord.ru"],
+  inLanguage: locale,
+};
+const contact = en ? {
+  eyebrow: "Next step",
+  title: "Let’s discuss your procedure and define the first stage",
+  description: "Specify the organisation type, upcoming procedure and timeline. We will agree the scope, format and boundaries of the independent readiness audit.",
+  submit: "Discuss the task",
+  status: "We respond within one working day. We use your data to answer the enquiry in accordance with the Personal Data Processing Policy.",
+} : {
+  eyebrow: "Следующий шаг",
+  title: "Обсудим вашу процедуру и определим первый этап",
+  description: "Укажите тип организации, предстоящую процедуру и сроки. Согласуем состав, формат и границы независимого аудита готовности.",
+  submit: "Обсудить задачу",
+  status: "Ответим в течение рабочего дня. Используем данные для ответа на обращение в соответствии с Политикой в отношении обработки персональных данных.",
+};
+---
+
+<BaseLayout
+  title={content.meta.title}
+  description={content.meta.description}
+  canonical={canonical}
+  structuredData={websiteSchema}
+  locale={locale}
+  alternateRu="https://roknord.ru/"
+  alternateEn="https://roknord.ru/en/"
+  autoDetectLanguage={!en}
+>
+  <main id="content" class="home-content">
+    <Hero locale={locale} />
+    <Scenarios locale={locale} />
+    <InspectionLogic locale={locale} />
+    <ProcessSection locale={locale} />
+    <PricingSection locale={locale} />
+    <AtlasBridge locale={locale} />
+    <FaqSection locale={locale} />
+    <ContactForm
+      locale={locale}
+      eyebrow={contact.eyebrow}
+      title={contact.title}
+      description={contact.description}
+      submitLabel={contact.submit}
+      statusText={contact.status}
+      successUrl="/thank-you/"
+      subject={en ? "Enquiry from the English Roknord homepage" : "Заявка с сайта Рокнорд"}
+      formName={en ? "English homepage contact form" : "Контактная форма"}
+    />
+  </main>
+</BaseLayout>

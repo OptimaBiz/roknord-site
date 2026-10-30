@@ -1,5 +1,6 @@
 ---
 type Props = {
+  locale?: "ru" | "en";
   id?: string;
   eyebrow?: string;
   title?: string;
@@ -16,6 +17,7 @@ type Props = {
 };
 
 const {
+  locale = "ru",
   id = "contact",
   eyebrow = "Контакты",
   title = "Свяжитесь с нами. Внимательно изучим вашу ситуацию.",
@@ -30,13 +32,19 @@ const {
   embedded = false,
   gateKey = "",
 } = Astro.props as Props;
+const en = locale === "en";
+const ui = en ? {
+  name:'Name', namePlaceholder:'Your name', phone:'Phone', email:'Email', task:'Describe your task', taskPlaceholder:'Specify the organisation type, procedure, expected timeframe and main question', consent:'I consent to personal data processing in accordance with the ', consentText:'Consent text', privacy:'Personal data processing policy', documents:'Documents', consentTitle:'Consent to personal data processing', privacyTitle:'Personal data processing policy', closeConsent:'Close consent text', closePrivacy:'Close personal data processing policy', selected:'Selected:', invalid:'Complete the form and confirm your consent.', sending:'Sending', pending:'Submitting your enquiry.', failure:'The enquiry could not be sent. Please try again or email hello@roknord.ru.',
+} : {
+  name:'Имя', namePlaceholder:'Ваше имя', phone:'Телефон', email:'Электронная почта', task:'Опишите задачу', taskPlaceholder:'Укажите тип организации, процедуру, предполагаемые сроки и основной вопрос', consent:'Согласен на обработку персональных данных в соответствии с ', consentText:'Текстом согласия', privacy:'Политикой обработки персональных данных', documents:'Документы', consentTitle:'Согласие на обработку персональных данных', privacyTitle:'Политика в отношении обработки персональных данных', closeConsent:'Закрыть текст согласия', closePrivacy:'Закрыть политику в отношении обработки персональных данных', selected:'Вы выбрали:', invalid:'Заполните форму и подтвердите согласие.', sending:'Отправляем', pending:'Передаём обращение.', failure:'Не удалось отправить обращение. Попробуйте ещё раз или напишите на hello@roknord.ru.',
+};
 
 const titleId = `${id}-form-title`;
 const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.roknord.ru/contact.php";
 const consentVersion = "1.1-2026-08-13";
 ---
 
-<section id={id} class:list={["contact-form-section", embedded && "contact-form-section--embedded"]} aria-labelledby={titleId}>
+<section id={id} class:list={["contact-form-section", embedded && "contact-form-section--embedded"]} aria-labelledby={titleId} data-selected-label={ui.selected} data-invalid-message={ui.invalid} data-sending-message={ui.sending} data-pending-message={ui.pending} data-failure-message={ui.failure}>
   <div class="contact-form-section__inner page-container">
     <div class="contact-form-shell">
       <div class="contact-form-copy">
@@ -72,7 +80,7 @@ const consentVersion = "1.1-2026-08-13";
 
         <div class="contact-form__grid">
           <label class="contact-field">
-            <span>Имя</span>
+            <span>{ui.name}</span>
             <input
               name="name"
               class="ym-disable-keys"
@@ -80,14 +88,14 @@ const consentVersion = "1.1-2026-08-13";
               autocomplete="name"
               minlength="2"
               maxlength="80"
-              placeholder="Ваше имя"
+              placeholder={ui.namePlaceholder}
               required
             />
           </label>
 
           {showPhone && (
             <label class="contact-field">
-              <span>Телефон</span>
+              <span>{ui.phone}</span>
               <input
                 name="phone"
                 class="ym-disable-keys"
@@ -103,13 +111,13 @@ const consentVersion = "1.1-2026-08-13";
         </div>
 
         <label class="contact-field">
-          <span>Электронная почта</span>
+          <span>{ui.email}</span>
           <input class="ym-disable-keys" name="email" type="email" autocomplete="email" placeholder="name@company.ru" required />
         </label>
 
         {showMessage && (
           <label class="contact-field">
-            <span>Опишите задачу</span>
+            <span>{ui.task}</span>
             <textarea
               name="message"
               class="ym-disable-keys"
@@ -117,7 +125,7 @@ const consentVersion = "1.1-2026-08-13";
               rows="5"
               minlength="10"
               maxlength="1200"
-              placeholder="Укажите тип организации, процедуру, предполагаемые сроки и основной вопрос"
+              placeholder={ui.taskPlaceholder}
               required
             ></textarea>
           </label>
@@ -126,10 +134,10 @@ const consentVersion = "1.1-2026-08-13";
         <label class="contact-consent">
           <input name="personal_data_consent" type="checkbox" value="accepted" required />
           <span class="contact-consent__content">
-            <span class="contact-consent__statement">Согласен на обработку персональных данных в соответствии с </span>
-            <span class="contact-consent__documents" aria-label="Документы">
-              <button class="contact-consent__link" type="button" data-legal-open="consent">Текстом согласия</button>
-              <button class="contact-consent__link" type="button" data-legal-open="privacy">Политикой обработки персональных данных</button>.
+            <span class="contact-consent__statement">{ui.consent}</span>
+            <span class="contact-consent__documents" aria-label={ui.documents}>
+              <button class="contact-consent__link" type="button" data-legal-open="consent">{ui.consentText}</button>
+              <button class="contact-consent__link" type="button" data-legal-open="privacy">{ui.privacy}</button>.
             </span>
           </span>
         </label>
@@ -146,8 +154,8 @@ const consentVersion = "1.1-2026-08-13";
       <dialog class="legal-dialog" data-legal-dialog="consent" aria-labelledby="consent-dialog-title">
         <div class="legal-dialog__inner">
           <div class="legal-dialog__header">
-            <h2 id="consent-dialog-title">Согласие на обработку персональных данных</h2>
-            <button class="legal-dialog__close" type="button" data-legal-close aria-label="Закрыть текст согласия">×</button>
+            <h2 id="consent-dialog-title">{ui.consentTitle}</h2>
+            <button class="legal-dialog__close" type="button" data-legal-close aria-label={ui.closeConsent}>×</button>
           </div>
           <div class="legal-dialog__body">
             <!--noindex-->
@@ -167,8 +175,8 @@ const consentVersion = "1.1-2026-08-13";
       <dialog class="legal-dialog" data-legal-dialog="privacy" aria-labelledby="privacy-dialog-title">
         <div class="legal-dialog__inner">
           <div class="legal-dialog__header">
-            <h2 id="privacy-dialog-title">Политика в отношении обработки персональных данных</h2>
-            <button class="legal-dialog__close" type="button" data-legal-close aria-label="Закрыть политику в отношении обработки персональных данных">×</button>
+            <h2 id="privacy-dialog-title">{ui.privacyTitle}</h2>
+            <button class="legal-dialog__close" type="button" data-legal-close aria-label={ui.closePrivacy}>×</button>
           </div>
           <div class="legal-dialog__body">
             <!--noindex-->
@@ -233,7 +241,7 @@ const consentVersion = "1.1-2026-08-13";
         if (contactContextInput instanceof HTMLInputElement) contactContextInput.value = context;
         if (contactContextDisplay instanceof HTMLElement) {
           contactContextDisplay.hidden = !context;
-          contactContextDisplay.textContent = context ? `Вы выбрали: ${context}` : "";
+          contactContextDisplay.textContent = context ? `${contactRoot.dataset.selectedLabel} ${context}` : "";
         }
 
         if (context && contactMessage instanceof HTMLTextAreaElement) {
@@ -344,13 +352,13 @@ const consentVersion = "1.1-2026-08-13";
 
         if (!contactForm.checkValidity()) {
           contactForm.reportValidity();
-          setContactStatus("Заполните форму и подтвердите согласие.", "error");
+          setContactStatus(contactRoot.dataset.invalidMessage, "error");
           return;
         }
 
         if (contactSubmit instanceof HTMLButtonElement) contactSubmit.disabled = true;
-        if (contactSubmitText) contactSubmitText.textContent = "Отправляем";
-        setContactStatus("Передаём обращение.", "pending");
+        if (contactSubmitText) contactSubmitText.textContent = contactRoot.dataset.sendingMessage;
+        setContactStatus(contactRoot.dataset.pendingMessage, "pending");
 
         try {
           const timestampInput = contactForm.elements.namedItem("consent_timestamp");
@@ -373,7 +381,7 @@ const consentVersion = "1.1-2026-08-13";
 
           if (!response.ok) {
             throw new Error(
-              responseData?.message || "Не удалось отправить обращение. Попробуйте ещё раз или напишите на hello@roknord.ru.",
+              responseData?.message || contactRoot.dataset.failureMessage,
             );
           }
 
@@ -396,7 +404,7 @@ const consentVersion = "1.1-2026-08-13";
           setContactStatus(
             error instanceof Error
               ? error.message
-              : "Не удалось отправить обращение. Попробуйте ещё раз или напишите на hello@roknord.ru.",
+              : contactRoot.dataset.failureMessage,
             "error",
           );
         } finally {

@@ -7,6 +7,7 @@ import CookiePanel from "../components/CookiePanel.astro";
 import ScrollUpControl from "../components/ScrollUpControl.astro";
 import PdnAuditFooter from "../components/pdn-audit/PdnAuditFooter.astro";
 import { organizationSchema } from "../data/organization";
+import type { SiteLocale } from "../data/homepage";
 
 type Props = {
   title: string;
@@ -21,6 +22,10 @@ type Props = {
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
   landingFooter?: boolean;
   privatePage?: boolean;
+  locale?: SiteLocale;
+  alternateRu?: string;
+  alternateEn?: string;
+  autoDetectLanguage?: boolean;
 };
 
 const {
@@ -36,6 +41,10 @@ const {
   structuredData,
   landingFooter = false,
   privatePage = false,
+  locale = "ru",
+  alternateRu,
+  alternateEn,
+  autoDetectLanguage = false,
 } = Astro.props as Props;
 
 const pageStructuredDataItems = structuredData
@@ -45,7 +54,7 @@ const structuredDataItems = [organizationSchema, ...pageStructuredDataItems];
 ---
 
 <!doctype html>
-<html lang="ru">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -53,7 +62,10 @@ const structuredDataItems = [organizationSchema, ...pageStructuredDataItems];
     <meta name="description" content={description} />
     {robots && <meta name="robots" content={robots} />}
     {canonical && <link rel="canonical" href={canonical} />}
-    <meta property="og:locale" content="ru_RU" />
+    {alternateRu && <link rel="alternate" hreflang="ru" href={alternateRu} />}
+    {alternateEn && <link rel="alternate" hreflang="en" href={alternateEn} />}
+    {alternateRu && <link rel="alternate" hreflang="x-default" href={alternateRu} />}
+    <meta property="og:locale" content={locale === "en" ? "en_US" : "ru_RU"} />
     <meta property="og:site_name" content="РОКНОРД" />
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={ogTitle} />
@@ -215,14 +227,31 @@ const structuredDataItems = [organizationSchema, ...pageStructuredDataItems];
     }
   </head>
   <body>
-    <a class="skip-link" href="#content">Перейти к содержимому</a>
+    <a class="skip-link" href="#content">{locale === "en" ? "Skip to content" : "Перейти к содержимому"}</a>
     <div class="site-shell">
-      <Header />
+      <Header locale={locale} />
       <slot />
-      {landingFooter ? <PdnAuditFooter /> : <Footer showCookieSettings={!privatePage} />}
-      {!privatePage && <CookiePanel />}
+      {landingFooter ? <PdnAuditFooter /> : <Footer showCookieSettings={!privatePage} locale={locale} />}
+      {!privatePage && <CookiePanel locale={locale} />}
       <ScrollUpControl />
     </div>
+    {autoDetectLanguage && locale === "ru" && <script is:inline>
+      (() => {
+        const key = "roknord-language";
+        let saved = null;
+        try { saved = window.localStorage.getItem(key); } catch {}
+        if (saved || location.pathname !== "/" || /bot|crawler|spider|slurp/i.test(navigator.userAgent)) return;
+        const preferred = (navigator.languages?.[0] || navigator.language || "ru").toLowerCase();
+        if (!preferred.startsWith("ru")) location.replace(`/en/${location.search}${location.hash}`);
+      })();
+    </script>}
+    <script is:inline>
+      document.querySelectorAll("[data-language-link]").forEach((link) => {
+        link.addEventListener("click", () => {
+          try { window.localStorage.setItem("roknord-language", link.getAttribute("data-language-link") || "ru"); } catch {}
+        });
+      });
+    </script>
     <script is:inline>
       (() => {
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

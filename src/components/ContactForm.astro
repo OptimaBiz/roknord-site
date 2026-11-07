@@ -34,10 +34,15 @@ const {
 } = Astro.props as Props;
 const en = locale === "en";
 const ui = en ? {
-  name:'Name', namePlaceholder:'Your name', phone:'Phone', email:'Email', task:'Describe your task', taskPlaceholder:'Specify the organisation type, procedure, expected timeframe and main question', consent:'I consent to personal data processing in accordance with the ', consentText:'Consent text', privacy:'Personal data processing policy', documents:'Documents', consentTitle:'Consent to personal data processing', privacyTitle:'Personal data processing policy', closeConsent:'Close consent text', closePrivacy:'Close personal data processing policy', selected:'Selected:', invalid:'Complete the form and confirm your consent.', sending:'Sending', pending:'Submitting your enquiry.', failure:'The enquiry could not be sent. Please try again or email hello@roknord.ru.',
+  name:'Name', namePlaceholder:'Your name', phone:'Phone', email:'Email', orgType:'Accredited body type', inn:'Company tax ID', innPlaceholder:'10 or 12 digits', task:'Describe your task', taskPlaceholder:'Specify the procedure, expected timeframe and main question', consent:'I consent to personal data processing in accordance with the ', consentText:'Consent text', privacy:'Personal data processing policy', documents:'Documents', consentTitle:'Consent to personal data processing', privacyTitle:'Personal data processing policy', closeConsent:'Close consent text', closePrivacy:'Close personal data processing policy', selected:'Selected:', invalid:'Complete the form and confirm your consent.', sending:'Sending', pending:'Submitting your enquiry.', failure:'The enquiry could not be sent. Please try again or email hello@roknord.ru.',
 } : {
-  name:'Имя', namePlaceholder:'Ваше имя', phone:'Телефон', email:'Электронная почта', task:'Опишите задачу', taskPlaceholder:'Укажите тип организации, процедуру, предполагаемые сроки и основной вопрос', consent:'Согласен на обработку персональных данных в соответствии с ', consentText:'Текстом согласия', privacy:'Политикой обработки персональных данных', documents:'Документы', consentTitle:'Согласие на обработку персональных данных', privacyTitle:'Политика в отношении обработки персональных данных', closeConsent:'Закрыть текст согласия', closePrivacy:'Закрыть политику в отношении обработки персональных данных', selected:'Вы выбрали:', invalid:'Заполните форму и подтвердите согласие.', sending:'Отправляем', pending:'Передаём обращение.', failure:'Не удалось отправить обращение. Попробуйте ещё раз или напишите на hello@roknord.ru.',
+  name:'Имя', namePlaceholder:'Ваше имя', phone:'Телефон', email:'Электронная почта', orgType:'Тип аккредитованного лица', inn:'ИНН организации', innPlaceholder:'10 или 12 цифр', task:'Опишите задачу', taskPlaceholder:'Укажите процедуру, предполагаемые сроки и основной вопрос', consent:'Согласен на обработку персональных данных в соответствии с ', consentText:'Текстом согласия', privacy:'Политикой обработки персональных данных', documents:'Документы', consentTitle:'Согласие на обработку персональных данных', privacyTitle:'Политика в отношении обработки персональных данных', closeConsent:'Закрыть текст согласия', closePrivacy:'Закрыть политику в отношении обработки персональных данных', selected:'Вы выбрали:', invalid:'Заполните форму и подтвердите согласие.', sending:'Отправляем', pending:'Передаём обращение.', failure:'Не удалось отправить обращение. Попробуйте ещё раз или напишите на hello@roknord.ru.',
 };
+const organisationTypes = en ? [
+  "Testing laboratory", "Medical laboratory", "Product / management system certification body", "Inspection body / calibration laboratory",
+] : [
+  "Испытательная лаборатория (ИЛ)", "Медицинская лаборатория", "Орган по сертификации продукции / систем менеджмента", "Орган инспекции / Калибровочная лаборатория",
+];
 
 const titleId = `${id}-form-title`;
 const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.roknord.ru/contact.php";
@@ -56,6 +61,7 @@ const consentVersion = "1.1-2026-08-13";
           <span></span>
           <span></span>
         </div>
+
       </div>
 
       <form
@@ -77,6 +83,20 @@ const consentVersion = "1.1-2026-08-13";
         <input type="text" name="_gotcha" class="contact-form__trap" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
         <p class="contact-form__context" data-contact-context-display hidden></p>
+
+        <div class="contact-form__grid">
+          <label class="contact-field">
+            <span>{ui.orgType}</span>
+            <select name="organisation_type" required>
+              <option value="">—</option>
+              {organisationTypes.map((type) => <option value={type}>{type}</option>)}
+            </select>
+          </label>
+          <label class="contact-field">
+            <span>{ui.inn}</span>
+            <input name="organisation_inn" class="ym-disable-keys" type="text" inputmode="numeric" autocomplete="off" pattern="^(?:\d{10}|\d{12})$" maxlength="12" placeholder={ui.innPlaceholder} required />
+          </label>
+        </div>
 
         <div class="contact-form__grid">
           <label class="contact-field">
@@ -161,7 +181,7 @@ const consentVersion = "1.1-2026-08-13";
             <!--noindex-->
             <p>Я, субъект персональных данных, свободно, своей волей и в своём интересе выражаю согласие на обработку моих персональных данных оператором — Обществом с ограниченной ответственностью «РОКНОРД» (ООО «РОКНОРД»), адрес: 198320, Санкт-Петербург, г. Красное Село, ул. Свободы, д. 57Д, пом. 7-Н, офис 615.</p>
             <p><strong>Цель обработки:</strong> рассмотрение обращения, подготовка ответа, связь со мной, уточнение деталей задачи и подготовка предложения по согласованному формату работы.</p>
-            <p><strong>Перечень данных:</strong> имя, номер телефона, адрес электронной почты, сведения об организации, содержание обращения и иные данные, которые я добровольно укажу в форме.</p>
+            <p><strong>Перечень данных:</strong> имя, номер телефона, адрес электронной почты, тип аккредитованного лица, ИНН и иные сведения об организации, содержание обращения и данные, которые я добровольно укажу в форме.</p>
             <p><strong>Действия:</strong> сбор, запись, систематизация, накопление, хранение, уточнение, извлечение, использование, передача в предусмотренных законом случаях, обезличивание, блокирование и удаление.</p>
             <p><strong>Срок:</strong> до достижения цели обработки либо до отзыва согласия, если иной срок не установлен законом. Отзыв направляется на <a href="mailto:hello@roknord.ru">hello@roknord.ru</a>.</p>
             <p>Согласие оформляется отдельно от иных подтверждаемых документов. Непредоставление согласия означает невозможность отправить обращение через форму сайта.</p>
@@ -181,7 +201,7 @@ const consentVersion = "1.1-2026-08-13";
           <div class="legal-dialog__body">
             <!--noindex-->
             <p><strong>Оператор:</strong> Общество с ограниченной ответственностью «РОКНОРД» (ООО «РОКНОРД»), адрес: 198320, Санкт-Петербург, г. Красное Село, ул. Свободы, д. 57Д, пом. 7-Н, офис 615. ИНН 7807406530, КПП 780701001.</p>
-            <p><strong>Какие данные обрабатываются:</strong> имя, телефон, электронная почта, сведения об организации, содержание обращения, а также необходимые для работы и безопасности сайта технические сведения.</p>
+            <p><strong>Какие данные обрабатываются:</strong> имя, телефон, электронная почта, тип аккредитованного лица, ИНН и иные сведения об организации, содержание обращения, а также необходимые для работы и безопасности сайта технические сведения.</p>
             <p><strong>Цели:</strong> регистрация и рассмотрение обращения, подготовка ответа, связь с пользователем, обеспечение работы и безопасности сайта. Данные формы обрабатываются на основании отдельно выраженного согласия.</p>
             <p><strong>Порядок и срок:</strong> данные обрабатываются только в необходимом объёме и хранятся до достижения заявленной цели либо до отзыва согласия, если иной срок не установлен законом.</p>
             <p><strong>Права пользователя:</strong> можно запросить сведения об обработке, уточнение, блокирование или удаление данных и отозвать согласие, направив обращение на <a href="mailto:hello@roknord.ru">hello@roknord.ru</a>.</p>
@@ -510,6 +530,7 @@ const consentVersion = "1.1-2026-08-13";
   }
 
   .contact-form-section--embedded .contact-field input,
+  .contact-form-section--embedded .contact-field select,
   .contact-form-section--embedded .contact-field textarea {
     min-height: 3rem;
     border-color: var(--lrqa-border);
@@ -681,6 +702,7 @@ const consentVersion = "1.1-2026-08-13";
   }
 
   .contact-field input,
+  .contact-field select,
   .contact-field textarea {
     min-height: 3.1rem;
     border: 1px solid rgba(222, 221, 228, 0.5);
@@ -691,12 +713,21 @@ const consentVersion = "1.1-2026-08-13";
     line-height: var(--line-height-base);
   }
 
+  .contact-field select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position: calc(100% - 1.05rem) 50%, calc(100% - .75rem) 50%;
+    background-size: .35rem .35rem, .35rem .35rem;
+    background-repeat: no-repeat;
+  }
+
   .contact-field textarea {
     min-height: 8.2rem;
     resize: vertical;
   }
 
   .contact-field input:user-invalid,
+  .contact-field select:user-invalid,
   .contact-field textarea:user-invalid,
   .contact-consent input:user-invalid {
     border-color: var(--color-danger);

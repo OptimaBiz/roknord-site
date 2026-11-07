@@ -3,21 +3,20 @@ export type SiteLocale = "ru" | "en";
 export const homepageContent = {
   ru: {
     meta: {
-      title: "Подготовка к аккредитации и подтверждению компетентности — РОКНОРД",
-      description: "Независимый аудит готовности к аккредитации и подтверждению компетентности: область, СМК, персонал, записи и фактическая практика. Реестр расхождений и план действий.",
+      title: "Комплексная подготовка к аккредитации и ПК — РОКНОРД",
+      description: "Комплексная подготовка к аккредитации и подтверждению компетентности: аудит СМК и области, доказательная база, корректирующие действия и сопровождение процедуры.",
     },
     hero: {
-      eyebrow: "Независимый аудит",
-      title: "Проверьте себя до экспертизы ФСА",
-      lead: ["Проверим СМК, структуру документов и реальную работу до официальной процедуры.", "Вы увидите, какие исправления внести в первую очередь."],
-      primary: "Обсудить вашу ситуацию",
-      secondary: "Что получите по итогам",
-      video: "Включить видео",
+      eyebrow: "Комплексная подготовка к процедуре",
+      title: "Подготовка к аккредитации и подтверждению компетентности (ПК)",
+      lead: ["Проверяем СМК, область и доказательства, устраняем выявленные расхождения и готовим к процедуре в Росаккредитации.", "Договор с НДС 22% · ЭДО."],
+      primary: "Рассчитать стоимость и сроки",
+      secondary: "Экспресс-аудит от 100 000 ₽",
       principlesLabel: "Принципы аудита",
       principles: [
-        { title: "До процедуры", text: "Риски видны заранее" },
-        { title: "По приоритетам", text: "Понятно, с чего начать" },
-        { title: "По доказательствам", text: "Каждый вывод обоснован" },
+        { title: "По критериям", text: "Проверяем требования и доказательства" },
+        { title: "НДС 22% и ЭДО", text: "Официальный договор и документы" },
+        { title: "Комплексная команда", text: "СМК, область, ресурсы и записи" },
       ],
     },
     scenarios: {
@@ -34,8 +33,8 @@ export const homepageContent = {
     },
     outcome: {
       eyebrow: "Результат аудита",
-      title: "После проверки у вас остаётся ясный план, а не ещё одна папка документов",
-      lead: "Итоговый материал помогает принять решение: что исправить своими силами, где нужна экспертная помощь и к чему можно не возвращаться.",
+      title: "Матрица рисков связывает требования, практику и доказательства",
+      lead: "После аудита руководитель получает технически и нормативно обоснованную рабочую матрицу, а не перечень общих замечаний.",
       items: [
         { title: "Что уже готово", text: "Отделяем рабочие элементы системы от того, что требует внимания." },
         { title: "Где возникает риск", text: "Показываем расхождения между требованиями, документами, записями и практикой." },
@@ -43,7 +42,7 @@ export const homepageContent = {
         { title: "Что делать дальше", text: "Расставляем действия по приоритету, чтобы команда не исправляла всё подряд." },
       ],
       resultLabel: "Главный итог",
-      result: "Руководитель понимает реальное состояние готовности и последовательность следующих шагов.",
+      result: "Руководитель видит основание каждого риска, приоритет корректирующих действий, ответственную роль и доказательство, которое нужно подготовить к оценке.",
       cta: "Уточнить состав результата",
       context: "Аудит готовности: результат и состав отчёта",
     },
@@ -64,21 +63,20 @@ export const homepageContent = {
   },
   en: {
     meta: {
-      title: "Accreditation and competence confirmation readiness — ROKNORD",
-      description: "Independent readiness audit for accreditation and competence confirmation: scope, management system, personnel, records and actual practice. Gap register and action plan.",
+      title: "Comprehensive accreditation and competence confirmation preparation — ROKNORD",
+      description: "Comprehensive preparation for accreditation and competence confirmation: management system and scope audit, evidence package, corrective action and procedure support.",
     },
     hero: {
-      eyebrow: "Independent audit",
-      title: "Check your readiness before the FSA assessment",
-      lead: ["We review your management system, document structure and actual operations before the formal procedure.", "You see which corrections should come first."],
-      primary: "Discuss your situation",
-      secondary: "See what you receive",
-      video: "Play video",
+      eyebrow: "Comprehensive procedure preparation",
+      title: "Accreditation and competence confirmation preparation",
+      lead: ["We review the management system, scope and evidence, address identified gaps and prepare the organisation for its Rosaccreditation procedure.", "Contract with 22% VAT · EDI."],
+      primary: "Calculate cost and timeframe",
+      secondary: "Express audit from RUB 100,000",
       principlesLabel: "Audit principles",
       principles: [
-        { title: "Before assessment", text: "Risks are identified early" },
-        { title: "By priority", text: "You know where to start" },
-        { title: "Based on evidence", text: "Every finding is substantiated" },
+        { title: "Against criteria", text: "Requirements and evidence are checked" },
+        { title: "22% VAT and EDI", text: "Formal contract and documents" },
+        { title: "Integrated team", text: "System, scope, resources and records" },
       ],
     },
     scenarios: {
@@ -95,8 +93,8 @@ export const homepageContent = {
     },
     outcome: {
       eyebrow: "Audit outcome",
-      title: "After the review, you have a clear plan — not another folder of documents",
-      lead: "The final material supports a practical decision: what your team can correct, where expert support is needed and what requires no further action.",
+      title: "The risk matrix links requirements, practice and evidence",
+      lead: "After the audit, management receives a technically and regulatorily substantiated working matrix rather than a list of generic comments.",
       items: [
         { title: "What is already in place", text: "We separate functioning system elements from those that need attention." },
         { title: "Where the risk arises", text: "We identify gaps between requirements, documents, records and actual practice." },
@@ -104,7 +102,7 @@ export const homepageContent = {
         { title: "What to do next", text: "We prioritise actions so the team does not try to correct everything at once." },
       ],
       resultLabel: "Principal outcome",
-      result: "Management understands the actual state of readiness and the sequence of next steps.",
+      result: "Management sees the basis for each risk, corrective-action priority, responsible role and the evidence required for assessment.",
       cta: "Clarify the deliverables",
       context: "Readiness audit: report scope and deliverables",
     },

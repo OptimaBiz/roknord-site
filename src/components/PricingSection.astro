@@ -2,374 +2,50 @@
 import type { SiteLocale } from "../data/homepage";
 type Props = { locale?: SiteLocale };
 const { locale = "ru" } = Astro.props as Props;
-const copy = locale === "en" ? {
-  eyebrow: "First stage", title: "Audit first — then targeted preparation", lead: "We assess the current state and then define the precise scope, timeframe and cost of further work.",
-  badge: "Core format", auditTitle: "Independent readiness audit", auditText: "We review the accreditation scope, management system, records and actual practice remotely and, where necessary, on site.", includedLabel: "Included in the core audit",
-  included: ["Preliminary document review", "Review of actual practice", "Final report and findings review"],
-  offerLabel: "Readiness audit price and timeframe", cost: "Price", from: "from", vat: "+ 22% VAT", duration: "Timeframe", days: "working days", cta: "Discuss the audit scope", context: "Independent readiness audit: scope and price",
-  note: "The format and need for an on-site visit are agreed before work begins. After the audit, you receive a clear view of the current state and may engage Roknord for the complete preparation scope or selected stages.",
-  after: "After the audit", afterTitle: "You know what to do next and what it will cost", afterText: "We develop a plan based on actual risks and agree each subsequent stage separately.", optionsLabel: "Further work options",
-  formats: [
-    { kicker: "When the complete route is required", name: "Comprehensive preparation for the procedure" },
-    { kicker: "When specific issues have been identified", name: "Corrective action for nonconformities" },
-    { kicker: "When your team handles part of the work", name: "A defined preparation workstream" },
+const en = locale === "en";
+const copy = en ? {
+  eyebrow: "Engagement options", title: "Choose the required preparation scope", lead: "The independent audit may be a standalone review or the first stage of comprehensive preparation. Scope, timeframe and budget are fixed in the proposal and contract.",
+  recommended: "Recommended", forWhom: "For", included: "Included", duration: "Timeframe", cost: "Cost",
+  note: "When a comprehensive preparation agreement is signed, the independent audit fee is credited towards the total contract value.",
+  plans: [
+    { title:"Independent readiness audit", audience:"For teams that need an independent review and a prioritised risk map.", included:["Scope, records and actual-practice review","Management-system review","Report, risk map and action plan"], duration:"5–10 working days", cost:"from RUB 100,000 + 22% VAT", cta:"Order an audit", context:"Independent readiness audit", featured:false },
+    { title:"Comprehensive accreditation / competence confirmation preparation", audience:"For organisations that need one coordinated preparation programme and evidence package.", included:["Full readiness audit and scope update","Management system and records setup","Corrective action and procedure support"], duration:"from 30 working days", cost:"Calculated against the scope", cta:"Request a comprehensive estimate", context:"Comprehensive procedure preparation", featured:true },
+    { title:"Nonconformity and management-system corrective action", audience:"For organisations that have received an assessment report with nonconformities.", included:["Assessment-report and cause review","Supporting evidence preparation","Corrective-action submission package"], duration:"from 10 working days", cost:"from RUB 150,000 + 22% VAT", cta:"Review nonconformities", context:"Corrective action after nonconformities", featured:false },
   ],
 } : {
-  eyebrow: "Первый этап", title: "Сначала аудит — затем точная подготовка", lead: "Проверяем текущее состояние, затем определяем точный объём, срок и стоимость дальнейшей работы.",
-  badge: "Базовый формат", auditTitle: "Независимый аудит готовности", auditText: "Проверяем область аккредитации, СМК, записи и фактическую практику — дистанционно и, при необходимости, на площадке.", includedLabel: "Что входит в базовый аудит",
-  included: ["Предварительный анализ документов", "Проверка фактической практики", "Итоговый отчёт и разбор результатов"],
-  offerLabel: "Стоимость и срок аудита готовности", cost: "Стоимость", from: "от", vat: "+ НДС 22%", duration: "Срок", days: "рабочих дней", cta: "Обсудить объём аудита", context: "Независимый аудит готовности: объём и стоимость",
-  note: "Формат и необходимость выезда согласовываем до начала. После аудита вы получаете понятную картину текущего состояния и можете поручить Рокнорд весь дальнейший объём или отдельные этапы.",
-  after: "После аудита", afterTitle: "Понятно, что делать дальше и сколько это стоит", afterText: "Формируем план по фактическим рискам и отдельно согласовываем каждый следующий этап.", optionsLabel: "Варианты дальнейшей работы",
-  formats: [
-    { kicker: "Когда нужен весь путь", name: "Комплексная подготовка к процедуре" },
-    { kicker: "Когда выявлены конкретные проблемы", name: "Устранение несоответствий" },
-    { kicker: "Когда часть работы команда берёт на себя", name: "Отдельный блок подготовки" },
+  eyebrow: "Форматы работы", title: "Выберите необходимый объём подготовки", lead: "Независимый аудит может быть отдельной проверкой или первым этапом комплексной подготовки. Состав, сроки и бюджет фиксируем в предложении и договоре.",
+  recommended: "Рекомендуемый формат", forWhom: "Для кого", included: "Что входит", duration: "Срок", cost: "Стоимость",
+  note: "При заключении договора на комплексную подготовку стоимость независимого аудита засчитывается в общую смету договора.",
+  plans: [
+    { title:"Независимый аудит готовности", audience:"Командам, которым нужен независимый срез и приоритетная карта рисков.", included:["Проверка области, записей и практики","Анализ СМК","Отчёт, карта рисков и план действий"], duration:"5–10 рабочих дней", cost:"от 100 000 ₽ + НДС 22%", cta:"Заказать аудит", context:"Независимый аудит готовности", featured:false },
+    { title:"Комплексная подготовка к аккредитации / ПК", audience:"Организациям, которым нужна единая программа подготовки и пакет доказательств.", included:["Полный аудит и актуализация области","Настройка СМК и архива записей","Корректирующие действия и сопровождение"], duration:"от 30 рабочих дней", cost:"расчёт по ТЗ и области", cta:"Запросить расчёт под ключ", context:"Комплексная подготовка к аккредитации или ПК", featured:true },
+    { title:"Устранение несоответствий и СМК", audience:"Организациям, получившим акт с несоответствиями по результатам оценки.", included:["Разбор акта и причин расхождений","Подготовка доказательств","Пакет корректирующих действий для ФСА"], duration:"от 10 рабочих дней", cost:"от 150 000 ₽ + НДС 22%", cta:"Разобрать несоответствия", context:"Устранение несоответствий", featured:false },
   ],
 };
 ---
 
-<section id="pricing" class="section section--light formats-section" aria-labelledby="formats-title">
+<section id="pricing" class="section section--light pricing-matrix" aria-labelledby="pricing-title">
   <div class="section__inner page-container">
-    <header class="formats-intro" data-reveal>
-      <p class="section__eyebrow">{copy.eyebrow}</p>
-      <h2 id="formats-title" class="section__title">{copy.title}</h2>
-      <p class="section__lead">{copy.lead}</p>
-    </header>
-
-    <article class="pricing-start" aria-labelledby="pricing-start-title" data-reveal>
-      <div class="pricing-start__main">
-        <span class="pricing-start__badge">{copy.badge}</span>
-        <h3 id="pricing-start-title">{copy.auditTitle}</h3>
-        <p>{copy.auditText}</p>
-
-        <ul class="pricing-start__included" aria-label={copy.includedLabel}>
-          {copy.included.map((item, index) => <li><span aria-hidden="true">0{index + 1}</span><strong>{item}</strong></li>)}
-        </ul>
-      </div>
-
-      <aside class="pricing-start__offer" aria-label={copy.offerLabel}>
-        <dl class="pricing-start__facts">
-          <div>
-            <dt>{copy.cost}</dt>
-            <dd><span class="pricing-start__from">{copy.from}</span><strong>100 000 ₽</strong><span>{copy.vat}</span></dd>
-          </div>
-          <div>
-            <dt>{copy.duration}</dt>
-            <dd><strong>5–10</strong><span>{copy.days}</span></dd>
-          </div>
-        </dl>
-        <a class="pricing-start__cta cta-angled motion-control" href="#contact" data-contact-context={copy.context}><span>{copy.cta}</span><span aria-hidden="true">→</span></a>
-      </aside>
-
-      <p class="pricing-start__note">{copy.note}</p>
-    </article>
-
-    <div class="formats-after" data-reveal>
-      <header>
-        <p>{copy.after}</p>
-        <h3>{copy.afterTitle}</h3>
-        <span>{copy.afterText}</span>
-      </header>
-
-      <ol aria-label={copy.optionsLabel}>
-        {copy.formats.map((format, index) => (
-          <li>
-            <span aria-hidden="true">0{index + 1}</span>
-            <div><small>{format.kicker}</small><strong>{format.name}</strong></div>
-          </li>
-        ))}
-      </ol>
+    <header class="pricing-matrix__intro" data-reveal><p class="section__eyebrow">{copy.eyebrow}</p><h2 id="pricing-title" class="section__title">{copy.title}</h2><p class="section__lead">{copy.lead}</p></header>
+    <div class="pricing-matrix__grid">
+      {copy.plans.map((plan) => (
+        <article class:list={["pricing-plan", plan.featured && "pricing-plan--featured"]} data-reveal>
+          {plan.featured && <p class="pricing-plan__badge">{copy.recommended}</p>}
+          <h3>{plan.title}</h3>
+          <dl><div><dt>{copy.duration}</dt><dd>{plan.duration}</dd></div><div><dt>{copy.cost}</dt><dd>{plan.cost}</dd></div></dl>
+          <div class="pricing-plan__audience"><strong>{copy.forWhom}</strong><p>{plan.audience}</p></div>
+          <div class="pricing-plan__included"><strong>{copy.included}</strong><ul>{plan.included.map((item) => <li>{item}</li>)}</ul></div>
+          <a class:list={["pricing-plan__cta", plan.featured && "cta-angled"]} href="#contact" data-contact-context={plan.context}>{plan.cta} <span aria-hidden="true">→</span></a>
+        </article>
+      ))}
     </div>
+    <p class="pricing-matrix__note" data-reveal>{copy.note}</p>
   </div>
 </section>
 
 <style>
-  .formats-section .section__inner,
-  .formats-intro,
-  .pricing-start,
-  .pricing-start__main,
-  .pricing-start__offer,
-  .pricing-start__included,
-  .formats-after,
-  .formats-after header,
-  .formats-after ol,
-  .formats-after li,
-  .formats-after li div {
-    display: grid;
-  }
-
-  .formats-section .section__inner {
-    gap: clamp(2rem, 4vw, 3.5rem);
-  }
-
-  .formats-intro {
-    grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
-    gap: 0.75rem clamp(2rem, 6vw, 6.5rem);
-    align-items: end;
-  }
-
-  .formats-intro .section__eyebrow {
-    grid-column: 1 / -1;
-  }
-
-  .formats-intro .section__title,
-  .formats-intro .section__lead,
-  .pricing-start h3,
-  .pricing-start p,
-  .pricing-start dl,
-  .pricing-start dd,
-  .pricing-start__included,
-  .formats-after h3,
-  .formats-after p,
-  .formats-after ol {
-    margin: 0;
-  }
-
-  .pricing-start {
-    grid-template-columns: minmax(0, 1.45fr) minmax(19rem, 0.7fr);
-    color: var(--lrqa-white);
-    background: var(--lrqa-navy);
-    border-top: 4px solid var(--color-mint-action);
-  }
-
-  .pricing-start__main {
-    align-content: start;
-    gap: 0.85rem;
-    padding: clamp(1.75rem, 3.5vw, 3rem);
-    border-right: 1px solid var(--lrqa-dark-border);
-  }
-
-  .pricing-start__badge,
-  .pricing-start__included span,
-  .pricing-start__facts dt,
-  .formats-after header > p,
-  .formats-after li > span,
-  .formats-after small {
-    font-size: var(--font-size-2xs);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: var(--letter-spacing-wide);
-    text-transform: uppercase;
-  }
-
-  .pricing-start__badge,
-  .pricing-start__included span {
-    color: var(--color-mint-action);
-  }
-
-  .formats-after li > span {
-    color: var(--lrqa-muted-dark);
-  }
-
-  .pricing-start h3 {
-    font-size: clamp(2rem, 2vw + 1rem, 3.25rem);
-    line-height: 1;
-  }
-
-  .pricing-start__main > p {
-    max-width: 42rem;
-    color: var(--lrqa-border);
-    line-height: 1.65;
-  }
-
-  .pricing-start__included {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin-top: 1rem;
-    padding: 0;
-    list-style: none;
-    border-top: 1px solid var(--lrqa-dark-border);
-    border-left: 1px solid var(--lrqa-dark-border);
-  }
-
-  .pricing-start__included li {
-    display: grid;
-    align-content: start;
-    gap: 0.45rem;
-    padding: 1rem;
-    border-right: 1px solid var(--lrqa-dark-border);
-    border-bottom: 1px solid var(--lrqa-dark-border);
-  }
-
-  .pricing-start__included strong {
-    font-size: var(--font-size-sm);
-    line-height: 1.45;
-  }
-
-  .pricing-start__offer {
-    align-content: space-between;
-    gap: 1.75rem;
-    padding: clamp(1.75rem, 3vw, 2.75rem);
-    background: var(--lrqa-navy-2);
-  }
-
-  .pricing-start__facts {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .pricing-start__facts > div + div {
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--lrqa-dark-border);
-  }
-
-  .pricing-start__facts dt {
-    color: var(--lrqa-muted-2);
-  }
-
-  .pricing-start__facts dd {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.4rem;
-    margin-top: 0.4rem;
-  }
-
-  .pricing-start__facts dd strong {
-    font-size: clamp(1.7rem, 1.5vw + 1rem, 2.4rem);
-    line-height: 1.06;
-    white-space: nowrap;
-  }
-
-  .pricing-start__facts dd span {
-    color: var(--lrqa-border);
-    font-size: var(--font-size-sm);
-  }
-
-  .pricing-start__from {
-    color: var(--lrqa-border-soft) !important;
-    font-size: var(--font-size-lg) !important;
-    font-weight: var(--font-weight-semibold);
-  }
-
-  .pricing-start__cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: var(--cta-padding-y) calc(var(--cta-padding-x) + var(--button-bevel) * 0.5);
-    color: var(--lrqa-black);
-    background: var(--gradient-button-primary);
-    font-weight: var(--button-font-weight);
-    text-decoration: none;
-  }
-
-  .pricing-start__note {
-    grid-column: 1 / -1;
-    padding: 1rem clamp(1.75rem, 3.5vw, 3rem);
-    color: var(--lrqa-border);
-    font-size: var(--font-size-sm);
-    line-height: 1.55;
-    border-top: 1px solid var(--lrqa-dark-border);
-  }
-
-  .formats-after {
-    grid-template-columns: minmax(16rem, 0.55fr) minmax(0, 1.45fr);
-    gap: clamp(1.5rem, 4vw, 4rem);
-    align-items: start;
-  }
-
-  .formats-after header {
-    gap: 0.55rem;
-  }
-
-  .formats-after header > p,
-  .formats-after small {
-    color: var(--lrqa-muted);
-  }
-
-  .formats-after h3 {
-    font-size: clamp(1.35rem, 1vw + 1rem, 2rem);
-    line-height: 1.12;
-  }
-
-  .formats-after header > span {
-    color: var(--lrqa-muted);
-    line-height: 1.55;
-  }
-
-  .formats-after ol {
-    padding: 0;
-    list-style: none;
-    border-top: 1px solid var(--lrqa-border);
-  }
-
-  .formats-after li {
-    grid-template-columns: 2.25rem minmax(0, 1fr);
-    gap: 1rem;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--lrqa-border-soft);
-  }
-
-  .formats-after li div {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 1rem;
-    align-items: baseline;
-  }
-
-  .formats-after strong {
-    font-size: var(--font-size-lg);
-  }
-
-  @media (max-width: 64rem) {
-    .formats-intro,
-    .pricing-start,
-    .formats-after {
-      grid-template-columns: 1fr;
-    }
-
-    .pricing-start__main {
-      border-right: 0;
-      border-bottom: 1px solid var(--lrqa-dark-border);
-    }
-
-    .pricing-start__offer {
-      grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.8fr);
-      align-items: end;
-    }
-
-    .pricing-start__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-    .pricing-start__facts > div + div {
-      padding-top: 0;
-      padding-left: 1.5rem;
-      border-top: 0;
-      border-left: 1px solid var(--lrqa-dark-border);
-    }
-  }
-
-  @media (max-width: 48rem) {
-    .pricing-start__main,
-    .pricing-start__offer {
-      padding: 1.35rem;
-    }
-
-    .pricing-start__included {
-      grid-template-columns: 1fr;
-    }
-
-    .pricing-start__included li {
-      grid-template-columns: 2rem minmax(0, 1fr);
-    }
-
-    .pricing-start__offer,
-    .pricing-start__facts {
-      grid-template-columns: 1fr;
-    }
-
-    .pricing-start__facts > div + div {
-      padding-top: 1.1rem;
-      padding-left: 0;
-      border-top: 1px solid var(--lrqa-dark-border);
-      border-left: 0;
-    }
-
-    .pricing-start__note {
-      padding: 1rem 1.35rem;
-    }
-
-    .formats-after li div {
-      grid-template-columns: 1fr;
-      gap: 0.25rem;
-    }
-  }
+  .pricing-matrix .section__inner,.pricing-matrix__intro{display:grid}.pricing-matrix .section__inner{gap:clamp(2rem,4.5vw,4rem)}.pricing-matrix__intro{grid-template-columns:minmax(0,1fr) minmax(18rem,.7fr);gap:.8rem clamp(2rem,7vw,7rem);align-items:end}.pricing-matrix__intro .section__eyebrow{grid-column:1/-1}.pricing-matrix__intro h2,.pricing-matrix__intro p{margin:0}.pricing-matrix__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;border-top:1px solid var(--lrqa-border);border-left:1px solid var(--lrqa-border)}
+  .pricing-plan{position:relative;display:grid;grid-template-rows:auto auto auto auto 1fr auto;gap:1.05rem;min-width:0;padding:clamp(1.35rem,2.1vw,2rem);background:var(--lrqa-white);border-right:1px solid var(--lrqa-border);border-bottom:1px solid var(--lrqa-border)}.pricing-plan--featured{color:var(--lrqa-white);background:var(--lrqa-navy);border-top:5px solid var(--color-mint-action);padding-top:calc(clamp(1.35rem,2.1vw,2rem) - 5px)}.pricing-plan__badge{margin:0;color:var(--color-mint-action);font-size:var(--font-size-2xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.pricing-plan:not(.pricing-plan--featured) .pricing-plan__badge{display:none}.pricing-plan h3,.pricing-plan p,.pricing-plan ul,.pricing-plan dl,.pricing-plan dd{margin:0}.pricing-plan h3{color:var(--lrqa-navy);font-size:clamp(1.45rem,1.15vw + 1rem,2.25rem);line-height:1.08}.pricing-plan--featured h3{color:var(--lrqa-white)}.pricing-plan__audience,.pricing-plan__included{display:grid;align-content:start;gap:.5rem}.pricing-plan__audience>strong,.pricing-plan__included>strong,.pricing-plan dt{color:var(--lrqa-muted);font-size:var(--font-size-2xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.pricing-plan--featured .pricing-plan__audience>strong,.pricing-plan--featured .pricing-plan__included>strong,.pricing-plan--featured dt{color:var(--lrqa-muted-2)}.pricing-plan__audience p,.pricing-plan li,.pricing-plan dd{font-size:.93rem;line-height:1.5}.pricing-plan--featured .pricing-plan__audience p,.pricing-plan--featured li,.pricing-plan--featured dd{color:var(--lrqa-border-soft)}.pricing-plan ul{display:grid;gap:.45rem;padding:0;list-style:none}.pricing-plan li{position:relative;padding-left:1rem}.pricing-plan li::before{content:"";position:absolute;top:.65em;left:0;width:.38rem;height:.38rem;background:var(--color-mint-action)}.pricing-plan dl{display:grid;grid-template-columns:.75fr 1.25fr;gap:.8rem;padding:.9rem 0;border-top:1px solid var(--lrqa-border-soft);border-bottom:1px solid var(--lrqa-border-soft)}.pricing-plan--featured dl{border-color:var(--lrqa-dark-border)}.pricing-plan dl>div{display:grid;align-content:start;gap:.25rem}.pricing-plan dd{font-weight:var(--font-weight-semibold)}.pricing-plan__cta{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:3.25rem;padding:.85rem 0;color:var(--lrqa-navy);font-weight:var(--font-weight-bold);text-decoration:none;border-top:2px solid var(--lrqa-navy)}.pricing-plan--featured .pricing-plan__cta{padding:.85rem 1.3rem;color:var(--lrqa-black);background:var(--gradient-button-primary);border:0}.pricing-plan__cta span{color:var(--color-accent-strong)}.pricing-matrix__note{margin:0;padding:1rem 1.25rem;color:var(--lrqa-navy);font-weight:var(--font-weight-semibold);line-height:1.5;border-left:4px solid var(--color-mint-action);background:var(--lrqa-card-light)}
+  @media(max-width:70rem){.pricing-matrix__grid{grid-template-columns:1fr}.pricing-plan{grid-template-rows:auto;}.pricing-plan--featured{order:-1}}
+  @media(max-width:64rem){.pricing-matrix__intro{grid-template-columns:1fr}}
 </style>

@@ -67,8 +67,13 @@ enforceRateLimit(
 $formName = cleanText($_POST['form_name'] ?? '', 80);
 $subjects = [
     'Контактная форма' => 'Заявка с сайта Рокнорд',
+    'English homepage contact form' => 'English enquiry from roknord.ru',
+    'Экспресс-оценка' => 'Бесплатная экспресс-оценка с сайта Рокнорд',
+    'English express assessment' => 'Express assessment request from roknord.ru',
+    '152-ФЗ аудит' => 'Заявка: аудит и документы по 152-ФЗ',
     'Получить PDF' => 'Запрос PDF: карта рисков перед ПК ОС СМ',
     'РАЛ Атлас — расширенный мониторинг' => 'Подписка на расширенный мониторинг РАЛ Атлас',
+    'РАЛ Атлас — чек-лист ПК' => 'Запрос чек-листа готовности к ПК из РАЛ Атласа',
 ];
 
 if (!isset($subjects[$formName])) {
@@ -102,16 +107,63 @@ $name = cleanText($_POST['name'] ?? '', 80);
 $email = trim((string) ($_POST['email'] ?? ''));
 $phone = cleanText($_POST['phone'] ?? '', 24);
 $message = cleanMultiline($_POST['message'] ?? '', 1200);
+$organisationType = cleanText($_POST['organisation_type'] ?? '', 120);
+$organisationInn = preg_replace('/\D+/', '', (string) ($_POST['organisation_inn'] ?? '')) ?? '';
+$registryOrInn = cleanText($_POST['registry_or_inn'] ?? '', 40);
+$procedureType = cleanText($_POST['procedure_type'] ?? '', 120);
+$directContact = cleanText($_POST['contact'] ?? '', 254);
+$expressForms = ['Экспресс-оценка', 'English express assessment'];
+$atlasChecklist = $formName === 'РАЛ Атлас — чек-лист ПК';
+$isCompactLead = in_array($formName, $expressForms, true) || $atlasChecklist;
+$qualificationRequired = !in_array($formName, [...$expressForms, '152-ФЗ аудит', 'РАЛ Атлас — чек-лист ПК'], true);
 
-if (mb_strlen($name) < 2) {
+if (!$isCompactLead && mb_strlen($name) < 2) {
     respond(422, ['ok' => false, 'message' => 'Укажите имя.']);
 }
 
-if (mb_strlen($email) > 254 || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+if (!$isCompactLead && (mb_strlen($email) > 254 || filter_var($email, FILTER_VALIDATE_EMAIL) === false)) {
     respond(422, ['ok' => false, 'message' => 'Укажите корректный адрес электронной почты.']);
 }
 
-if (in_array($formName, ['Контактная форма', 'РАЛ Атлас — расширенный мониторинг'], true)) {
+if ($qualificationRequired) {
+    $allowedTypes = [
+        'Испытательная лаборатория (ИЛ)', 'Медицинская лаборатория',
+        'Орган по сертификации продукции / систем менеджмента', 'Орган инспекции / Калибровочная лаборатория',
+        'Testing laboratory', 'Medical laboratory',
+        'Product / management system certification body', 'Inspection body / calibration laboratory',
+    ];
+    if (!in_array($organisationType, $allowedTypes, true)) {
+        respond(422, ['ok' => false, 'message' => 'Выберите тип аккредитованного лица.']);
+    }
+    if (!preg_match('/^(?:\d{10}|\d{12})$/', $organisationInn)) {
+        respond(422, ['ok' => false, 'message' => 'Укажите ИНН организации: 10 или 12 цифр.']);
+    }
+}
+
+if (in_array($formName, $expressForms, true)) {
+    if (mb_strlen($registryOrInn) < 5 || mb_strlen($procedureType) < 3) {
+        respond(422, ['ok' => false, 'message' => 'Укажите номер в реестре или ИНН и тип процедуры.']);
+    }
+    $contactIsEmail = filter_var($directContact, FILTER_VALIDATE_EMAIL) !== false;
+    $contactIsPhone = preg_match('/^[+0-9()\s-]{6,24}$/u', $directContact) === 1;
+    if (!$contactIsEmail && !$contactIsPhone) {
+        respond(422, ['ok' => false, 'message' => 'Укажите корректный телефон или email.']);
+    }
+    if ($contactIsEmail) $email = $directContact;
+    if ($contactIsPhone) $phone = $directContact;
+}
+
+if ($atlasChecklist) {
+    $contactIsEmail = filter_var($directContact, FILTER_VALIDATE_EMAIL) !== false;
+    $contactIsPhone = preg_match('/^[+0-9()\s-]{6,24}$/u', $directContact) === 1;
+    if (!$contactIsEmail && !$contactIsPhone) {
+        respond(422, ['ok' => false, 'message' => 'Укажите корректный корпоративный email или телефон.']);
+    }
+    if ($contactIsEmail) $email = $directContact;
+    if ($contactIsPhone) $phone = $directContact;
+}
+
+if (in_array($formName, ['Контактная форма', 'English homepage contact form', 'РАЛ Атлас — расширенный мониторинг', '152-ФЗ аудит'], true)) {
     if (!preg_match('/^[+0-9()\s-]{6,24}$/u', $phone)) {
         respond(422, ['ok' => false, 'message' => 'Укажите корректный номер телефона.']);
     }
@@ -140,7 +192,9 @@ try {
 
     $mail->setFrom((string) $mailConfig['from_address'], (string) $mailConfig['from_name']);
     $mail->addAddress((string) $mailConfig['to_address'], (string) $mailConfig['to_name']);
-    $mail->addReplyTo($email, $name);
+    if (filter_var($email, FILTER_VALIDATE_EMAIL) !== false) {
+        $mail->addReplyTo($email, $name !== '' ? $name : 'Посетитель сайта');
+    }
     $mail->Subject = $subjects[$formName];
     $mail->isHTML(true);
     $mail->Body = buildHtmlBody(
@@ -149,6 +203,11 @@ try {
         $email,
         $phone,
         $message,
+        $organisationType,
+        $organisationInn,
+        $registryOrInn,
+        $procedureType,
+        $directContact,
         $consentVersion,
         $consentTimestamp,
         $consentPage,
@@ -163,6 +222,11 @@ try {
         $email,
         $phone,
         $message,
+        $organisationType,
+        $organisationInn,
+        $registryOrInn,
+        $procedureType,
+        $directContact,
         $consentVersion,
         $consentTimestamp,
         $consentPage,
@@ -212,6 +276,11 @@ function buildHtmlBody(
     string $email,
     string $phone,
     string $message,
+    string $organisationType,
+    string $organisationInn,
+    string $registryOrInn,
+    string $procedureType,
+    string $directContact,
     string $consentVersion,
     string $consentTimestamp,
     string $consentPage,
@@ -227,6 +296,11 @@ function buildHtmlBody(
         'E-mail' => $email,
     ];
     if ($phone !== '') $rows['Телефон'] = $phone;
+    if ($organisationType !== '') $rows['Тип аккредитованного лица'] = $organisationType;
+    if ($organisationInn !== '') $rows['ИНН организации'] = $organisationInn;
+    if ($registryOrInn !== '') $rows['Номер РАЛ / ИНН'] = $registryOrInn;
+    if ($procedureType !== '') $rows['Тип процедуры'] = $procedureType;
+    if ($directContact !== '') $rows['Предпочтительный контакт'] = $directContact;
     if ($message !== '') $rows['Сообщение'] = nl2br(escape($message));
     $rows['Согласие'] = 'выражено';
     $rows['Версия согласия'] = $consentVersion;
@@ -251,6 +325,11 @@ function buildTextBody(
     string $email,
     string $phone,
     string $message,
+    string $organisationType,
+    string $organisationInn,
+    string $registryOrInn,
+    string $procedureType,
+    string $directContact,
     string $consentVersion,
     string $consentTimestamp,
     string $consentPage,
@@ -262,6 +341,11 @@ function buildTextBody(
 {
     $lines = ["Новое обращение с сайта roknord.ru", "Форма: $formName", "Имя: $name", "E-mail: $email"];
     if ($phone !== '') $lines[] = "Телефон: $phone";
+    if ($organisationType !== '') $lines[] = "Тип аккредитованного лица: $organisationType";
+    if ($organisationInn !== '') $lines[] = "ИНН организации: $organisationInn";
+    if ($registryOrInn !== '') $lines[] = "Номер РАЛ / ИНН: $registryOrInn";
+    if ($procedureType !== '') $lines[] = "Тип процедуры: $procedureType";
+    if ($directContact !== '') $lines[] = "Предпочтительный контакт: $directContact";
     if ($message !== '') $lines[] = "Сообщение:\n$message";
     $lines[] = 'Согласие на обработку персональных данных: выражено.';
     $lines[] = "Версия согласия: $consentVersion";

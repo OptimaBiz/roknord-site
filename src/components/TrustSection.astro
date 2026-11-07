@@ -1,0 +1,42 @@
+---
+import type { SiteLocale } from "../data/homepage";
+type Props = { locale?: SiteLocale };
+const { locale = "ru" } = Astro.props as Props;
+const copy = locale === "en" ? {
+  eyebrow: "Contract and working method", title: "Why laboratories choose Roknord for procedure preparation",
+  proofEyebrow: "Worked example", proofTitle: "See how an observation becomes a verifiable action", proofText: "The example links the review scope, evidence, risk, action and result check. It is a fictional training case, not a client report.", proofCta: "View the worked example in Russian",
+  items: [
+    ["Current requirements", "We check the management system, scope and evidence against the applicable accreditation criteria and Rosaccreditation guidance."],
+    ["Actual practice, not paper for its own sake", "We align procedures, records, protocols and day-to-day practice instead of producing a report that cannot be used by the team."],
+    ["Formal B2B engagement", "Contract with ROKNORD LLC, Tax ID 7807406530, Saint Petersburg. 22% VAT and electronic document interchange."],
+  ],
+} : {
+  eyebrow: "Договор и подход", title: "Почему лаборатории доверяют подготовку РОКНОРД",
+  proofEyebrow: "Учебный пример", proofTitle: "Посмотрите, как наблюдение превращается в проверяемое действие", proofText: "Пример показывает связку: границы проверки → доказательство → риск → действие → проверка результата. Это вымышленная ситуация, а не клиентский отчёт.", proofCta: "Открыть фрагмент карты рисков",
+  items: [
+    ["Актуальные требования", "Проверяем СМК, область и доказательства по действующим критериям аккредитации и применимым разъяснениям Росаккредитации."],
+    ["Фактическая практика, а не отчёт ради отчёта", "Сопоставляем процедуры, записи, протоколы и реальную работу, чтобы выводы можно было использовать в подготовке команды."],
+    ["Официальная работа с бизнесом", "Договор с ООО «РОКНОРД», ИНН 7807406530, Санкт-Петербург. НДС 22% и электронный документооборот."],
+  ],
+};
+---
+
+<section class="section section--grey trust-section" aria-labelledby="trust-title">
+  <div class="section__inner page-container">
+    <header data-reveal><p class="section__eyebrow">{copy.eyebrow}</p><h2 id="trust-title" class="section__title">{copy.title}</h2></header>
+    <ol data-reveal>{copy.items.map((item,index) => <li><span>0{index+1}</span><div><h3>{item[0]}</h3><p>{item[1]}</p></div></li>)}</ol>
+    <aside class="trust-proof" data-reveal>
+      <p class="trust-proof__eyebrow">{copy.proofEyebrow}</p>
+      <h3>{copy.proofTitle}</h3>
+      <p>{copy.proofText}</p>
+      <div class="trust-proof__chain" aria-hidden="true"><span>01</span><i>→</i><span>02</span><i>→</i><span>03</span><i>→</i><span>04</span></div>
+      <a href="/materials/audit-report-example/">{copy.proofCta} <span aria-hidden="true">→</span></a>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .trust-section .section__inner,.trust-section header,.trust-section ol{display:grid}.trust-section .section__inner{grid-template-columns:minmax(18rem,.75fr) minmax(0,1.25fr);gap:clamp(2rem,5vw,5rem);align-items:start}.trust-section header{gap:1rem}.trust-section header p,.trust-section header h2,.trust-section ol,.trust-section li h3,.trust-section li p{margin:0}.trust-section ol{padding:0;list-style:none;border-top:1px solid var(--lrqa-border)}.trust-section li{display:grid;grid-template-columns:3rem 1fr;gap:1rem;padding:clamp(1.25rem,2.4vw,2rem) 0;border-bottom:1px solid var(--lrqa-border)}.trust-section li>span{color:var(--color-accent-strong);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.trust-section li div{display:grid;gap:.55rem}.trust-section li h3{color:var(--lrqa-navy);font-size:clamp(1.2rem,1vw + 1rem,1.8rem)}.trust-section li p{color:var(--lrqa-muted);line-height:1.65}
+  .trust-proof{grid-column:1/-1;display:grid;grid-template-columns:minmax(18rem,.8fr) minmax(18rem,1.2fr) auto;gap:.8rem clamp(1.5rem,4vw,4rem);align-items:end;padding:clamp(1.5rem,3vw,2.5rem);color:var(--lrqa-white);background:var(--lrqa-navy);border-top:5px solid var(--color-mint-action)}.trust-proof__eyebrow,.trust-proof h3,.trust-proof>p{margin:0}.trust-proof__eyebrow{grid-column:1/-1;color:var(--color-mint-action);font-size:var(--font-size-2xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-wide);text-transform:uppercase}.trust-proof h3{font-size:clamp(1.35rem,1.15vw + 1rem,2.1rem);line-height:1.12;overflow-wrap:break-word}.trust-proof>p{color:var(--lrqa-border-soft);line-height:1.6}.trust-proof__chain{display:flex;align-items:center;gap:.5rem;color:var(--color-mint-action);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.trust-proof__chain i{color:var(--lrqa-muted-2);font-style:normal}.trust-proof>a{grid-column:1/-1;justify-self:start;color:var(--color-mint-action);font-weight:var(--font-weight-bold);text-decoration:none;border-bottom:1px solid currentColor}
+  @media(max-width:64rem){.trust-section .section__inner{grid-template-columns:1fr}.trust-section header{position:static;max-width:48rem}.trust-proof{grid-template-columns:1fr}.trust-proof__eyebrow,.trust-proof>a{grid-column:auto}}
+</style>

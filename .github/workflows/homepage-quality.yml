@@ -35,8 +35,15 @@ jobs:
         run: node --test tests/homepage-experience.test.mjs
       - name: Validate SEO and internal links
         run: node tests/site.test.mjs
-      - name: Install Chromium for browser review
-        run: npx playwright install --with-deps chromium
+      - name: Select Chromium-compatible browser
+        run: |
+          for binary in google-chrome google-chrome-stable chromium chromium-browser; do
+            if command -v "$binary" >/dev/null 2>&1; then
+              echo "CHROMIUM_PATH=$(command -v "$binary")" >> "$GITHUB_ENV"
+              exit 0
+            fi
+          done
+          npx playwright install chromium
       - name: Start built Astro preview
         run: |
           npm run preview -- --host 127.0.0.1 --port 4387 >/tmp/roknord-preview.log 2>&1 &

@@ -33,7 +33,15 @@ for (const file of files) {
     assert.ok(json.some(item=>item['@type']==='FAQPage'),route+' FAQ');
   }
 }
-const allowedFormNames=new Set(['Контактная форма','Получить PDF','РАЛ Атлас — расширенный мониторинг']);
+const allowedFormNames=new Set([
+  'Контактная форма',
+  'Получить PDF',
+  'РАЛ Атлас — расширенный мониторинг',
+  'Экспресс-оценка',
+  'English express assessment',
+  'English homepage contact form',
+  '152-ФЗ аудит',
+]);
 for(const file of files){
   const html=fs.readFileSync(path.join(root,file),'utf8');
   for(const match of html.matchAll(/name="form_name" value="([^"]+)"/g)){

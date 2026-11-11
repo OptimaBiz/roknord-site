@@ -442,7 +442,7 @@
 
 
 /* Interior-page experience: design tokens remain specific to service templates. */
-.service-page { --service-ink:#172921; --service-accent:#28724e; }
+.service-page { --service-ink:var(--lrqa-black); --service-accent:var(--lrqa-muted-dark); }
 .service-hero {
   position:relative;
   padding-block:clamp(4rem,8vw,7.5rem) clamp(2.5rem,5vw,4.75rem);
@@ -467,7 +467,7 @@
 .service-jumpnav { display:flex;flex-wrap:wrap;gap:.4rem .7rem;align-items:center;padding-block:1rem;border-bottom:1px solid var(--lrqa-border-soft);background:var(--lrqa-white); }
 .service-jumpnav a { display:inline-flex;align-items:center;min-height:2.75rem;padding:.55rem .9rem;color:var(--lrqa-muted-dark);font-size:.78rem;font-weight:700;text-decoration:none;white-space:normal; }
 .service-jumpnav a:hover,.service-jumpnav a:focus-visible { color:var(--service-ink);background:var(--lrqa-card-grey); }
-.service-jumpnav a:last-child { margin-left:auto;color:#175438; }
+.service-jumpnav a:last-child { margin-left:auto;color:var(--lrqa-muted-dark); }
 .service-page .service-section { gap:clamp(1.5rem,3vw,2.75rem);padding-block:clamp(3.5rem,6.5vw,6rem);scroll-margin-top:calc(var(--header-total-height) + 1.75rem); }
 .service-page .service-section h2 { max-width:27ch;color:var(--service-ink);font-size:clamp(2rem,3.3vw,3.3rem);line-height:1.12;letter-spacing:-.037em;text-wrap:balance; }
 .service-page .service-section h3 { color:var(--service-ink);font-size:clamp(1.1rem,1.4vw,1.4rem);line-height:1.32;letter-spacing:-.02em; }

@@ -18,6 +18,7 @@ try {
     const context = await browser.newContext({
       viewport: { width, height: 900 },
       reducedMotion: "reduce",
+      locale: "ru-RU",
     });
     await context.route("**/*", (route) =>
       route.request().url().startsWith(base) ? route.continue() : route.abort(),
@@ -29,6 +30,8 @@ try {
     });
     const response = await page.goto(base + "/", { waitUntil: "domcontentloaded" });
     assert.equal(response?.status(), 200, `homepage ${width}`);
+    await page.waitForTimeout(150);
+    assert.equal(new URL(page.url()).pathname, "/", "Russian homepage must not redirect to English");
     await page.locator(".hero-media__poster").waitFor();
     assert.equal(await page.locator("h1").count(), 1);
     assert.equal(
@@ -72,11 +75,28 @@ try {
       `quick enquiry visible after hero CTA at ${width}px`,
     );
     if (output && [1440, 390].includes(width)) {
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await page.waitForTimeout(160);
       await page.screenshot({ path: path.join(output, `homepage-${width}.png`), fullPage: true });
     }
     await context.close();
     console.log(`PASS homepage ${width}px`);
   }
+  const enContext = await browser.newContext({
+    viewport: { width: 1440, height: 900 },
+    reducedMotion: "reduce",
+    locale: "en-US",
+  });
+  await enContext.route("**/*", (route) =>
+    route.request().url().startsWith(base) ? route.continue() : route.abort(),
+  );
+  const enPage = await enContext.newPage();
+  const enResponse = await enPage.goto(base + "/en/");
+  assert.equal(enResponse?.status(), 200);
+  assert.match(await enPage.locator("h1").innerText(), /Accreditation and competence confirmation/);
+  assert.equal(await enPage.locator("#expertise").count(), 1);
+  assert.equal(await enPage.locator(".situations-list--primary .situation-row").count(), 3);
+  await enContext.close();
   assert.deepEqual(failures, [], "no browser errors or accidental submissions");
 } finally {
   await browser.close();

@@ -82,15 +82,27 @@ try {
             false,
           );
         }
+        assert.equal(
+          await page.locator(".hero-action--primary").getAttribute("href"),
+          "#express-assessment",
+          "hero action leads to the quick enquiry",
+        );
+        assert.equal(await page.locator(".situations-list--primary .situation-row").count(), 3);
+        assert.equal(await page.locator(".situations-list--additional .situation-row").count(), 2);
+        assert.equal(await page.locator(".situations-more").getAttribute("open"), null);
+        await page.locator(".situations-more > summary").click();
+        assert.equal(await page.locator(".situations-more").getAttribute("open"), "");
+        assert.ok(await page.locator("#scenario-scope-audit").isVisible());
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
         await page.locator(".hero-action--primary").click();
         await page.waitForTimeout(250);
         assert.ok(
           Math.abs(
             await page
-              .locator("#contact")
+              .locator("#express-assessment")
               .evaluate((e) => e.getBoundingClientRect().top),
-          ) < 80,
-          "contact anchor",
+          ) < 200,
+          "quick enquiry anchor",
         );
       }
       if (await page.locator('[data-article-toc]').count()) {

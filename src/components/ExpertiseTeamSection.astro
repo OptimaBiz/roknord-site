@@ -1,24 +1,55 @@
 ---
-const principles = [
-  { title: "По профилю задачи", text: "Учитываем тип организации, область и предстоящую процедуру." },
-  { title: "По необходимости", text: "Дополнительные компетенции подключаем только к отдельным вопросам." },
-  { title: "По согласованию", text: "Состав, задачи и стоимость фиксируем до начала соответствующих работ." },
-];
+import type { SiteLocale } from "../data/homepage";
+const { locale = "ru" } = Astro.props as { locale?: SiteLocale };
+const copy = locale === "en" ? {
+  eyebrow: "Project team",
+  heading: "One lead expert from audit through preparation",
+  lead: "A lead expert is appointed for the initial review. If further preparation is agreed, the work continues with the same context instead of restarting from scratch.",
+  imageAlt: "Work session reviewing documents and supporting evidence",
+  label: "Project structure",
+  feature: "Continuity across stages",
+  detail1: "We agree the scope, lead expert and their responsibilities before work begins. Additional competencies are brought in for specific questions and agreed in advance.",
+  detail2: "The lead expert coordinates the audit findings and further preparation within the agreed scope.",
+  listLabel: "Project staffing principles",
+  proofLink: "View the illustrative audit result",
+  principles: [
+    { title: "Task-specific", text: "We consider organisation type, scope and upcoming procedure." },
+    { title: "As needed", text: "Additional specialists are involved for specific issues." },
+    { title: "Agreed upfront", text: "Scope, responsibilities and costs are agreed before the work." },
+  ],
+} : {
+  eyebrow: "Команда проекта",
+  heading: "Один ответственный эксперт — от аудита до подготовки",
+  lead: "Для первого аудита назначаем ведущего эксперта. Если после него вы поручаете нам подготовку, задача продолжается в том же контуре и без повторного погружения с нуля.",
+  imageAlt: "Рабочая сессия по анализу документов и доказательств",
+  label: "Состав проекта",
+  feature: "Не передаём задачу между этапами",
+  detail1: "До начала работ согласуем профиль задачи, ведущего эксперта и его роль. Если нужны дополнительные компетенции, подключаем специалистов по конкретным вопросам и заранее фиксируем состав.",
+  detail2: "Ведущий эксперт отвечает за выводы аудита, понимает контекст организации и координирует дальнейшую подготовку в согласованных границах.",
+  listLabel: "Принципы формирования состава",
+  proofLink: "Посмотреть учебный пример результата",
+  principles: [
+    { title: "По профилю задачи", text: "Учитываем тип организации, область и предстоящую процедуру." },
+    { title: "По необходимости", text: "Дополнительные компетенции подключаем только к отдельным вопросам." },
+    { title: "По согласованию", text: "Состав, задачи и стоимость фиксируем до начала соответствующих работ." },
+  ],
+};
+const { principles } = copy;
 ---
 
 <section id="expertise" class="section section--dark expertise-section" aria-labelledby="expertise-title">
   <div class="section__inner page-container">
     <header class="expertise-intro" data-reveal>
-      <p class="section__eyebrow">Команда проекта</p>
-      <h2 id="expertise-title" class="section__title">Один ответственный эксперт — от аудита до подготовки</h2>
-      <p class="section__lead">Для первого аудита назначаем ведущего эксперта. Если после него вы поручаете нам подготовку, задача продолжается в том же контуре и без повторного погружения с нуля.</p>
+      <p class="section__eyebrow">{copy.eyebrow}</p>
+      <h2 id="expertise-title" class="section__title">{copy.heading}</h2>
+      <p class="section__lead">{copy.lead}</p>
     </header>
 
     <div class="expertise-feature" data-reveal>
       <figure class="expertise-feature__media">
         <img
           src="/images/expertise/team-work-session.webp"
-          alt="Рабочая сессия по анализу документов и доказательств"
+          alt={copy.imageAlt}
           width="1586"
           height="992"
           loading="lazy"
@@ -27,12 +58,12 @@ const principles = [
       </figure>
 
       <div class="expertise-feature__content">
-        <p class="expertise-feature__label">Состав проекта</p>
-        <h3>Не передаём задачу между этапами</h3>
-        <p>До начала работ согласуем профиль задачи, ведущего эксперта и его роль. Если нужны дополнительные компетенции, подключаем специалистов по конкретным вопросам и заранее фиксируем состав.</p>
-        <p>Ведущий эксперт отвечает за выводы аудита, понимает контекст организации и координирует дальнейшую подготовку в согласованных границах.</p>
+        <p class="expertise-feature__label">{copy.label}</p>
+        <h3>{copy.feature}</h3>
+        <p>{copy.detail1}</p>
+        <p>{copy.detail2}</p>
 
-        <ol class="expertise-principles" aria-label="Принципы формирования состава">
+        <ol class="expertise-principles" aria-label={copy.listLabel}>
           {principles.map((item, index) => (
             <li>
               <span aria-hidden="true">0{index + 1}</span>
@@ -40,7 +71,7 @@ const principles = [
             </li>
           ))}
         </ol>
-        <a href="/materials/audit-report-example/">Посмотреть учебный пример результата →</a>
+        <a href="/materials/audit-report-example/">{copy.proofLink} →</a>
       </div>
     </div>
   </div>

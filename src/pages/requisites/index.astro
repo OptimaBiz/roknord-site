@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../styles/interior.css";
 ---
 
 <BaseLayout
@@ -19,12 +20,13 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
             <div><dt>Сокращённое наименование</dt><dd>ООО «РОКНОРД»</dd></div>
             <div><dt>Бренд</dt><dd>РОКНОРД / ROKNORD</dd></div>
             <div class="requisites-page__inline-row">
-              <div><dt>ИНН</dt><dd>7807406530</dd></div>
+              <div><dt>ИНН</dt><dd>7807406530 <button class="requisites-page__copy" type="button" data-copy-detail="7807406530" data-copy-label="ИНН" aria-label="Скопировать ИНН">Копировать</button></dd></div>
               <div><dt>КПП</dt><dd>780701001</dd></div>
             </div>
-            <div><dt>ОГРН</dt><dd>1267800054686</dd></div>
+            <div><dt>ОГРН</dt><dd>1267800054686 <button class="requisites-page__copy" type="button" data-copy-detail="1267800054686" data-copy-label="ОГРН" aria-label="Скопировать ОГРН">Копировать</button></dd></div>
             <div><dt>Официальный сайт</dt><dd><a href="https://roknord.ru/">roknord.ru</a></dd></div>
           </dl>
+          <p class="requisites-page__copy-status" data-copy-status role="status" aria-live="polite"></p>
         </section>
 
         <section class="requisites-page__section" aria-labelledby="address-title">
@@ -52,6 +54,22 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       </div>
     </div>
   </main>
+  <script>
+    document.querySelectorAll<HTMLButtonElement>("[data-copy-detail]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const value = button.dataset.copyDetail || "";
+        const label = button.dataset.copyLabel || "Значение";
+        const status = document.querySelector<HTMLElement>("[data-copy-status]");
+        try {
+          if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
+          await navigator.clipboard.writeText(value);
+          if (status) status.textContent = `${label} скопирован`;
+        } catch {
+          if (status) status.textContent = `Не удалось скопировать ${label}. Выделите номер и скопируйте вручную.`;
+        }
+      });
+    });
+  </script>
 </BaseLayout>
 
 <style>

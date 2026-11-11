@@ -10,6 +10,7 @@ import FaqSection from "./FaqSection.astro";
 import ContactForm from "./ContactForm.astro";
 import ExpressAssessment from "./ExpressAssessment.astro";
 import TrustSection from "./TrustSection.astro";
+import ExpertiseTeamSection from "./ExpertiseTeamSection.astro";
 import { homepageContent, type SiteLocale } from "../data/homepage";
 
 type Props = { locale: SiteLocale };
@@ -27,15 +28,15 @@ const websiteSchema = {
   inLanguage: locale,
 };
 const contact = en ? {
-  eyebrow: "Next step",
-  title: "Request a detailed preparation estimate",
-  description: "Specify the accredited body type, company tax ID, upcoming procedure and timeframe. We will propose the scope, stages and budget range for the required engagement format.",
+  eyebrow: "Detailed enquiry",
+  title: "Get a detailed preparation scope and estimate",
+  description: "Have a specific task or an agreed technical brief? Tell us the accredited body type, tax ID, procedure and timeframe. We will discuss the scope, stages and cost separately from the quick initial assessment.",
   submit: "Request an estimate",
   status: "We respond within one working day. We use your data to answer the enquiry in accordance with the Personal Data Processing Policy.",
 } : {
-  eyebrow: "Следующий шаг",
-  title: "Запросите детальный расчёт подготовки",
-  description: "Укажите тип аккредитованного лица, ИНН, предстоящую процедуру и сроки. Предложим состав, этапы и вилку бюджета для подходящего формата работы.",
+  eyebrow: "Детальный запрос",
+  title: "Получите расчёт объёма, этапов и стоимости подготовки",
+  description: "Уже есть конкретная задача или техническое задание? Опишите организацию, предстоящую процедуру и сроки. Согласуем состав работ и предложим расчёт отдельно от быстрой предварительной оценки.",
   submit: "Запросить расчёт",
   status: "Ответим в течение рабочего дня. Используем данные для ответа на обращение в соответствии с Политикой в отношении обработки персональных данных.",
 };
@@ -53,11 +54,12 @@ const contact = en ? {
 >
   <main id="content" class="home-content">
     <Hero locale={locale} />
-    <ExpressAssessment locale={locale} />
     <Scenarios locale={locale} />
     <InspectionLogic locale={locale} />
-    <ProcessSection locale={locale} />
+    <ExpressAssessment locale={locale} />
     <PricingSection locale={locale} />
+    <ProcessSection locale={locale} />
+    <ExpertiseTeamSection />
     <TrustSection locale={locale} />
     <AtlasBridge locale={locale} />
     <FaqSection locale={locale} />

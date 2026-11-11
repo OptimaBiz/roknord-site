@@ -37,7 +37,7 @@ const shots = new Set([
 ]);
 
 try {
-  for (const width of [1440, 390]) {
+  for (const width of [1440, 768, 390, 320]) {
     const context = await browser.newContext({
       viewport: { width, height: 900 },
       locale: "ru-RU",
@@ -60,6 +60,8 @@ try {
         assert.equal(response?.status(), 200, route + " HTTP " + response?.status());
       }
       assert.equal(await page.locator("main h1").count(), 1, route + " has exactly one H1");
+      const cookieDecline = page.locator("[data-cookie-decline]");
+      if (await cookieDecline.count() && await cookieDecline.isVisible()) await cookieDecline.click();
       if (route==="/testing-labs/" || route==="/occupational-safety/") {
         assert.equal(await page.locator(".service-hero__facts li").count(), 3);
         assert.equal(await page.locator(".service-jumpnav a").count(), 5);
@@ -97,6 +99,8 @@ try {
 
       const shot = width + ":" + route;
       if (output && shots.has(shot)) {
+        await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+        await page.waitForTimeout(120);
         await page.screenshot({
           path: path.join(output, (route.replaceAll("/", "-").replace(/^-|-$/g, "") || "home") + "-" + width + ".png"),
           fullPage: true,

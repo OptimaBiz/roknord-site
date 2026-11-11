@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../styles/interior.css";
 
 const canonical = "https://roknord.ru/news/";
 const newsItems = [
@@ -45,8 +46,14 @@ const structuredData = [
       </div>
     </section>
 
+    <div class="news-filters page-container" role="group" aria-label="Темы публикаций">
+      <button type="button" data-news-filter="all" aria-pressed="true">Все материалы</button>
+      <button type="button" data-news-filter="personal-data" aria-pressed="false">Персональные данные</button>
+      <button type="button" data-news-filter="occupational-safety" aria-pressed="false">Охрана труда</button>
+      <span class="news-filters__count" data-news-count role="status" aria-live="polite">4 материала</span>
+    </div>
     <section class="news-page__list page-container" aria-label="Последние материалы">
-      <article class="news-card">
+      <article class="news-card" data-news-category="personal-data">
         <a class="news-card__image" href="/uvedomlenie-roskomnadzora-personalnye-dannye-2026/" aria-label="Открыть статью об актуальности уведомления Роскомнадзора">
           <img src="/images/news/uvedomlenie-roskomnadzora-personalnye-dannye-2026.webp" alt="Специалист сверяет сведения реестра с внутренней картой обработки данных" width="1672" height="941" srcset="/images/news/uvedomlenie-roskomnadzora-personalnye-dannye-2026-800.webp 800w, /images/news/uvedomlenie-roskomnadzora-personalnye-dannye-2026.webp 1672w" sizes="(max-width: 48rem) calc(100vw - 60px), 520px" loading="eager" decoding="async" />
         </a>
@@ -58,7 +65,7 @@ const structuredData = [
         </div>
       </article>
 
-      <article class="news-card">
+      <article class="news-card" data-news-category="personal-data">
         <a class="news-card__image" href="/processy-obrabotki-personalnyh-dannyh-2026/" aria-label="Открыть статью об организации процессов обработки персональных данных">
           <img src="/images/news/processy-obrabotki-personalnyh-dannyh-2026.webp" alt="Специалисты сопоставляют этапы обработки данных на карте процессов" width="1672" height="941" srcset="/images/news/processy-obrabotki-personalnyh-dannyh-2026-800.webp 800w, /images/news/processy-obrabotki-personalnyh-dannyh-2026.webp 1672w" sizes="(max-width: 48rem) calc(100vw - 60px), 520px" loading="lazy" decoding="async" />
         </a>
@@ -70,7 +77,7 @@ const structuredData = [
         </div>
       </article>
 
-      <article class="news-card">
+      <article class="news-card" data-news-category="personal-data">
         <a class="news-card__image" href="/personalnye-dannye-na-sajte-proverka-roskomnadzora-2026/" aria-label="Открыть статью о проверке обработки персональных данных на сайте">
           <img src="/images/news/personalnye-dannye-na-sajte-proverka-roskomnadzora-2026.webp" alt="Специалист сопоставляет форму сайта с картой процессов обработки данных" width="1672" height="941" srcset="/images/news/personalnye-dannye-na-sajte-proverka-roskomnadzora-2026-800.webp 800w, /images/news/personalnye-dannye-na-sajte-proverka-roskomnadzora-2026.webp 1672w" sizes="(max-width: 48rem) calc(100vw - 60px), 520px" loading="lazy" decoding="async" />
         </a>
@@ -82,7 +89,7 @@ const structuredData = [
         </div>
       </article>
 
-      <article class="news-card">
+      <article class="news-card" data-news-category="occupational-safety">
         <a class="news-card__image" href="/postanovlenie-805-ohrana-truda-2026/" aria-label="Открыть статью о Постановлении № 805">
           <img src="/images/news/postanovlenie-805-ohrana-truda-2026.webp" alt="Инструктаж работников по охране труда перед практической подготовкой" width="1668" height="939" srcset="/images/news/postanovlenie-805-ohrana-truda-2026-800.webp 800w, /images/news/postanovlenie-805-ohrana-truda-2026.webp 1668w" sizes="(max-width: 48rem) calc(100vw - 60px), 520px" loading="lazy" decoding="async" />
         </a>
@@ -95,6 +102,22 @@ const structuredData = [
       </article>
     </section>
   </main>
+  <script>
+    const filters = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-news-filter]"));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-news-category]"));
+    const count = document.querySelector<HTMLElement>("[data-news-count]");
+    const setFilter = (category: string) => {
+      let total = 0;
+      cards.forEach((card) => {
+        const visible = category === "all" || card.dataset.newsCategory === category;
+        card.hidden = !visible;
+        if (visible) total += 1;
+      });
+      filters.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.newsFilter === category)));
+      if (count) count.textContent = total === 1 ? "1 материал" : total < 5 ? `${total} материала` : `${total} материалов`;
+    };
+    filters.forEach((button) => button.addEventListener("click", () => setFilter(button.dataset.newsFilter || "all")));
+  </script>
 </BaseLayout>
 
 <style>

@@ -5,23 +5,23 @@ const { locale = "ru" } = Astro.props as Props;
 const en = locale === "en";
 const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "https://api.roknord.ru/contact.php";
 const copy = en ? {
-  eyebrow: "No-cost first step",
-  title: "Get a preliminary risk review and preparation plan within one working day",
-  text: "Send your Rosaccreditation register number or company tax ID and the upcoming procedure. We will review the available scope data and send a preliminary cost and timeframe range.",
+  eyebrow: "Quick initial enquiry · no payment",
+  title: "Request an initial assessment and next steps",
+  text: "Share your register number or tax ID, procedure and contact details. We will review the available information and outline the next steps and indicative cost and timing; a full audit requires a separately agreed scope.",
   registry: "Register number or tax ID", registryPlaceholder: "RA.RU.21… or company tax ID",
   procedure: "Upcoming procedure", contact: "Phone or email", contactPlaceholder: "+7… or name@company.com",
-  submit: "Get a plan and cost estimate", consent: "I consent to personal data processing under the",
-  consentLink: "consent terms", status: "No payment or document upload is required.", pending: "Sending…",
+  submit: "Request an initial assessment", consent: "I consent to personal data processing under the",
+  consentLink: "consent terms", status: "No payment or document upload is required.", alternative: "Already have a brief? Send a detailed enquiry", pending: "Sending…",
   error: "Please complete all fields and confirm your consent.", failure: "The request could not be sent. Please try again or email hello@roknord.ru.",
   options: ["Initial accreditation", "Competence confirmation: CC-1 / CC-2 / CC-5", "Scope extension", "Corrective action after nonconformities"],
 } : {
-  eyebrow: "Первый шаг без оплаты",
-  title: "Узнайте риски и план подготовки к ближайшему ПК или аккредитации за 1 рабочий день",
-  text: "Пришлите номер в реестре Росаккредитации или ИНН и тип предстоящей процедуры. Проверим доступные сведения об области и направим предварительное предложение с вилкой стоимости и сроков.",
+  eyebrow: "Быстрый запрос · без оплаты",
+  title: "Получите предварительную оценку и следующие шаги",
+  text: "Укажите номер в реестре или ИНН, предстоящую процедуру и контакт. По доступным сведениям определим, с чего начать, и дадим ориентир по срокам и бюджету. Полный аудит выполняется по согласованному объёму работ.",
   registry: "Номер в реестре РАЛ или ИНН", registryPlaceholder: "RA.RU.21… или ИНН организации",
   procedure: "Тип процедуры", contact: "Телефон или email", contactPlaceholder: "+7… или name@company.ru",
-  submit: "Получить план и расчёт стоимости", consent: "Согласен на обработку персональных данных в соответствии с",
-  consentLink: "текстом согласия", status: "Оплата и загрузка документов на этом этапе не требуются.", pending: "Отправляем…",
+  submit: "Запросить предварительную оценку", consent: "Согласен на обработку персональных данных в соответствии с",
+  consentLink: "текстом согласия", status: "Оплата и загрузка документов не требуются.", alternative: "Есть техническое задание? Перейти к детальному запросу", pending: "Отправляем…",
   error: "Заполните все поля и подтвердите согласие.", failure: "Не удалось отправить запрос. Попробуйте ещё раз или напишите на hello@roknord.ru.",
   options: ["Первичная аккредитация", "Подтверждение компетентности ПК-1 / ПК-2 / ПК-5", "Расширение области", "Устранение несоответствий"],
 };
@@ -33,6 +33,7 @@ const copy = en ? {
       <p class="section__eyebrow">{copy.eyebrow}</p>
       <h2 id="express-title">{copy.title}</h2>
       <p>{copy.text}</p>
+      <a class="express-assessment__alternative" href="#contact">{copy.alternative} <span aria-hidden="true">↗</span></a>
     </div>
 
     <form class="express-form" action={endpoint} method="post" data-express-form data-reveal novalidate>
@@ -94,6 +95,9 @@ const copy = en ? {
   .express-assessment{padding-block:clamp(3rem,6vw,6rem);color:var(--lrqa-white);background:var(--lrqa-navy);border-bottom:1px solid var(--lrqa-dark-border)}
   .express-assessment__inner{display:grid;grid-template-columns:minmax(0,.85fr) minmax(28rem,1.15fr);gap:clamp(2rem,7vw,7rem);align-items:start}.express-assessment__copy{display:grid;gap:1rem}.express-assessment__copy h2,.express-assessment__copy p{margin:0}.express-assessment__copy h2{font-size:clamp(2rem,3.2vw,4rem);line-height:1.02}.express-assessment__copy>p:last-child{color:var(--lrqa-border);line-height:1.65}.express-assessment .section__eyebrow{color:var(--color-mint-action)}
   .express-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;padding:clamp(1.4rem,3vw,2.5rem);color:var(--lrqa-black);background:var(--lrqa-white)}.express-form label:not(.express-form__consent){display:grid;gap:.45rem}.express-form label>span{font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold)}.express-form input,.express-form select{width:100%;min-height:3.25rem;padding:.7rem 1rem;border:1px solid var(--lrqa-border);border-radius:0;background:var(--lrqa-white-soft);color:var(--lrqa-black);font:inherit}.express-form input:focus,.express-form select:focus{border-color:var(--color-mint-action);outline:2px solid color-mix(in srgb,var(--color-mint-action) 35%,transparent);outline-offset:1px}.express-form__contact,.express-form__consent,.express-form button,.express-form__status{grid-column:1/-1}.express-form__consent{display:grid;grid-template-columns:auto 1fr;gap:.65rem;align-items:start}.express-form__consent input{width:1.15rem;min-height:1.15rem;margin-top:.1rem}.express-form__consent span{color:var(--lrqa-muted);font-size:var(--font-size-xs);line-height:1.45}.express-form__consent a{color:var(--lrqa-navy);text-decoration:underline}.express-form button{min-height:3.5rem;border:0;padding:var(--space-3) var(--space-6);background:var(--gradient-button-primary);color:var(--lrqa-black);font:inherit;font-weight:var(--font-weight-bold);cursor:pointer}.express-form button:disabled{cursor:wait;opacity:.65}.express-form__status{margin:0;color:var(--lrqa-muted);font-size:var(--font-size-xs)}.express-form__status[data-state="error"]{color:var(--color-danger)}.express-form__trap{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important}
+  .express-assessment__alternative{justify-self:start;display:inline-flex;gap:.7rem;align-items:center;padding:.55rem 0;color:var(--color-mint-action);font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);text-decoration:none;border-bottom:1px solid currentColor}
+  .express-assessment__alternative:hover{color:var(--lrqa-mint-2)}
+  .express-assessment__alternative:focus-visible{outline:var(--focus-outline-width) solid var(--color-mint-action);outline-offset:var(--focus-outline-offset)}
   @media(max-width:64rem){.express-assessment__inner{grid-template-columns:1fr}.express-assessment__copy{max-width:50rem}}
   @media(max-width:42rem){.express-form{grid-template-columns:1fr}.express-form label{grid-column:1}}
 </style>

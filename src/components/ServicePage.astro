@@ -10,6 +10,17 @@ const canonical = new URL(`/${slug}/`, "https://roknord.ru").href;
 const contactHref = "#contact";
 const isAccreditationService = slug !== "occupational-safety";
 const startLabel = isAccreditationService ? "Начать с аудита готовности" : "Обсудить анализ";
+const heroFacts = isAccreditationService
+  ? [
+      ["01", "Требования и практика", "Сверяем область, СМК и записи"],
+      ["02", "Доказательная база", "Фиксируем доступные подтверждения"],
+      ["03", "План подготовки", "Определяем приоритеты по итогам аудита"],
+    ]
+  : [
+      ["01", "Границы анализа", "Заранее согласуем объём выборки"],
+      ["02", "Фактические данные", "Проверяем документы и записи"],
+      ["03", "Следующие действия", "Фиксируем обоснованные рекомендации"],
+    ];
 
 const seoTitles: Record<string, string> = {
   "testing-labs": "Подготовка испытательной лаборатории к аккредитации — Рокнорд",
@@ -108,8 +119,24 @@ const structuredData = [
       <p class="section__eyebrow">{service.eyebrow}</p>
       <h1>{service.title}</h1>
       <p class="service-lead">{service.description}</p>
-      <a class="button button-primary cta-angled" href={contactHref} data-contact-context={service.title}>{startLabel} →</a>
+      <div class="service-hero__actions">
+        <a class="button button-primary cta-angled" href={contactHref} data-contact-context={service.title}>{startLabel} <span aria-hidden="true">↗</span></a>
+        <a class="service-hero__secondary" href="#service-checks">Что входит в проверку <span aria-hidden="true">↓</span></a>
+      </div>
+      <ol class="service-hero__facts" aria-label="Порядок работы">
+        {heroFacts.map(([number, title, detail]) => (
+          <li><span>{number}</span><strong>{title}</strong><small>{detail}</small></li>
+        ))}
+      </ol>
     </header>
+
+    <nav class="service-jumpnav page-container" aria-label="Разделы страницы">
+      <a href="#service-checks">Что проверяем</a>
+      <a href="#service-result">Что получите</a>
+      <a href="#service-start">Этапы работы</a>
+      <a href="#service-faq">Вопросы</a>
+      <a href="#contact">Обсудить задачу <span aria-hidden="true">↗</span></a>
+    </nav>
 
     <section class="service-section page-container" aria-labelledby="service-checks">
       <div class="service-intro">
@@ -149,7 +176,9 @@ const structuredData = [
 
     <section class="service-section page-container" aria-labelledby="service-faq">
       <h2 id="service-faq">Вопросы до начала работы</h2>
-      {faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}
+      <div class="service-faq">
+        {faq.map((item) => <details><summary><span>{item.question}</span></summary><p>{item.answer}</p></details>)}
+      </div>
       <a class="button button-primary cta-angled" href={contactHref} data-contact-context={service.title}>{startLabel} →</a>
     </section>
 

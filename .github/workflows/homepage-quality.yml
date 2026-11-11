@@ -1,0 +1,37 @@
+name: Homepage quality
+
+on:
+  pull_request:
+    paths:
+      - "src/components/Hero.astro"
+      - "src/components/Scenarios.astro"
+      - "src/components/InspectionLogic.astro"
+      - "src/components/ExpressAssessment.astro"
+      - "src/components/ExpertiseTeamSection.astro"
+      - "src/components/Homepage.astro"
+      - "src/data/homepage.ts"
+      - "tests/**"
+      - ".github/workflows/homepage-quality.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  astro-build-and-regressions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Build all routes
+        run: npm run build
+      - name: Check homepage redesign invariants
+        run: node --test tests/homepage-experience.test.mjs
+      - name: Validate SEO and internal links
+        run: node tests/site.test.mjs

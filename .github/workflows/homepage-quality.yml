@@ -1,0 +1,67 @@
+name: Homepage quality
+
+on:
+  pull_request:
+    paths:
+      - "src/components/Hero.astro"
+      - "src/components/Scenarios.astro"
+      - "src/components/InspectionLogic.astro"
+      - "src/components/ExpressAssessment.astro"
+      - "src/components/ExpertiseTeamSection.astro"
+      - "src/components/Homepage.astro"
+      - "src/data/homepage.ts"
+      - "tests/**"
+      - ".github/workflows/homepage-quality.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  astro-build-and-regressions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Build all routes
+        run: npm run build
+      - name: Check homepage redesign invariants
+        run: node --test tests/homepage-experience.test.mjs
+      - name: Validate SEO and internal links
+        run: node tests/site.test.mjs
+      - name: Select Chromium-compatible browser
+        run: |
+          for binary in google-chrome google-chrome-stable chromium chromium-browser; do
+            if command -v "$binary" >/dev/null 2>&1; then
+              echo "CHROMIUM_PATH=$(command -v "$binary")" >> "$GITHUB_ENV"
+              exit 0
+            fi
+          done
+          npx playwright install chromium
+      - name: Start built Astro preview
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4387 >/tmp/roknord-preview.log 2>&1 &
+          for i in $(seq 1 40); do
+            if curl --fail --silent http://127.0.0.1:4387/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/roknord-preview.log
+          exit 1
+      - name: Responsive homepage smoke tests
+        env:
+          REVIEW_OUTPUT: review
+        run: node tests/homepage-browser.mjs
+      - name: Save desktop and mobile review screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: homepage-visual-review
+          path: review/
+          if-no-files-found: ignore
+          retention-days: 7

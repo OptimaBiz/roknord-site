@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../styles/interior.css";
 ---
 
 <BaseLayout
@@ -10,6 +11,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     <div class="page-container requisites-page__inner">
       <p class="eyebrow">Юридическая информация</p>
       <h1>Реквизиты ООО «РОКНОРД»</h1>
+      <p class="requisites-page__intro">Данные организации для договора, счёта и деловой переписки. Для уточнений используйте официальные контакты.</p>
 
       <div class="requisites-page__grid">
         <section class="requisites-page__section" aria-labelledby="company-details-title">
@@ -19,12 +21,13 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
             <div><dt>Сокращённое наименование</dt><dd>ООО «РОКНОРД»</dd></div>
             <div><dt>Бренд</dt><dd>РОКНОРД / ROKNORD</dd></div>
             <div class="requisites-page__inline-row">
-              <div><dt>ИНН</dt><dd>7807406530</dd></div>
+              <div><dt>ИНН</dt><dd>7807406530 <button class="requisites-page__copy" type="button" data-copy-detail="7807406530" data-copy-label="ИНН" aria-label="Скопировать ИНН">Копировать</button></dd></div>
               <div><dt>КПП</dt><dd>780701001</dd></div>
             </div>
-            <div><dt>ОГРН</dt><dd>1267800054686</dd></div>
+            <div><dt>ОГРН</dt><dd>1267800054686 <button class="requisites-page__copy" type="button" data-copy-detail="1267800054686" data-copy-label="ОГРН" aria-label="Скопировать ОГРН">Копировать</button></dd></div>
             <div><dt>Официальный сайт</dt><dd><a href="https://roknord.ru/">roknord.ru</a></dd></div>
           </dl>
+          <p class="requisites-page__copy-status" data-copy-status role="status" aria-live="polite"></p>
         </section>
 
         <section class="requisites-page__section" aria-labelledby="address-title">
@@ -52,9 +55,32 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       </div>
     </div>
   </main>
+  <script>
+    document.querySelectorAll<HTMLButtonElement>("[data-copy-detail]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const value = button.dataset.copyDetail || "";
+        const label = button.dataset.copyLabel || "Значение";
+        const status = document.querySelector<HTMLElement>("[data-copy-status]");
+        try {
+          if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
+          await navigator.clipboard.writeText(value);
+          if (status) status.textContent = `${label} скопирован`;
+        } catch {
+          if (status) status.textContent = `Не удалось скопировать ${label}. Выделите номер и скопируйте вручную.`;
+        }
+      });
+    });
+  </script>
 </BaseLayout>
 
 <style>
+  .requisites-page__intro{max-width:43rem;margin:1rem 0 0;color:var(--lrqa-muted-dark);font-size:var(--type-lead);line-height:1.65}
+  .requisites-page__details{gap:0}
+  .requisites-page__details>div{padding:1rem 0;border-top:1px solid var(--lrqa-border-soft)}
+  .requisites-page__details dd{color:var(--lrqa-black);font-weight:var(--font-weight-semibold);overflow-wrap:anywhere}
+  .requisites-page__section>p a{font-size:clamp(1rem,1.4vw,1.2rem);font-weight:var(--font-weight-semibold)}
+  .requisites-page__map{border:1px solid var(--lrqa-border)}
+  @media(max-width:48rem){.requisites-page h1{font-size:clamp(2.2rem,10vw,3.2rem);line-height:1.05}.requisites-page__details .requisites-page__inline-row{gap:.6rem}}
   .requisites-page {
     background: var(--lrqa-card-light);
     color: var(--lrqa-black);

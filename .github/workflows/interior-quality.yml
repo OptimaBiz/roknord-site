@@ -1,0 +1,69 @@
+name: Interior pages quality
+
+on:
+  pull_request:
+    paths:
+      - "src/components/ServicePage.astro"
+      - "src/components/LegalToc.astro"
+      - "src/components/ThankYouPage.astro"
+      - "src/pages/**"
+      - "src/styles/account.css"
+      - "src/styles/article.css"
+      - "src/styles/interior.css"
+      - "src/styles/pdn-audit.css"
+      - "src/styles/service.css"
+      - "tests/interior-*.mjs"
+      - ".github/workflows/interior-quality.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-visual-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Build every route
+        run: npm run build
+      - name: Check SEO, route links and references
+        run: node tests/site.test.mjs
+      - name: Check inner-page functional boundaries
+        run: node --test tests/interior-experience.test.mjs
+      - name: Choose available Chrome
+        run: |
+          for binary in google-chrome google-chrome-stable chromium chromium-browser; do
+            if command -v "$binary" >/dev/null 2>&1; then
+              echo "CHROMIUM_PATH=$(command -v "$binary")" >> "$GITHUB_ENV"
+              exit 0
+            fi
+          done
+          npx playwright install chromium
+      - name: Serve built Astro site locally
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4388 >/tmp/roknord-interior.log 2>&1 &
+          for i in $(seq 1 40); do
+            if curl --fail --silent http://127.0.0.1:4388/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/roknord-interior.log
+          exit 1
+      - name: Test representative pages on desktop and mobile
+        env:
+          REVIEW_OUTPUT: review-interior
+        run: node tests/interior-browser.mjs
+      - name: Save visual review screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: interior-pages-visual-review
+          path: review-interior/
+          if-no-files-found: ignore
+          retention-days: 7

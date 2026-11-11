@@ -26,3 +26,71 @@
 .scenario-grid--compact{grid-template-columns:repeat(4,minmax(0,1fr))}.scenario-grid--compact article{min-height:0}.pdn-delivery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--color-border)}.pdn-delivery-card{padding:clamp(1.5rem,3.5vw,3rem);background:var(--lrqa-white)}.pdn-delivery-card+article{border-left:1px solid var(--color-border)}.pdn-delivery-card h3{max-width:18ch;margin:var(--space-4) 0 var(--space-6);font-size:var(--type-feature-title);line-height:1.05}.pdn-delivery-card ul{display:grid;gap:var(--space-4);margin:0;padding:0;list-style:none}.pdn-delivery-card li{position:relative;padding-left:1.65rem;color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}.pdn-delivery-card li::before{content:'✓';position:absolute;top:0;left:0;color:var(--color-accent);font-weight:800}.pdn-delivery-card li strong,.pdn-delivery-card li span{display:block}.pdn-delivery-card li strong{margin-bottom:.2rem;color:var(--color-text-inverse)}.pdn-delivery-card--accent{background:var(--color-dark-foundation);color:var(--color-text-primary)}.pdn-delivery-card--accent li{color:var(--color-text-primary)}.pdn-package-note{margin:0;padding:var(--space-5) clamp(1.5rem,3.5vw,3rem);border:1px solid var(--color-border);border-top:0;background:var(--lrqa-card-grey);color:var(--lrqa-muted);font-size:var(--font-size-sm)}.price-simple__action p{margin:0;color:var(--lrqa-muted)}.pdn-price-boundary{display:grid;grid-template-columns:minmax(12rem,.35fr) 1fr;gap:var(--space-5);margin-top:var(--space-8);padding-top:var(--space-5);border-top:1px solid var(--color-border)}.pdn-price-boundary strong{font-family:var(--font-family-mono);text-transform:uppercase}.pdn-price-boundary span{color:var(--lrqa-muted);line-height:var(--line-height-relaxed)}
 @media(max-width:64rem){.scenario-grid--compact{grid-template-columns:repeat(2,minmax(0,1fr))}.pdn-delivery-grid{grid-template-columns:1fr}.pdn-delivery-card+article{border-top:1px solid var(--color-border);border-left:0}}
 @media(max-width:48rem){.scenario-grid--compact,.pdn-price-boundary{grid-template-columns:1fr}.pdn-delivery-card h3{max-width:none}.pdn-package-note{font-size:var(--font-size-xs)}}
+
+
+/* Standalone 152-FZ hub. Scoped: audit landing remains unchanged. */
+.pdn-hub .pdn-hub__hero {
+  gap: clamp(2rem,4vw,5rem);
+  align-items: center;
+}
+.pdn-hub .pdn-hub__hero > div:first-child { max-width: 53rem; }
+.pdn-hub .pdn-hub__hero h1 { max-width: 18ch; letter-spacing: -.045em; text-wrap: balance; }
+.pdn-hub__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; margin-top: 1.5rem; }
+.pdn-hub__actions > a:not(.button) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  color: var(--lrqa-navy);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  border-bottom: 1px solid var(--lrqa-muted);
+  text-decoration: none;
+}
+.pdn-hub__process { padding-block: clamp(3.5rem,7vw,7rem); background: var(--lrqa-card-light); }
+.pdn-hub__process > .page-container { display: grid; gap: clamp(2rem,4vw,3.5rem); }
+.pdn-hub__process-head { display: grid; gap: .85rem; max-width: 58rem; }
+.pdn-hub__process-head h2 {
+  margin: 0;
+  font-size: clamp(2rem,3.3vw,3.5rem);
+  font-weight: 600;
+  line-height: 1.11;
+  letter-spacing: -.035em;
+  color: var(--lrqa-navy);
+}
+.pdn-hub__process-head p:last-child { max-width: 43rem; margin: 0; color: var(--lrqa-muted-dark); font-size: var(--font-size-lg); line-height: 1.7; }
+.pdn-hub__process-list {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pdn-hub__process-list li {
+  min-width: 0;
+  padding: clamp(1.5rem,2.3vw,2.4rem);
+  background: var(--lrqa-white);
+  border: 1px solid var(--lrqa-border-soft);
+  border-top: 3px solid var(--lrqa-navy);
+}
+.pdn-hub__process-list span {
+  display: block;
+  margin-bottom: clamp(1rem,2vw,1.6rem);
+  color: var(--lrqa-muted-dark);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+}
+.pdn-hub__process-list h3 { margin: 0 0 1rem; font-size: clamp(1.35rem,1.7vw,1.9rem); line-height: 1.18; letter-spacing: -.03em; }
+.pdn-hub__process-list p { margin: 0; line-height: 1.7; color: var(--lrqa-muted-dark); }
+.pdn-hub__next { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; border-top: 1px solid var(--lrqa-border-soft); padding-top: 2rem; }
+.pdn-hub__next strong { font-size: clamp(1.1rem,1vw + 1rem,1.5rem); }
+.pdn-hub__next p { margin: .4rem 0 0; color: var(--lrqa-muted-dark); }
+.pdn-hub__next a { display: inline-flex; align-items: center; gap: .8rem; padding: .9rem 1.2rem; min-height: 3.3rem; background: var(--lrqa-navy); color: var(--lrqa-white); font-size: var(--font-size-sm); font-weight: 600; text-decoration: none; }
+.pdn-hub__next a:hover { background: var(--lrqa-navy-2); }
+.pdn-hub :is(a,summary):focus-visible { outline: 2px solid var(--lrqa-navy); outline-offset: 3px; }
+@media(max-width:64rem){.pdn-hub__process-list{grid-template-columns:1fr}.pdn-hub__process-list li{padding:1.5rem}}
+@media(max-width:48rem){.pdn-hub__actions{display:grid}.pdn-hub__actions .button{width:100%;text-align:center}.pdn-hub__next a{width:100%;justify-content:center}}
+
+/* Explicit contrast inside the light hub cards (the base PDN theme is dark). */
+.pdn-hub__process-list li { color: var(--lrqa-black); }
+.pdn-hub__process-list li h3, .pdn-hub__next strong { color: var(--lrqa-black); }

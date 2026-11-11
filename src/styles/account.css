@@ -312,3 +312,61 @@
     width: 100%;
   }
 }
+
+
+/* Private client portal: visual polish only. IDs, API calls and semantics untouched. */
+.account-heading { padding-block: clamp(2.7rem,5vw,4.5rem); }
+.account-heading h1 { font-size: clamp(2.6rem,4.6vw,4.6rem); letter-spacing: -.045em; }
+.account-heading > p:last-child { max-width: 44rem; }
+.account-shell { padding-block: clamp(1.5rem,3.5vw,3rem) clamp(3.5rem,6vw,6rem); }
+.account-login { border-color: var(--lrqa-border-soft); box-shadow: 0 .6rem 2rem rgba(18,54,46,.055); }
+.account-login-copy { padding: clamp(1.5rem,3.7vw,3.25rem); }
+.account-login-copy h2 { max-width: 24ch; font-size: clamp(1.8rem,2.8vw,2.9rem); letter-spacing: -.035em; line-height: 1.14; }
+.account-login > .account-form { padding: clamp(1.5rem,3.7vw,3.25rem); }
+.account-form { gap: 1.15rem; }
+.account-form label { gap: .5rem; font-size: var(--font-size-sm); }
+.account-form input, .account-form textarea {
+  min-height: 3.3rem;
+  padding: .85rem 1rem;
+  border-color: var(--lrqa-border);
+  background: var(--lrqa-white);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.account-form :is(input,textarea):focus {
+  border-color: var(--lrqa-muted-dark);
+  outline: 2px solid var(--lrqa-muted-dark);
+  outline-offset: 2px;
+}
+.account-form textarea { resize: vertical; }
+.account-form .button { min-height: 3.45rem; }
+.account-toolbar { border-bottom: 1px solid var(--lrqa-border-soft); margin-bottom: 1.3rem; }
+.account-toolbar strong { font-size: clamp(1.05rem,.8vw + .85rem,1.35rem); }
+.account-layout { grid-template-columns: minmax(12rem,14rem) minmax(0,1fr); gap: clamp(1.2rem,2.8vw,2.5rem); }
+.account-nav { top: calc(var(--header-total-height) + 1.2rem); border: 1px solid var(--lrqa-dark-border); }
+.account-nav a { min-height: 3.6rem; display: flex; align-items: center; padding: .9rem 1.1rem; font-weight: 600; line-height: 1.35; }
+.account-nav a:hover { background: var(--lrqa-navy-2); }
+.account-content { gap: clamp(1rem,2vw,1.75rem); }
+.account-panel { border-color: var(--lrqa-border-soft); padding: clamp(1.3rem,2.7vw,2.7rem); }
+.account-panel h2 { font-size: clamp(1.55rem,2vw + .7rem,2.5rem); letter-spacing: -.03em; }
+.account-panel > p:not(.section__eyebrow) { max-width: 55rem; line-height: 1.7; }
+.account-project-facts { gap: 1rem; }
+.account-project-facts > div { padding: 1.15rem; border: 1px solid var(--lrqa-border-soft); background: var(--lrqa-card-light); }
+.account-project-facts dt { font-size: var(--font-size-xs); }
+.account-next { border-left-color: var(--lrqa-navy); padding: 1.3rem; }
+.account-document { padding-block: 1.4rem; }
+.account-document a { min-height: 2.9rem; display: inline-flex; align-items: center; }
+.account-upload summary { display: flex; align-items: center; min-height: 3rem; }
+.account-messages li { padding: 1.2rem 1.3rem; border-left-width: 3px; }
+.account-messages li[data-author="team"] { border-left-color: var(--lrqa-navy); }
+.account-text-button { min-height: 2.8rem; }
+@media(max-width:64rem){.account-layout{grid-template-columns:1fr}.account-nav{position:static;grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(max-width:48rem){
+  .account-heading h1{font-size:clamp(2.5rem,9vw,3.5rem)}
+  .account-nav { display:flex; overflow-x:auto; overscroll-behavior-x:contain; scrollbar-width:thin; }
+  .account-nav a { flex:0 0 auto; min-height:3.3rem; padding:.75rem 1rem; white-space:nowrap; }
+  .account-project-facts { grid-template-columns:1fr; }
+  .account-document { align-items:stretch; }
+  .account-document a { align-self:flex-start; }
+}
+@media(prefers-reduced-motion:reduce){.account-nav a{transition:none}}

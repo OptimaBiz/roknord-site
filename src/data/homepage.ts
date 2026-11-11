@@ -9,7 +9,7 @@ export const homepageContent = {
     hero: {
       eyebrow: "Независимый аудит · комплексная подготовка",
       title: "Подготовка к аккредитации и ПК. По существу.",
-      lead: ["Проверим СМК, область, записи и фактическую практику. Выявим риски и определим, что нужно подготовить до процедуры.", "Карта рисков, приоритеты и согласованный план действий — без обещаний решения за Росаккредитацию."],
+      lead: ["Проверим СМК, область, записи и фактическую практику. Выявим риски и определим, что нужно подготовить до процедуры.", "Карта рисков, приоритеты и согласованный план действий — в логике требований Росаккредитации."],
       primary: "Получить план и расчёт",
       secondary: "Посмотреть пример результата",
       principlesLabel: "Что проверяем",
@@ -69,7 +69,7 @@ export const homepageContent = {
     hero: {
       eyebrow: "Independent assessment · preparation support",
       title: "Accreditation and competence confirmation. Evidence first.",
-      lead: ["We review the management system, scope, records and actual practice to identify risks before the procedure.", "A risk map, clear priorities and an agreed action plan — without promises about the regulator’s decision."],
+      lead: ["We review the management system, scope, records and actual practice to identify risks before the procedure.", "A risk map, clear priorities and an agreed action plan aligned to the applicable requirements."],
       primary: "Get a plan and estimate",
       secondary: "See a sample result",
       principlesLabel: "What we review",

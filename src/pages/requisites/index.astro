@@ -11,6 +11,7 @@ import "../../styles/interior.css";
     <div class="page-container requisites-page__inner">
       <p class="eyebrow">Юридическая информация</p>
       <h1>Реквизиты ООО «РОКНОРД»</h1>
+      <p class="requisites-page__intro">Данные организации для договора, счёта и деловой переписки. Для уточнений используйте официальные контакты.</p>
 
       <div class="requisites-page__grid">
         <section class="requisites-page__section" aria-labelledby="company-details-title">
@@ -73,6 +74,13 @@ import "../../styles/interior.css";
 </BaseLayout>
 
 <style>
+  .requisites-page__intro{max-width:43rem;margin:1rem 0 0;color:var(--lrqa-muted-dark);font-size:var(--type-lead);line-height:1.65}
+  .requisites-page__details{gap:0}
+  .requisites-page__details>div{padding:1rem 0;border-top:1px solid var(--lrqa-border-soft)}
+  .requisites-page__details dd{color:var(--lrqa-black);font-weight:var(--font-weight-semibold);overflow-wrap:anywhere}
+  .requisites-page__section>p a{font-size:clamp(1rem,1.4vw,1.2rem);font-weight:var(--font-weight-semibold)}
+  .requisites-page__map{border:1px solid var(--lrqa-border)}
+  @media(max-width:48rem){.requisites-page h1{font-size:clamp(2.2rem,10vw,3.2rem);line-height:1.05}.requisites-page__details .requisites-page__inline-row{gap:.6rem}}
   .requisites-page {
     background: var(--lrqa-card-light);
     color: var(--lrqa-black);

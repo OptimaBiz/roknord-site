@@ -90,3 +90,7 @@
 .pdn-hub :is(a,summary):focus-visible { outline: 2px solid var(--lrqa-navy); outline-offset: 3px; }
 @media(max-width:64rem){.pdn-hub__process-list{grid-template-columns:1fr}.pdn-hub__process-list li{padding:1.5rem}}
 @media(max-width:48rem){.pdn-hub__actions{display:grid}.pdn-hub__actions .button{width:100%;text-align:center}.pdn-hub__next a{width:100%;justify-content:center}}
+
+/* Explicit contrast inside the light hub cards (the base PDN theme is dark). */
+.pdn-hub__process-list li { color: var(--lrqa-black); }
+.pdn-hub__process-list li h3, .pdn-hub__next strong { color: var(--lrqa-black); }

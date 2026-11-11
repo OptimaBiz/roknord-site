@@ -1,0 +1,24 @@
+<nav class="legal-toc" aria-label="Содержание документа" data-legal-toc hidden>
+  <p>Содержание документа</p>
+  <ol data-legal-toc-links></ol>
+</nav>
+
+<script>
+  const legal = document.querySelector<HTMLElement>(".legal-page");
+  const toc = legal?.querySelector<HTMLElement>("[data-legal-toc]");
+  const list = toc?.querySelector<HTMLOListElement>("[data-legal-toc-links]");
+  const headings = legal?.querySelectorAll<HTMLHeadingElement>(".legal-page__section > h2");
+  if (toc && list && headings?.length) {
+    headings.forEach((heading, index) => {
+      const id = heading.id || `legal-section-${index + 1}`;
+      heading.id = id;
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = `#${id}`;
+      link.textContent = heading.textContent?.trim() || `Раздел ${index + 1}`;
+      item.append(link);
+      list.append(item);
+    });
+    toc.hidden = false;
+  }
+</script>
